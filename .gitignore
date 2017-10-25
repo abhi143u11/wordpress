@@ -1,0 +1,6 @@
+wp-content/updraft/
+wp-content/uploads/
+wp-content/uploads/*
+wp-config*
+.user.ini
+*.zip

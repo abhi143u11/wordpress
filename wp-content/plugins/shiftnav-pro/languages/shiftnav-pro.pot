@@ -1,0 +1,819 @@
+# Copyright (C) 2015 Chris Mavricos, SevenSpark
+# This file is distributed under the same license as the ShiftNav Pro - Responsive Mobile Menu package.
+msgid ""
+msgstr ""
+"Project-Id-Version: ShiftNav Pro - Responsive Mobile Menu 1.3\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/shiftnav\n"
+"POT-Creation-Date: 2015-04-29 20:51:51+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2015-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"X-Generator: grunt-wp-i18n 0.4.9\n"
+"X-Poedit-KeywordsList: "
+"__;_e;_x:1,2c;_ex:1,2c;_n:1,2;_nx:1,2,4c;_n_noop:1,2;_nx_noop:1,2,3c;esc_"
+"attr__;esc_html__;esc_attr_e;esc_html_e;esc_attr_x:1,2c;esc_html_x:1,2c;\n"
+"Language: en\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-Country: United States\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-Basepath: ../\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-Bookmarks: \n"
+"X-Textdomain-Support: yes\n"
+
+#: admin/settings.config.php:34
+msgid "Assigned Menu"
+msgstr ""
+
+#: admin/settings.config.php:42
+msgid "Display Main ShiftNav Panel"
+msgstr ""
+
+#: admin/settings.config.php:43
+msgid ""
+"Do not uncheck this unless you want to disable the main ShiftNav panel "
+"entirely."
+msgstr ""
+
+#: admin/settings.config.php:50 pro/admin/settings.pro.php:326
+msgid "Edge"
+msgstr ""
+
+#: admin/settings.config.php:52
+msgid "Which edge of the viewport should the ShiftNav panel appear on?"
+msgstr ""
+
+#: admin/settings.config.php:62
+msgid "Swipe Open"
+msgstr ""
+
+#: admin/settings.config.php:63
+msgid ""
+"Swipe to open the main ShiftNav Panel in iOS and Android.  Not all themes "
+"will be compatible, as touch swipes can conflict with theme scripts.  Make "
+"sure enabling this doesn't prevent other touch functionality on your site "
+"from working"
+msgstr ""
+
+#: admin/settings.config.php:70 pro/admin/settings.pro.php:345
+msgid "Skin"
+msgstr ""
+
+#: admin/settings.config.php:79 pro/admin/settings.pro.php:355
+msgid "Submenu Type Default"
+msgstr ""
+
+#: admin/settings.config.php:80 pro/admin/settings.pro.php:356
+msgid ""
+"This submenu type will be used by any Menu Item whose Submenu Type is set "
+"to \"Menu Default\""
+msgstr ""
+
+#: admin/settings.config.php:83 admin/settings.menu.php:337
+#: pro/admin/item.settings.pro.php:32 pro/admin/settings.pro.php:359
+msgid "Always visible"
+msgstr ""
+
+#: admin/settings.config.php:84 pro/admin/item.settings.pro.php:33
+#: pro/admin/settings.pro.php:360
+msgid "Accordion"
+msgstr ""
+
+#: admin/settings.config.php:85 pro/admin/item.settings.pro.php:34
+#: pro/admin/settings.pro.php:361
+msgid "Shift"
+msgstr ""
+
+#: admin/settings.config.php:93 pro/admin/settings.pro.php:369
+msgid "Indent Always Visible Submenus"
+msgstr ""
+
+#: admin/settings.config.php:94 pro/admin/settings.pro.php:370
+msgid "Check this to indent submenu items of always-visible submenus"
+msgstr ""
+
+#: admin/settings.config.php:101 pro/admin/settings.pro.php:387
+msgid "Display Site Title"
+msgstr ""
+
+#: admin/settings.config.php:102
+msgid "Display the site title in the menu panel"
+msgstr ""
+
+#: admin/settings.config.php:132
+msgid "Display Toggle Bar"
+msgstr ""
+
+#: admin/settings.config.php:133
+msgid ""
+"Uncheck this to disable the default toggle bar and add your own custom "
+"toggle"
+msgstr ""
+
+#: admin/settings.config.php:139
+msgid "Toggle Breakpoint"
+msgstr ""
+
+#: admin/settings.config.php:140
+msgid ""
+"Show the toggle bar only below this pixel width.  Leave blank to show at "
+"all times.  Do not include \"px\""
+msgstr ""
+
+#: admin/settings.config.php:146
+msgid "Hide Theme Menu"
+msgstr ""
+
+#: admin/settings.config.php:147
+msgid ""
+"Enter the selector of the theme's menu if you wish to hide it below the "
+"breakpoint above.  For example, <code>#primary-nav</code> or "
+"<code>.topnav</code>.  "
+msgstr ""
+
+#: admin/settings.config.php:153
+msgid "Hide UberMenu 3"
+msgstr ""
+
+#: admin/settings.config.php:154
+msgid ""
+"Hide all UberMenu 3 instances when ShiftNav is displayed.  If you would "
+"like to only hide a specific UberMenu, use the setting above with a "
+"specific UberMenu ID."
+msgstr ""
+
+#: admin/settings.config.php:160 pro/admin/settings.pro.php:377
+msgid "Toggle Content"
+msgstr ""
+
+#: admin/settings.config.php:161
+msgid ""
+"The content to display in the main toggle bar.  Default: "
+"[shift_toggle_title]"
+msgstr ""
+
+#: admin/settings.config.php:169
+msgid "Toggle Target"
+msgstr ""
+
+#: admin/settings.config.php:170
+msgid "The area which will trigger the ShiftNav Panel to open."
+msgstr ""
+
+#: admin/settings.config.php:173
+msgid "Bars/Burger Icon Only"
+msgstr ""
+
+#: admin/settings.config.php:174
+msgid "Entire Bar"
+msgstr ""
+
+#: admin/settings.config.php:181
+msgid "Close Icon"
+msgstr ""
+
+#: admin/settings.config.php:182
+msgid "When the toggle is open, choose which icon to display."
+msgstr ""
+
+#: admin/settings.config.php:192
+msgid "Toggle Bar Position"
+msgstr ""
+
+#: admin/settings.config.php:193
+msgid ""
+"Choose Fixed if you'd like the toggle bar to always be visible, or Absolute "
+"if you'd like it only to be visible when scrolled to the very top of the "
+"page"
+msgstr ""
+
+#: admin/settings.config.php:196
+msgid "Fixed"
+msgstr ""
+
+#: admin/settings.config.php:197
+msgid "Absolute"
+msgstr ""
+
+#: admin/settings.config.php:204
+msgid "Align Text"
+msgstr ""
+
+#: admin/settings.config.php:205
+msgid "Align text left, right, or center.  Applies to inline elements only."
+msgstr ""
+
+#: admin/settings.config.php:217
+msgid "Background Color"
+msgstr ""
+
+#: admin/settings.config.php:225
+msgid "Text Color"
+msgstr ""
+
+#: admin/settings.config.php:233
+msgid "Font Size"
+msgstr ""
+
+#: admin/settings.config.php:234
+msgid "Override the default font size of the toggle bar by setting a value here."
+msgstr ""
+
+#: admin/settings.config.php:267
+msgid "CSS Tweaks"
+msgstr ""
+
+#: admin/settings.config.php:268
+msgid "Add custom CSS here, which will be printed in the site head."
+msgstr ""
+
+#: admin/settings.config.php:275
+msgid "Footer Content"
+msgstr ""
+
+#: admin/settings.config.php:276
+msgid ""
+"Add HTML or Shortcodes here and it will be injected at the wp_footer() "
+"hook.  Useful for fixed position elements"
+msgstr ""
+
+#: admin/settings.config.php:283
+msgid "Mobile Only"
+msgstr ""
+
+#: admin/settings.config.php:284
+msgid ""
+"Only display ShiftNav when a mobile device is detected via wp_is_mobile().  "
+"If you are using a caching plugin, make sure you have separate mobile and "
+"desktop caches."
+msgstr ""
+
+#: admin/settings.config.php:291
+msgid "Button Size"
+msgstr ""
+
+#: admin/settings.config.php:292
+msgid ""
+"The size of the padding on the links in the menu.  The larger the setting, "
+"the easier to click; but fewer menu items will appear on the screen at a "
+"time."
+msgstr ""
+
+#: admin/settings.config.php:305
+msgid "Text Size"
+msgstr ""
+
+#: admin/settings.config.php:306
+msgid "The size of the font on the links in the menu (will override all levels)."
+msgstr ""
+
+#: admin/settings.config.php:320
+msgid "Icon Size"
+msgstr ""
+
+#: admin/settings.config.php:321
+msgid "The size of the icons in the menu."
+msgstr ""
+
+#: admin/settings.config.php:335
+msgid "Shift Body"
+msgstr ""
+
+#: admin/settings.config.php:336
+msgid ""
+"Shift the body of the site when the menu is revealed.  For some themes, "
+"this may negatively affect the site content, so this can be disabled."
+msgstr ""
+
+#: admin/settings.config.php:343
+msgid "Shift Body Wrapper"
+msgstr ""
+
+#: admin/settings.config.php:344
+msgid ""
+"Leave this blank to automatically create a ShiftNav Wrapper via javascript "
+"(this may have side effects).  Set a selector here to turn a specific div "
+"(which must wrap all body contents) into the wrapper.  Please note that if "
+"the wrapper you select is also styled by the theme, this may cause a "
+"conflict."
+msgstr ""
+
+#: admin/settings.config.php:351
+msgid "Disable Transforms &amp; Transitions"
+msgstr ""
+
+#: admin/settings.config.php:352
+msgid ""
+"Disable CSS3 transformations and transitions.  This will disable smooth "
+"animations, but may work better on browsers that don't properly implement "
+"CSS3 transforms, especially old non-standard Android browsers.  Note that "
+"ShiftNav attempts to detect these browsers and fall back automatically, but "
+"some browsers have incomplete implementations of CSS3 transforms, which "
+"produce false positives when testing."
+msgstr ""
+
+#: admin/settings.config.php:359
+msgid "Touch-off close"
+msgstr ""
+
+#: admin/settings.config.php:360
+msgid "Close the ShiftNav panel when touching any content not in the panel."
+msgstr ""
+
+#: admin/settings.config.php:368
+msgid "Scroll Offset"
+msgstr ""
+
+#: admin/settings.config.php:369
+msgid ""
+"When using the ScrollTo functionality, this is the number of pixels to "
+"offset the scroll by, to account for the toggle bar and any spacing you "
+"want."
+msgstr ""
+
+#: admin/settings.config.php:378
+msgid "Swipe Close"
+msgstr ""
+
+#: admin/settings.config.php:379
+msgid ""
+"Enable swiping to close the ShiftNav panel on Android and iOS.  Touch "
+"events may not interact well with all themes."
+msgstr ""
+
+#: admin/settings.config.php:386
+msgid "Swipe Tolerance: Horizontal"
+msgstr ""
+
+#: admin/settings.config.php:387
+msgid ""
+"The minimum horizontal pixel distance before the swipe is triggered.  Do "
+"not include <code>px</code>"
+msgstr ""
+
+#: admin/settings.config.php:394
+msgid "Swipe Tolerance: Vertical"
+msgstr ""
+
+#: admin/settings.config.php:395
+msgid ""
+"The maximum horizontal pixel distance allowed for the swipe to be "
+"triggered.  Do not include <code>px</code>"
+msgstr ""
+
+#: admin/settings.config.php:402
+msgid "Swipe Edge Proximity"
+msgstr ""
+
+#: admin/settings.config.php:403
+msgid ""
+"The distance from the edge, within which the first touch event must occur "
+"for the swipe to be triggered.  Do not include <code>px</code>"
+msgstr ""
+
+#: admin/settings.config.php:410
+msgid "Open Current Accordion Submenu"
+msgstr ""
+
+#: admin/settings.config.php:411
+msgid ""
+"Open the submenu of the current menu item on page load (accordion submenus "
+"only)."
+msgstr ""
+
+#: admin/settings.config.php:418
+msgid "Collapse Accordions"
+msgstr ""
+
+#: admin/settings.config.php:419
+msgid ""
+"When an accordion menu is opened, collapse any other accordions on that "
+"level."
+msgstr ""
+
+#: admin/settings.config.php:426
+msgid "Scroll Shift Submenus to Top"
+msgstr ""
+
+#: admin/settings.config.php:427
+msgid ""
+"When a Shift submenu is activated, scroll that item to the top to maximize "
+"submenu visibility."
+msgstr ""
+
+#: admin/settings.config.php:435
+msgid "Highlight Targets on Hover"
+msgstr ""
+
+#: admin/settings.config.php:436
+msgid ""
+"With this setting enabled, the links will be highlighted when hovered or "
+"touched."
+msgstr ""
+
+#: admin/settings.config.php:443
+msgid "Highlight Targets on :active"
+msgstr ""
+
+#: admin/settings.config.php:444
+msgid ""
+"With this setting enabled, the links will be highlighted while in the "
+":active state.  May not be desirable for touch scrolling."
+msgstr ""
+
+#: admin/settings.config.php:451
+msgid "Show Tips to Admins"
+msgstr ""
+
+#: admin/settings.config.php:452
+msgid "Display tips to admin users"
+msgstr ""
+
+#: admin/settings.config.php:459
+msgid "Lock Horizontal Scroll"
+msgstr ""
+
+#: admin/settings.config.php:460
+msgid ""
+"Attempt to prevent the content from scrolling horizontally when the menu is "
+"active.  On some themes, may also prevent vertical scrolling.  May not "
+"prevent touch scrolling in Chrome.  No effect if <strong>Shift "
+"Body</strong> is disabled."
+msgstr ""
+
+#: admin/settings.config.php:467
+msgid "Lock Scroll"
+msgstr ""
+
+#: admin/settings.config.php:468
+msgid ""
+"Lock both vertical and horizontal scrolling on site content when menu is "
+"active.  No effect if <strong>Shift Body</strong> is disabled."
+msgstr ""
+
+#: admin/settings.config.php:475
+msgid "Load Font Awesome"
+msgstr ""
+
+#: admin/settings.config.php:476
+msgid ""
+"If you are already loading Font Awesome 4 elsewhere in your setup, you can "
+"disable this."
+msgstr ""
+
+#: admin/settings.config.php:483
+msgid "Inherit UberMenu Conditionals"
+msgstr ""
+
+#: admin/settings.config.php:484
+msgid "Display menu items based on UberMenu Conditionals settings"
+msgstr ""
+
+#: admin/settings.config.php:491
+msgid "Force Filter Menu Args"
+msgstr ""
+
+#: admin/settings.config.php:492
+msgid ""
+"Some themes will filter the menu arguments on all menus on the site, which "
+"can break things.  This will re-filter those arguments for ShiftNav menus "
+"only."
+msgstr ""
+
+#: admin/settings.config.php:499
+msgid "Kill Menu Class Filter"
+msgstr ""
+
+#: admin/settings.config.php:500
+msgid ""
+"Some themes filter the menu item classes and strip out core WordPress "
+"functionality.  This will change the structure of ShiftNav and prevent "
+"styles from being applies.  This will prevent any actions on the "
+"<code>nav_menu_css_class</code> filter."
+msgstr ""
+
+#: admin/settings.config.php:550
+msgid "Main ShiftNav Settings"
+msgstr ""
+
+#: admin/settings.config.php:554
+msgid "Toggle Bar"
+msgstr ""
+
+#: admin/settings.config.php:562
+msgid "General Settings"
+msgstr ""
+
+#: admin/settings.menu.php:270
+msgid "Disable Link"
+msgstr ""
+
+#: admin/settings.menu.php:273
+msgid ""
+"Check this box to remove the link from this item; clicking a disabled link "
+"will not result in any URL being followed."
+msgstr ""
+
+#: admin/settings.menu.php:278
+msgid "Highlight Link"
+msgstr ""
+
+#: admin/settings.menu.php:281
+msgid "Highlight this menu item"
+msgstr ""
+
+#: admin/settings.menu.php:297
+msgid "Scroll To"
+msgstr ""
+
+#: admin/settings.menu.php:300
+msgid ""
+"The selector for an item to scroll to when clicked, if present.  Example: "
+"<code>#section-1</code>"
+msgstr ""
+
+#: admin/settings.menu.php:305
+msgid "Disable Current"
+msgstr ""
+
+#: admin/settings.menu.php:308
+msgid "Disable the current menu item classes for this item"
+msgstr ""
+
+#: admin/settings.menu.php:313
+msgid "Disable Item"
+msgstr ""
+
+#: admin/settings.menu.php:316
+msgid ""
+"Hide this item.  Useful if this menu is being reused in multiple locations, "
+"but item should not be displayed in ShiftNav"
+msgstr ""
+
+#: admin/settings.menu.php:331 pro/admin/item.settings.pro.php:26
+msgid "Submenu Type"
+msgstr ""
+
+#: admin/settings.menu.php:334
+msgid ""
+"[Requires Pro Version] Overrides the default submenu type.  For the Lite "
+"version, only \"Always visible\" is available.  Can be changed to "
+"\"Accordion\" or \"Shift\" with the Pro version."
+msgstr ""
+
+#: admin/settings.menu.php:336 pro/admin/item.settings.pro.php:31
+msgid "Menu Default"
+msgstr ""
+
+#: includes/functions.php:254
+msgid "ShiftNav [Main]"
+msgstr ""
+
+#: includes/shiftnav.api.php:118
+msgid "Toggle ShiftNav"
+msgstr ""
+
+#: pro/admin/item.settings.pro.php:9
+msgid "Icon"
+msgstr ""
+
+#: pro/admin/item.settings.pro.php:18
+msgid "Custom URL"
+msgstr ""
+
+#: pro/admin/item.settings.pro.php:21
+msgid ""
+"Customize your link URL - you can use shortcodes here.  Your setting will "
+"be escaped with the esc_url() function"
+msgstr ""
+
+#: pro/admin/item.settings.pro.php:29
+msgid ""
+"Overrides the default submenu type, which can be set in the Control Panel "
+"for each menu. "
+msgstr ""
+
+#: pro/admin/settings.pro.php:201 pro/admin/settings.pro.php:337
+msgid "Disable Menu"
+msgstr ""
+
+#: pro/admin/settings.pro.php:202
+msgid ""
+"Check this to disable the menu entirely; the panel will still be displayed "
+"and can be used for custom content"
+msgstr ""
+
+#: pro/admin/settings.pro.php:209 pro/admin/settings.pro.php:403
+msgid "Top Image"
+msgstr ""
+
+#: pro/admin/settings.pro.php:217 pro/admin/settings.pro.php:411
+msgid "Pad Image"
+msgstr ""
+
+#: pro/admin/settings.pro.php:218 pro/admin/settings.pro.php:412
+msgid ""
+"Add padding to align image with menu item text.  Uncheck to expand to the "
+"edges of the panel."
+msgstr ""
+
+#: pro/admin/settings.pro.php:225 pro/admin/settings.pro.php:419
+msgid "Image Link (URL)"
+msgstr ""
+
+#: pro/admin/settings.pro.php:226 pro/admin/settings.pro.php:420
+msgid "Make the image a link to this URL."
+msgstr ""
+
+#: pro/admin/settings.pro.php:233 pro/admin/settings.pro.php:427
+msgid "Custom Content Before Menu"
+msgstr ""
+
+#: pro/admin/settings.pro.php:242 pro/admin/settings.pro.php:436
+msgid "Custom Content After Menu"
+msgstr ""
+
+#: pro/admin/settings.pro.php:257
+msgid "Toggle Content Left Edge"
+msgstr ""
+
+#: pro/admin/settings.pro.php:266
+msgid "Toggle Content Right Edge"
+msgstr ""
+
+#: pro/admin/settings.pro.php:297
+msgid "Integration Code"
+msgstr ""
+
+#: pro/admin/settings.pro.php:303
+msgid "Instance Name"
+msgstr ""
+
+#: pro/admin/settings.pro.php:310
+msgid "Display Menu"
+msgstr ""
+
+#: pro/admin/settings.pro.php:318
+msgid "Theme Location"
+msgstr ""
+
+#: pro/admin/settings.pro.php:319
+msgid ""
+"Select the Theme Location to display.  The Menu setting will override this "
+"setting if a menu is selected."
+msgstr ""
+
+#: pro/admin/settings.pro.php:327
+msgid "Select which edge of your site to display the menu on"
+msgstr ""
+
+#: pro/admin/settings.pro.php:338
+msgid ""
+"Check this to disable the menu entirely; the panel can be used for custom "
+"content"
+msgstr ""
+
+#: pro/admin/settings.pro.php:346
+msgid "Select which skin to use for this instance"
+msgstr ""
+
+#: pro/admin/settings.pro.php:378
+msgid ""
+"Enter the content to be displayed in the toggle, which you will insert into "
+"your template with the integration code at the top of this tab."
+msgstr ""
+
+#: pro/admin/settings.pro.php:388
+msgid "Display the site title in the menu"
+msgstr ""
+
+#: pro/admin/settings.pro.php:395
+msgid "Display Instance Name"
+msgstr ""
+
+#: pro/admin/settings.pro.php:396
+msgid "Display the instance name in the menu"
+msgstr ""
+
+#: pro/admin/settings.pro.php:462
+msgid "Delete Instance"
+msgstr ""
+
+#: pro/admin/settings.pro.php:463
+msgid "Permanently Delete Instance"
+msgstr ""
+
+#: pro/search.php:20 pro/search.php:59
+msgid "Search..."
+msgstr ""
+
+#: pro/updates/EDD_SL_Plugin_Updater.php:177
+msgid ""
+"There is a new version of %1$s available. <a target=\"_blank\" "
+"class=\"thickbox\" href=\"%2$s\">View version %3$s details</a>."
+msgstr ""
+
+#: pro/updates/EDD_SL_Plugin_Updater.php:184
+msgid ""
+"There is a new version of %1$s available. <a target=\"_blank\" "
+"class=\"thickbox\" href=\"%2$s\">View version %3$s details</a> or <a "
+"href=\"%4$s\">update now</a>."
+msgstr ""
+
+#: pro/updates/EDD_SL_Plugin_Updater.php:324
+msgid "You do not have permission to install plugin updates"
+msgstr ""
+
+#: pro/updates/EDD_SL_Plugin_Updater.php:324
+msgid "Error"
+msgstr ""
+
+#: pro/updates/backup.php:167
+msgid ""
+"ShiftNav: Could not restore custom.css file, as the directory is not "
+"writable.  You can manually restore the file from the "
+"wp-content/uploads/shiftnav_backups directory"
+msgstr ""
+
+#: pro/updates/backup.php:170
+msgid "ShiftNav: Successfully restored custom.css file"
+msgstr ""
+
+#: pro/updates/backup.php:181
+msgid ""
+"ShiftNav: Could not restore custom.less file, as the directory is not "
+"writable.  You can manually restore the file from the "
+"wp-content/uploads/shiftnav_backups directory"
+msgstr ""
+
+#: pro/updates/backup.php:184
+msgid "ShiftNav: Successfully restored custom.less file"
+msgstr ""
+
+#: pro/updates/backup.php:195
+msgid ""
+"ShiftNav: Could not restore custom.js file, as the directory is not "
+"writable.  You can manually restore the file from the "
+"wp-content/uploads/shiftnav_backups directory"
+msgstr ""
+
+#: pro/updates/backup.php:198
+msgid "ShiftNav: Successfully restored custom.js file"
+msgstr ""
+
+#: pro/updates/updater.php:44
+msgid "Updates"
+msgstr ""
+
+#: pro/updates/updater.php:56
+msgid "Enter your license code to receive updates"
+msgstr ""
+
+#: pro/updates/updater.php:64
+msgid "License Invalid"
+msgstr ""
+
+#: pro/updates/updater.php:72
+msgid "License is valid"
+msgstr ""
+
+#: pro/updates/updater.php:91
+msgid "Backup custom assets"
+msgstr ""
+
+#: pro/updates/updater.php:92
+msgid ""
+"Automatically backup custom.css and custom.less so that they can be "
+"restored after updating the plugin"
+msgstr ""
+
+#: pro/updates/updater.php:100
+msgid "Automatic backups status"
+msgstr ""
+
+#: pro/updates/updater.php:118
+msgid "License Code"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "ShiftNav Pro - Responsive Mobile Menu"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "http://shiftnav.io"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "An off-canvas mobile menu for WordPress with advanced functionality"
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Chris Mavricos, SevenSpark"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://sevenspark.com"
+msgstr ""

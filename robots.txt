@@ -1,0 +1,2 @@
+User-agent: *
+sitemap: https://solarinnovations.com/sitemap_index.xml
