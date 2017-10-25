@@ -8,3 +8,4 @@
 - Clone this repository to:  `/var/www/` 
 - Point Apache config files to this repos files (away from the 'wordpress' directory)
 
+## RSync to bring in /wp-content/uploads
