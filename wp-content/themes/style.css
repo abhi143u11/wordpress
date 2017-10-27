@@ -580,9 +580,9 @@ meta.foundation-version{font-family:"/5.5.2/"}meta.foundation-mq-small{font-fami
 		width:100%!important;
 	}
 	
-	.fa {
+	/* .fa {
 		font-size:12px!important;
-	}
+	} */
 	
 	.shiftnav-search .shiftnav-searchform {
 		background:#333!important;

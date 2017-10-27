@@ -727,8 +727,11 @@ ul.slick-dots {
 		width:100%!important;
 	}
 	
-	.fa {
+	/* .fa {
 		font-size:12px!important;
+	} */
+	.icon-grey{
+		color:#7F7F7F;		
 	}
 	
 	.shiftnav-search .shiftnav-searchform {
@@ -1638,13 +1641,22 @@ ul.slick-dots {
 	
 	.footer-main h3 {
 		font-size:15px;
+		margin-bottom:15px;
 		color:#408f42;
 		font-family:'montserratregular','proxima-nova',Helvetica Neue,adriane,Times New Roman,times,palatino,serif!important;
 		text-transform:uppercase;
 	}
 	
-	.footer-main p {
+	.footer-main p, .footer-main address {
 		font-size:14px;
+	}
+
+	.footer address{
+		font-family: inherit;
+		font-weight: normal;
+		line-height: 1.6;
+		margin-bottom: 1.25rem;
+		text-rendering: optimizeLegibility;
 	}
 	
 	.footer-main p.phone {
@@ -1653,6 +1665,7 @@ ul.slick-dots {
 		margin:0 0 -20px;
 		padding:0;
 		line-height:46px;
+		margin-bottom: 20px;
 	}
 	
 	.footer-main p.phone a {
@@ -2488,6 +2501,9 @@ section.row.press a.button {
 	ul#menu-footer-menu li {
 		float: left!important;
 		margin-right: 10px;
+	}
+	#ls-global > div.shiftnav-wrap.ls-overflow-visible > section > footer > div > div > div:nth-child(1) > div:nth-child(3) > h3{
+		padding-bottom:20px!important;
 	}
 	.foot-socials li {
 		width: auto;

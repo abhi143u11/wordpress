@@ -11,26 +11,28 @@
 
 ?>
 	<footer>
-			<div class="footer-main">
-            <div class="footer-body">
+    <div class="footer-main">
+      <div class="footer-body">
 				<div class="row">
 					<div class="small-12 medium-12 large-6 columns">
 						<p><?php the_field('company_text', 'option'); ?></p>
 					</div>
-					<div class="small-12 medium-6 large-3 columns">
-						<h3><?php the_field('loaction', 'option'); ?></h3>
+					<div class="small-12 medium-6 large-3 columns small-only-text-center">
+						<h3 class="small-only-text-center"><?php the_field('loaction', 'option'); ?></h3>
 						<p class="phone"><?php the_field('phone_number', 'option'); ?></p>
-						<p><?php the_field('full_address', 'option'); ?></p>
+						<address><?php the_field('full_address', 'option'); ?></address>
 					</div>
 					<div class="small-12 medium-6 large-3 columns">
-						<h3>Follow Us</h3>
-						<ul class="small-block-grid-3 foot-socials">
-						<li><a target="_blank" href="<?php the_field('twitter', 'option'); ?>"><img src="<?php bloginfo('template_directory'); ?>/img/twitter.png" alt="twitter" height="33" width="33"></a></li>
-						<li><a target="_blank" href="<?php the_field('facebook', 'option'); ?>"><img src="<?php bloginfo('template_directory'); ?>/img/facebook.png" alt="facebook" height="33" width="33"></a></li>
-						<li><a target="_blank" href="<?php the_field('pinterest', 'option'); ?>"><img src="<?php bloginfo('template_directory'); ?>/img/pintrest.png" alt="pintrest" height="33" width="33"></a></li>
-                        <li><a target="_blank" href="<?php the_field('google_+', 'option'); ?>"><img src="<?php bloginfo('template_directory'); ?>/img/google.png" alt="google plus" height="33" width="33"></a></li>
-						<li><a target="_blank" href="<?php the_field('linkedin', 'option'); ?>"><img src="<?php bloginfo('template_directory'); ?>/img/linkedin.png" alt="linkedin" height="33" width="33"></a></li>
-						<li><a target="_blank" href="<?php the_field('green', 'option'); ?>"><img src="<?php bloginfo('template_directory'); ?>/img/green.png"></a></li>
+						<h3 class="followus">Follow Us</h3>
+						<ul class="small-block-grid-4 foot-socials text-center">
+						<li><a target="_blank" href="<?php the_field('twitter',   'option'); ?>"><i class="fa fa-twitter-square fa-2x icon-grey" aria-hidden="true"></i></a></li>
+						<li><a target="_blank" href="<?php the_field('pinterest', 'option'); ?>"><i class="fa fa-pinterest fa-2x" aria-hidden="true"></i></a></li>
+						<li><a target="_blank" href="<?php the_field('facebook',  'option'); ?>"><i class="fa fa-facebook-square fa-2x icon-grey" aria-hidden="true"></i></a></li>
+            <li><a target="_blank" href="<?php the_field('instagram', 'option'); ?>"><i class="fa fa-instagram fa-2x" aria-hidden="true"></i></a></li>
+						<li><a target="_blank" href="<?php the_field('houzz',     'option'); ?>"><i class="fa fa-houzz fa-2x" aria-hidden="true"></i></a></li>
+						<li><a target="_blank" href="<?php the_field('linkedin',  'option'); ?>"><i class="fa fa-linkedin-square fa-2x icon-grey" aria-hidden="true"></i></a></li>
+            <li><a target="_blank" href="<?php the_field('youtube',   'option'); ?>"><i class="fa fa-youtube fa-2x" aria-hidden="true"></i></a></li>
+            <li><a target="_blank" href="<?php the_field('google_+',  'option'); ?>"><i class="fa fa-google-plus-square fa-2x icon-grey" aria-hidden="true"></i></a></li>
 						</ul>
 					</div>
 				</div>

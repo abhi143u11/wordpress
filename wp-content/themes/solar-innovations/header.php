@@ -46,6 +46,7 @@ global $current_user;
 <?php wp_head(); ?>
 </head>
 <body <?php body_class(); ?>>
+
 	<section class="row site-container">
 		<header class="row header">
 			<div class="small-8 medium-8 large-3 columns">

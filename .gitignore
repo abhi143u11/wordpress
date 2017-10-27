@@ -4,3 +4,5 @@ wp-content/uploads/*
 wp-config*
 .user.ini
 *.zip
+.vscode/settings.json
+*.sql
