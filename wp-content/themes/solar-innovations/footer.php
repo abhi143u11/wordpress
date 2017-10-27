@@ -17,8 +17,8 @@
 					<div class="small-12 medium-12 large-6 columns">
 						<p><?php the_field('company_text', 'option'); ?></p>
 					</div>
-					<div class="small-12 medium-6 large-3 columns small-only-text-center">
-						<h3 class="small-only-text-center"><?php the_field('loaction', 'option'); ?></h3>
+					<div class="small-12 medium-6 large-3 columns small-text-center">
+						<h3 class="small-text-center"><?php the_field('loaction', 'option'); ?></h3>
 						<p class="phone"><?php the_field('phone_number', 'option'); ?></p>
 						<address><?php the_field('full_address', 'option'); ?></address>
 					</div>

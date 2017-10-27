@@ -1975,10 +1975,12 @@ section.row.three-small p {
 }
 
 .footer-main h3 {
-	padding:10px 0 0;
+	padding:10px 0 10px;
 	margin-bottom:0;
 }
-
+.footer-main h3.followus {
+	margin-bottom:10px;
+}
 ul.small-block-grid-3 {
 	margin-top:8px;
 }
