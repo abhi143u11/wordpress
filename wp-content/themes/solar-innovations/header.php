@@ -11,7 +11,7 @@
 
 global $current_user; 
 ?>
-<!doctype html>
+<!DOCTYPE html>
 <html class="no-js" <?php language_attributes(); ?> >
 	<head>
     <meta name="google-site-verification" content="9BIyDawnOFdytN1y-7t5orp6xqAHDqt7cCZIV4vSoLE" />

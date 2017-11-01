@@ -1068,7 +1068,7 @@ function qt_custom_breadcrumbs() {
  
   global $post;
   $homeLink = get_bloginfo('url');
- 
+  
   if (is_home() || is_front_page()) {
  
     if ($showOnHome == 1) echo '<div id="crumbs"><a href="' . $homeLink . '">' . $home . '</a></div>';

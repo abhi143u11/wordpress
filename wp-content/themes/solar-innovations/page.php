@@ -10,6 +10,7 @@ yoast_breadcrumb('
 <p id="breadcrumbs">','</p>
 ');
 }
+
 ?>
 	<div class="small-12 columns"><?php if (function_exists('qt_custom_breadcrumbs')) qt_custom_breadcrumbs(); ?></div>
 </div><!--breadcrumbs-->

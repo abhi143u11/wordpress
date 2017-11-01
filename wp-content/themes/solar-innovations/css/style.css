@@ -105,9 +105,15 @@ ul.slick-dots {
 
 
 
-
+html{overflow-x:hidden!important}
 
 /*-- CUSTOM --*/
+
+#ls-global > div.shiftnav-wrap.ls-overflow-visible{
+	overflow: hidden!important;
+}
+
+
 #preview_container {
 	display:none;
 	width:300px;
@@ -1845,7 +1851,7 @@ ul.slick-dots {
 		margin-top:0;
 	}
 }
-
+.home p#breadcrumbs {display:none!important;}
 @media only screen and (min-width: 64.063em) {
 	h1 {
 		font-size:42px;
@@ -2551,6 +2557,7 @@ section.row.press a.button {
 	li.menu-home {
 		display:block;
 	}
+	.home p#breadcrumbs {display:none!important;}
 }
 
 
@@ -2758,11 +2765,16 @@ body.blog .post-feature-thumb img, body.single .post-feature-thumb img { display
 h1 span {
 	background: url('http://solarinnovations.com/wp-content/uploads/sky_seperator.gif') no-repeat;
 }
+/* @media only screen and (max-width: 785px) {
+	#post-27186 > div > div.vc_row.wpb_row.vc_row-fluid.ls-overflow-visible > div > div > div > div:nth-child(1){
+		display: none!important;
+	}
+} */
 /* All Mobile Sizes (devices and browser) */
 @media only screen and (max-width: 767px) {
-.avia-layerslider {
-display: none !important;
-}
+	.avia-layerslider {
+		display: none !important;
+	}
 }
 .special_menu {
 	width:100%;
@@ -2889,4 +2901,3 @@ body .vc_tta.vc_tta-tabs .vc_tta-tabs-container {
 body .vc_tta.vc_general .vc_tta-panel-heading { 
 	display: none !important; 
 }
-body.home #breadcrumbs{display:none;}
