@@ -105,14 +105,17 @@ ul.slick-dots {
 
 
 
-html{overflow-x:hidden!important}
+/* html{overflow-x:hidden!important} */
 
 /*-- CUSTOM --*/
 
 #ls-global > div.shiftnav-wrap.ls-overflow-visible{
-	overflow-x: hidden!important;
+	/* overflow-x: hidden!important; */
 }
-
+html{
+	/* margin-right:-10px; */
+	overflow-x:hidden!important
+}
 
 #preview_container {
 	display:none;
