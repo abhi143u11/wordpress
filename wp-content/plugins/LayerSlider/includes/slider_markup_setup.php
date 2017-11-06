@@ -66,7 +66,12 @@ if( empty( $slides['properties']['props']['height'] ) ) { $slides['properties'][
 // Slides and layers
 if(isset($slides['layers']) && is_array($slides['layers'])) {
 	foreach($slides['layers'] as $slidekey => $slide) {
+
+		// 6.6.1: Fix PHP undef notice
+		$slide['properties'] = ! empty( $slide['properties'] ) ? $slide['properties'] : array();
+
 		$slider['slides'][$slidekey] = apply_filters('ls_parse_defaults', $lsDefaults['slides'], $slide['properties']);
+
 		if(isset($slide['sublayers']) && is_array($slide['sublayers'])) {
 
 			foreach($slide['sublayers'] as $layerkey => $layer) {

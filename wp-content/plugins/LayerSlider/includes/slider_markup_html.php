@@ -184,16 +184,16 @@ if(!empty($slider['slides']) && is_array($slider['slides'])) {
 						$layer['props']['html'] = apply_filters( 'wpml_translate_single_string', $layer['props']['html'], 'LayerSlider WP', $string_name);
 					}
 
-					// v6.5.6: Don't add the 'lang' param to URL if it's a permalink for a post.
-					// WPML will filter permalink correctly later.
-					if( ! empty( $layer['props']['url'] ) && ! empty( $_GET['lang'] ) && $layer['props']['url'] !== '[post-url]' ) {
+					// Fallback WPML support for older sliders.
+					if( ! empty( $layer['props']['url'] ) ) {
 
-						if( strpos( $layer['props']['url'], 'http' ) !== 0 || strpos( $layer['props']['url'], $_SERVER['SERVER_NAME'] ) !== false ) {
+						// Don't try to modify the URL if it's auto-generated
+						if( empty( $layer['props']['linkId'] ) && $layer['props']['url'] !== '[post-url]' ) {
 
-							if(strpos($layer['props']['url'], '?') !== false) {
-								$layer['props']['url'] .= '&amp;lang=' . ICL_LANGUAGE_CODE;
-							} else {
-								$layer['props']['url'] .= '?lang=' . ICL_LANGUAGE_CODE;
+							// Carry over the 'lang' URI param if it's set and the URL is non-relative, non-external
+							if( ! empty( $_GET['lang'] ) && ( strpos($layer['props']['url'], 'http') !== 0 || strpos( $layer['props']['url'], $_SERVER['SERVER_NAME'] ) !== false ) ) {
+								if(strpos($layer['props']['url'], '?') !== false) { $layer['props']['url'] .= '&amp;lang=' . ICL_LANGUAGE_CODE; }
+									else { $layer['props']['url'] .= '?lang=' . ICL_LANGUAGE_CODE; }
 							}
 						}
 					}
@@ -267,12 +267,41 @@ if(!empty($slider['slides']) && is_array($slider['slides'])) {
 					$type = ! empty($layerIMG) ? $layerIMG : '<'.$layer['props']['type'].'>';
 				}
 
-				if( ! empty($layer['props']['url']) ) {
+
+				// Linked layer
+				if( ! empty( $layer['props']['url'] ) ) {
+
+					// Create <a> element
 					$el = LayerSlider\PHPQuery\phpQuery::newDocumentHTML('<a>')->children();
-					if($layer['props']['url'] == '[post-url]') {
-						$layer['props']['url'] = $postContent->getWithFormat($layer['props']['url']);
+
+					// Auto-generated URL
+					if( ! empty( $layer['props']['linkId'] ) ) {
+
+						// Smart Links
+						if( '#' === substr( $layer['props']['linkId'], 0, 1 ) ) {
+							$layer['props']['url'] = $layer['props']['linkId'];
+
+						// Dynamic Layer
+						} elseif( '[post-url]' === $layer['props']['linkId'] ) {
+							$layer['props']['url'] = $postContent->getWithFormat('[post-url]');
+
+						// Attachment
+						} elseif( ! empty( $layer['props']['linkType'] ) && $layer['props']['linkType'] === 'attachment' ) {
+							$layer['props']['url'] = wp_get_attachment_url( $layer['props']['linkId'] );
+
+						// Page / Post
+						} else {
+							$layer['props']['url'] = get_permalink( $layer['props']['linkId'] );
+						}
 					}
-					$layerAttributes['href'] = $layer['props']['url'];
+
+
+					if( $layer['props']['url'] === '[post-url]' ) {
+						$layer['props']['url'] = $postContent->getWithFormat('[post-url]');
+					}
+
+					$layerAttributes['href'] = ! empty( $layer['props']['url'] ) ? $layer['props']['url'] : '#';
+
 					if(!empty($layer['props']['target'])) {
 						$layerAttributes['target'] =  $layer['props']['target'];
 					}
@@ -368,29 +397,60 @@ if(!empty($slider['slides']) && is_array($slider['slides'])) {
 		}
 
 		// Link this slide
-		if(!empty($slide['props']['linkUrl'])) {
-			if(!empty($slide['props']['linkTarget'])) {
-				$target = ' target="'.$slide['props']['linkTarget'].'"'; } else { $target = '';
+		if( ! empty( $slide['props']['linkUrl'] ) ) {
+
+			if( ! empty( $slide['props']['linkTarget'] ) ) {
+				$target = ' target="'.$slide['props']['linkTarget'].'"';
+			} else {
+				$target = '';
 			}
 
-			if($slide['props']['linkUrl'] == '[post-url]') {
-				$slide['props']['linkUrl'] = $postContent->getWithFormat($slide['props']['linkUrl']);
+			if( ! empty( $slide['props']['linkId'] ) ) {
+
+				// Smart Links
+				if( '#' === substr( $slide['props']['linkId'], 0, 1 ) ) {
+					$slide['props']['linkUrl'] = $slide['props']['linkId'];
+
+				// Dynamic Layer
+				} elseif( '[post-url]' === $slide['props']['linkId'] ) {
+					$slide['props']['linkUrl'] = $postContent->getWithFormat('[post-url]');
+
+				// Attachment
+				} elseif( ! empty( $slide['props']['linkType'] ) && $slide['props']['linkType'] === 'attachment' ) {
+					$slide['props']['linkUrl'] = wp_get_attachment_url( $slide['props']['linkId'] );
+
+				// Page / Post
+				} else {
+					$slide['props']['linkUrl'] = get_permalink( $slide['props']['linkId'] );
+				}
 			}
 
-			// WPML support
+
+			if( $slide['props']['linkUrl'] === '[post-url]' ) {
+				$slide['props']['linkUrl'] = $postContent->getWithFormat('[post-url]');
+			}
+
+			// Fallback WPML support for older sliders
 			if( has_filter( 'wpml_translate_single_string' ) ) {
 
-				if(!empty($_GET['lang']) && (strpos($slide['props']['linkUrl'], 'http') !== 0 || strpos($slide['props']['linkUrl'], $_SERVER['SERVER_NAME']) !== false)) {
-					if(strpos($slide['props']['linkUrl'], '?') !== false) { $slide['props']['linkUrl'] .= '&amp;lang=' . ICL_LANGUAGE_CODE; }
-					else { $slide['props']['linkUrl'] .= '?lang=' . ICL_LANGUAGE_CODE; }
+				// Don't try to modify the URL if it's auto-generated
+				if( empty( $slide['props']['linkId'] ) && $slide['props']['linkUrl'] !== '[post-url]' ) {
+
+					// Carry over the 'lang' URI param if it's set and the URL is non-relative, non-external
+					if( ! empty( $_GET['lang'] ) && ( strpos($slide['props']['linkUrl'], 'http') !== 0 || strpos( $slide['props']['linkUrl'], $_SERVER['SERVER_NAME'] ) !== false ) ) {
+						if(strpos($slide['props']['linkUrl'], '?') !== false) { $slide['props']['linkUrl'] .= '&amp;lang=' . ICL_LANGUAGE_CODE; }
+							else { $slide['props']['linkUrl'] .= '?lang=' . ICL_LANGUAGE_CODE; }
+					}
 				}
 			}
 
 
 			$linkClass = 'ls-link';
-			if( empty( $slide['props']['linkType'] ) || $slide['props']['linkType'] === 'over' ) {
+			if( empty( $slide['props']['linkPosition'] ) || $slide['props']['linkPosition'] === 'over' ) {
 				$linkClass .= ' ls-link-on-top';
 			}
+
+			$slide['props']['linkUrl'] = ! empty( $slide['props']['linkUrl'] ) ? $slide['props']['linkUrl'] : '#';
 
 			$lsMarkup[] = '<a href="'.$slide['props']['linkUrl'].'"'.$target.' class="'.$linkClass.'"></a>';
 		}

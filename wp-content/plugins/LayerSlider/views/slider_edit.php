@@ -106,6 +106,7 @@ include LS_ROOT_PATH . '/templates/tmpl-popup-presets-window.php';
 include LS_ROOT_PATH . '/templates/tmpl-popup-example-slider.php';
 include LS_ROOT_PATH . '/templates/tmpl-post-chooser.php';
 include LS_ROOT_PATH . '/templates/tmpl-insert-icons-modal.php';
+include LS_ROOT_PATH . '/templates/tmpl-insert-media-modal.php';
 include LS_ROOT_PATH . '/templates/tmpl-button-presets.php';
 include LS_ROOT_PATH . '/templates/tmpl-import-slide.php';
 include LS_ROOT_PATH . '/templates/tmpl-import-layer.php';

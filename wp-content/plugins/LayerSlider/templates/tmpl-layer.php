@@ -77,8 +77,11 @@
 						<span class="dashicons dashicons-flag"></span>
 						<?php _e('Replace With Icon', 'LayerSlider') ?>
 					</button>
-					<button type="button" class="button ls-upload ls-bulk-upload ls-insert-media">
+					<button type="button" class="button ls-open-media-modal-button">
 						<span class="dashicons dashicons-admin-media"></span>
+						<?php _e('Change Media', 'LayerSlider') ?>
+					</button>
+					<button type="button" class=" button ls-upload ls-bulk-upload ls-insert-media">
 						<?php _e('Add Media', 'LayerSlider') ?>
 					</button>
 				</div>
@@ -1561,7 +1564,7 @@
 					<?php _e('Change Link', 'LayerSlider') ?>
 				</a>
 				<span><a href="#" class="dyn"><?php _e('Use Dynamic post URL', 'LayerSlider') ?></a></span>
-				<!-- <span><a href="#" class="post"><?php _e('Choose Page or Post', 'LayerSlider') ?></a></span> -->
+				<span><a href="#" class="post"><?php _e('Choose Page or Post', 'LayerSlider') ?></a></span>
 			</div>
 			<?php lsGetSelect($lsDefaults['layers']['linkTarget'], null) ?>
 		</div>

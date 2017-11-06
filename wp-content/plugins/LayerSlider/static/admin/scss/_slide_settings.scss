@@ -133,6 +133,10 @@
 
 				input {
 					width: 100%;
+					letter-spacing: -0.2px;
+					padding-right: 70px;
+					overflow: hidden;
+					text-overflow: ellipsis;
 				}
 
 				select {
@@ -157,6 +161,43 @@
 					right: 10px;
 					font-size: 12px;
 					margin-top: 4px; /* vertical-align hack */
+				}
+
+				.change {
+					top: 1px;
+					right: 6px;
+				}
+
+				.dashicons-editor-unlink {
+					position: static !important;
+					margin-right: -3px;
+					color: inherit;
+					font-size: 14px;
+				}
+			}
+
+			.ls-insert-link {
+				top: -3px;
+				right: -95px;
+				width: 250px;
+				box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3);
+				min-height: 0 !important;
+
+				&:before {
+					background: white;
+					box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3);
+				}
+
+				.inner {
+					width: 240px;
+					margin: 0 !important;
+					padding: 5px !important;
+					border-radius: 5px;
+					background: white;
+				}
+
+				li:hover {
+					background: #2ea2cc !important;
 				}
 			}
 		}

@@ -3047,7 +3047,11 @@ ul.ls-font-list {
   .ls-slide-options td.ls-slide-link .inner .row-helper {
     position: relative; }
     .ls-slide-options td.ls-slide-link .inner .row-helper input {
-      width: 100%; }
+      width: 100%;
+      letter-spacing: -0.2px;
+      padding-right: 70px;
+      overflow: hidden;
+      text-overflow: ellipsis; }
     .ls-slide-options td.ls-slide-link .inner .row-helper select {
       font-size: 12px;
       width: 49%;
@@ -3065,6 +3069,31 @@ ul.ls-font-list {
       font-size: 12px;
       margin-top: 4px;
       /* vertical-align hack */ }
+    .ls-slide-options td.ls-slide-link .inner .row-helper .change {
+      top: 1px;
+      right: 6px; }
+    .ls-slide-options td.ls-slide-link .inner .row-helper .dashicons-editor-unlink {
+      position: static !important;
+      margin-right: -3px;
+      color: inherit;
+      font-size: 14px; }
+  .ls-slide-options td.ls-slide-link .inner .ls-insert-link {
+    top: -3px;
+    right: -95px;
+    width: 250px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3);
+    min-height: 0 !important; }
+    .ls-slide-options td.ls-slide-link .inner .ls-insert-link:before {
+      background: white;
+      box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3); }
+    .ls-slide-options td.ls-slide-link .inner .ls-insert-link .inner {
+      width: 240px;
+      margin: 0 !important;
+      padding: 5px !important;
+      border-radius: 5px;
+      background: white; }
+    .ls-slide-options td.ls-slide-link .inner .ls-insert-link li:hover {
+      background: #2ea2cc !important; }
 
 .ls-slide-options td.post-options .inner {
   width: 152px; }
@@ -4957,14 +4986,14 @@ tr.active .ls-sublayer-controls {
   .ls-preset-button-5-5 i.fa {
     font-size: 20px; }
 
-.ls-insert-media,
+.ls-open-media-modal-button,
 .ls-insert-icon,
 .ls-replace-icon-button {
   position: absolute;
   bottom: 3px;
   left: 0;
   padding-left: 8px !important; }
-  .ls-insert-media span,
+  .ls-open-media-modal-button span,
   .ls-insert-icon span,
   .ls-replace-icon-button span {
     margin-right: 4px;
@@ -4972,6 +5001,9 @@ tr.active .ls-sublayer-controls {
     font-size: 16px;
     line-height: 25px;
     -webkit-font-smoothing: antialiased; }
+
+.ls-insert-media {
+  display: none !important; }
 
 .ls-insert-icon {
   width: 150px; }
@@ -5929,6 +5961,100 @@ span.ls-layer-top,
   left: 0;
   right: 0;
   overflow: auto; }
+
+#tmpl-insert-media-modal-window .km-ui-modal-scrollable {
+  text-align: left; }
+
+#tmpl-insert-media-modal-window .ls-left {
+  position: absolute;
+  left: 0;
+  width: 580px; }
+
+#tmpl-insert-media-modal-window .ls-right {
+  position: absolute;
+  left: 619px;
+  right: 0;
+  height: 100%;
+  padding-left: 40px;
+  border-left: 1px solid #dedede; }
+
+#tmpl-insert-media-modal-window h3 {
+  margin: 24px 0 10px 0;
+  font-size: 16px;
+  font-weight: 400;
+  color: #555 !important; }
+
+#tmpl-insert-media-modal-window .divider {
+  position: relative;
+  border-bottom: 1px solid #dedede;
+  padding-bottom: 40px;
+  margin-bottom: 40px; }
+  #tmpl-insert-media-modal-window .divider button {
+    margin-left: 20px !important; }
+  #tmpl-insert-media-modal-window .divider span {
+    position: absolute;
+    display: inline-block;
+    bottom: -11px;
+    left: 50%;
+    margin-left: -27px;
+    background: white;
+    padding: 0 20px;
+    color: #ddd; }
+
+#tmpl-insert-media-modal-window textarea, #tmpl-insert-media-modal-window input {
+  width: 460px;
+  margin: 1px;
+  padding: 3px 4px !important;
+  border-radius: 3px;
+  color: #333;
+  border: 1px solid #ddd;
+  font-size: 14px; }
+
+#tmpl-insert-media-modal-window textarea {
+  height: 86px;
+  resize: none;
+  font-size: 13px;
+  word-break: break-all; }
+
+#tmpl-insert-media-modal-window button {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important; }
+
+#tmpl-insert-media-modal-window .ls-embed-code button {
+  margin-top: 28px !important; }
+
+#tmpl-insert-media-modal-window .ls-html5 {
+  text-align: center; }
+  #tmpl-insert-media-modal-window .ls-html5 h3 {
+    text-align: left; }
+  #tmpl-insert-media-modal-window .ls-html5 p {
+    text-align: left;
+    font-size: 13px;
+    color: #999; }
+
+#tmpl-insert-media-modal-window .ls-media-preview {
+  position: relative;
+  min-width: 240px;
+  min-height: 240px;
+  border-radius: 3px;
+  overflow: hidden; }
+  #tmpl-insert-media-modal-window .ls-media-preview:after {
+    content: "\f104";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 240px;
+    height: 240px;
+    line-height: 240px;
+    font-size: 50px;
+    color: #999;
+    font-family: dashicons;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    background: #dedede;
+    z-index: -1; }
 
 #ls-transition-window header #tryorigami {
   margin-top: 60px;

@@ -96,11 +96,34 @@
 					<div class="inner">
 						<div class="row-helper">
 							<?php lsGetInput($lsDefaults['slides']['linkUrl'], null, array('class' => 'slideprop url', 'placeholder' => $lsDefaults['slides']['linkUrl']['name'] )) ?>
-							<span><a href="#" class="dyn"><?php _e('use post URL', 'LayerSlider') ?></a></span>
+							<input type="hidden" name="linkId">
+							<input type="hidden" name="linkName">
+							<input type="hidden" name="linkType">
+							<div class="ls-insert-link ls-pointer ls-box ls-hidden">
+								<ul class="inner">
+									<li>
+										<a href="#" class="post">
+											<?php _e('Choose Post or Page', 'LayerSlider') ?>
+										</a>
+									</li>
+									<li>
+										<a href="#" class="dyn">
+											<?php _e('Use Dynamic post URL', 'LayerSlider') ?>
+										</a>
+									</li>
+								</ul>
+							</div>
+							<span>
+								<a href="#" class="ls-insert-link-button"><?php _e('insert ...', 'LayerSlider') ?></a>
+							</span>
+							<a href="#" class="change">
+								<i class="dashicons dashicons-editor-unlink"></i>
+								<?php _e('change', 'LayerSlider') ?>
+							</a>
 						</div>
 						<div class="row-helper">
 							<?php lsGetSelect($lsDefaults['slides']['linkTarget'], null, array('class' => 'slideprop')) ?>
-							<?php lsGetSelect($lsDefaults['slides']['linkType'], null, array('class' => 'slideprop')) ?>
+							<?php lsGetSelect($lsDefaults['slides']['linkPosition'], null, array('class' => 'slideprop')) ?>
 						</div>
 					</div>
 				</td>
