@@ -114,13 +114,16 @@ ul.slick-dots {
 }
 html{
 	/* margin-right:-10px; */
-	height:auto;
+	/* height:auto; */
 	overflow-x:hidden!important;
 	overflow-y:visible;
+	width:100%;
 }
 body{
-	overflow-y:visible;
+	height:auto;
+	overflow-y:scroll;
 	overflow-x:hidden;
+	height: inherit;
 }
 
 #preview_container {
@@ -152,7 +155,7 @@ body{
 	
 	body {
 		/*background:url(../img/dark-grungewall.jpg) repeat;*/
-		height:auto;
+		/* height:auto; */
 		color:#3d3d3d!important;
 	}
 	.site-container {
