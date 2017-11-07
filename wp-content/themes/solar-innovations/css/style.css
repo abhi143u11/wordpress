@@ -114,7 +114,13 @@ ul.slick-dots {
 }
 html{
 	/* margin-right:-10px; */
-	overflow-x:hidden!important
+	height:auto;
+	overflow-x:hidden!important;
+	overflow-y:visible;
+}
+body{
+	overflow-y:visible;
+	overflow-x:hidden;
 }
 
 #preview_container {
@@ -1117,7 +1123,7 @@ html{
 	}
 	
 	.video {
-		height:400px;
+		/* height:400px; */
 		z-index:99;
 		position:relative;
 	}
