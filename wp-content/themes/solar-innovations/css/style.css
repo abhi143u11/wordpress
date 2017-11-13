@@ -2913,3 +2913,20 @@ body .vc_tta.vc_tta-tabs .vc_tta-tabs-container {
 body .vc_tta.vc_general .vc_tta-panel-heading { 
 	display: none !important; 
 }
+
+.c-to-a a, .c-to-a-grey a{
+	/* color:red!important; */
+	text-decoration: none!important;
+}
+
+.c-to-a a:hover, .c-to-a a:focus{
+	color:white!important;
+	background:#428E42!important;	
+	transition: background 0.3s;
+}
+
+.c-to-a-grey a:hover, .c-to-a-grey a:focus{
+	color:white!important;
+	background:#7f8181!important;	
+	transition: background 0.3s;
+}
