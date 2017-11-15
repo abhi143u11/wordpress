@@ -2904,7 +2904,7 @@ h1 span {
 	color:#fff;
 }
 .submit_button {
-	paddingp:5px!important;
+	padding:5px!important;
 	text-align:center!important;
 }
 body .vc_tta.vc_tta-tabs .vc_tta-tabs-container { 
@@ -2930,3 +2930,4 @@ body .vc_tta.vc_general .vc_tta-panel-heading {
 	background:#7f8181!important;	
 	transition: background 0.3s;
 }
+ 
