@@ -102,7 +102,9 @@ ul.slick-dots {
 }
 
 
-
+.no-margin-top{
+	margin-top:-5px;
+}
 
 
 /* html{overflow-x:hidden!important} */
