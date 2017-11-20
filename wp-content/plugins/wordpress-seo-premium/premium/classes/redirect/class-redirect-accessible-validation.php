@@ -23,11 +23,10 @@ class WPSEO_Redirect_Accessible_Validation implements WPSEO_Redirect_Validation 
 	 * @return bool Whether or not the target is valid.
 	 */
 	public function run( WPSEO_Redirect $redirect, WPSEO_Redirect $old_redirect = null, array $redirects = null ) {
-
 		// Do the request.
-		$target        = $this->parse_target( $redirect->get_target() );
-		$decoded_url   = rawurldecode( $target );
-		$response      = $this->remote_head( $decoded_url, array( 'sslverify' => false ) );
+		$target      = $this->parse_target( $redirect->get_target() );
+		$decoded_url = rawurldecode( $target );
+		$response    = $this->remote_head( $decoded_url, array( 'sslverify' => false ) );
 
 		if ( is_wp_error( $response ) ) {
 			$this->error = new WPSEO_Validation_Warning(
@@ -42,8 +41,8 @@ class WPSEO_Redirect_Accessible_Validation implements WPSEO_Redirect_Validation 
 
 		// Check if the target is a temporary location.
 		if ( $this->is_temporary( $response_code ) ) {
-			/* translators: %1$s expands to the returned http code  */
 			$this->error = new WPSEO_Validation_Warning( sprintf(
+				/* translators: %1$s expands to the returned http code  */
 				__( 'The URL you are redirecting to seems to return a %1$s status. You might want to check if the target can be reached manually before saving.', 'wordpress-seo-premium' ),
 				$response_code
 			), 'target' );
@@ -62,8 +61,8 @@ class WPSEO_Redirect_Accessible_Validation implements WPSEO_Redirect_Validation 
 		}
 
 		if ( $response_code !== 200 ) {
-			/* translators: %1$s expands to the returned http code  */
 			$this->error = new WPSEO_Validation_Warning( sprintf(
+				/* translators: %1$s expands to the returned http code  */
 				__( 'The URL you entered returned a HTTP code different than 200(OK). The received HTTP code is %1$s.', 'wordpress-seo-premium' ),
 				$response_code
 			), 'target' );
@@ -114,7 +113,7 @@ class WPSEO_Redirect_Accessible_Validation implements WPSEO_Redirect_Validation 
 	 * @return bool
 	 */
 	protected function is_temporary( $response_code ) {
-		return in_array( $response_code, array( 302, 307 ) ) || in_array( substr( $response_code, 0, 2 ), array( 40, 50 ) );
+		return in_array( $response_code, array( 302, 307 ), true ) || in_array( substr( $response_code, 0, 2 ), array( '40', '50' ), true );
 	}
 
 	/**
@@ -125,7 +124,7 @@ class WPSEO_Redirect_Accessible_Validation implements WPSEO_Redirect_Validation 
 	 * @return string
 	 */
 	protected function parse_target( $target ) {
-		$url_parts = parse_url( $target );
+		$url_parts = wp_parse_url( $target );
 
 		// If we have an absolute url return it.
 		if ( ! empty( $url_parts['scheme'] ) ) {

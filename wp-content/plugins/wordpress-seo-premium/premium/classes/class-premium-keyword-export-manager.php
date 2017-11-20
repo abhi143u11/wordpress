@@ -30,9 +30,9 @@ class WPSEO_Premium_Keyword_Export_Manager implements WPSEO_WordPress_Integratio
 	 */
 	public function keywords_export_tab_header() {
 		if ( current_user_can( 'export' ) ) {
-			echo '<a class="nav-tab" id="keywords-export-tab" href="#top#keywords-export">' .
-				 __( 'Export keywords', 'wordpress-seo-premium' ) .
-				 '</a>';
+			echo '<a class="nav-tab" id="keywords-export-tab" href="#top#keywords-export">'
+				. esc_html__( 'Export keywords', 'wordpress-seo-premium' )
+				. '</a>';
 		}
 	}
 
@@ -43,7 +43,7 @@ class WPSEO_Premium_Keyword_Export_Manager implements WPSEO_WordPress_Integratio
 		// Display the forms.
 		if ( current_user_can( 'export' ) ) {
 			$yform = Yoast_Form::get_instance();
-			require dirname( __FILE__ ) . '/views/export-keywords.php';
+			require WPSEO_PREMIUM_PATH . 'classes/views/export-keywords.php';
 		}
 	}
 
@@ -85,9 +85,9 @@ class WPSEO_Premium_Keyword_Export_Manager implements WPSEO_WordPress_Integratio
 	 * @return bool True if this is a valid CSV export request.
 	 */
 	protected function is_valid_csv_export_request() {
-		return filter_input( INPUT_GET, 'page' ) === 'wpseo_tools' &&
-			   filter_input( INPUT_GET, 'tool' ) === 'import-export' &&
-			   filter_input( INPUT_POST, 'export-posts' );
+		return filter_input( INPUT_GET, 'page' ) === 'wpseo_tools'
+			&& filter_input( INPUT_GET, 'tool' ) === 'import-export'
+			&& filter_input( INPUT_POST, 'export-posts' );
 	}
 
 	/**
@@ -176,6 +176,12 @@ class WPSEO_Premium_Keyword_Export_Manager implements WPSEO_WordPress_Integratio
 		do {
 			$results = $export_query->get_data( $page );
 
+			if ( ! is_array( $results ) ) {
+				break;
+			}
+
+			$result_count = count( $results );
+
 			// Present the result.
 			$presented = array_map( array( $presenter, 'present' ), $results );
 
@@ -185,6 +191,6 @@ class WPSEO_Premium_Keyword_Export_Manager implements WPSEO_WordPress_Integratio
 			++$page;
 
 			// If we have the number of items per page, there will be more items ahead.
-		} while ( is_array( $results ) && count( $results ) === $page_size );
+		} while ( $result_count === $page_size );
 	}
 }

@@ -722,6 +722,7 @@
 					<?php
 					lsOptionRow('checkbox', $sDefs['relativeURLs'], $sProps );
 					lsOptionRow('checkbox', $sDefs['useSrcset'], $sProps );
+					lsOptionRow('checkbox', $sDefs['enhancedLazyLoad'], $sProps );
 					lsOptionRow('checkbox', $sDefs['allowRestartOnResize'], $sProps );
 					lsOptionRow('select', $sDefs['preferBlendMode'], $sProps );
 					?>

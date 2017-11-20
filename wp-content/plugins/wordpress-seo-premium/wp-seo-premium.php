@@ -5,7 +5,7 @@
 
 /**
  * Plugin Name: Yoast SEO Premium
- * Version: 5.6
+ * Version: 5.8
  * Plugin URI: https://yoast.com/wordpress/plugins/seo/#utm_source=wpadmin&utm_medium=plugin&utm_campaign=wpseoplugin
  * Description: The first true all-in-one SEO solution for WordPress, including on-page content analysis, XML sitemaps and much more.
  * Author: Team Yoast
@@ -45,10 +45,11 @@ $wpseo_premium_dir = plugin_dir_path( WPSEO_PREMIUM_PLUGIN_FILE ) . 'premium/';
 
 // Run the redirects when frontend is being opened.
 if ( ! is_admin() ) {
-	require_once( $wpseo_premium_dir . 'classes/redirect/class-redirect-util.php' );
-	require_once( $wpseo_premium_dir . 'classes/redirect/class-redirect-handler.php' );
+	require_once $wpseo_premium_dir . 'classes/redirect/class-redirect-util.php';
+	require_once $wpseo_premium_dir . 'classes/redirect/class-redirect-handler.php';
 
-	new WPSEO_Redirect_Handler();
+	$wpseo_redirect_handler = new WPSEO_Redirect_Handler();
+	$wpseo_redirect_handler->load();
 }
 
 /**
@@ -69,13 +70,13 @@ function wpseo_premium_add_general_option_defaults( array $wpseo_defaults ) {
 add_filter( 'wpseo_option_wpseo_defaults', 'wpseo_premium_add_general_option_defaults' );
 
 // Load the WordPress SEO plugin.
-require_once( dirname( WPSEO_FILE ) . '/wp-seo-main.php' );
-require_once( dirname( WPSEO_PREMIUM_PLUGIN_FILE ) . '/premium/class-premium.php' );
+require_once dirname( WPSEO_FILE ) . '/wp-seo-main.php';
+require_once $wpseo_premium_dir . 'class-premium.php';
 
 WPSEO_Premium::autoloader();
 
-$capabilities = new WPSEO_Premium_Register_Capabilities();
-$capabilities->register_hooks();
+$wpseo_premium_capabilities = new WPSEO_Premium_Register_Capabilities();
+$wpseo_premium_capabilities->register_hooks();
 
 /**
  * Run the upgrade for Yoast SEO Premium.

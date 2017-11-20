@@ -297,6 +297,9 @@ body:not(.rtl) .ubermenu.ubermenu-horizontal .ubermenu-item-level-0:first-child 
 .ubermenu .ubermenu-target-with-image{
 	overflow:hidden; /* Important as a clearfix for images taller than text */
 }
+.ubermenu .ubermenu-submenu .ubermenu-target{
+	backface-visibility:hidden; /* Fix for Chrome rendering bug */
+}
 
 /* Submenu Indicators */
 .ubermenu-sub-indicators .ubermenu-has-submenu-drop > .ubermenu-target:after{

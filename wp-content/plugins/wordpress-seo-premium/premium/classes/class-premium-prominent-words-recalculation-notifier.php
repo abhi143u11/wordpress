@@ -32,7 +32,7 @@ class WPSEO_Premium_Prominent_Words_Recalculation_Notifier implements WPSEO_Word
 	 * Removes the notification when it is set and the amount of unindexed items is lower than the threshold.
 	 */
 	public function cleanup_notification() {
-		if ( ! $this->has_notification() || $this->requires_notification()  ) {
+		if ( ! $this->has_notification() || $this->requires_notification() ) {
 			return;
 		}
 
@@ -131,7 +131,7 @@ class WPSEO_Premium_Prominent_Words_Recalculation_Notifier implements WPSEO_Word
 	 * @return bool True when the threshold is exceeded.
 	 */
 	protected function requires_notification() {
-		$post_query  = new WPSEO_Premium_Prominent_Words_Unindexed_Post_Query();
+		$post_query = new WPSEO_Premium_Prominent_Words_Unindexed_Post_Query();
 
 		return $post_query->exceeds_limit( self::UNINDEXED_THRESHOLD );
 	}

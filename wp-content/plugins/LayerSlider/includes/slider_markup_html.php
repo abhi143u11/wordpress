@@ -6,9 +6,9 @@ if(!defined('LS_ROOT_FILE')) {
 }
 
 // Popup
-if( !empty($slides['properties']['attrs']['type']) && $slides['properties']['attrs']['type'] === 'popup' ) {
-	$slides['properties']['props']['width']  = ! empty( $slides['properties']['attrs']['popupWidth'] ) ? $slides['properties']['attrs']['popupWidth'] : 640;
-	$slides['properties']['props']['height'] = ! empty( $slides['properties']['attrs']['popupHeight']) ? $slides['properties']['attrs']['popupHeight'] : 360;
+if( ! empty( $slides['properties']['attrs']['type'] ) && $slides['properties']['attrs']['type'] === 'popup' ) {
+	$slides['properties']['props']['width']  = ! empty( $slides['properties']['props']['popupWidth'] ) ? $slides['properties']['props']['popupWidth'] : 640;
+	$slides['properties']['props']['height'] = ! empty( $slides['properties']['props']['popupHeight']) ? $slides['properties']['props']['popupHeight'] : 360;
 }
 
 // Get slider style
@@ -42,6 +42,16 @@ if( !empty($slides['properties']['attrs']['type']) && $slides['properties']['att
 $customClasses = '';
 if( ! empty( $slides['properties']['props']['sliderclass'] ) ) {
 	$customClasses = ' '.$slides['properties']['props']['sliderclass'];
+}
+
+$useSrcset = true;
+if( isset($slides['properties']['props']['useSrcset']) && $slides['properties']['props']['useSrcset'] === false ) {
+	$useSrcset = false;
+}
+
+$enhancedLazyLoad = false;
+if( ! empty( $slides['properties']['props']['enhancedLazyLoad'] ) ) {
+	$enhancedLazyLoad = true;
 }
 
 // Start of slider container
@@ -133,6 +143,16 @@ if(!empty($slider['slides']) && is_array($slider['slides'])) {
 			}
 
 			if( ! empty( $lsBG ) ) {
+
+				if( ! $useSrcset ) {
+					$lsBG = preg_replace('/srcset="[^\"]*"/', '', $lsBG);
+					$lsBG = preg_replace('/sizes="[^\"]*"/', '', $lsBG);
+				}
+
+				if( $enhancedLazyLoad ) {
+					$lsBG = str_replace(' src="', ' data-src="', $lsBG);
+				}
+
 				$lsMarkup[] = $lsBG;
 			} elseif( ! empty( $src ) ) {
 				$lsMarkup[] = '<img src="'.$src.'" class="ls-bg" alt="'.$alt.'" />';
@@ -146,6 +166,15 @@ if(!empty($slider['slides']) && is_array($slider['slides'])) {
 				$lsTN = '';
 				if( ! empty($slide['props']['thumbnailId']) ) {
 					$lsTN = wp_get_attachment_image($slide['props']['thumbnailId'], 'full', false, array('class' => 'ls-tn'));
+				}
+
+				if( ! empty( $lsTN ) && ! $useSrcset ) {
+					$lsTN = preg_replace('/srcset="[^\"]*"/', '', $lsTN);
+					$lsTN = preg_replace('/sizes="[^\"]*"/', '', $lsTN);
+				}
+
+				if( ! empty( $lsTN ) && $enhancedLazyLoad ) {
+					$lsTN = str_replace(' src="', ' data-src="', $lsTN);
 				}
 
 				$lsMarkup[] = ! empty( $lsTN ) ? $lsTN : '<img src="'.$slide['props']['thumbnail'].'" class="ls-tn" alt="Slide thumbnail" />';
@@ -264,6 +293,16 @@ if(!empty($slider['slides']) && is_array($slider['slides'])) {
 				if($layer['props']['media'] == 'post' && ($first == '<' && $last == '>')) {
 					$type = $layer['props']['html'];
 				} else {
+
+					if( ! empty( $layerIMG ) && ! $useSrcset ) {
+						$layerIMG = preg_replace('/srcset="[^\"]*"/', '', $layerIMG);
+						$layerIMG = preg_replace('/sizes="[^\"]*"/', '', $layerIMG);
+					}
+
+					if( ! empty( $layerIMG ) && $enhancedLazyLoad ) {
+						$layerIMG = str_replace(' src="', ' data-src="', $layerIMG);
+					}
+
 					$type = ! empty($layerIMG) ? $layerIMG : '<'.$layer['props']['type'].'>';
 				}
 
@@ -333,10 +372,6 @@ if(!empty($slider['slides']) && is_array($slider['slides'])) {
 				if(!empty($layer['props']['style'])) {
 					if(substr($layer['props']['style'], -1) != ';') { $layer['props']['style'] .= ';'; }
 					$innerAttributes['style'] .= preg_replace('/\s\s+/', ' ', $layer['props']['style']);
-				}
-
-				if( ! empty($layer['props']['wordwrap']) || ! empty($layer['props']['styles']['wordwrap']) ) {
-					$innerAttributes['style'] .= 'white-space: normal;';
 				}
 
 				if(!empty($layer['props']['styles'])) {

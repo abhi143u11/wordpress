@@ -155,6 +155,9 @@ PREFIX .ubermenu-responsive-toggle-content-align-center {
 PREFIX .ubermenu-responsive-toggle-content-align-right {
   text-align: right;
 }
+PREFIX button.ubermenu-responsive-toggle-align-full {
+  width: 100%;
+}
 PREFIX .ubermenu-bar-align-full {
   clear: both;
 }
@@ -261,6 +264,9 @@ PREFIX .ubermenu .ubermenu-target {
 }
 PREFIX .ubermenu .ubermenu-target-with-image {
   overflow: hidden;
+}
+PREFIX .ubermenu .ubermenu-submenu .ubermenu-target {
+  backface-visibility: hidden;
 }
 PREFIX .ubermenu-sub-indicators .ubermenu-has-submenu-drop > .ubermenu-target:after {
   position: absolute;

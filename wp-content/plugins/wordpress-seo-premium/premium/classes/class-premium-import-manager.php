@@ -60,7 +60,7 @@ class WPSEO_Premium_Import_Manager {
 	 */
 	public function redirects_import_header() {
 		/* translators: %s: '.htaccess' file name */
-		echo '<a class="nav-tab" id="import-htaccess-tab" href="#top#import-htaccess">' . __( 'Import redirects', 'wordpress-seo-premium' ) . '</a>';
+		echo '<a class="nav-tab" id="import-htaccess-tab" href="#top#import-htaccess">' . esc_html__( 'Import redirects', 'wordpress-seo-premium' ) . '</a>';
 	}
 
 	/**
@@ -75,7 +75,7 @@ class WPSEO_Premium_Import_Manager {
 		);
 
 		// Display the forms.
-		require( 'views/import-redirects.php' );
+		require WPSEO_PREMIUM_PATH . 'classes/views/import-redirects.php';
 	}
 
 	/**
@@ -224,7 +224,7 @@ class WPSEO_Premium_Import_Manager {
 	 *
 	 * @param array $csv_file The file to upload, from the $_FILES object.
 	 *
-	 * @return bool Wether or not the file passes the validation.
+	 * @return bool Whether or not the file passes the validation.
 	 */
 	protected function validate_uploaded_csv_file( $csv_file ) {
 		// If the file upload failed for any reason.

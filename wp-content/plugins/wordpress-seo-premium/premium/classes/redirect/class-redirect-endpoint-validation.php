@@ -37,7 +37,7 @@ class WPSEO_Redirect_Endpoint_Validation implements WPSEO_Redirect_Validation {
 		$endpoint = $this->search_end_point( $target, $origin );
 
 		// Check for a redirect loop.
-		if ( is_string( $endpoint ) && in_array( $endpoint, array( $origin, $target ) ) ) {
+		if ( is_string( $endpoint ) && in_array( $endpoint, array( $origin, $target ), true ) ) {
 			// There might be a redirect loop.
 			$this->error = new WPSEO_Validation_Error(
 				__( 'The redirect you are trying to save will create a redirect loop. This means there probably already exists a redirect that points to the origin of the redirect you are trying to save', 'wordpress-seo-premium' ),
@@ -48,8 +48,8 @@ class WPSEO_Redirect_Endpoint_Validation implements WPSEO_Redirect_Validation {
 		}
 
 		if ( is_string( $endpoint ) && $target !== $endpoint ) {
-			/* translators: %1$s: will be the target, %2$s: will be the found endpoint.   */
 			$this->error = new WPSEO_Validation_Warning( sprintf(
+				/* translators: %1$s: will be the target, %2$s: will be the found endpoint. */
 				__( '%1$s will be redirected to %2$s. Maybe it\'s worth considering to create a direct redirect to %2$s.', 'wordpress-seo-premium' ),
 				$target,
 				$endpoint
@@ -79,12 +79,16 @@ class WPSEO_Redirect_Endpoint_Validation implements WPSEO_Redirect_Validation {
 	 * @return bool|string
 	 */
 	private function search_end_point( $new_url, $old_url ) {
-		if ( $new_target = $this->find_url( $new_url ) ) {
+		$new_target = $this->find_url( $new_url );
+		if ( $new_target !== false ) {
 			// Unset the redirects, because it was found already.
 			unset( $this->redirects[ $new_url ] );
 
-			if ( $new_url !== $old_url && $traced_target = $this->search_end_point( $new_target, $old_url ) ) {
-				return $traced_target;
+			if ( $new_url !== $old_url ) {
+				$traced_target = $this->search_end_point( $new_target, $old_url );
+				if ( $traced_target !== false ) {
+					return $traced_target;
+				}
 			}
 
 			return $new_target;

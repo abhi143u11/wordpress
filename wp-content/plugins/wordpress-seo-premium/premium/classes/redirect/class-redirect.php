@@ -9,7 +9,7 @@
 class WPSEO_Redirect implements ArrayAccess {
 
 	const PERMANENT   = 301;
-	const FOUND		  = 302;
+	const FOUND       = 302;
 	const TEMPORARY   = 307;
 	const DELETED     = 410;
 	const UNAVAILABLE = 451;
@@ -51,7 +51,7 @@ class WPSEO_Redirect implements ArrayAccess {
 	 * @param string $format The format of the redirect.
 	 */
 	public function __construct( $origin, $target = '', $type = self::PERMANENT, $format = self::FORMAT_PLAIN ) {
-		$this->origin = ($format === WPSEO_Redirect::FORMAT_PLAIN) ? $this->sanitize_url( $origin ) : $origin;
+		$this->origin = ( $format === WPSEO_Redirect::FORMAT_PLAIN ) ? $this->sanitize_url( $origin ) : $origin;
 		$this->target = $this->sanitize_url( $target );
 		$this->format = $format;
 		$this->type   = (int) $type;
@@ -105,7 +105,7 @@ class WPSEO_Redirect implements ArrayAccess {
 	 * The return value will be casted to boolean if non-boolean was returned.
 	 */
 	public function offsetExists( $offset ) {
-		return in_array( $offset, array( 'url', 'type' ) );
+		return in_array( $offset, array( 'url', 'type' ), true );
 	}
 
 	/**
@@ -119,15 +119,14 @@ class WPSEO_Redirect implements ArrayAccess {
 	 */
 	public function offsetGet( $offset ) {
 		switch ( $offset ) {
-			case 'old' :
+			case 'old':
 				return $this->origin;
-				break;
-			case 'url' :
+
+			case 'url':
 				return $this->target;
-				break;
-			case 'type' :
+
+			case 'type':
 				return $this->type;
-				break;
 		}
 
 		return null;
@@ -143,10 +142,10 @@ class WPSEO_Redirect implements ArrayAccess {
 	 */
 	public function offsetSet( $offset, $value ) {
 		switch ( $offset ) {
-			case 'url' :
+			case 'url':
 				$this->target = $value;
 				break;
-			case 'type' :
+			case 'type':
 				$this->type = $value;
 				break;
 		}
@@ -214,7 +213,7 @@ class WPSEO_Redirect implements ArrayAccess {
 	 * @return string
 	 */
 	private function sanitize_blog_url( $url ) {
-		$blog_url = $this->strip_protocol( get_home_url() );
+		$blog_url     = $this->strip_protocol( get_home_url() );
 		$stripped_url = $this->strip_protocol( $url );
 
 		// Match against the stripped URL for easier matching.

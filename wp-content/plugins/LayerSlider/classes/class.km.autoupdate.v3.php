@@ -396,8 +396,12 @@ class KM_UpdatesV3 {
 			@$this->_check_updates( true );
 
 			// v6.2.0: Automatically hide the "Canceled activation" notice when
-			// re-activating the plugin to make things easier and more convenient.
+			// re-activating the plugin for the sake of clarity and consistency.
 			update_option('ls-show-canceled_activation_notice', 0);
+
+			// v6.6.3: Empty slider caches (if any) to immediately hide the premium
+			// notice displayed above sliders on the front-end after activation.
+			layerslider_delete_caches();
 		}
 
 
@@ -422,6 +426,10 @@ class KM_UpdatesV3 {
 		// Deauthorize
 		delete_option($this->config['codeKey']);
 		delete_option($this->config['authKey']);
+
+		// v6.6.3: Empty slider caches (if any) to re-enable displaying the premium
+		// notice above sliders on the front-end after deactivation.
+		layerslider_delete_caches();
 
 		die($response);
 	}

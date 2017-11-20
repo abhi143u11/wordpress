@@ -316,6 +316,11 @@ var LS_GUI = {
 			$input = jQuery('input[name="'+$input+'"]');
 		}
 
+		// Do nothing if no input found. Revisions and other pages
+		// might load the Slider Builder script without an active
+		// editor session in place.
+		if( ! $input.length ) { return; }
+
 		var $holder 		= $input.closest('.ls-slide-link'),
 			inputName 		= $input.attr('name'),
 			inputVal 		= $input.val(),
@@ -333,11 +338,11 @@ var LS_GUI = {
 			l10nKey;
 
 			// Normalize HTML entities
-			linkName 	= jQuery('<textarea>').html(linkName).text();
+			linkName 		= jQuery('<textarea>').html(linkName).text();
 
 
 		// Smart Link
-		if( ( linkId && '#' === linkId.substr(0, 1) ) || ( inputVal && '#' === inputVal.substr(0, 1) ) ) {
+		if( linkName && ( ( linkId && '#' === linkId.substr(0, 1) ) || ( inputVal && '#' === inputVal.substr(0, 1) ) ) ) {
 
 			var placeholder = LS_l10n.SBLinkSmartAction.replace( '%s', linkName );
 
@@ -2967,7 +2972,7 @@ var LayerSlider = {
 		for(var sKey in layerData.styles) {
 			var cssVal = layerData.styles[sKey];
 
-			if( ! cssVal && cssVal !== 0 ) { continue; }
+			if( ( ! cssVal && cssVal !== 0 ) || cssVal === 'unset' ) { continue; }
 
 			cssVal = cssVal.toString();
 			if( cssVal.slice(-1) == ';' ) { cssVal = cssVal.substring(0, cssVal.length - 1); }
@@ -4272,8 +4277,7 @@ var LayerSlider = {
 			sliderOptions.plugins = jQuery.merge(sliderOptions.plugins, plugins);
 		}
 
-		// Init layerslider
-		$slider.layerSlider( jQuery.extend( true, {
+		var sliderDefaults = {
 			type: 'responsive',
 			width: sliderSize.width,
 			height: sliderSize.height,
@@ -4299,11 +4303,21 @@ var LayerSlider = {
 			playByScrollSpeed: sliderProps.playByScrollSpeed || 1,
 			navButtons: false,
 			navStartStop: false,
+			forceLayersOutDuration: sliderProps.forceLayersOutDuration || 750,
 			allowRestartOnResize: sliderProps.allowRestartOnResize ? true : false,
 			preferBlendMode: sliderProps.preferBlendMode,
 			plugins: plugins
+		};
 
-		}, sliderOptions )).on('slideTimelineDidComplete', function( event, slider ) {
+		if( sliderProps.maxRatio ) {
+			sliderDefaults.maxRatio = sliderProps.maxRatio;
+		}
+
+		// Init layerslider
+		$slider.layerSlider(
+			jQuery.extend( true, sliderDefaults, sliderOptions )
+
+		).on('slideTimelineDidComplete', function( event, slider ) {
 			// if( jQuery('.ls-timeline-switch li').eq(0).hasClass('active') ) {
 			// 	slider.api('replay');
 			// 	return false;
@@ -4332,7 +4346,7 @@ var LayerSlider = {
 
 			// Stop LayerSlider and empty the preview contents
 			var layersliders = jQuery('#ls-layers .ls-real-time-preview');
-			layersliders.find('.ls-container').layerSlider( 'destroy', true );
+			layersliders.find('.ls-container').off().layerSlider( 'destroy', true );
 			layersliders.hide();
 
 			// Rewrote the Preview button text
@@ -4415,8 +4429,7 @@ var LayerSlider = {
 			sliderOptions.plugins = jQuery.merge(sliderOptions.plugins, plugins);
 		}
 
-		// Init layerslider
-		$slider.layerSlider( jQuery.extend( true, {
+		var sliderDefaults = {
 			type: 'popup',
 			width: width,
 			height: height,
@@ -4452,6 +4465,7 @@ var LayerSlider = {
 			globalBGPosition: sliderProps.globalBGPosition,
 			globalBGSize: sliderProps.globalBGSize,
 			parallaxScrollReverse: sliderProps.parallaxScrollReverse,
+			forceLayersOutDuration: sliderProps.forceLayersOutDuration || 750,
 			allowRestartOnResize: sliderProps.allowRestartOnResize ? true : false,
 			preferBlendMode: sliderProps.preferBlendMode,
 			plugins: plugins,
@@ -4461,8 +4475,14 @@ var LayerSlider = {
 			popupShowOnTimeout: 0.01,
 			popupDisableOverlay: false,
 			popupOverlayClickToClose: true
+		};
 
-		}, sliderOptions ));
+		if( sliderProps.maxRatio ) {
+			sliderDefaults.maxRatio = sliderProps.maxRatio;
+		}
+
+		// Init layerslider
+		$slider.layerSlider( jQuery.extend( true, sliderDefaults, sliderOptions ) );
 	},
 
 
@@ -4547,15 +4567,16 @@ var LayerSlider = {
 			slideData.sublayers.reverse();
 		});
 
-		// Callbacks
+
+		// Apply API events (if any)
 		if( callbacks ) {
+
 			for( var key in callbacks ) {
 
 				var callback 	= callbacks[ key ],
 					startIndex 	= callback.indexOf('{') + 1,
 					endIndex 	= callback.length - 1;
-
-					body 	= callback.substring(startIndex, endIndex);
+					body 		= callback.substring(startIndex, endIndex);
 
 				$slider.on(key, new Function('event', 'slider', body));
 			}
@@ -4758,7 +4779,7 @@ var LayerSlider = {
 		for( cssProp in layerData.styles ) {
 			cssVal = layerData.styles[cssProp];
 
-			if( ! cssVal && cssVal !== 0 ) { continue; }
+			if( ( ! cssVal && cssVal !== 0 ) || cssVal === 'unset' ) { continue; }
 			cssVal = cssVal.toString();
 
 			if(cssVal.slice(-1) == ';' ) {
@@ -6019,6 +6040,9 @@ var LS_PostChooser = {
 			l10nKey = 'SBLinkText'+ucFirst(item['post-type']),
 			$holder = jQuery(LS_PostChooser.opener).closest('.ls-slide-link'),
 			$input 	= jQuery('input.url', $holder);
+
+		// Normalize HTML entities
+		item.title = jQuery('<textarea>').html( item.title ).text();
 
 		// Set link properties
 		$input.val( LS_l10n[l10nKey].replace('%s', item.title) )
@@ -7445,6 +7469,18 @@ var initSliderBuilder = function() {
 
 			jQuery('.ls-layer-kind').removeClass('hover');
 		}
+
+	// Change layer media type
+	}).on('click', '.ls-layer-kind li:first-child', function(e) {
+		e.preventDefault();
+
+		jQuery(this).closest('.ls-layer-kind').addClass('opened');
+		setTimeout(function() {
+			jQuery('html').one('click', function() {
+				jQuery('.ls-layer-kind').removeClass('opened');
+			});
+		}, 100);
+
 
 	}).on('mouseenter', '.ls-layer-kind', function() {
 		jQuery(this).addClass('hover');

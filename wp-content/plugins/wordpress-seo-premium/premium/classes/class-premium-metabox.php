@@ -41,7 +41,7 @@ class WPSEO_Premium_Metabox implements WPSEO_WordPress_Integration {
 	 */
 	public function register_assets() {
 		$asset_manager = new WPSEO_Admin_Asset_Manager();
-		$version = $asset_manager->flatten_version( WPSEO_VERSION );
+		$version       = $asset_manager->flatten_version( WPSEO_VERSION );
 
 		wp_register_script(
 			WPSEO_Admin_Asset_Manager::PREFIX . 'premium-metabox',
@@ -68,32 +68,32 @@ class WPSEO_Premium_Metabox implements WPSEO_WordPress_Integration {
 	 * Send data to assets by using wp_localize_script.
 	 */
 	public function send_data_to_assets() {
-		$options = WPSEO_Options::get_option( 'wpseo' );
-		$insights_enabled = ( isset( $options['enable_metabox_insights'] ) && $options['enable_metabox_insights'] );
+		$options                  = WPSEO_Options::get_option( 'wpseo' );
+		$insights_enabled         = ( isset( $options['enable_metabox_insights'] ) && $options['enable_metabox_insights'] );
 		$link_suggestions_enabled = ( isset( $options['enable_link_suggestions'] ) && $options['enable_link_suggestions'] );
 
 		$language_support = new WPSEO_Premium_Prominent_Words_Language_Support();
 
 		if ( ! $language_support->is_language_supported( WPSEO_Utils::get_language( get_locale() ) ) ) {
-			$insights_enabled = false;
+			$insights_enabled         = false;
 			$link_suggestions_enabled = false;
 		}
 
 		$post = $this->get_post();
 
 		$data = array(
-			'insightsEnabled' => ( $insights_enabled ) ? 'enabled' : 'disabled',
-			'postID' => $this->get_post_ID(),
-			'restApi' => array(
-				'available' => WPSEO_Utils::is_api_available(),
+			'insightsEnabled'          => ( $insights_enabled ) ? 'enabled' : 'disabled',
+			'postID'                   => $this->get_post_ID(),
+			'restApi'                  => array(
+				'available'                 => WPSEO_Utils::is_api_available(),
 				'contentEndpointsAvailable' => WPSEO_Utils::are_content_endpoints_available(),
-				'root' => esc_url_raw( rest_url() ),
-				'nonce' => wp_create_nonce( 'wp_rest' ),
+				'root'                      => esc_url_raw( rest_url() ),
+				'nonce'                     => wp_create_nonce( 'wp_rest' ),
 			),
-			'linkSuggestionsEnabled' => ( $link_suggestions_enabled ) ? 'enabled' : 'disabled',
+			'linkSuggestionsEnabled'   => ( $link_suggestions_enabled ) ? 'enabled' : 'disabled',
 			'linkSuggestionsAvailable' => $this->link_suggestions->is_available( $post->post_type ),
 			'linkSuggestionsUnindexed' => $this->link_suggestions->is_site_unindexed() && WPSEO_Capability_Utils::current_user_can( 'wpseo_manage_options' ),
-			'linkSuggestions' => $this->link_suggestions->get_js_data(),
+			'linkSuggestions'          => $this->link_suggestions->get_js_data(),
 		);
 
 		// Use an extra level in the array to preserve booleans. WordPress sanitizes scalar values in the first level of the array.

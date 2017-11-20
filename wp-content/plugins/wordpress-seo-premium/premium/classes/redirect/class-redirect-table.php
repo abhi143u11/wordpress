@@ -4,7 +4,7 @@
  */
 
 if ( ! class_exists( 'WP_List_Table' ) ) {
-	require_once( ABSPATH . 'wp-admin/includes/class-wp-list-table.php' );
+	require_once ABSPATH . 'wp-admin/includes/class-wp-list-table.php';
 }
 
 /**
@@ -63,7 +63,7 @@ class WPSEO_Redirect_Table extends WP_List_Table {
 		}
 
 		$selected = filter_input( INPUT_GET, 'redirect-type' );
-		if ( ! $selected  ) {
+		if ( ! $selected ) {
 			$selected = 0;
 		}
 
@@ -79,7 +79,7 @@ class WPSEO_Redirect_Table extends WP_List_Table {
 					printf( "<option %s value='%s'>%s</option>\n",
 						selected( $selected, $http_code, false ),
 						esc_attr( $http_code ),
-						$redirect_type
+						esc_html( $redirect_type )
 					);
 				}
 				?>
@@ -151,7 +151,8 @@ class WPSEO_Redirect_Table extends WP_List_Table {
 			'per_page'    => $per_page,
 		) );
 
-		$current_page = (int) ( ( $paged = filter_input( INPUT_GET, 'paged' ) ) ? $paged : 0 );
+		$paged        = filter_input( INPUT_GET, 'paged' );
+		$current_page = (int) ( ( isset( $paged ) && $paged !== false ) ? $paged : 0 );
 
 		// Setting the starting point. If starting point is below 1, overwrite it with value 0, otherwise it will be sliced of at the back.
 		$slice_start = ( $current_page - 1 );
@@ -173,8 +174,8 @@ class WPSEO_Redirect_Table extends WP_List_Table {
 	 */
 	public function get_sortable_columns() {
 		$sortable_columns = array(
-			'old' => array( 'old', false ),
-			'new' => array( 'new', false ),
+			'old'  => array( 'old', false ),
+			'new'  => array( 'new', false ),
 			'type' => array( 'type', false ),
 		);
 
@@ -191,13 +192,33 @@ class WPSEO_Redirect_Table extends WP_List_Table {
 	 */
 	public function do_reorder( $a, $b ) {
 		// If no sort, default to title.
-		$orderby = filter_input( INPUT_GET, 'orderby', FILTER_VALIDATE_REGEXP, array( 'options' => array( 'default' => 'old', 'regexp' => '/^(old|new|type)$/' ) ) );
+		$orderby = filter_input(
+			INPUT_GET,
+			'orderby',
+			FILTER_VALIDATE_REGEXP,
+			array(
+				'options' => array(
+					'default' => 'old',
+					'regexp'  => '/^(old|new|type)$/',
+				),
+			)
+		);
 
 		// If no order, default to asc.
-		$order = filter_input( INPUT_GET, 'order', FILTER_VALIDATE_REGEXP, array( 'options' => array( 'default' => 'asc', 'regexp' => '/^(asc|desc)$/' ) ) );
+		$order = filter_input(
+			INPUT_GET,
+			'order',
+			FILTER_VALIDATE_REGEXP,
+			array(
+				'options' => array(
+					'default' => 'asc',
+					'regexp'  => '/^(asc|desc)$/',
+				),
+			)
+		);
 
 		// Determine sort order.
-		$result   = strcmp( $a[ $orderby ], $b[ $orderby ] );
+		$result = strcmp( $a[ $orderby ], $b[ $orderby ] );
 
 		// Send final sort direction to usort.
 		return ( $order === 'asc' ) ? $result : ( - $result );
@@ -250,7 +271,7 @@ class WPSEO_Redirect_Table extends WP_List_Table {
 				}
 
 				return "<div class='" . esc_attr( implode( ' ', $classes ) ) . "'>" . esc_html( $new_url ) . '</div>' . $row_actions;
-				break;
+
 			case 'old':
 				$classes = '';
 				if ( $is_regex === true ) {
@@ -258,10 +279,10 @@ class WPSEO_Redirect_Table extends WP_List_Table {
 				}
 
 				return "<div class='val" . $classes . "'>" . esc_html( $item['old'] ) . '</div>' . $row_actions;
-				break;
-			case 'type';
+
+			case 'type':
 				return '<div class="val type">' . esc_html( $item['type'] ) . '</div>' . $row_actions;
-				break;
+
 			default:
 				return $item[ $column_name ];
 		}
@@ -308,13 +329,15 @@ class WPSEO_Redirect_Table extends WP_List_Table {
 	private function filter_items( array $items ) {
 		$search_string = filter_input( INPUT_GET, 's', FILTER_DEFAULT, array( 'options' => array( 'default' => '' ) ) );
 		if ( $search_string !== '' ) {
-			$this->filter['search_string'] = $search_string;
+			$this->filter['search_string'] = trim( $search_string, '/' );
+
 			$items = array_filter( $items, array( $this, 'filter_by_search_string' ) );
 		}
 
 		$redirect_type = (int) filter_input( INPUT_GET, 'redirect-type' );
-		if ( ! empty( $redirect_type )  ) {
+		if ( ! empty( $redirect_type ) ) {
 			$this->filter['redirect_type'] = $redirect_type;
+
 			$items = array_filter( $items, array( $this, 'filter_by_type' ) );
 		}
 

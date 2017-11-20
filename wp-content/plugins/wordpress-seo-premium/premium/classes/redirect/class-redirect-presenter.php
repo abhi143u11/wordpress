@@ -17,7 +17,7 @@ class WPSEO_Redirect_Presenter {
 		$tab_presenter = $this->get_tab_presenter( $tab_to_display );
 		$redirect_tabs = $this->navigation_tabs( $tab_to_display );
 
-		include( WPSEO_PATH . 'premium/classes/redirect/views/redirects.php' );
+		include WPSEO_PREMIUM_PATH . 'classes/redirect/views/redirects.php';
 	}
 
 	/**
@@ -30,14 +30,16 @@ class WPSEO_Redirect_Presenter {
 	private function get_tab_presenter( $tab_to_display ) {
 		$tab_presenter = null;
 		switch ( $tab_to_display ) {
-			case 'plain' :
-			case 'regex' :
+			case 'plain':
+			case 'regex':
 				$redirect_manager = new WPSEO_Redirect_Manager( $tab_to_display );
 				$tab_presenter    = new WPSEO_Redirect_Table_Presenter( $tab_to_display, $this->get_view_vars() );
 				$tab_presenter->set_table( $redirect_manager->get_redirects() );
 				break;
-			case 'settings' :
-				$tab_presenter = new WPSEO_Redirect_Settings_Presenter( $tab_to_display, $this->get_view_vars() );
+			case 'settings':
+				if ( current_user_can( 'wpseo_manage_options' ) ) {
+					$tab_presenter = new WPSEO_Redirect_Settings_Presenter( $tab_to_display, $this->get_view_vars() );
+				}
 				break;
 		}
 
@@ -52,14 +54,19 @@ class WPSEO_Redirect_Presenter {
 	 * @return array
 	 */
 	private function navigation_tabs( $active_tab ) {
+		$tabs = array(
+			'plain'    => __( 'Redirects', 'wordpress-seo-premium' ),
+			'regex'    => __( 'Regex Redirects', 'wordpress-seo-premium' ),
+		);
+
+		if ( current_user_can( 'wpseo_manage_options' ) ) {
+			$tabs['settings'] = __( 'Settings', 'wordpress-seo-premium' );
+		}
+
 		return array(
-			'tabs' => array(
-				'plain'    => __( 'Redirects', 'wordpress-seo-premium' ),
-				'regex'    => __( 'Regex Redirects', 'wordpress-seo-premium' ),
-				'settings' => __( 'Settings', 'wordpress-seo-premium' ),
-			),
+			'tabs'        => $tabs,
 			'current_tab' => $active_tab,
-			'page_url' => admin_url( 'admin.php?page=wpseo_redirects&tab=' ),
+			'page_url'    => admin_url( 'admin.php?page=wpseo_redirects&tab=' ),
 		);
 	}
 

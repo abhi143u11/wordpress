@@ -807,13 +807,16 @@ jQuery(function($) {
 				security: window.lsImportNonce
 			},
 			success: function(data, textStatus, jqXHR) {
-				data = JSON.parse( data );
-				if( data && data.success ) {
+
+				data = data ? JSON.parse( data ) : {};
+
+				if( data.success ) {
 					document.location.href = data.url;
 
-				} else if(data.message) {
+				} else {
+
 					setTimeout(function() {
-						alert(data.message);
+						alert( data.message ? data.message : LS_l10n.SLImportError);
 						setTimeout(function() {
 							kmUI.modal.close();
 							kmUI.overlay.close();
@@ -823,15 +826,6 @@ jQuery(function($) {
 					if( data.reload ) {
 						window.location.reload( true );
 					}
-
-				} else {
-					setTimeout(function() {
-						alert(LS_l10n.SLImportError);
-						setTimeout(function() {
-							kmUI.modal.close();
-							kmUI.overlay.close();
-						}, 1000);
-					}, 600);
 				}
 			},
 			error: function(jqXHR, textStatus, errorThrown) {

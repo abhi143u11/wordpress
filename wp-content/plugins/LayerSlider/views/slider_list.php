@@ -915,7 +915,7 @@
 						<td><?php _e('Use slider markup caching', 'LayerSlider') ?></td>
 						<td><input type="checkbox" name="use_cache" <?php echo get_option('ls_use_cache', true) ? 'checked="checked"' : '' ?>></td>
 						<td class="desc">
-							<?php _e('Enabled caching can drastically increase the plugin performance and spare your server from unnecessary load.', 'LayerSlider') ?>
+							<?php _e('Enabled caching can drastically increase the plugin performance and spare your server from unnecessary load. LayerSlider will serve fresh, non-cached versions for admins and anyone who can manage sliders.', 'LayerSlider') ?>
 							<a href="<?php echo wp_nonce_url('?page=layerslider&action=empty_caches', 'empty_caches') ?>" class="button button-small"><?php _e('Empty caches', 'LayerSlider') ?></a>
 						</td>
 					</tr>

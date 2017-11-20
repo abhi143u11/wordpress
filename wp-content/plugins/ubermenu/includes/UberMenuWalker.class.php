@@ -18,13 +18,13 @@ class UberMenuWalker extends Walker_Nav_Menu {
 
 	var $ignore_items = array(); //Don't print these items
 	var $ignore_children = array();
-	
+
 	var $detached_content = array();
 	var $detached = false;
 	var $detached_context = 0;
-	
+
 	var $offset_depth = 0;
-	
+
 	/**
 	 * What the class handles.
 	 *
@@ -44,7 +44,7 @@ class UberMenuWalker extends Walker_Nav_Menu {
 	 */
 	var $db_fields = array( 'parent' => 'menu_item_parent', 'id' => 'db_id' );
 
-	function __construct(){	
+	function __construct(){
 		$this->setting_defaults = ubermenu_menu_item_setting_defaults();
 		$this->setting_defaults['submenu_type_calc'] = 'unk';	//Unknown
 		$this->setting_defaults['item_display_calc'] = 'unk';	//Unknown
@@ -95,11 +95,30 @@ class UberMenuWalker extends Walker_Nav_Menu {
 		if( isset( $children_elements[ $element->$id_field ] ) && count( $children_elements[ $element->$id_field ] ) > 0 ){
 			$has_row = false;
 			$has_nonrow = false;
+//if( $element->$id_field == 65 ) uberp( $children_elements[ $element->$id_field ] , 3 );
+
 			foreach( $children_elements[ $element->$id_field ] as $child_el ){
+
+				//If we find a [Row] child, flag
 				if( $child_el->type_label == '[UberMenu Row]' ){
 					$has_row = true;
-					//break;
 				}
+
+				//Menu Segment can't reliably determine rows.
+
+				//If we find a menu segment, we need to check its children
+				// else if( $child_el->object == 'ubermenu-custom' && $child_el->type_label == '[UberMenu Menu Segment]' ){
+				// 	foreach( $children_elements[$child_el->ID] as $grandchild_el ){
+				// 		if( $grandchild_el->type_label == '[UberMenu Row]' ){
+				// 			$has_row = true;
+				// 		}
+				// 		else{
+				// 			$has_nonrow = true;
+				// 		}
+				// 	}
+				// }
+
+				//Flag that one child is not a row
 				else{
 					$has_nonrow = true;
 				}
@@ -112,7 +131,7 @@ class UberMenuWalker extends Walker_Nav_Menu {
 				if( $has_nonrow){
 
 					$row_count = 0;
-					$current_row = false; 
+					$current_row = false;
 					$current_row_id = 0;
 
 					$id = $element->$id_field;
@@ -147,9 +166,9 @@ class UberMenuWalker extends Walker_Nav_Menu {
 
 							//Remove Children from Sub?
 							//unset( $children_elements[$id][$k] );  // No because we reset array above
-							
+
 						}
-						
+
 
 					}
 				}
@@ -158,11 +177,11 @@ class UberMenuWalker extends Walker_Nav_Menu {
 
 
 		//Walker_Nav_Menu::display_element( $element, $children_elements, $max_depth, $depth, $args, $output );
-		
+
 
 		//display this element - wp-includes/class-wp-walker.php
 		$has_children = ! empty( $children_elements[$element->$id_field] );
-		if ( isset( $args[0] ) && is_array( $args[0] ) ){			
+		if ( isset( $args[0] ) && is_array( $args[0] ) ){
 			$args[0]['has_children'] = $has_children;
 		}
 		$cb_args = array_merge( array(&$output, $element, $depth), $args);
@@ -177,7 +196,7 @@ class UberMenuWalker extends Walker_Nav_Menu {
 
 		$umitem = new $umitem_obect_class( $output , $element , $depth, $cb_args[3], $id , $this , $has_children );	//The $args that get passed to start_el are $cb[3] -- i.e. the 4the element in the array merged above
 
-		
+
 
 
 		//Ignoring? Check again after initialization so that item can disable itself
@@ -218,14 +237,14 @@ class UberMenuWalker extends Walker_Nav_Menu {
 		}
 
 		$this->push_item( $umitem );
-	
-	
+
+
 		call_user_func_array(array($this, 'start_el'), $cb_args);
 
 
 
 		//Check if we are ignoring children
-		
+
 		if( !$this->get_ignore_children( $id ) ){
 
 			// descend only when the depth is right and there are childrens for this element
@@ -234,7 +253,7 @@ class UberMenuWalker extends Walker_Nav_Menu {
 				foreach( $children_elements[ $id ] as $child ){
 
 					$this->auto_child = $umitem->getAutoChild();
-					
+
 					if ( !isset($newlevel) ) {
 						$newlevel = true;
 						//start the child delimiter
@@ -262,7 +281,7 @@ class UberMenuWalker extends Walker_Nav_Menu {
 		//end this element
 		$cb_args = array_merge( array(&$output, $element, $depth), $args);
 		call_user_func_array(array($this, 'end_el'), $cb_args);
-	
+
 
 		//Cleanup when we hit top level items (original depth/without offset matters for menu segments)
 		if( $depth == 0 || $original_depth == 0 ){
@@ -273,7 +292,7 @@ class UberMenuWalker extends Walker_Nav_Menu {
 				//echo '<br/>$$unset '.$_trash_id.'<br/>';
 				unset( $children_elements[$_trash_id] );
 			}
-			
+
 			if( $depth == 0 ) $this->trashbin = array();	//reset trashbin only at very top
 
 		}
@@ -331,7 +350,7 @@ class UberMenuWalker extends Walker_Nav_Menu {
 	function start_el( &$output, $item, $depth = 0, $args = array(), $id = 0 ) {
 
 		$this->current_umitem->start_el();
-		
+
 	}
 
 
@@ -379,17 +398,17 @@ class UberMenuWalker extends Walker_Nav_Menu {
 		return end( $this->item_stack );
 	}
 	function parent_item(){
-		return isset( $this->item_stack[count($this->item_stack)-2] ) ? 
+		return isset( $this->item_stack[count($this->item_stack)-2] ) ?
 				$this->item_stack[count($this->item_stack)-2] :
 				false;
 	}
 	function grandparent_item(){
-		return isset( $this->item_stack[count($this->item_stack)-3] ) ? 
+		return isset( $this->item_stack[count($this->item_stack)-3] ) ?
 				$this->item_stack[count($this->item_stack)-3] :
 				false;
 	}
 	function ancestor_item( $k ){
-		return isset( $this->item_stack[count($this->item_stack)-$k] ) ? 
+		return isset( $this->item_stack[count($this->item_stack)-$k] ) ?
 				$this->item_stack[count($this->item_stack)-$k] :
 				false;
 	}
@@ -446,7 +465,7 @@ class UberMenuWalker extends Walker_Nav_Menu {
 
 
 
-	
+
 	function setAutoChild( $auto_child ){
 		$this->auto_child = $auto_child;
 	}
@@ -495,6 +514,6 @@ class UberMenuWalker extends Walker_Nav_Menu {
 		return $key;
 	}
 
-	
+
 
 }

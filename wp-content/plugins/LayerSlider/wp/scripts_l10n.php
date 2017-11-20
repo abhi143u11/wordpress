@@ -28,8 +28,8 @@ $l10n_ls = array(
 	'SLJQueryReminder' 	=> __('Do not forget to disable this option later on if it does not help, or if you experience unexpected issues. This includes your entire site, not just LayerSlider.', 'LayerSlider'),
 
 	'SLImporting' 		=> __('Importing, please wait...', 'LayerSlider'),
-	'SLImportError' 	=> __('It seems there is a server issue that prevented LayerSlider from importing your selected slider. Please check LayerSlider -> System Status for potential errors, try to temporarily disable themes/plugins to rule out incompatibility issues or contact your hosting provider to resolve server configuration problems. In many cases retrying to import the same slider can help.', 'LayerSlider'),
-	'SLImportHTTPError' => __('It seems there is a server issue that prevented LayerSlider from importing your selected slider. Please check LayerSlider -> System Status for potential errors, try to temporarily disable themes/plugins to rule out incompatibility issues or contact your hosting provider to resolve server configuration problems. In many cases retrying to import the same slider can help. Your HTTP server thrown the following error: \n\n %s', 'LayerSlider'),
+	'SLImportError' 	=> __('It seems there is a server issue that prevented LayerSlider from importing your selected slider. Please check LayerSlider -> System Status for potential errors, try to temporarily disable themes/plugins to rule out incompatibility issues or contact your hosting provider to resolve server configuration problems. Retrying the import might also help.', 'LayerSlider'),
+	'SLImportHTTPError' => __('It seems there is a server issue that prevented LayerSlider from importing your selected slider. Please check LayerSlider -> System Status for potential errors, try to temporarily disable themes/plugins to rule out incompatibility issues or contact your hosting provider to resolve server configuration problems. Retrying the import might also help. Your HTTP server thrown the following error: \n\n %s', 'LayerSlider'),
 
 	// Template Store
 	'TSImportWarningTitle' 		=> __('Activate your site to access premium templates.', 'LayerSlider'),

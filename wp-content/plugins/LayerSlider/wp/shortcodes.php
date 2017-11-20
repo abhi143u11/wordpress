@@ -213,8 +213,14 @@ class LS_Shortcode {
 
 	public static function cacheForSlider( $sliderID ) {
 
+		// Exclude administrators to avoid serving a copy
+		// where notifications and other items may not be present.
+		if( current_user_can( get_option('layerslider_custom_capability', 'manage_options') ) ) {
+			return false;
+		}
+
 		// Attempt to retrieve the pre-generated markup
-		// set via the Transients API
+		// set via the Transients API if caching is enabled.
 		if( get_option('ls_use_cache', true) ) {
 
 			if( $slider = get_transient('ls-slider-data-'.$sliderID) ) {
@@ -261,8 +267,12 @@ class LS_Shortcode {
 			$output['flag_deleted'] 	= $slider['flag_deleted'];
 
 
-			// Save generated markup if caching is enabled
-			if( get_option('ls_use_cache', true) ) {
+			// Save generated markup if caching is enabled, except for
+			// administrators to avoid serving a copy where notifications
+			// and other items may be present.
+			$capability = get_option('layerslider_custom_capability', 'manage_options');
+			$permission = current_user_can( $capability );
+			if( get_option('ls_use_cache', true) && ! $permission ) {
 				set_transient('ls-slider-data-'.$slider['id'], $output, HOUR_IN_SECONDS * 6);
 			}
 		}

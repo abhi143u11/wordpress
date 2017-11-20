@@ -187,7 +187,7 @@
 						</ul>
 					</div>
 					<div class="col">
-						<h3><?php _e('Licesing', 'LayerSlider') ?></h3>
+						<h3><?php _e('Licensing', 'LayerSlider') ?></h3>
 						<ul>
 							<li>
 								<a href="https://codecanyon.net/licenses/terms/regular" target="_blank">

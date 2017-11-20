@@ -655,7 +655,7 @@ include LS_ROOT_PATH . '/templates/tmpl-import-layer.php';
 					<figure><span>|</span> <?php _e('Fires when the Popup starts its opening transition and becomes visible.', 'LayerSlider') ?></figure>
 				</h3>
 				<div>
-					<textarea name="popupWillOpen" data-event-data="false" cols="20" rows="5" class="ls-codemirror">function( event ) {
+					<textarea name="popupWillOpen" data-event-data="false" cols="20" rows="5" class="ls-codemirror">function( event, slider ) {
 
 }</textarea>
 				</div>
@@ -667,7 +667,7 @@ include LS_ROOT_PATH . '/templates/tmpl-import-layer.php';
 					<figure><span>|</span> <?php _e('Fires when the Popup completed its opening transition.', 'LayerSlider') ?></figure>
 				</h3>
 				<div>
-					<textarea name="popupDidOpen" data-event-data="false" cols="20" rows="5" class="ls-codemirror">function( event ) {
+					<textarea name="popupDidOpen" data-event-data="false" cols="20" rows="5" class="ls-codemirror">function( event, slider ) {
 
 }</textarea>
 				</div>
@@ -679,7 +679,7 @@ include LS_ROOT_PATH . '/templates/tmpl-import-layer.php';
 					<figure><span>|</span> <?php _e('Fires when the Popup stars its closing transition.', 'LayerSlider') ?></figure>
 				</h3>
 				<div>
-					<textarea name="popupWillClose" data-event-data="false" cols="20" rows="5" class="ls-codemirror">function( event ) {
+					<textarea name="popupWillClose" data-event-data="false" cols="20" rows="5" class="ls-codemirror">function( event, slider ) {
 
 }</textarea>
 				</div>
@@ -691,7 +691,7 @@ include LS_ROOT_PATH . '/templates/tmpl-import-layer.php';
 					<figure><span>|</span> <?php _e('Fires when the Popup completed its closing transition and became hidden.', 'LayerSlider') ?></figure>
 				</h3>
 				<div>
-					<textarea name="popupDidClose" data-event-data="false" cols="20" rows="5" class="ls-codemirror">function( event ) {
+					<textarea name="popupDidClose" data-event-data="false" cols="20" rows="5" class="ls-codemirror">function( event, slider ) {
 
 }</textarea>
 				</div>

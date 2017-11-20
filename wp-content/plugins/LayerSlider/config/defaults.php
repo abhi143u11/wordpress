@@ -998,7 +998,7 @@ $lsDefaults = array(
 				'min' => 0,
  			),
 			'props' => array(
-				'output' => true
+				'meta' => true
 			)
 		),
 
@@ -1011,7 +1011,7 @@ $lsDefaults = array(
 				'min' => 0,
  			),
 			'props' => array(
-				'output' => true
+				'meta' => true
 			)
 		),
 
@@ -1420,7 +1420,21 @@ $lsDefaults = array(
 			'value' => true,
 			'name' => __('Use srcset attribute', 'LayerSlider'),
 			'keys' => 'useSrcset',
-			'desc' => __('The srcset attribute allows loading dynamically scaled images based on screen resolution. It can save bandwidth and allow using retina-ready images on high resolution devices. In some rare edge cases, this option might cause blurry images.', 'LayerSlider')
+			'desc' => __('The srcset attribute allows loading dynamically scaled images based on screen resolution. It can save bandwidth and allow using retina-ready images on high resolution devices. In some rare edge cases, this option might cause blurry images.', 'LayerSlider'),
+			'props' => array(
+				'meta' => true
+			)
+		),
+
+		'enhancedLazyLoad' => array(
+			'value' => false,
+			'name' => 'Enhanced lazy load',
+			'keys' => 'enhancedLazyLoad',
+			'desc' => __('The default lazy loading behavior makes a compromise to ensure maximum compatibility while offering a solution that works ideally in almost all cases. However, by leaving the image ’src’ attribute untouched, there is a slight chance that the browser might start downloading some assets for a split second before LayerSlider cancels them. Enabling this option will eliminate any chance of generating even a minuscule amount of unwanted traffic, but it can also cause issues for search engine indexing and other WP themes/plugins.', 'LayerSlider'),
+			'advanced' => true,
+			'props' => array(
+				'meta' => true
+			)
 		),
 
 
@@ -2186,7 +2200,8 @@ $lsDefaults = array(
 			'value' => '',
 			'keys' => 'html',
 			'props' => array(
-				'meta' => true
+				'meta' => true,
+				'forceoutput' => true
 			)
 		),
 
@@ -4425,11 +4440,12 @@ $lsDefaults = array(
 		),
 
 		'fontWeight' => array(
-			'value' => 400,
+			'value' => 'unset',
 			'name' => __('Font weight', 'LayerSlider'),
 			'keys' => 'font-weight',
 			'tooltip' => __('Sets the font boldness. Please note, not every font supports all the listed variants, thus some settings may have the same result.', ''),
 			'options' => array(
+				'unset' => __('Inherit from theme', 'LayerSlider'),
 				'100' => __('100 (UltraLight)', 'LayerSlider'),
 				'200' => __('200 (Thin)', 'LayerSlider'),
 				'300' => __('300 (Light)', 'LayerSlider'),
@@ -4446,11 +4462,12 @@ $lsDefaults = array(
 		),
 
 		'fontStyle' => array(
-			'value' => 'normal',
+			'value' => 'unset',
 			'name' => __('Font style', 'LayerSlider'),
 			'keys' => 'font-style',
 			'tooltip' => __('Oblique is an auto-generated italic version of your chosen font and can force slating even if there is no italic font variant available. However, you should use the regular italic option whenever is possible. Please double check to load italic font variants when using Google Fonts.', ''),
 			'options' => array(
+				'unset' => __('Inherit from theme', 'LayerSlider'),
 				'normal' => __('Normal', 'LayerSlider'),
 				'italic' => __('Italic', 'LayerSlider'),
 				'oblique' => __('Oblique (Forced slant)', 'LayerSlider')
@@ -4461,11 +4478,12 @@ $lsDefaults = array(
 		),
 
 		'textDecoration' => array(
-			'value' => 'none',
+			'value' => 'unset',
 			'name' => __('Text decoration', 'LayerSlider'),
 			'keys' => 'text-decoration',
 			'options' => array(
-				'none' => 'None',
+				'unset' => __('Inherit from theme', 'LayerSlider'),
+				'none' => __('None', 'LayerSlider'),
 				'underline' => __('Underline', 'LayerSlider'),
 				'overline' => __('Overline', 'LayerSlider'),
 				'line-through' => __('Line through', 'LayerSlider')
@@ -4491,10 +4509,11 @@ $lsDefaults = array(
 		),
 
 		'textAlign' => array(
-			'value' => 'none',
+			'value' => 'unset',
 			'name' => __('Text align', 'LayerSlider'),
 			'keys' => 'text-align',
 			'options' => array(
+				'unset' => __('Inherit from theme', 'LayerSlider'),
 				'initial' => __('Initial (Language default)', 'LayerSlider'),
 				'left' => __('Left', 'LayerSlider'),
 				'right' => __('Right', 'LayerSlider'),
@@ -4676,12 +4695,13 @@ $lsDefaults = array(
 		),
 
 		'blendMode' => array(
-			'value' => 'normal',
+			'value' => 'unset',
 			'name' => __('Blend mode', 'LayerSlider'),
 			'keys' => 'mix-blend-mode',
 			'tooltip' => __('Choose how layers and the slide background should blend into each other. Blend modes are an easy way to add eye-catching effects and is one of the most frequently used features in graphic and print design.', 'LayerSlider'),
 			'premium' => true,
 			'options' => array(
+				'unset' => __('Inherit from theme', 'LayerSlider'),
 				'normal' => 'Normal',
 				'multiply' => 'Multiply',
 				'screen' => 'Screen',

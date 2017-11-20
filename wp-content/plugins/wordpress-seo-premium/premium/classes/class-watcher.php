@@ -43,7 +43,7 @@ abstract class WPSEO_Watcher {
 	protected function parse_url_field( $url, $type ) {
 
 		// Output the hidden field.
-		return '<input type="hidden" name="wpseo_old_' . $type . '_url" value="' . esc_attr( $url ) . '"/>';
+		return '<input type="hidden" name="' . esc_attr( 'wpseo_old_' . $type . '_url' ) . '" value="' . esc_attr( $url ) . '"/>';
 
 	}
 
@@ -58,7 +58,7 @@ abstract class WPSEO_Watcher {
 	protected function should_create_redirect( $old_url, $new_url ) {
 
 		// Get the site URL.
-		$site = parse_url( get_site_url() );
+		$site = wp_parse_url( get_site_url() );
 
 		if ( $old_url !== $new_url && $old_url !== '/' && ( ! isset( $site['path'] ) || ( isset( $site['path'] ) && $old_url !== $site['path'] . '/' ) ) ) {
 			return true;
@@ -74,7 +74,7 @@ abstract class WPSEO_Watcher {
 	 *
 	 * @param string $message           The message that will be added to the notification.
 	 * @param string $notification_type The type of the notification.
-	 * @param string $id 				ID that will be given to the notice.
+	 * @param string $id                ID that will be given to the notice.
 	 */
 	protected function create_notification( $message, $notification_type, $id = null ) {
 		$show_notification = true;
@@ -200,7 +200,7 @@ abstract class WPSEO_Watcher {
 	 * @param WPSEO_Redirect $redirect The old URL to the post.
 	 */
 	protected function set_undo_slug_notification( WPSEO_Redirect $redirect ) {
-		$id = 'wpseo_undo_redirect_' . md5( $redirect->get_origin() );
+		$id      = 'wpseo_undo_redirect_' . md5( $redirect->get_origin() );
 		$old_url = $this->format_redirect_url( $redirect->get_origin() );
 		$new_url = $this->format_redirect_url( $redirect->get_target() );
 

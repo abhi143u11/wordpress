@@ -42,7 +42,7 @@ class WPSEO_Term_Watcher extends WPSEO_Watcher {
 		}
 
 		$asset_manager = new WPSEO_Admin_Asset_Manager();
-		$version = $asset_manager->flatten_version( WPSEO_VERSION );
+		$version       = $asset_manager->flatten_version( WPSEO_VERSION );
 
 		if ( $current_page === 'edit-tags.php' ) {
 			wp_enqueue_script( 'wp-seo-premium-quickedit-notification', plugin_dir_url( WPSEO_PREMIUM_FILE ) . 'assets/js/dist/wp-seo-premium-quickedit-notification-' . $version . WPSEO_CSSJS_SUFFIX . '.js', array( 'jquery' ), WPSEO_VERSION );
@@ -145,10 +145,12 @@ class WPSEO_Term_Watcher extends WPSEO_Watcher {
 	 */
 	protected function get_target_url( $tag, $taxonomy ) {
 		// Use the correct URL path.
-		$url = parse_url( get_term_link( $tag, $taxonomy ) );
-		$url = $url['path'];
+		$url = wp_parse_url( get_term_link( $tag, $taxonomy ) );
+		if ( is_array( $url ) && isset( $url['path'] ) ) {
+			return $url['path'];
+		}
 
-		return $url;
+		return '';
 	}
 
 	/**

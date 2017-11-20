@@ -101,7 +101,7 @@ class WPSEO_Redirect_Page {
 	 */
 	public function enqueue_assets() {
 		$asset_manager = new WPSEO_Admin_Asset_Manager();
-		$version = $asset_manager->flatten_version( WPSEO_VERSION );
+		$version       = $asset_manager->flatten_version( WPSEO_VERSION );
 
 		wp_enqueue_script(
 			'wp-seo-premium-admin-redirects',
@@ -272,7 +272,12 @@ class WPSEO_Redirect_Page {
 				INPUT_GET,
 				'tab',
 				FILTER_VALIDATE_REGEXP,
-				array( 'options' => array( 'default' => 'plain', 'regexp' => '/^(plain|regex|settings)$/' ) )
+				array(
+					'options' => array(
+						'default' => 'plain',
+						'regexp'  => '/^(plain|regex|settings)$/',
+					),
+				)
 			);
 		}
 
@@ -308,7 +313,8 @@ class WPSEO_Redirect_Page {
 				$bulk_delete = filter_input( INPUT_POST, 'wpseo_redirects_bulk_delete', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY );
 				$redirects   = array();
 				foreach ( $bulk_delete as $origin ) {
-					if ( $redirect = $this->get_redirect_manager()->get_redirect( $origin ) ) {
+					$redirect = $this->get_redirect_manager()->get_redirect( $origin );
+					if ( $redirect !== false ) {
 						$redirects[] = $redirect;
 					}
 				}

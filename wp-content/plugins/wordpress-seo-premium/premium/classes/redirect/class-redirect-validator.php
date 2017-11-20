@@ -14,33 +14,33 @@ class WPSEO_Redirect_Validator {
 	protected $validation_rules = array(
 		'self-redirect' => array(
 			'validation_class' => 'WPSEO_Redirect_Self_Redirect_Validation',
-			'exclude_types'  => array(),
-			'exclude_format' => array( WPSEO_Redirect::FORMAT_REGEX ),
+			'exclude_types'    => array(),
+			'exclude_format'   => array( WPSEO_Redirect::FORMAT_REGEX ),
 		),
 		'uniqueness' => array(
 			'validation_class' => 'WPSEO_Redirect_Uniqueness_Validation',
-			'exclude_types'  => array(),
-			'exclude_format' => array(),
+			'exclude_types'    => array(),
+			'exclude_format'   => array(),
 		),
-		'presence'     => array(
+		'presence' => array(
 			'validation_class' => 'WPSEO_Redirect_Presence_Validation',
-			'exclude_types'  => array(),
-			'exclude_format' => array(),
+			'exclude_types'    => array(),
+			'exclude_format'   => array(),
 		),
-		'subdirectory-presence'  => array(
+		'subdirectory-presence' => array(
 			'validation_class' => 'WPSEO_Redirect_Subdirectory_Validation',
-			'exclude_types'  => array(),
-			'exclude_format' => array(),
+			'exclude_types'    => array(),
+			'exclude_format'   => array(),
 		),
 		'accessible' => array(
 			'validation_class' => 'WPSEO_Redirect_Accessible_Validation',
-			'exclude_types'  => array( WPSEO_Redirect::DELETED, WPSEO_Redirect::UNAVAILABLE ),
-			'exclude_format' => array(),
+			'exclude_types'    => array( WPSEO_Redirect::DELETED, WPSEO_Redirect::UNAVAILABLE ),
+			'exclude_format'   => array( WPSEO_Redirect::FORMAT_REGEX ),
 		),
-		'endpoint'   => array(
+		'endpoint' => array(
 			'validation_class' => 'WPSEO_Redirect_Endpoint_Validation',
-			'exclude_types'  => array( WPSEO_Redirect::DELETED, WPSEO_Redirect::UNAVAILABLE ),
-			'exclude_format' => array( WPSEO_Redirect::FORMAT_REGEX ),
+			'exclude_types'    => array( WPSEO_Redirect::DELETED, WPSEO_Redirect::UNAVAILABLE ),
+			'exclude_format'   => array( WPSEO_Redirect::FORMAT_REGEX ),
 		),
 	);
 
@@ -52,7 +52,7 @@ class WPSEO_Redirect_Validator {
 	/**
 	 * Validates the old and the new URL
 	 *
-	 * @param WPSEO_Redirect $redirect		   The redirect that will be saved.
+	 * @param WPSEO_Redirect $redirect         The redirect that will be saved.
 	 * @param WPSEO_Redirect $current_redirect Redirect that will be used for comparison.
 	 *
 	 * @return bool|string
@@ -105,8 +105,8 @@ class WPSEO_Redirect_Validator {
 	 */
 	protected function get_filtered_validation_rules( array $validations, WPSEO_Redirect $redirect ) {
 		foreach ( $validations as $validation => $validation_rules ) {
-			$exclude_format = in_array( $redirect->get_format(), $validation_rules['exclude_format'] );
-			$exclude_type   = in_array( $redirect->get_type(), $validation_rules['exclude_types'] );
+			$exclude_format = in_array( $redirect->get_format(), $validation_rules['exclude_format'], true );
+			$exclude_type   = in_array( $redirect->get_type(), $validation_rules['exclude_types'], true );
 
 			if ( $exclude_format || $exclude_type ) {
 				$this->remove_rule( $validations, $validation );

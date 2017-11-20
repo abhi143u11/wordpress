@@ -53,7 +53,7 @@ class WPSEO_Redirect_Apache_Exporter extends WPSEO_Redirect_File_Exporter {
 
 		// 4xx redirects don't have a target.
 		$redirect_type = intval( $redirect->get_type() );
-		if ( floor( $redirect_type / 100 ) == 4 ) {
+		if ( $redirect_type >= 400 && $redirect_type < 500 ) {
 			return $this->format_non_target( $redirect );
 		}
 
@@ -113,6 +113,7 @@ class WPSEO_Redirect_Apache_Exporter extends WPSEO_Redirect_File_Exporter {
 	 * @return string mixed
 	 */
 	private function add_url_slash( $url ) {
+		// @todo Replace with call to wp_parse_url() once minimum requirement has gone up to WP 4.7.
 		$scheme = parse_url( $url, PHP_URL_SCHEME );
 		if ( substr( $url, 0, 1 ) !== '/' && empty( $scheme ) ) {
 			$url = '/' . $url;

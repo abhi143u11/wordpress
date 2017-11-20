@@ -30,7 +30,7 @@ class WPSEO_Facebook_Profile {
 	 * Sets the user id and prints the full Facebook name.
 	 */
 	public function ajax_get_facebook_name() {
-		if ( defined( 'DOING_AJAX' ) && DOING_AJAX  ) {
+		if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
 			check_ajax_referer( 'get_facebook_name' );
 
 			$user_id          = (int) filter_input( INPUT_GET, 'user_id' );
@@ -38,7 +38,7 @@ class WPSEO_Facebook_Profile {
 
 			// Only try to get the name when the user has a profile set.
 			if ( $facebook_profile !== '' ) {
-				wp_die( $this->get_name( $facebook_profile ) );
+				wp_die( esc_html( $this->get_name( $facebook_profile ) ) );
 			}
 
 			wp_die();

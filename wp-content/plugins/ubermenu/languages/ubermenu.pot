@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: UberMenu 3 - The Ultimate WordPress Mega Menu 3.3.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/ubermenu\n"
-"POT-Creation-Date: 2017-08-24 13:12:45+00:00\n"
+"POT-Creation-Date: 2017-11-18 13:35:50+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1480,12 +1480,12 @@ msgstr ""
 msgid "Skip Navigation"
 msgstr ""
 
-#: includes/functions.php:778 includes/functions.php:855
-#: includes/functions.php:900
+#: includes/functions.php:790 includes/functions.php:867
+#: includes/functions.php:912
 msgid "Autocomplete disabled in Control Panel.  Please enter ID manually"
 msgstr ""
 
-#: includes/functions.php:817
+#: includes/functions.php:829
 msgid "[Authors selection disabled via Control Panel]"
 msgstr ""
 
@@ -2851,7 +2851,7 @@ msgid ""
 "(Automatic Integration Only).  When a mobile device is detected via <a "
 "href=\"https://codex.wordpress.org/Function_Reference/wp_is_mobile\" "
 "target=\"_blank\">wp_is_mobile()</a>, UberMenu will not replace the menu "
-"via automatic integration.  By defaut this includes tablets.  <br/>- "
+"via automatic integration.  By default this includes tablets.  <br/>- "
 "<strong>Keep in mind if you are using a cache, you must cache desktop and "
 "mobile separately in order for this to work properly</strong>.  <br/>- "
 "Remember that UberMenu Advanced Items can only be used within UberMenus, so "

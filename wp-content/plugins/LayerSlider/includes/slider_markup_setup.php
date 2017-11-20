@@ -105,9 +105,14 @@ if(isset($slides['layers']) && is_array($slides['layers'])) {
 					$layer['styles']['left']  = $layer['left'];
 				}
 
+				if( ! empty($layer['wordwrap']) || ! empty($layer['styles']['wordwrap']) ) {
+					$layer['styles']['white-space'] = 'normal';
+				}
+
+
 
 				// Marker for Font Awesome
-				if( empty( $GLOBALS['lsLoadFontAwesome'] ) ) {
+				if( empty( $GLOBALS['lsLoadFontAwesome'] ) && ! empty( $layer['html'] ) ) {
 					if( strpos( $layer['html'], 'fa fa-') !== false ) {
 						$GLOBALS['lsLoadFontAwesome'] = true;
 					}
@@ -122,6 +127,18 @@ if(isset($slides['layers']) && is_array($slides['layers'])) {
 						$layer['controls'] = 'disabled';
 					}
 				}
+
+				// Remove unwanted style options
+				$keys = array_keys( $layer['styles'], 'unset', true );
+				foreach( $keys as $key) {
+					unset( $layer['styles'][$key] );
+				}
+
+				if( isset($layer['styles']['opacity']) && $layer['styles']['opacity'] === '1') {
+					unset($layer['styles']['opacity']);
+				}
+
+				unset($layer['styles']['wordwrap']);
 
 				$slider['slides'][$slidekey]['layers'][$layerkey] = apply_filters('ls_parse_defaults', $lsDefaults['layers'], $layer);
 			}

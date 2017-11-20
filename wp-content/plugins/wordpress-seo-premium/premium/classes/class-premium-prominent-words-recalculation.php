@@ -8,7 +8,10 @@
  */
 class WPSEO_Premium_Prominent_Words_Recalculation implements WPSEO_WordPress_Integration {
 
+	/** @var int */
 	const MODAL_DIALOG_HEIGHT_BASE = 282;
+
+	/** @var int */
 	const PROGRESS_BAR_HEIGHT = 32;
 
 	/** @var WPSEO_Premium_Prominent_Words_Unindexed_Post_Query */
@@ -40,7 +43,7 @@ class WPSEO_Premium_Prominent_Words_Recalculation implements WPSEO_WordPress_Int
 		$unindexed_pages = $this->count_unindexed_posts_by_type( 'page' );
 
 		echo '<h2>' . esc_html__( 'Internal linking', 'wordpress-seo-premium' ) . '</h2>';
-		echo '<p>' . __( 'Want to use our internal linking tool? Analyze all the published posts and pages to generate internal linking suggestions.', 'wordpress-seo-premium' ) . '</p>';
+		echo '<p>' . esc_html__( 'Want to use our internal linking tool? Analyze all the published posts and pages to generate internal linking suggestions.', 'wordpress-seo-premium' ) . '</p>';
 		if ( $unindexed_posts === 0 && $unindexed_pages === 0 ) {
 		?>
 
@@ -52,7 +55,7 @@ class WPSEO_Premium_Prominent_Words_Recalculation implements WPSEO_WordPress_Int
 		?>
 
 			<p id="internalLinksCalculation">
-				<a id="openInternalLinksCalculation" href="#TB_inline?width=600&height=<?php echo $height; ?>&inlineId=wpseo_recalculate_internal_links_wrapper" title='<?php echo __( 'Generating internal linking suggestions', 'wordpress-seo-premium' ); ?>' class="btn button yoast-js-calculate-prominent-words yoast-js-calculate-prominent-words--all thickbox"><?php esc_html_e( 'Analyze your content', 'wordpress-seo-premium' ); ?></a>
+				<a id="openInternalLinksCalculation" href="<?php echo esc_url( '#TB_inline?width=600&height=' . $height . '&inlineId=wpseo_recalculate_internal_links_wrapper' ); ?>" title='<?php echo esc_attr__( 'Generating internal linking suggestions', 'wordpress-seo-premium' ); ?>' class="btn button yoast-js-calculate-prominent-words yoast-js-calculate-prominent-words--all thickbox"><?php esc_html_e( 'Analyze your content', 'wordpress-seo-premium' ); ?></a>
 			</p>
 		<?php
 		}
@@ -72,17 +75,17 @@ class WPSEO_Premium_Prominent_Words_Recalculation implements WPSEO_WordPress_Int
 		$total_pages = $this->count_unindexed_posts_by_type( 'page' );
 
 		$progress_posts = sprintf(
-		/* translators: 1: expands to a <span> containing the number of items recalculated. 2: expands to a <strong> containing the total number of items. */
-			__( 'Post %1$s of %2$s analyzed.', 'wordpress-seo-premium' ),
+			/* translators: 1: expands to a <span> containing the number of items recalculated. 2: expands to a <strong> containing the total number of items. */
+			esc_html__( 'Post %1$s of %2$s analyzed.', 'wordpress-seo-premium' ),
 			'<span id="wpseo_count_posts" class="wpseo-prominent-words-progress-current">0</span>',
-			'<strong id="wpseo_count_posts_total" class="wpseo-prominent-words-progress-total">' . $total_posts . '</strong>'
+			'<strong id="wpseo_count_posts_total" class="wpseo-prominent-words-progress-total">' . (int) $total_posts . '</strong>'
 		);
 
 		$progress_pages = sprintf(
-		/* translators: 1: expands to a <span> containing the number of items recalculated. 2: expands to a <strong> containing the total number of items. */
-			__( 'Page %1$s of %2$s analyzed.', 'wordpress-seo-premium' ),
+			/* translators: 1: expands to a <span> containing the number of items recalculated. 2: expands to a <strong> containing the total number of items. */
+			esc_html__( 'Page %1$s of %2$s analyzed.', 'wordpress-seo-premium' ),
 			'<span id="wpseo_count_pages" class="wpseo-prominent-words-progress-current">0</span>',
-			'<strong id="wpseo_count_pages_total" class="wpseo-prominent-words-progress-total">' . $total_pages . '</strong>'
+			'<strong id="wpseo_count_pages_total" class="wpseo-prominent-words-progress-total">' . (int) $total_pages . '</strong>'
 		);
 
 		?>
@@ -93,7 +96,7 @@ class WPSEO_Premium_Prominent_Words_Recalculation implements WPSEO_WordPress_Int
 				<div id="wpseo_internal_links_posts_progressbar" class="wpseo-progressbar"></div>
 				<p><?php echo $progress_posts; ?></p>
 				<?php else : ?>
-				<p><?php _e( 'All your posts are already indexed, there is no need to do the recalculation for them.', 'wordpress-seo-premium' ); ?></p>
+				<p><?php esc_html_e( 'All your posts are already indexed, there is no need to do the recalculation for them.', 'wordpress-seo-premium' ); ?></p>
 				<?php endif; ?>
 			</div>
 			<hr />
@@ -103,10 +106,10 @@ class WPSEO_Premium_Prominent_Words_Recalculation implements WPSEO_WordPress_Int
 				<div id="wpseo_internal_links_pages_progressbar" class="wpseo-progressbar"></div>
 				<p><?php echo $progress_pages; ?></p>
 				<?php else : ?>
-				<p><?php _e( 'All your pages are already indexed, there is no need to do the recalculation for them.', 'wordpress-seo-premium' ); ?></p>
+				<p><?php esc_html_e( 'All your pages are already indexed, there is no need to do the recalculation for them.', 'wordpress-seo-premium' ); ?></p>
 				<?php endif; ?>
 			</div>
-			<button onclick="tb_remove();" type="button" class="button"><?php _e( 'Stop analyzing', 'wordpress-seo-premium' ); ?></button>
+			<button onclick="tb_remove();" type="button" class="button"><?php esc_html_e( 'Stop analyzing', 'wordpress-seo-premium' ); ?></button>
 		</div>
 
 		<?php
@@ -119,29 +122,30 @@ class WPSEO_Premium_Prominent_Words_Recalculation implements WPSEO_WordPress_Int
 		$page = filter_input( INPUT_GET, 'page' );
 
 		$asset_manager = new WPSEO_Admin_Asset_Manager();
-		$version = $asset_manager->flatten_version( WPSEO_VERSION );
+		$version       = $asset_manager->flatten_version( WPSEO_VERSION );
 
 		wp_register_script( WPSEO_Admin_Asset_Manager::PREFIX . 'premium-site-wide-analysis', plugin_dir_url( WPSEO_PREMIUM_FILE ) . '/assets/js/dist/yoast-premium-site-wide-analysis-' . $version . WPSEO_CSSJS_SUFFIX . '.js', array(), WPSEO_VERSION, true );
 
 		if ( $page === 'wpseo_dashboard' ) {
 			$data = array(
-				'allWords' => get_terms( WPSEO_Premium_Prominent_Words_Registration::TERM_NAME, array( 'fields' => 'ids' ) ),
-				'amount' => array(
+				'allWords'    => get_terms( WPSEO_Premium_Prominent_Words_Registration::TERM_NAME, array( 'fields' => 'ids' ) ),
+				'amount'      => array(
 					'total' => $this->count_unindexed_posts_by_type( 'post' ),
 				),
 				'amountPages' => array(
 					'total' => $this->count_unindexed_posts_by_type( 'page' ),
 				),
-				'restApi' => array(
-					'root' => esc_url_raw( rest_url() ),
+				'restApi'     => array(
+					'root'  => esc_url_raw( rest_url() ),
 					'nonce' => wp_create_nonce( 'wp_rest' ),
 				),
-				'message' => array(
+				'message'     => array(
 					'analysisCompleted' => $this->messageAlreadyIndexed(),
 				),
-				'l10n' => array(
+				'l10n'        => array(
 					'calculationInProgress' => __( 'Calculation in progress...', 'wordpress-seo-premium' ),
 					'calculationCompleted'  => __( 'Calculation completed.', 'wordpress-seo-premium' ),
+					'contentLocale'         => get_locale(),
 				),
 			);
 

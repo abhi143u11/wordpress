@@ -1535,6 +1535,7 @@ function uber_op( id , args , def ){
 						//Find the closest relatively positioned element
 						if( $parent_sub.length === 0 ){
 							$container = plugin.$ubermenu.offsetParent();
+							if( !$container ) $container = $( 'body' ); //If no offset parent, assume bounds of body tag
 						}
 						else{
 							$container = $parent_sub;

@@ -81,8 +81,9 @@ function ls_get_image($id = null, $url = null) {
 function ls_parse_defaults($defaults = array(), $raw = array()) {
 
 
-	$activated = get_option('layerslider-authorized-site', false);
-	$permission = current_user_can('publish_posts');
+	$activated 	= get_option('layerslider-authorized-site', false);
+	$capability = get_option('layerslider_custom_capability', 'manage_options');
+	$permission = current_user_can( $capability );
 	$ret = array();
 
 
@@ -173,6 +174,11 @@ function ls_array_to_attr($arr, $mode = '') {
 				$ret[] = "$key:$val;";
 			}
 		}
+
+		if( has_filter('layerslider_attr_list') ) {
+			return apply_filters( 'layerslider_attr_list', $ret );
+		}
+
 		return implode('', $ret);
 	}
 }

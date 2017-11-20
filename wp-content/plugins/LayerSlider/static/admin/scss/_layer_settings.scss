@@ -312,7 +312,7 @@ tr.active .ls-sublayer-controls {
 		border-radius: 5px;
 		border: 1px solid #dedede;
 
-		&.hover:hover {
+		&.hover.opened {
 			border: 1px solid #ccc;
 			box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.1);
 
@@ -329,8 +329,10 @@ tr.active .ls-sublayer-controls {
 			position: absolute;
 			top: 7px;
 			right: 10px;
+			pointer-events: none;
 			line-height: 28px;
 			font-size: 26px;
+			color: #333;
 		}
 
 		ul {

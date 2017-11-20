@@ -86,8 +86,18 @@ class WPSEO_Social_Previews {
 			$url = str_replace( $upload_dir_paths['baseurl'] . '/', '', $url );
 
 			// Finally, run a custom database query to get the attachment ID from the modified attachment URL.
-			$attachment_id = $wpdb->get_var( $wpdb->prepare( "SELECT wposts.ID FROM $wpdb->posts wposts, $wpdb->postmeta wpostmeta WHERE wposts.ID = wpostmeta.post_id AND wpostmeta.meta_key = '_wp_attached_file' AND wpostmeta.meta_value = '%s' AND wposts.post_type = 'attachment'", $url ) );
-
+			$attachment_id = $wpdb->get_var(
+				$wpdb->prepare(
+					"SELECT wposts.ID
+						FROM {$wpdb->posts} AS wposts,
+							{$wpdb->postmeta} AS wpostmeta
+						WHERE wposts.ID = wpostmeta.post_id
+							AND wpostmeta.meta_key = '_wp_attached_file'
+							AND wpostmeta.meta_value = %s
+							AND wposts.post_type = 'attachment'",
+					$url
+				)
+			);
 		}
 
 		return (int) $attachment_id;
@@ -98,7 +108,7 @@ class WPSEO_Social_Previews {
 	 */
 	private function register_assets() {
 		$asset_manager = new WPSEO_Admin_Asset_Manager();
-		$version = $asset_manager->flatten_version( WPSEO_VERSION );
+		$version       = $asset_manager->flatten_version( WPSEO_VERSION );
 
 		wp_register_script( 'yoast-social-preview', plugin_dir_url( WPSEO_PREMIUM_FILE ) . 'assets/js/dist/yoast-premium-social-preview-' . $version . WPSEO_CSSJS_SUFFIX . '.js', array(
 			'jquery',
@@ -133,8 +143,8 @@ class WPSEO_Social_Previews {
 			'useOtherImage'         => __( 'Use other image', 'wordpress-seo-premium' ),
 			'removeImageButton'     => __( 'Remove image', 'wordpress-seo-premium' ),
 			'facebookDefaultImage'  => $options['og_default_image'],
-			'i18n' => array(
-				'help' => $this->get_help_translations( $social ),
+			'i18n'                  => array(
+				'help'       => $this->get_help_translations( $social ),
 				'helpButton' => array(
 					'facebookTitle'       => __( 'Show information about Facebook title', 'wordpress-seo-premium' ),
 					'facebookDescription' => __( 'Show information about Facebook description', 'wordpress-seo-premium' ),
@@ -143,9 +153,9 @@ class WPSEO_Social_Previews {
 					'twitterDescription'  => __( 'Show information about Twitter description', 'wordpress-seo-premium' ),
 					'twitterImage'        => __( 'Show information about Twitter image', 'wordpress-seo-premium' ),
 				),
-				'library' => $this->get_translations(),
+				'library'    => $this->get_translations(),
 			),
-			'facebookNonce' => wp_create_nonce( 'get_facebook_name' ),
+			'facebookNonce'         => wp_create_nonce( 'get_facebook_name' ),
 		);
 	}
 
@@ -182,6 +192,7 @@ class WPSEO_Social_Previews {
 	 */
 	private function get_website() {
 		// We only want the host part of the URL.
+		// @todo Replace with call to wp_parse_url() once minimum requirement has gone up to WP 4.7.
 		$website = parse_url( home_url(), PHP_URL_HOST );
 		$website = trim( $website, '/' );
 		$website = strtolower( $website );
@@ -196,8 +207,11 @@ class WPSEO_Social_Previews {
 	 */
 	private function get_translations() {
 		$file = plugin_dir_path( WPSEO_FILE ) . 'premium/languages/wordpress-seo-premium-' . WPSEO_Utils::get_user_locale() . '.json';
-		if ( file_exists( $file ) && $file = file_get_contents( $file ) ) {
-			return json_decode( $file, true );
+		if ( file_exists( $file ) ) {
+			$file = file_get_contents( $file );
+			if ( $file !== false ) {
+				return json_decode( $file, true );
+			}
 		}
 
 		return array();

@@ -31,7 +31,7 @@ class WPSEO_Post_Watcher extends WPSEO_Watcher {
 		}
 
 		$asset_manager = new WPSEO_Admin_Asset_Manager();
-		$version = $asset_manager->flatten_version( WPSEO_VERSION );
+		$version       = $asset_manager->flatten_version( WPSEO_VERSION );
 
 		if ( $pagenow === 'edit.php' || $this->is_nested_pages( $pagenow ) ) {
 			wp_enqueue_script( 'wp-seo-premium-quickedit-notification', plugin_dir_url( WPSEO_PREMIUM_FILE ) . 'assets/js/dist/wp-seo-premium-quickedit-notification-' . $version . WPSEO_CSSJS_SUFFIX . '.js', array( 'jquery' ), WPSEO_VERSION );
@@ -138,13 +138,14 @@ class WPSEO_Post_Watcher extends WPSEO_Watcher {
 	 */
 	public function detect_post_trash( $post_id ) {
 
-		if ( $url = $this->check_if_redirect_needed( $post_id ) ) {
+		$url = $this->check_if_redirect_needed( $post_id );
+		if ( ! empty( $url ) ) {
 
 			$id = 'wpseo_redirect_' . md5( $url );
 
 			// Format the message.
-			/* translators: %1$s: Yoast SEO Premium, %2$s: List with actions, %3$s: <a href=''>, %4$s: </a>, %5$s: Slug to post */
 			$message = sprintf(
+				/* translators: %1$s: Yoast SEO Premium, %2$s: List with actions, %3$s: <a href=''>, %4$s: </a>, %5$s: Slug to post */
 				__( '%1$s detected that you moved a post (%5$s) to the trash. You can either: %2$s Don\'t know what to do? %3$sRead this post%4$s.', 'wordpress-seo-premium' ),
 				'Yoast SEO Premium',
 				$this->get_delete_action_list( $url, $id ),
@@ -153,7 +154,7 @@ class WPSEO_Post_Watcher extends WPSEO_Watcher {
 				'<code>' . $url . '</code>'
 			);
 
-			$this->create_notification( $message, 'trash' ); // , $id );
+			$this->create_notification( $message, 'trash' );
 		}
 
 	}
@@ -171,9 +172,9 @@ class WPSEO_Post_Watcher extends WPSEO_Watcher {
 			$id = 'wpseo_undo_redirect_' . md5( $redirect->get_origin() );
 
 			// Format the message.
-			/* translators: %1$s: Yoast SEO Premium, %2$s: <a href='{undo_redirect_url}'>, %3$s: </a>, %4$s: Slug to post */
 			$message = sprintf(
-				__( '%1$s detected that you restored a post (%4$s) from the trash. %2$sClick here to remove the redirect%3$s', 'wordpress-seo-premium' ),
+				/* translators: %1$s: Yoast SEO Premium, %2$s: <a href='{undo_redirect_url}'>, %3$s: </a>, %4$s: Slug to post */
+				__( '%1$s detected that you restored a post (%4$s) from the trash, for which a redirect was created. %2$sClick here to remove the redirect%3$s', 'wordpress-seo-premium' ),
 				'Yoast SEO Premium',
 				'<button type="button" class="button" onclick=\'' . $this->javascript_undo_redirect( $redirect, $id ) . '\'>',
 				'</button>',
@@ -204,7 +205,8 @@ class WPSEO_Post_Watcher extends WPSEO_Watcher {
 		}
 
 		// Is a redirect needed.
-		if ( $url = $this->check_if_redirect_needed( $post_id ) ) {
+		$url = $this->check_if_redirect_needed( $post_id );
+		if ( ! empty( $url ) ) {
 			$this->set_delete_notification( $url );
 		}
 	}
@@ -245,7 +247,7 @@ class WPSEO_Post_Watcher extends WPSEO_Watcher {
 				$redirect = $this->get_redirect( $url );
 
 				if ( is_a( $redirect, 'WPSEO_Redirect' ) === $should_exist ) {
-					if ( $should_exist === false  ) {
+					if ( $should_exist === false ) {
 						return $url;
 					}
 
@@ -264,10 +266,12 @@ class WPSEO_Post_Watcher extends WPSEO_Watcher {
 	 */
 	protected function get_target_url( $post_id ) {
 		// Use the correct URL path.
-		$url = parse_url( get_permalink( $post_id ) );
-		$url = $url['path'];
+		$url = wp_parse_url( get_permalink( $post_id ) );
+		if ( is_array( $url ) && isset( $url['path'] ) ) {
+			return $url['path'];
+		}
 
-		return $url;
+		return '';
 	}
 
 	/**

@@ -708,8 +708,10 @@ function ubermenu_responsive_toggle_filter( $nav_menu , $args ){
 	if( isset( $args->uber_instance ) && !isset( $args->uber_segment ) ){
 	//up( $args );
 
-		if( ubermenu_op( 'responsive' , $args->uber_instance ) == 'on' &&
-			ubermenu_op( 'responsive_toggle' , $args->uber_instance ) == 'on' ){
+		$ubermenu_responsive = ubermenu_op( 'responsive' , $args->uber_instance ) == 'on';
+		$ubermenu_responsive_toggle = ubermenu_op( 'responsive_toggle' , $args->uber_instance ) == 'on';
+
+		if( $ubermenu_responsive && $ubermenu_responsive_toggle ){
 
 			$toggle_content = ubermenu_op( 'responsive_toggle_content' , $args->uber_instance );
 			$toggle_tag = ubermenu_op( 'responsive_toggle_tag' , $args->uber_instance );
@@ -727,6 +729,16 @@ function ubermenu_responsive_toggle_filter( $nav_menu , $args ){
 			$ubermenu_toggle = ubermenu_toggle( $args->container_id , $args->uber_instance , false , $toggle_args);
 
 			$nav_menu = $ubermenu_toggle . $nav_menu;
+		}
+		else{
+			$responsive_status = '';
+			if( !$ubermenu_responsive_toggle ){
+				$responsive_status.= '[UberMenu Responsive Toggle Disabled] ';
+			}
+			if( !$ubermenu_responsive ){
+				$responsive_status.= '[UberMenu Responsive Menu Disabled] ';
+			}
+			if( $responsive_status ) $nav_menu = '<!-- '.$responsive_status.'--> '.$nav_menu;
 		}
 	}
 	return $nav_menu;

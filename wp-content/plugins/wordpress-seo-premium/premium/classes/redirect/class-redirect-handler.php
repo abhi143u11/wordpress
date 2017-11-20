@@ -16,7 +16,7 @@ class WPSEO_Redirect_Handler {
 	/**
 	 * @var string The option name where the regex redirects are stored.
 	 */
-	private $regex_option_name  = 'wpseo-premium-redirects-export-regex';
+	private $regex_option_name = 'wpseo-premium-redirects-export-regex';
 
 	/**
 	 * @var string The URL that is called at the moment.
@@ -44,23 +44,23 @@ class WPSEO_Redirect_Handler {
 	private $is_redirected = false;
 
 	/**
-	 * Constructor
+	 * Loads the redirect handler.
 	 */
-	public function __construct() {
+	public function load() {
 		// Only handle the redirect when the option for php redirects is enabled.
-		if ( $this->load_php_redirects() ) {
-			// Set the requested URL.
-			$this->set_request_url();
-
-			// Check the normal redirects.
-			$this->handle_normal_redirects();
-
-			// Check the regex redirects.
-			if ( $this->is_redirected === false ) {
-				$this->handle_regex_redirects();
-			}
-
+		if ( ! $this->load_php_redirects() ) {
 			return;
+		}
+
+		// Set the requested URL.
+		$this->set_request_url();
+
+		// Check the normal redirects.
+		$this->handle_normal_redirects();
+
+		// Check the regex redirects.
+		if ( $this->is_redirected === false ) {
+			$this->handle_regex_redirects();
 		}
 	}
 
@@ -148,7 +148,8 @@ class WPSEO_Redirect_Handler {
 		}
 
 		// Get the URL and doing the redirect.
-		if ( $redirect_url = $this->find_url( $request_url ) ) {
+		$redirect_url = $this->find_url( $request_url );
+		if ( ! empty( $redirect_url ) ) {
 			$this->do_redirect( $this->redirect_url( $redirect_url['url'] ), $redirect_url['type'] );
 		}
 	}
@@ -172,11 +173,16 @@ class WPSEO_Redirect_Handler {
 	 * @param string $regex    The reqular expression to match.
 	 * @param array  $redirect The URL that might be matched with the regex.
 	 */
-	private function match_regex_redirect( $regex, array $redirect ) {
-		// Escape the ` because we use ` to delimit the regex to prevent faulty redirects.
+	protected function match_regex_redirect( $regex, array $redirect ) {
+		/*
+		 * Escape the ` because we use ` to delimit the regex to prevent faulty redirects.
+		 *
+		 * Explicitly chosen not to use `preg_quote` because we need to be able to parse
+		 * user provided regular expression syntax.
+		 */
 		$regex = str_replace( '`', '\\`', $regex );
 
-		// Suppress warning: a faulty redirect will give a warning and not a an exception. So we can't catch it.
+		// Suppress warning: a faulty redirect will give a warning and not an exception. So we can't catch it.
 		// See issue: https://github.com/Yoast/wordpress-seo-premium/issues/662.
 		if ( 1 === @preg_match( "`{$regex}`", $this->request_url, $this->url_matches ) ) {
 
@@ -202,12 +208,12 @@ class WPSEO_Redirect_Handler {
 	private function get_redirects( $option ) {
 		static $redirects;
 
-		if ( $redirects === null  ) {
+		if ( $redirects === null ) {
 			$redirects = $this->get_redirects_from_options();
 		}
 
 		if ( ! empty( $redirects[ $option ] ) ) {
-			return unserialize( $redirects[ $option ] );
+			return maybe_unserialize( $redirects[ $option ] );
 		}
 
 		return array();
@@ -221,7 +227,8 @@ class WPSEO_Redirect_Handler {
 	 * @return bool|string
 	 */
 	private function find_url( $url ) {
-		if ( $redirect_url = $this->search( $url ) ) {
+		$redirect_url = $this->search( $url );
+		if ( ! empty( $redirect_url ) ) {
 			return $redirect_url;
 		}
 
@@ -254,14 +261,18 @@ class WPSEO_Redirect_Handler {
 	 * @return bool|string
 	 */
 	private function find_url_fallback( $url ) {
-		// Check if last character is a slash, if so trim it.
-		if ( substr( $url, -1 ) === '/' && $redirect_url = $this->search( rtrim( $url, '/' ) ) ) {
-			return $redirect_url;
-		}
+		$no_trailing_slash = rtrim( $url, '/' );
 
-		// There was no trailing slash, so add this to check.
-		if ( $redirect_url = $this->search( $url . '/' ) ) {
-			return $redirect_url;
+		$checks = array(
+			'no_trailing_slash' => $no_trailing_slash,
+			'trailing_slash'    => $no_trailing_slash . '/',
+		);
+
+		foreach ( $checks as $check ) {
+			$redirect_url = $this->search( $check );
+			if ( ! empty( $redirect_url ) ) {
+				return $redirect_url;
+			}
 		}
 
 		return false;
@@ -288,7 +299,7 @@ class WPSEO_Redirect_Handler {
 	 * @param string $redirect_url  The target URL.
 	 * @param string $redirect_type The type of the redirect.
 	 */
-	private function do_redirect( $redirect_url, $redirect_type ) {
+	protected function do_redirect( $redirect_url, $redirect_type ) {
 
 		$this->is_redirected = true;
 
@@ -303,7 +314,7 @@ class WPSEO_Redirect_Handler {
 		}
 
 		if ( ! function_exists( 'wp_redirect' ) ) {
-			require_once( ABSPATH . 'wp-includes/pluggable.php' );
+			require_once ABSPATH . 'wp-includes/pluggable.php';
 		}
 
 		/**
@@ -328,6 +339,7 @@ class WPSEO_Redirect_Handler {
 	 * @return string
 	 */
 	private function parse_target_url( $target_url ) {
+		// @todo Replace with call to wp_parse_url() once minimum requirement has gone up to WP 4.7.
 		$scheme = parse_url( $target_url, PHP_URL_SCHEME );
 		if ( empty( $scheme ) ) {
 			// Add slash to target URL when permalink structure ends with a slash.
@@ -339,7 +351,7 @@ class WPSEO_Redirect_Handler {
 				$blog_details = get_blog_details();
 				if ( $blog_details && ! empty( $blog_details->path ) ) {
 					$blog_path = ltrim( $blog_details->path, '/' );
-					if ( ! empty( $blog_path ) &&  0 === strpos( $target_url, $blog_path ) ) {
+					if ( ! empty( $blog_path ) && 0 === strpos( $target_url, $blog_path ) ) {
 						$target_url = substr( $target_url, strlen( $blog_path ) );
 					}
 				}
@@ -361,7 +373,15 @@ class WPSEO_Redirect_Handler {
 		global $wpdb;
 
 		$redirects = array();
-		$results   = $wpdb->get_results( "SELECT option_name, option_value FROM  {$wpdb->options} WHERE option_name = '{$this->normal_option_name}' || option_name = '{$this->regex_option_name}'" );
+		$results   = $wpdb->get_results(
+			$wpdb->prepare(
+				"SELECT option_name, option_value
+					FROM  {$wpdb->options}
+					WHERE option_name = %s || option_name = %s",
+				$this->normal_option_name,
+				$this->regex_option_name
+			)
+		);
 		foreach ( $results as $result ) {
 			$redirects[ $result->option_name ] = $result->option_value;
 		}
@@ -370,25 +390,34 @@ class WPSEO_Redirect_Handler {
 	}
 
 	/**
-	 * Check if we should load the php redirects.
+	 * Check if we should load the PHP redirects.
 	 *
-	 * @return bool
+	 * If Apache or NginX configuration is selected, don't load PHP redirects.
+	 *
+	 * @return bool True if PHP redirects should be loaded and used.
 	 */
-	private function load_php_redirects() {
+	protected function load_php_redirects() {
 
 		if ( defined( 'WPSEO_DISABLE_PHP_REDIRECTS' ) && true === WPSEO_DISABLE_PHP_REDIRECTS ) {
 			return false;
 		}
 
 		global $wpdb;
-		if ( $options = $wpdb->get_row( "SELECT option_value FROM {$wpdb->options} WHERE option_name = 'wpseo_redirect'" ) ) {
-			$options = unserialize( $options->option_value );
 
-			if ( ! empty( $options['disable_php_redirect'] ) && $options['disable_php_redirect'] === 'on' ) {
-				return false;
-			}
+		$options = $wpdb->get_row( "SELECT option_value FROM {$wpdb->options} WHERE option_name = 'wpseo_redirect'" );
+		// If the option is not set, load the PHP redirects.
+		if ( $options === null ) {
+			return true;
 		}
 
+		$options = maybe_unserialize( $options->option_value );
+
+		// If the PHP redirects are disabled intentionally, return false.
+		if ( ! empty( $options['disable_php_redirect'] ) && $options['disable_php_redirect'] === 'on' ) {
+			return false;
+		}
+
+		// PHP redirects are the enabled method of redirecting.
 		return true;
 	}
 
@@ -415,12 +444,12 @@ class WPSEO_Redirect_Handler {
 	 *
 	 * @return string
 	 */
-	private function get_request_uri() {
+	protected function get_request_uri() {
 		$options     = array( 'options' => array( 'default' => '' ) );
 		$request_uri = filter_input( INPUT_SERVER, 'REQUEST_URI', FILTER_SANITIZE_URL, $options );
 
 		// Because there isn't an usable value, try the fallback.
-		if ( empty( $request_uri ) ) {
+		if ( empty( $request_uri ) && isset( $_SERVER['REQUEST_URI'] ) ) {
 			$request_uri = filter_var( $_SERVER['REQUEST_URI'], FILTER_SANITIZE_URL, $options );
 		}
 

@@ -4662,19 +4662,21 @@ tr.active .ls-sublayer-controls {
   cursor: pointer;
   border-radius: 5px;
   border: 1px solid #dedede; }
-  .ls-sublayer-basic .ls-layer-kind.hover:hover {
+  .ls-sublayer-basic .ls-layer-kind.hover.opened {
     border: 1px solid #ccc;
     box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.1); }
-    .ls-sublayer-basic .ls-layer-kind.hover:hover li {
+    .ls-sublayer-basic .ls-layer-kind.hover.opened li {
       display: block !important; }
-      .ls-sublayer-basic .ls-layer-kind.hover:hover li:first-child {
+      .ls-sublayer-basic .ls-layer-kind.hover.opened li:first-child {
         border-bottom: 1px solid #dedede; }
   .ls-sublayer-basic .ls-layer-kind .dashicons-arrow-down-alt2 {
     position: absolute;
     top: 7px;
     right: 10px;
+    pointer-events: none;
     line-height: 28px;
-    font-size: 26px; }
+    font-size: 26px;
+    color: #333; }
   .ls-sublayer-basic .ls-layer-kind ul {
     width: 200px;
     background: #f3f3f3;

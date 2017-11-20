@@ -37,7 +37,7 @@ class WPSEO_Redirect_Ajax {
 		$this->valid_ajax_check();
 
 		// Save the redirect.
-		$redirect  = $this->get_redirect_from_post( 'redirect' );
+		$redirect = $this->get_redirect_from_post( 'redirect' );
 		$this->validate( $redirect );
 
 		// The method always returns the added redirect.
@@ -63,7 +63,7 @@ class WPSEO_Redirect_Ajax {
 		}
 
 		// Response.
-		wp_die( WPSEO_Utils::json_encode( $response ) );
+		wp_die( wp_json_encode( $response ) );
 	}
 
 	/**
@@ -78,7 +78,7 @@ class WPSEO_Redirect_Ajax {
 		$this->validate( $new_redirect, $current_redirect );
 
 		// The method always returns the added redirect.
-		if (  $this->redirect_manager->update_redirect( $current_redirect, $new_redirect ) ) {
+		if ( $this->redirect_manager->update_redirect( $current_redirect, $new_redirect ) ) {
 			$response = array(
 				'origin' => $new_redirect->get_origin(),
 				'target' => $new_redirect->get_target(),
@@ -96,7 +96,7 @@ class WPSEO_Redirect_Ajax {
 		}
 
 		// Response.
-		wp_die( WPSEO_Utils::json_encode( $response ) );
+		wp_die( wp_json_encode( $response ) );
 	}
 
 	/**
@@ -116,13 +116,13 @@ class WPSEO_Redirect_Ajax {
 		}
 
 		// Response.
-		wp_die( WPSEO_Utils::json_encode( $response ) );
+		wp_die( wp_json_encode( $response ) );
 	}
 
 	/**
 	 * Run the validation
 	 *
-	 * @param WPSEO_Redirect      $redirect			The redirect to save.
+	 * @param WPSEO_Redirect      $redirect         The redirect to save.
 	 * @param WPSEO_Redirect|null $current_redirect The current redirect.
 	 */
 	private function validate( WPSEO_Redirect $redirect, WPSEO_Redirect $current_redirect = null ) {
@@ -136,9 +136,9 @@ class WPSEO_Redirect_Ajax {
 
 		$error = $validator->get_error();
 
-		if (  $error->get_type() === 'error' || ( $error->get_type() === 'warning'  && $ignore_warning === 'false' ) ) {
+		if ( $error->get_type() === 'error' || ( $error->get_type() === 'warning' && $ignore_warning === 'false' ) ) {
 			wp_die(
-				WPSEO_Utils::json_encode( array( 'error' => $error->to_array() ) )
+				wp_json_encode( array( 'error' => $error->to_array() ) )
 			);
 		}
 	}

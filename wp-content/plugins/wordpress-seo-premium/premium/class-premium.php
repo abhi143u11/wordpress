@@ -21,12 +21,22 @@ if ( ! defined( 'WPSEO_PREMIUM_FILE' ) ) {
  */
 class WPSEO_Premium {
 
+	/** @var string */
 	const OPTION_CURRENT_VERSION = 'wpseo_current_version';
 
-	const PLUGIN_VERSION_NAME = '5.6';
+	/** @var string */
+	const PLUGIN_VERSION_NAME = '5.8';
+
+	/** @var string */
 	const PLUGIN_VERSION_CODE = '16';
+
+	/** @var string */
 	const PLUGIN_AUTHOR = 'Yoast';
+
+	/** @var string */
 	const EDD_STORE_URL = 'http://my.yoast.com';
+
+	/** @var string */
 	const EDD_PLUGIN_NAME = 'Yoast SEO Premium';
 
 	/**
@@ -45,7 +55,7 @@ class WPSEO_Premium {
 	public static function install() {
 
 		// Load the Redirect File Manager.
-		require_once( WPSEO_PREMIUM_PATH . 'classes/redirect/class-redirect-file-util.php' );
+		require_once WPSEO_PREMIUM_PATH . 'classes/redirect/class-redirect-file-util.php';
 
 		// Create the upload directory.
 		WPSEO_Redirect_File_Util::create_upload_dir();
@@ -53,7 +63,7 @@ class WPSEO_Premium {
 		WPSEO_Premium::activate_license();
 
 		// Make sure the notice will be given at install.
-		require_once( WPSEO_PREMIUM_PATH . 'classes/class-premium-prominent-words-recalculation-notifier.php' );
+		require_once WPSEO_PREMIUM_PATH . 'classes/class-premium-prominent-words-recalculation-notifier.php';
 		$recalculation_notifier = new WPSEO_Premium_Prominent_Words_Recalculation_Notifier();
 		$recalculation_notifier->manage_notification();
 	}
@@ -80,22 +90,22 @@ class WPSEO_Premium {
 		$link_suggestions_service = new WPSEO_Premium_Link_Suggestions_Service();
 
 		$this->integrations = array(
-			'premium-metabox' => new WPSEO_Premium_Metabox(),
-			'prominent-words-registration' => new WPSEO_Premium_Prominent_Words_Registration(),
-			'prominent-words-endpoint' => new WPSEO_Premium_Prominent_Words_Endpoint( new WPSEO_Premium_Prominent_Words_Service() ),
-			'prominent-words-recalculation' => new WPSEO_Premium_Prominent_Words_Recalculation(),
-			'prominent-words-recalculation-link' => new WPSEO_Premium_Prominent_Words_Link_Endpoint( new WPSEO_Premium_Prominent_Words_Link_Service() ),
+			'premium-metabox'                        => new WPSEO_Premium_Metabox(),
+			'prominent-words-registration'           => new WPSEO_Premium_Prominent_Words_Registration(),
+			'prominent-words-endpoint'               => new WPSEO_Premium_Prominent_Words_Endpoint( new WPSEO_Premium_Prominent_Words_Service() ),
+			'prominent-words-recalculation'          => new WPSEO_Premium_Prominent_Words_Recalculation(),
+			'prominent-words-recalculation-link'     => new WPSEO_Premium_Prominent_Words_Link_Endpoint( new WPSEO_Premium_Prominent_Words_Link_Service() ),
 			'prominent-words-recalculation-notifier' => new WPSEO_Premium_Prominent_Words_Recalculation_Notifier(),
 			'prominent-words-recalculation-endpoint' => new WPSEO_Premium_Prominent_Words_Recalculation_Endpoint( new WPSEO_Premium_Prominent_Words_Recalculation_Service() ),
-			'prominent-words-version' => new WPSEO_Premium_Prominent_Words_Versioning(),
-			'link-suggestions' => new WPSEO_Metabox_Link_Suggestions(),
-			'link-suggestions-endpoint' => new WPSEO_Premium_Link_Suggestions_Endpoint( $link_suggestions_service ),
-			'premium-search-console' => new WPSEO_Premium_GSC(),
-			'redirects-endpoint' => new WPSEO_Premium_Redirect_EndPoint( new WPSEO_Premium_Redirect_Service() ),
-			'redirect-export-manager' => new WPSEO_Premium_Redirect_Export_Manager(),
-			'keyword-export-manager' => new WPSEO_Premium_Keyword_Export_Manager(),
-			'orphaned-post-filter' => new WPSEO_Premium_Orphaned_Post_Filter(),
-			'orphaned-post-notifier' => new WPSEO_Premium_Orphaned_Post_Notifier( array( 'post', 'page' ), Yoast_Notification_Center::get() ),
+			'prominent-words-version'                => new WPSEO_Premium_Prominent_Words_Versioning(),
+			'link-suggestions'                       => new WPSEO_Metabox_Link_Suggestions(),
+			'link-suggestions-endpoint'              => new WPSEO_Premium_Link_Suggestions_Endpoint( $link_suggestions_service ),
+			'premium-search-console'                 => new WPSEO_Premium_GSC(),
+			'redirects-endpoint'                     => new WPSEO_Premium_Redirect_EndPoint( new WPSEO_Premium_Redirect_Service() ),
+			'redirect-export-manager'                => new WPSEO_Premium_Redirect_Export_Manager(),
+			'keyword-export-manager'                 => new WPSEO_Premium_Keyword_Export_Manager(),
+			'orphaned-post-filter'                   => new WPSEO_Premium_Orphaned_Post_Filter(),
+			'orphaned-post-notifier'                 => new WPSEO_Premium_Orphaned_Post_Notifier( array( 'post', 'page' ), Yoast_Notification_Center::get() ),
 		);
 
 		$this->setup();
@@ -153,7 +163,7 @@ class WPSEO_Premium {
 
 			// Add custom fields plugin to post and page edit pages.
 			global $pagenow;
-			if ( in_array( $pagenow, array( 'post-new.php', 'post.php', 'edit.php' ) ) ) {
+			if ( in_array( $pagenow, array( 'post-new.php', 'post.php', 'edit.php' ), true ) ) {
 				new WPSEO_Custom_Fields_Plugin();
 			}
 
@@ -205,7 +215,8 @@ class WPSEO_Premium {
 				add_action( 'admin_init', array( $this, 'init_watchers' ) );
 
 				// Check if we need to display an admin message.
-				if ( $redirect_created = filter_input( INPUT_GET, 'yoast-redirect-created' ) ) {
+				$redirect_created = filter_input( INPUT_GET, 'yoast-redirect-created' );
+				if ( isset( $redirect_created ) && $redirect_created !== false ) {
 
 					// Message object.
 					$message = new WPSEO_Message_Redirect_Created( $redirect_created );
@@ -245,7 +256,7 @@ class WPSEO_Premium {
 	private function is_yoast_seo_premium_page( $page ) {
 		$premium_pages = array( 'wpseo_redirects' );
 
-		return in_array( $page, $premium_pages );
+		return in_array( $page, $premium_pages, true );
 	}
 
 	/**
@@ -337,10 +348,11 @@ class WPSEO_Premium {
 	 *
 	 * @return string
 	 */
-	function redirect_canonical_fix( $redirect_url, $requested_url ) {
+	public function redirect_canonical_fix( $redirect_url, $requested_url ) {
 		$redirects = new WPSEO_Redirect_Option( false );
-		$path      = parse_url( $requested_url, PHP_URL_PATH );
-		$redirect     = $redirects->get( $path );
+		// @todo Replace with call to wp_parse_url() once minimum requirement has gone up to WP 4.7.
+		$path     = parse_url( $requested_url, PHP_URL_PATH );
+		$redirect = $redirects->get( $path );
 		if ( $redirect === false ) {
 			return $redirect_url;
 		}
@@ -371,12 +383,12 @@ class WPSEO_Premium {
 		if ( is_404() ) {
 			global $wp, $wp_admin_bar;
 
-			$parsed_url = parse_url( home_url( add_query_arg( null, null ) ) );
+			$parsed_url = wp_parse_url( home_url( add_query_arg( null, null ) ) );
 
-			if ( false !== $parsed_url ) {
+			if ( is_array( $parsed_url ) ) {
 				$old_url = $parsed_url['path'];
 
-				if ( isset( $parsed_url['query'] ) && $parsed_url['query'] != '' ) {
+				if ( isset( $parsed_url['query'] ) && $parsed_url['query'] !== '' ) {
 					$old_url .= '?' . $parsed_url['query'];
 				}
 
@@ -399,7 +411,7 @@ class WPSEO_Premium {
 	 * @return array
 	 */
 	public function add_variable_array_key_pattern( $patterns ) {
-		if ( true !== in_array( 'page-analyse-extra-', $patterns ) ) {
+		if ( true !== in_array( 'page-analyse-extra-', $patterns, true ) ) {
 			$patterns[] = 'page-analyse-extra-';
 		}
 
@@ -409,14 +421,14 @@ class WPSEO_Premium {
 	/**
 	 * This hook will add an input-field for specifying custom fields for page analysis.
 	 *
-	 * The values will be comma-seperated and will target the belonging field in the post_meta. Page analysis will
+	 * The values will be comma-separated and will target the belonging field in the post_meta. Page analysis will
 	 * use the content of it by sticking it to the post_content.
 	 *
 	 * @param array  $wpseo_admin_pages Unused. Array with admin pages.
-	 * @param string $name				The name for the text input field.
+	 * @param string $name              The name for the text input field.
 	 */
 	public function admin_page_meta_post_types_checkboxes( $wpseo_admin_pages, $name ) {
-		echo Yoast_Form::get_instance()->textinput( 'page-analyse-extra-' . $name, __( 'Add custom fields to page analysis', 'wordpress-seo-premium' ) );
+		Yoast_Form::get_instance()->textinput( 'page-analyse-extra-' . $name, __( 'Add custom fields to page analysis', 'wordpress-seo-premium' ) );
 	}
 
 	/**
@@ -451,7 +463,7 @@ class WPSEO_Premium {
 	 * @returns string[] The new classes for the indicator.
 	 */
 	public function change_premium_indicator( $classes ) {
-		$class_no = array_search( 'wpseo-premium-indicator--no', $classes );
+		$class_no = array_search( 'wpseo-premium-indicator--no', $classes, true );
 
 		if ( false !== $class_no ) {
 			unset( $classes[ $class_no ] );
@@ -513,7 +525,7 @@ class WPSEO_Premium {
 
 		if ( ! class_exists( 'WPSEO_Premium_Autoloader', false ) ) {
 			// Setup autoloader.
-			require_once( dirname( __FILE__ ) . '/classes/class-premium-autoloader.php' );
+			require_once WPSEO_PREMIUM_PATH . 'classes/class-premium-autoloader.php';
 			$autoloader = new WPSEO_Premium_Autoloader( 'WPSEO_', '' );
 		}
 	}
@@ -522,11 +534,15 @@ class WPSEO_Premium {
 	 * Initializes the helpscout support modal for wpseo settings pages
 	 */
 	public function init_helpscout_support() {
-		$query_var = ( $page = filter_input( INPUT_GET, 'page' ) ) ? $page : '';
+		$page      = filter_input( INPUT_GET, 'page' );
+		$query_var = '';
+		if ( isset( $page ) && $page !== false ) {
+			$query_var = $page;
+		}
 		$is_beacon_page = in_array( strtolower( $query_var ), $this->get_beacon_pages(), true );
 
 		// Only add the helpscout beacon on Yoast SEO pages.
-		if ( WPSEO_Metabox::is_post_edit( $GLOBALS['pagenow'] )|| $is_beacon_page ) {
+		if ( WPSEO_Metabox::is_post_edit( $GLOBALS['pagenow'] ) || $is_beacon_page ) {
 			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_contact_support' ) );
 
 			$beacon = yoast_get_helpscout_beacon( $query_var, 'no_search' );
@@ -558,7 +574,7 @@ class WPSEO_Premium {
 	 */
 	public function enqueue_contact_support() {
 		$asset_manager = new WPSEO_Admin_Asset_Manager();
-		$version = $asset_manager->flatten_version( WPSEO_VERSION );
+		$version       = $asset_manager->flatten_version( WPSEO_VERSION );
 
 		wp_enqueue_script( 'yoast-contact-support', plugin_dir_url( WPSEO_PREMIUM_FILE ) . 'assets/js/dist/wpseo-premium-contact-support-' . $version . WPSEO_CSSJS_SUFFIX . '.js', array( 'jquery' ), WPSEO_VERSION );
 	}
