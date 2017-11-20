@@ -11,7 +11,7 @@ class wlb_dashboard {
 	var $content = array();
 	var $show_ui = false;
 	var $widgets_form = '';
-	function wlb_dashboard($args=array()){
+	function __construct($args=array()){
 		global $wlb_plugin;
 		//------
 		$defaults = array(
@@ -43,7 +43,8 @@ class wlb_dashboard {
 		$i=intval(count($t));
 		//-------
 		$i = count($t);
-		@$t[$i]->id 			= 'dashboard'; 
+		$t[$i]=(object)array();
+		$t[$i]->id 			= 'dashboard'; 
 		$t[$i]->label 		= __('Dashboard','wlb');//title on tab
 		$t[$i]->right_label	= __('Customize Dashboard Panels','wlb');//title on tab
 		$t[$i]->page_title	= __('Dashboard','wlb');//title on content
@@ -361,7 +362,7 @@ console.log('<?php echo $dashboard_icon?>');
 });
 </script>
 <?php			
-		$screen_id = @$_REQUEST['screen_id'];
+		$screen_id = isset( $_REQUEST['screen_id'] ) ? $_REQUEST['screen_id'] : '' ;
 		if(''==trim($screen_id))return;
 		
 		if(''==get_user_meta($userdata->ID, sprintf('meta-box-order_%s',$screen_id) ,true) || ''==get_user_meta($userdata->ID, sprintf('screen_layout_%s',$screen_id),true)){

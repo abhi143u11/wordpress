@@ -11,7 +11,7 @@ class admin_menu_sort {
 	var $menu_order = array();
 	var $menu_label = array();
 	var $menu_icon = array();
-	function admin_menu_sort( $url ){
+	function __construct( $url ){
 		$this->url = $url;
 		
 		global $wlb_plugin;
@@ -227,7 +227,12 @@ jQuery(document).ready(function($){
 				return 0;
 			return ($menu_order[$a] < $menu_order[$b]) ? -1 : 1;
 		} else {
-			return ($default_menu_order[$a] <= $default_menu_order[$b]) ? -1 : 1;
+			if( isset($default_menu_order[$a]) && isset($default_menu_order[$b]) ){
+				return ($default_menu_order[$a] <= $default_menu_order[$b]) ? -1 : 1;
+			}else{
+				return 1;
+			}
+			
 		}
 	}
 	

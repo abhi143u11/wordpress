@@ -8,7 +8,7 @@
  **/
 class wlb_color_scheme {
 	var $color_scheme = array();
-	function wlb_color_scheme( $path, $url ){
+	function __construct( $path, $url ){
 		$this->path = $path;
 		$this->url = $url;
 				

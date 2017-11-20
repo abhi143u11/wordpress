@@ -16,7 +16,7 @@ class pop_plugin_registration {
 	var $tdom;
 	var $options_varname;
 	var $panel_priority=100;
-	function pop_plugin_registration($args=array()){
+	function __construct($args=array()){
 		$defaults = array(
 			'plugin_id'				=> '',
 			'plugin_code'			=> 'POP',
@@ -42,7 +42,8 @@ class pop_plugin_registration {
 	function options($t){
 		//--Default backgrounds -----------------------		
 		$i = count($t);
-		@$t[$i]->id 			= 'license'; 
+		$t[$i] = (object)array();
+		$t[$i]->id 			= 'license'; 
 		$t[$i]->label 		= __('License','pop');
 		$t[$i]->right_label	= __('Item Purchase Key','pop');
 		$t[$i]->page_title	= __('Product License','pop');
@@ -125,10 +126,23 @@ function load_registered_licenses(){
 		
 		$options = $this->get_options();
 		$options['license_keys'] =  isset($options['license_keys']) && is_array($options['license_keys'])&&count($options['license_keys'])>0?$options['license_keys']:array();
+
 		//--check existing
 		if(count($options['license_keys'])>0){
-			foreach($options['license_keys'] as $l){
+			foreach($options['license_keys'] as $index => $l){
 				if(@$l->license_key==$license_key){
+					//-- move to the beginning of the array if it is a theme or plugin license.				
+					if( in_array( $l->item_type, array('plugin','theme') ) ){
+						//this is a main license. swap it to the beginning.
+						$sorted_licenses = array();
+						$sorted_licenses[] = $l;
+						foreach( $options['license_keys']  as $lic){
+							if( $lic->license_key == $l->license_key ) continue; //already added.
+							$sorted_licenses[] = $lic;
+						}
+						$options['license_keys'] = $sorted_licenses;
+						$this->update_option($this->options_varname,$options);
+					}
 					die(json_encode((object)array('R'=>'ERR','MSG'=> __('License already added.','pop') )));
 				}
 			}
@@ -149,7 +163,14 @@ function load_registered_licenses(){
 						die(json_encode((object)array('R'=>'ERR','MSG'=> __('Please add a main license key before adding an addon license key.','pop') )));
 					}	
 				}
-				$options['license_keys'][]=$r->LICENSE;
+				
+				if( in_array($r->LICENSE->item_type,array('plugin','theme')) ){
+					//its a main license, put it at the beginning of the list.
+					array_unshift( $options['license_keys'], $r->LICENSE );
+				}else{
+					$options['license_keys'][]=$r->LICENSE;
+				}
+				
 				$this->update_option($this->options_varname,$options);
 				die(json_encode($r));
 			}else if($r->R=='ERR'){
@@ -270,7 +291,7 @@ class righthere_license {
 	var $created_at;
 	var $license;
 	var $item_type;
-	function righthere_license($args=array()){
+	function __construct($args=array()){
 		if(count($args)>0){
 			foreach($args as $field => $value){
 				$this->$field = $value;

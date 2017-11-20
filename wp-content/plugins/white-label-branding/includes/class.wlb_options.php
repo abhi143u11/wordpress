@@ -9,7 +9,7 @@
 
 class wlb_options {
 	var $plugin_id;
-	function wlb_options($args=array()){
+	function __construct($args=array()){
 		$defaults = array(
 			'plugin_id'	=> 'white-label-branding',
 			'option_show_in_metabox'=> false
@@ -26,7 +26,7 @@ class wlb_options {
 		//-------------------------		
 		$i = count($t);
 		$t[$i]->id 			= 'branding'; 
-		$t[$i]->label 		= __('Bradning','wlb');
+		$t[$i]->label 		= __('Branding','wlb');
 		$t[$i]->right_label	= __('Customize Header and Footer Logo','wlb');
 		$t[$i]->page_title	= __('Branding','wlb');
 		$t[$i]->theme_option = true;

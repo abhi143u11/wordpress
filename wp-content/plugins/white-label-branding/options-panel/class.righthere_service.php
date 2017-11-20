@@ -8,7 +8,7 @@
  **/
 
 class righthere_service {
-	function righthere_service(){
+	function __construct(){
 	
 	}
 	
@@ -17,6 +17,7 @@ class righthere_service {
 		@set_time_limit ( 360 );	
 		$args = array('timeout'=>360);
 		$this->build_post( $url, $args );
+	
 		$request = wp_remote_post( $url , $args );
 
 		if ( is_wp_error($request) ){
@@ -40,6 +41,8 @@ class righthere_service {
 		$params = array();
 		parse_str($url_data['query'], $params);
 		$params = is_array($params) ? $params : array();
+		
+		$params['ref_url'] = urlencode(site_url('/')) ;
 		
 		$args['body']=$params;
 		

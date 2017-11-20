@@ -11,7 +11,7 @@ class wlb_dashboard {
 	var $content = array();
 	var $show_ui = false;
 	var $widgets_form = '';
-	function wlb_dashboard($args=array()){
+	function __construct($args=array()){
 		global $wlb_plugin;
 		//------
 		$defaults = array(

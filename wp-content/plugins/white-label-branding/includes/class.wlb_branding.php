@@ -7,7 +7,7 @@
  * @copyright 2003 
  **/
 class wlb_branding {
-	function wlb_branding( $url ){
+	function __construct( $url ){
 		$this->url = $url;
 		//---
 		global $wlb_plugin;
@@ -31,10 +31,69 @@ class wlb_branding {
 		if( !in_array( trim($wlb_plugin->get_option('replace_howdy','')), array('','Howdy, %1$s'))){
 			add_filter('gettext',array(&$this,'replace_howdy'),1111111,3);
 		}
+		
+		if('1'==$wlb_plugin->get_option('hide_update_nag','')){
+			add_action('after_setup_theme', array( &$this, 'remove_core_updates') );
+		}	
+		
+		if('1'==$wlb_plugin->get_option('hide_update_plugin','')){
+			remove_action('load-update-core.php','wp_update_plugins');
+			add_filter('pre_site_transient_update_plugins', array( &$this, 'disable_update_notification' ) );
+		}	
+		
+		if('1'==$wlb_plugin->get_option('hide_update_theme','')){
+			remove_action( 'load-update-core.php', 'wp_update_themes' );
+			add_filter( 'pre_site_transient_update_themes', array( &$this, 'disable_update_notification' ) );
+		}	
+		
+		add_action("admin_menu",array(&$this,'admin_menu'));		
 	}
 	
+	function disable_update_notification( $a ){
+		global $wp_version,$wlb_plugin;
+		
+		$wlb_admin_user = $wlb_plugin->get_option('wlb_administrator','');
+		if( !empty($wlb_admin_user) && $wlb_plugin->is_wlb_administrator() ){
+			//wlb_admin is set and current user is not wlb adminisrator.
+			return $a;
+		}		
+		
+		return (object) array(
+			'last_checked' => time(),
+			'version_checked' => $wp_version,
+		);	
+	}
+	
+	function admin_menu(){
+		global $wlb_plugin;
+		
+		$wlb_admin_user = $wlb_plugin->get_option('wlb_administrator','');
+		if( !empty($wlb_admin_user) && $wlb_plugin->is_wlb_administrator() ){
+			//wlb_admin is set and current user is not wlb adminisrator.
+			return;
+		}
+		
+		if('1'==$wlb_plugin->get_option('hide_plugins_menu','') ){
+			remove_menu_page( 'plugins.php' );
+		}	
+		if('1'==$wlb_plugin->get_option('hide_themes_menu','') ){
+			remove_menu_page( 'themes.php' );
+		}	
+	}
+	
+	function remove_core_updates(){
+		if(! current_user_can('update_core')){return;}
+		add_action('init', create_function('$a',"remove_action( 'init', 'wp_version_check' );"),2);
+		add_filter('pre_option_update_core','__return_null');
+		add_filter('pre_site_transient_update_core','__return_null');
+	}	
+	
 	function replace_howdy($translation,$text,$domain){
-		if(is_string($text) && $text=='Howdy, %1$s'){
+		$arr = array(
+			'Howdy, %1$s',
+			'Howdy, %s'
+		);
+		if(is_string($text) && in_array( $text, $arr ) ){
 			global $wlb_plugin;
 			return $wlb_plugin->get_option('replace_howdy','');
 		}
@@ -46,7 +105,7 @@ class wlb_branding {
 	}
 
 	function filter_wp_mail($args){		
-		if( is_string($args['headers']) && preg_match("/^from:/mi",$args['headers']) ){
+		if( is_array( $args ) && isset( $args['headers'] ) && is_string($args['headers']) && preg_match("/^from:/mi",$args['headers']) ){
 		
 		}else{
 			//only do branding if header from: is not set
@@ -272,6 +331,27 @@ class wlb_branding {
 				'save_option'=>true,
 				'load_option'=>true
 				);	
+			
+		$t[$i]->options[] =	(object)array(
+				'id'		=> 'hide_update_plugin',
+				'label'		=> __('Hide Update plugin','wlb'),
+				'type'		=> 'yesno',
+				'description'=> __('Hide plugin update messages.','wlb'),
+				'el_properties'	=> array(),
+				'save_option'=>true,
+				'load_option'=>true
+				);	
+			
+		$t[$i]->options[] =	(object)array(
+				'id'		=> 'hide_update_theme',
+				'label'		=> __('Hide Update theme','wlb'),
+				'type'		=> 'yesno',
+				'description'=> __('Hide theme update messages.','wlb'),
+				'el_properties'	=> array(),
+				'save_option'=>true,
+				'load_option'=>true
+				);	
+				
 		$t[$i]->options[] =	(object)array(
 				'id'		=> 'hide_update_download',
 				'label'		=> __('Hide Update Download Link','wlb'),
@@ -304,6 +384,24 @@ class wlb_branding {
 				'label'		=> __('Hide Favorite Actions','wlb'),
 				'type'		=> 'yesno',
 				'description'=> __('Hide WordPress Favorite Actions (Dropdown located on the top right corner of wp-admin).','wlb'),
+				'el_properties'	=> array(),
+				'save_option'=>true,
+				'load_option'=>true
+				);	
+		$t[$i]->options[] =	(object)array(
+				'id'		=> 'hide_plugins_menu',
+				'label'		=> __('Hide plugins menu','wlb'),
+				'type'		=> 'yesno',
+				'description'=> __('Hide plugins menu.  Observe that you can still access with a direct url.','wlb'),
+				'el_properties'	=> array(),
+				'save_option'=>true,
+				'load_option'=>true
+				);	
+		$t[$i]->options[] =	(object)array(
+				'id'		=> 'hide_themes_menu',
+				'label'		=> __('Hide themes menu','wlb'),
+				'type'		=> 'yesno',
+				'description'=> __('Hide themes menu.  Observe that you can still access with a direct url.','wlb'),
 				'el_properties'	=> array(),
 				'save_option'=>true,
 				'load_option'=>true
@@ -394,6 +492,25 @@ class wlb_branding {
 			(object)array('type'	=> 'clear'),
 			(object)array('type'=>'submit','class'=>'button-primary', 'label'=> __('Save changes','wlb') )		
 		);	
+		endif;
+		
+		if( defined('RHC_VERSION') ):
+		$i = count($t);
+		@$t[$i]->id 			= 'wlb_rhc'; 
+		$t[$i]->label 		= __('Calendarize it!','wlb');//title on tab
+		$t[$i]->right_label = __('Customize Calendarize it!','wlb');
+		$t[$i]->page_title	= __('Calendarize it!','wlb');//title on content
+		$t[$i]->options = array();
+		$t[$i]->options[] = (object)array(
+				'id'			=> 'rhc_downloads',
+				'label'			=> __('Enable Downloads menu','wlb'),
+				'type'			=> 'onoff',
+				'default'		=> '1',
+				'description'	=> __('Enable the downloads section.'),
+				'el_properties'	=> array('class'=>'text-width-full'),
+				'save_option'	=> true,
+				'load_option'	=> true
+			);
 		endif;
 		
 		return $t;

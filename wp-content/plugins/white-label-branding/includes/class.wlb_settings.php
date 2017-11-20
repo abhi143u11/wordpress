@@ -9,7 +9,7 @@
 class wlb_settings {
 	var $pre_user_query=false;
 	var $restore_cap_msg='';
-	function wlb_settings(){
+	function __construct(){
 		global $wlb_plugin;
 		$this->id = $wlb_plugin->id.'-opt';
 		add_filter("pop-options_{$this->id}",array(&$this,'wlb_options'),10,1);	
@@ -37,15 +37,12 @@ class wlb_settings {
 	
 	function editable_roles($roles){
 		if(isset($roles[WLB_ADMIN_ROLE])){
-			global $userdata;
-			//--compat fix, third party is removing userdata data.
-			if( !is_object($userdata) || !property_exists( $userdata, 'ID' ) ){
-				$userdata = get_currentuserinfo();
-			}
-			
-			$WP_User = new WP_User($userdata->ID);
-			if(!$WP_User->has_cap(WLB_ADMIN_ROLE)){
-				unset($roles[WLB_ADMIN_ROLE]);
+			$userdata = wp_get_current_user();
+			if ( ($userdata instanceof WP_User) ){
+				$WP_User = new WP_User($userdata->ID);
+				if(!$WP_User->has_cap(WLB_ADMIN_ROLE)){
+					unset($roles[WLB_ADMIN_ROLE]);
+				}			
 			}
 		}
 		return $roles;
@@ -151,8 +148,12 @@ jQuery(document).ready(function($){
 					);				
 			}
 			
+			$t[$i]->options[] =	(object)array(
+				'type' => 'subtitle',
+				'label'=> __('Notifications','wlb')
+			);			
 		
-		
+
 		
 		
 			$t[$i]->options[]=(object)array('type'	=> 'clear');		
@@ -167,6 +168,26 @@ jQuery(document).ready(function($){
 		$t[$i]->page_title	= __('Advanced Settings','wlb');//title on content
 		$t[$i]->options = array();
 		
+		if( $wlb_plugin->is_wlb_administrator() ):	
+		
+		$t[$i]->options[]=(object)array(
+				'type'=>'subtitle',
+				'label'=>__('WLB Administrator','wlb')	
+			);
+			
+		$t[$i]->options[] =	(object)array(
+				'id'		=> 'wlb_administrator',
+				'label'		=> __('WLB administrator','wlb'),
+				'type'		=> 'text',
+				'description'=> __('Specify comma separated users to be a WLB administrator.  Hiding options will apply to other administrators.','wlb'),
+				'el_properties'	=> array('class'=>'widefat'),
+				'save_option'=>true,
+				'load_option'=>true
+				);		
+					
+		endif;			
+					
+					
 		$t[$i]->options[]=(object)array(
 				'type'=>'subtitle',
 				'label'=>__('Role and Capability Manager','wlb')	
@@ -217,12 +238,12 @@ jQuery(document).ready(function($){
 				'save_option'=>true,
 				'load_option'=>true
 				);				
-
+		/*	
 		$t[$i]->options[]=(object)array(
 				'type'=>'subtitle',
 				'label'=>__('Other modules','wlb')	
 			);
-		/*				
+					
 		$t[$i]->options[] =	(object)array(
 				'id'		=> 'enable_color_scheme',
 				'label'		=> __('Original Color Scheme','wlb'),
@@ -233,19 +254,34 @@ jQuery(document).ready(function($){
 				'save_option'=>true,
 				'load_option'=>true
 				);	
-		*/			
+				
 		$t[$i]->options[] =	(object)array(
 				'id'		=> 'enable_wlb_login',
 				'label'		=> __('Login branding','wlb'),
 				'type'		=> 'onoff',
-				'default'	=> '1',
-				'description'=> __('Default login page branding.','wlb'),
+				'default'	=> '0',
+				'description'=> sprintf(__('This module has been depreciated at the release of version 4.1.2. It will be removed from the plugin at the end of the year. For easy styling of the default WordPress login, please download the Visual CSS Editor from the %s','wlb'),
+					'<a href="' .admin_url('admin.php?page=white-label-branding-dc') . '">' . __('downloads menu','wlb') . '</a>'
+				),
 				'el_properties'	=> array(),
 				'save_option'=>true,
 				'load_option'=>true
 				);	
+		*/	
+		$t[$i]->options[]=(object)array(
+				'type'=>'subtitle',
+				'label'=>__('Notifications','wlb')	
+			);
 					
-					
+		$t[$i]->options[] = (object)array(
+				'id'		=> 'enable_notifications',
+				'label'		=> __('Enable notifications on non options pages.','rhc'),
+				'type'		=> 'yesno',
+				'default'	=> '1',
+				'el_properties'	=> array(),
+				'save_option'=>true,
+				'load_option'=>true
+			);					
 					
 		$t[$i]->options[]=(object)array('type'	=> 'clear');		
 		$t[$i]->options[]=(object)array('label'=>__('Save changes','wlb'),'type'=>'submit','class'=>'button-primary', 'value'=> '' );	

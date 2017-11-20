@@ -238,7 +238,7 @@ tr.pop-checkbox {
 .pt-label {
 	padding:0 5px 0 0;
 	float: left;
-	width: 170px;
+	width: 50%;
 	margin: 5px 0 0;
 }
 
@@ -247,7 +247,6 @@ tr.pop-checkbox {
 }
 
 .pt-label.pt-type-yesno {
-	padding-right:12px;
 	margin:0px;
 }
 
@@ -260,11 +259,20 @@ h3.option-panel-subtitle {
 }
 
 .pt-option {
-	width:390px;
+	width: 50%;
 }
 
 .pt-option-saved_settings_list .dc-name {
 	min-width:200px;
+}
+
+#rhc-woocommerce-tickets .pt-option.pt-option-onoff span.pt-type-onoff,
+#rhc-woocommerce-tickets .pt-option.pt-option-yesno span.pt-label.pt-type-yesno {
+    margin: 7px 0 0;
+}
+
+#woo_tickets_app_metabox_group .pt-label.pt-type-yesno {
+    padding-right: 5px;
 }
 
 div#postbox-container-1 .pt-option { /* Right Column */
@@ -315,6 +323,11 @@ input[type="text"].pop-colorpicker {
 }
 .pt-option-textarea textarea{
 	width:380px;
+}
+
+#rhc-wct-app .pt-label.pt-type-onoff {
+    float: none;
+    display: block;
 }
 
 /* SLIDER */
@@ -646,6 +659,10 @@ tbody.popex-list.pop-processing {
   background-color: #bd362f;	 	
 }
  
+.pop-onoff > button.pop-onoff-btn:focus {
+    outline: none;
+}
+
 .pt-option-rolemanager table.widefat{
 clear:none;
 }
@@ -906,10 +923,23 @@ h2 .pop-nav-tab.nav-tab {
     font-weight: normal;
 }
 
+h2 .pop-nav-tab.nav-tab.nav-tab-active {
+    display: inline-block;
+}
+
 
 /* Countdown button */
 #maintanance_mode input.btn_countdown_add {
     margin: 10px 0 0;
+}
+
+#rhc-cd .pt-label {
+    width: 200px;
+}
+
+.pt-option input#rhccd_title {
+	width: 390px;
+	margin: 0;
 }
 
 /* Navigation Admin */
@@ -920,6 +950,24 @@ h2 .pop-nav-tab.nav-tab {
 #admin_sort_menu_group .js .postbox .handlediv {
     margin-top: 3px;
 }
+
+#admin_sort_menu_group .js .postbox .handlediv:after {
+    content: "";
+    border-color: transparent transparent #000 transparent;
+    border-style: solid;
+    border-width: 0px 5px 5px 5px;
+    position: relative;
+    top: -26px;
+}
+
+#admin_sort_menu_group .js .postbox.closed .handlediv:after {
+    content: "";
+    border-color: #000 transparent transparent transparent;
+    border-style: solid;
+    border-width: 5px 5px 0 5px;
+    top: 0;
+}
+
 @media screen and (max-width:480px) {
     .pt-option.mp-iconset {
         width:100%;
@@ -975,11 +1023,73 @@ h2 .pop-nav-tab.nav-tab {
 		display: block;
 		min-height: 32px;
 	}
+	div#rhc-layout-options .pt-label.pt-type-onoff {
+		vertical-align: middle;
+		float: none;
+		margin: 0;
+		padding: 7px 0;
+	}
+	div#rhc-layout-options .pop-onoff-control {
+		display: inline-block;
+		vertical-align: middle;
+		margin: 0;
+	}
+	#rhcelt_events_link_to .pt-option.pt-option-onoff {
+		height: 20px;
+	}
 }
 
 @media screen and (max-device-width:480px) {
 	.wp-admin .pop-layout-horizontal h2.nav-tab-wrapper a.pop-nav-tab.nav-tab {
 		width: 92.5%;
+	}
+	
+	#rhc-layout-options .inside .pop-onoff-control {
+        float: none;
+        width: 35%;
+        display: inline-block;
+        vertical-align: top;
+    }
+
+    table#rhc-wct-tickets-table {
+        width: 99%;
+    }
+	
+    table#rhc-wct-tickets-table thead {
+        display:none;
+    }
+    
+    #rhc-wct table#rhc-wct-tickets-table tr.wct-ticket-detail td {
+        display: block;
+        width: 70% !important;
+        padding-left: 27%;
+    }
+
+    #rhc-wct table#rhc-wct-tickets-table tr.wct-ticket-detail td:before {margin: 10px 0 0;}
+    
+    #rhc-wct table#rhc-wct-tickets-table tr.wct-ticket-detail td:first-child:before {
+        content: "Ticket Name";
+    }
+
+    #rhc-wct table#rhc-wct-tickets-table tr.wct-ticket-detail td:nth-child(2):before {
+        content: "Qty. Available";
+    }
+
+     #rhc-wct table#rhc-wct-tickets-table tr.wct-ticket-detail td:nth-child(3):before {
+        content: "Price";
+    }
+
+    #rhc-wct table#rhc-wct-tickets-table tr.wct-ticket-detail td:nth-child(4):before {
+        content: "Actions";
+    }
+
+    #wct_enable_group #rhc-wct-tickets-table .tag-col {
+        width: 49%;
+        margin:0 0 10px;
+    }
+	
+	#wct_enable_group .pop-onoff-control {
+		float: none;
 	}
 }
 

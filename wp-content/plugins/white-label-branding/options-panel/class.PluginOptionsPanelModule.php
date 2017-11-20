@@ -16,8 +16,9 @@ class PluginOptionsPanelModule {
 	var $menu_text;
 	var $option_menu_parent;
 	var $notification;
+	var $notifications_capability;
 	var $description_rowspan=0;
-	var $version = '2.8.3';
+	var $version = '2.8.8';
 	var $rangeinput;
 	var $colorpicker;
 	var $registration = true;
@@ -26,7 +27,8 @@ class PluginOptionsPanelModule {
 	var $url;
 	var $uid;
 	var $ad_options;
-	function PluginOptionsPanelModule($args=array()){
+	function __construct($args=array()){
+		$args = apply_filters( 'rh_pop_args', $args );
 		$defaults = array(
 			'id'					=> 'plugin-options-panel',
 			'tdom'					=> 'pop',
@@ -44,6 +46,7 @@ class PluginOptionsPanelModule {
 				'plugin_code' 	=> 'POP',
 				'message'		=> __('Plugin update %s is available!','pop').'<a href="%s">'.__('Please update now','pop').'</a>'
 			),
+			'notifications_capability' => 'manage_options',
 			'autoupdate'	=> true,
 			'theme'			=> false,
 			'registration'	=> false,
@@ -76,7 +79,8 @@ class PluginOptionsPanelModule {
 			'api_url' 		=> "http://plugins.righthere.com",
 			'layout'		=> 'horizontal',
 			'sort'			=> true,
-			'enable_notifications' => true
+			'enable_notifications' => false,
+			'notify_always'	=> true
 		);
 		foreach($defaults as $property => $default){
 			$this->$property = isset($args[$property])?$args[$property]:$default;
@@ -129,13 +133,15 @@ class PluginOptionsPanelModule {
 		}
 		
 		if($this->enable_notifications){
-			add_action( 'admin_notices', array( &$this, 'admin_notices' ) );
+			if( current_user_can( $this->notifications_capability ) ){
+				add_action( 'admin_notices', array( &$this, 'admin_notices' ) );
+			}
 		}
 	}
 
 	function admin_notices(){
 		$transient = 'notified_' .$this->notification->plugin_code;
-		if( false === ( $notified = get_transient( $transient ) ) ) {
+		if( $this->notify_always || false === ( $notified = get_transient( $transient ) ) ) {
 			$r = $this->pop_notifications( false );
 			set_transient( $transient, 1, 60*3 );
 			if( is_object( $r ) && property_exists( $r, 'R' ) && $r->R == 'OK' && !empty($r->MSG) ){
@@ -243,10 +249,10 @@ class PluginOptionsPanelModule {
 			$version = substr($wp_version,0,3);
 			if($version>=3.5){
 				wp_register_style( $this->stylesheet, $this->url.'style.css', array(),'1.0.1.1');
-				wp_register_script( 'pop', $this->url.'js/pop.js', array(),'2.6.1.3');
+				wp_register_script( 'pop', $this->url.'js/ui-elements.js', array(),'2.6.1.3');
 			}else{
 				wp_register_style( $this->stylesheet, $this->url.'style.css', array('thickbox'),'1.0.2');
-				wp_register_script( 'pop', $this->url.'js/pop.prewp35.js', array('media-upload','thickbox'),'1.0.2');
+				wp_register_script( 'pop', $this->url.'js/ui-elements.prewp35.js', array('media-upload','thickbox'),'1.0.2');
 			}
 			//--
 			if($this->rangeinput)wp_register_script( 'pop-rangeinput', $this->url.'js/rangeinput.js', array(),'1.2.5');
@@ -565,6 +571,7 @@ class PluginOptionsPanelModule {
 
 	function force_update_check(){
 		$current = get_transient( 'update_plugins' );
+		if( !is_object( $current ) ) return;//
 		$current->last_checked = 0;
 		set_transient( 'update_plugins', $current );
 		wp_update_plugins();	
@@ -699,7 +706,7 @@ class PluginOptionsPanelModule {
 <div class="wrap">
 <?php screen_icon('options-general'); ?>
 <h2><?Php echo $this->menu_text?></h2>
-<?php echo isset($_REQUEST['updated'])?'<div class="updated">'.__('Options updated.','pop').'</div>':'' ?>
+<?php echo isset($_REQUEST['updated'])?'<div class="updated"><p>'.__('Options updated.','pop').'</p></div>':'' ?>
 <div id="sys_msg"></div>
 <div id="pop-options-cont" class="pop-layout-<?php echo $this->layout?> <?php echo do_action('pop-options-cont-class')?>">
 <?php
@@ -761,6 +768,7 @@ class PluginOptionsPanelModule {
 				echo sprintf("<div class=\"option-content %s %s\">",$open,(isset($this->classes['panel_body'])?$this->classes['panel_body']:''));
 				if(count($tab->options)>0){
 					foreach($tab->options as $i => $o){
+						$o->description = property_exists($o, 'description')? $o->description : '';
 						$o->theme_option = property_exists($o,'theme_option')? $o->theme_option : true;
 						$o->plugin_option = property_exists($o,'plugin_option')? $o->plugin_option : true;
 						if($this->theme&&!$o->theme_option){
@@ -774,12 +782,12 @@ class PluginOptionsPanelModule {
 						if(!method_exists($pop_input,$method))
 							continue;
 
-						if(true===@$o->load_option){
+						if( property_exists( $o, 'load_option' ) && true===$o->load_option){
 							$option_varname = $pop_input->get_option_name($tab,$i,$o);
 							$o->value = isset($existing_options[$option_varname])?$existing_options[$option_varname]:(property_exists($o,'default')?$o->default:'');
 						}
 						
-						if(property_exists($o,'esc_attr') && $o->esc_attr){
+						if( property_exists($o,'esc_attr') && $o->esc_attr){
 							$o->value = esc_attr($o->value);
 						}
 						
@@ -860,6 +868,19 @@ class PluginOptionsPanelModule {
 	}
 
 	function get_option($name){
+		//bug, cannot update wlbms
+		if( class_exists( 'plugin_white_label_branding_multisite' ) ){
+			if( 'white-label-branding-reg' == $this->id ){
+				if( $name == 'license_keys' ){
+					$options = get_site_option( $this->options_varname );
+					
+					if( isset($options[$name]) ){
+						return $options[$name];
+					}
+				}
+			}		
+		}	
+		
 		$options = $this->get_options();
 		return isset($options[$name])?$options[$name]:'';
 	}

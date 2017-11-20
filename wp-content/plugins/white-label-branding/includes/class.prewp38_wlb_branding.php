@@ -7,7 +7,7 @@
  * @copyright 2003 
  **/
 class wlb_branding {
-	function wlb_branding( $url ){
+	function __construct( $url ){
 		$this->url = $url;
 		
 		global $wlb_plugin;

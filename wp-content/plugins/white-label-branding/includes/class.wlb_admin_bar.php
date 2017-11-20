@@ -9,7 +9,7 @@
 
 class wlb_admin_bar {
 	var $admin_bar_nodes;
-	function wlb_admin_bar(){
+	function __construct(){
 		global $wlb_plugin;
 		$this->id = $wlb_plugin->id.'-nav';	
 		add_filter("pop-options_{$this->id}",array(&$this,'wlb_options'),10,1);	
@@ -237,7 +237,7 @@ class wlb_admin_bar {
 		if(!current_user_can('wlb_navigation'))return;
 		$existing_options = get_option($pop->options_varname);
 		$existing_options = is_array($existing_options)?$existing_options:array();
-		$existing_options['wlb_hidden_admin_bar_ids'] = (is_array($_POST['ADMINBAR'])&&count($_POST['ADMINBAR'])>0)? $_POST['ADMINBAR'] : array() ;
+		$existing_options['wlb_hidden_admin_bar_ids'] = (isset($_POST['ADMINBAR'])&&is_array($_POST['ADMINBAR'])&&count($_POST['ADMINBAR'])>0)? $_POST['ADMINBAR'] : array() ;
 		update_option($pop->options_varname,$existing_options);		
 	}
 		

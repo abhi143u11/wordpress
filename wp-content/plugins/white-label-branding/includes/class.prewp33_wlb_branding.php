@@ -7,7 +7,7 @@
  * @copyright 2003 
  **/
 class wlb_branding {
-	function wlb_branding(){
+	function __construct(){
 		global $wlb_plugin;
 		$this->id = $wlb_plugin->id.'-bra';
 		

@@ -6,7 +6,7 @@ class pop_importer {
 	var $plugin_id;
 	var $options_varname;
 	var $alt_temp = false;
-	function pop_importer($args=array()){
+	function __construct($args=array()){
 		$defaults = array(
 			'plugin_id'	=> 'pop-importer',
 			'options_varname' => 'pop_importer',

@@ -11,7 +11,7 @@ class pop_input {
 	var $uid = 0;
 	var $farbtastic = true;
 	var $icons_footer = array();
-	function pop_input($args=array()){
+	function __construct($args=array()){
 		$defaults = array(
 			'farbtastic'	=> true
 		);
@@ -38,7 +38,7 @@ class pop_input {
 	
 	function get_el_properties($tab,$i,$o){
 		$elp = array();
-		if(count(@$o->el_properties)>0){
+		if( property_exists( $o, 'el_properties' ) && count(@$o->el_properties)>0){
 			foreach($o->el_properties as $prop => $val){
 				$elp[] = sprintf("%s=\"%s\"",$prop,$val);
 			}
@@ -67,6 +67,7 @@ class pop_input {
 			$save_fields[]= $this->get_option_name($tab,$i,$o);	
 		}
 		$str = '';
+		$o->nolabel = property_exists( $o, 'nolabel' ) ? $o->nolabel : false ;
 		if(!@$o->nolabel){
 			$str.=sprintf("<div class=\"slider-label\">%s</div>",@$o->label);
 		}
@@ -254,7 +255,7 @@ class pop_input {
 			$o->el_properties['OnClick'] = isset($o->el_properties['OnClick'])?$o->el_properties['OnClick'].' '.$fn:'javascript:'.$fn;			
 			$o->el_properties['class'] = isset($o->el_properties['class'])?$o->el_properties['class'].' pop_groupcontrol':'pop_groupcontrol';	
 		}
-		return $this->_radio($tab,$i,$o,$save_fields);
+		return $this->_switcher($tab,$i,$o,$save_fields);
 	}
 	
 	function _radio($tab,$i,$o,&$save_fields){
@@ -265,7 +266,7 @@ class pop_input {
 				$id = $this->get_el_id($tab,$i,$o).'_'.($k++);
 				$name = $this->get_el_name($tab,$i,$o);
 				$selected = $o->value==$value?'checked':'';
-				$str.=sprintf("<input %s id=\"%s\" name=\"%s\" type=\"radio\" %s value=\"%s\" />&nbsp;<label>%s</label>&nbsp;&nbsp;", $this->get_el_properties($tab, $i, $o),$id, $name, $selected, $value, $label);
+				$str.=sprintf("<input %s id=\"%s\" name=\"%s\" type=\"radio\" %s value=\"%s\" />&nbsp;<label for=\"%s\">%s</label>&nbsp;&nbsp;", $this->get_el_properties($tab, $i, $o), $id, $name, $selected, $value, $id, $label);
 			}
 			if(true===$o->save_option){
 				$save_fields[]=$this->get_option_name($tab,$i,$o);	
@@ -370,8 +371,8 @@ class pop_input {
 		$out = sprintf('<div class="pop-preview"><div class="pop-preview-items">');
 		foreach($o->items as $item){
 			$out.=sprintf('<div class="pop-preview-item" rel="%s|%s">%s<img src="%s" />%s</div>',
-				@$item->focus_target,
-				@$items->click_target,
+				( property_exists( $item, 'focus_target' ) ? $item->focus_target : '' ),
+				( property_exists( $item, 'click_target' ) ? $item->click_target : '' ),
 				(property_exists($item,'label')&&$item->label!=''?'<div class="pop-preview-label">'.$item->label.'</div>':''),
 				$o->path.$item->src,
 				(property_exists($item,'description')&&$item->description!=''?'<div class="pop-preview-description">'.$item->description.'</div>':'')
@@ -410,6 +411,10 @@ class pop_input {
 			$o->el_properties['class'] = isset($o->el_properties['class'])?$o->el_properties['class'].' pop_groupcontrol':'pop_groupcontrol';	
 		}
 
+		return $this->_switcher($tab,$i,$o,$save_fields);;
+	}
+
+	function _switcher( $tab, $i, $o, &$save_fields ) {
 		$current_value = '';
 		if(is_array($o->value)){
 			foreach($o->options as $v => $l){
@@ -446,6 +451,7 @@ class pop_input {
 		if(true===$o->save_option){
 			$save_fields[]=$this->get_option_name($tab,$i,$o);	
 		}
+
 		return $str;
 	}
 	

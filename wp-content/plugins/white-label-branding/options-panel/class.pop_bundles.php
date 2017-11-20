@@ -16,7 +16,7 @@ class pop_bundles {
 	var $tdom;
 	var $options_varname;
 	var $panel_priority=100;
-	function pop_bundles($args=array()){
+	function __construct($args=array()){
 		$defaults = array(
 			'plugin_id'				=> '',
 			'plugin_code'			=> 'POP',

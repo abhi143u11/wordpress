@@ -8,7 +8,7 @@
  **/
 
 class wlb_capabilities {
-	function wlb_capabilities(){
+	function __construct(){
 		global $wlb_plugin;
 		$this->id = $wlb_plugin->id.'-cap';		
 		add_filter("pop-options_{$this->id}",array(&$this,'wlb_options'),10,1);	
@@ -19,12 +19,14 @@ class wlb_capabilities {
 		add_action('edit_user_profile_update', array(&$this,'edit_user_profile_update'));		
 		//--
 		add_action('admin_init',array(&$this,'admin_init'));
+		
+		
 	}
 	
 	function admin_init(){
 		if( defined('DOING_AJAX') && DOING_AJAX ) return;
-		global $current_user,$wlb_plugin;
-		get_currentuserinfo();	
+		global $wlb_plugin;
+		$current_user = wp_get_current_user();
 		if(is_array($current_user->roles)&&$current_user->roles>0){
 			foreach($current_user->roles as $role_id){
 				if( '1'== $wlb_plugin->get_option('disable_wpadmin_'.$role_id,'') ){
@@ -128,25 +130,32 @@ jQuery(document).ready(function($){
 			$t[$i]->role_name	= $role_name;
 			$t[$i]->name 		= $role_name;
 			$t[$i]->all_caps 	= $all_caps;
+		
+			$t[$i]->options = array();	
 			
-			$t[$i]->options = array(
-				(object)array(
+			$t[$i]->options[] = (object)array(
 					'type'=>'subtitle',
 					'label'=>sprintf(__('Manage %s Capabilities','wlb'),$role_name)
-				),
-				(object)array(
+				);
+			
+			$t[$i]->options[] = (object)array(
 					'type'=>'callback',
 					'callback'=>array(&$this,'_role_capabilities')
-				),
-				(object)array('type'	=> 'clear'),	(object)array('type'	=> 'clear'),		
-				(object)array(
+				);
+			
+			$t[$i]->options[] = (object)array('type'	=> 'clear') ;
+			
+			$t[$i]->options[] = (object)array('type'	=> 'clear') ;
+			
+			$t[$i]->options[] = (object)array(
 					'id'=>'disable_wpadmin_'.$role_id,
 					'label'=> sprintf(__('Disable wp-admin for role %s','wlb'),$role_name),
 					'type'=>'checkbox',
 					'save_option'=>true,
 					'load_option'=>true
-				),
-				(object)array(
+				);
+			
+			$t[$i]->options[] = (object)array(
 					'id'=>'disabled_wpadmin_url_'.$role_id,
 					'label'=> sprintf(__('Provide a URL to redirect user if wp-admin is disabled.','wlb'),$role_name),
 					'description'=>__('Do not provide a link on the wp-admin or it will loop endlessly.','wlb'),
@@ -154,10 +163,13 @@ jQuery(document).ready(function($){
 					'el_properties'=>array('style'=>'width:380px'),
 					'save_option'=>true,
 					'load_option'=>true
-				),
-				(object)array('type'	=> 'clear'),	(object)array('type'	=> 'clear','el_properties'=>array('style'=>'margin-bottom:12px;')),		
-				(object)array('type'=>'submit','class'=>'button-primary', 'label'=> __('Save changes','wlb'))
-			);	
+				);
+			
+			$t[$i]->options[] = (object)array('type'	=> 'clear');
+			
+			$t[$i]->options[] = (object)array('type'	=> 'clear','el_properties'=>array('style'=>'margin-bottom:12px;'));
+			
+			$t[$i]->options[] = (object)array('type'=>'submit','class'=>'button-primary', 'label'=> __('Save changes','wlb'));
 		}		
 		//-----
 		/* all caps in a sinngle tab.
@@ -186,6 +198,48 @@ jQuery(document).ready(function($){
 		*/
 		//--------
 		$i = count($t);
+		@$t[$i]->id 			= 'self_rescue'; 
+		$t[$i]->label 		= __('Self rescue','wlb');//title on tab
+		$t[$i]->right_label	= __('Self rescue','wlb');//title on tab
+		$t[$i]->page_title	= __('Self rescue','wlb');//title on content
+		$t[$i]->priority	= 10;
+		$t[$i]->options = array(
+			(object)array(
+				'type'=>'subtitle',
+				'label'=>__('Administrator role capabilities restore','wlb')	
+			)	
+		);	
+		
+		$t[$i]->options[] = (object)array(
+				'id'=>'wlb_panic_key',
+				'label'=> __('Panic key','wlb'),
+				'description'=>__('Set a key for the self rescue link.','wlb'),
+				'type'=>'text',
+				'default'=>'default',
+				'el_properties'=>array('style'=>'width:380px'),
+				'save_option'=>true,
+				'load_option'=>true
+			);	
+		
+		global $wlb_plugin;
+		$panic = $wlb_plugin->get_option( 'wlb_panic_key', 'default', true );
+		
+		$t[$i]->options[] = (object)array(
+				'id'=>'wlb_self_rescue_link',
+				'label'=> __('Self rescue link','wlb'),
+				'description'=>__('Copy paste this url to a secure location.  If you lock yourselve out while modifying the administrator role, copy paste the link to the browser to restore core capabilities to the administrator role.','wlb'),
+				'type'=>'textarea',
+				'default' => site_url('/?wlb_panic=' . $panic ),
+				'el_properties'=>array('class'=>'widefat','readonly'=>'readonly'),
+				'save_option'=>false,
+				'load_option'=>true
+			);	
+			
+		$t[$i]->options[] = (object)array('type'	=> 'clear');	
+		
+		$t[$i]->options[] = (object)array('type'=>'submit','class'=>'button-primary', 'label'=> __('Save changes','wlb'));		
+		//--------
+		$i = count($t);
 		@$t[$i]->id 			= 'new_roles'; 
 		$t[$i]->label 		= __('Roles and Capabilities','wlb');//title on tab
 		$t[$i]->right_label	= __('Add new Roles and Capabilities','wlb');//title on tab
@@ -204,6 +258,7 @@ jQuery(document).ready(function($){
 		
 		return $t;
 	}
+	
 	
 	function pop_handle_save($pop){
 		global $wlb_plugin;

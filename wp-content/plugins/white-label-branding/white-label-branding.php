@@ -4,12 +4,12 @@
 Plugin Name: White Label Branding for WordPress
 Plugin URI: http://plugins.righthere.com/white-label-branding/
 Description: Take complete control over wp-admin, customize menus for each User Role. Hide WordPress branding and nag messages. Add your own custom branding. Customize the WordPress Toolbar and many other features.
-Version: 4.0.7.65075
+Version: 4.1.9.81576
 Author: Alberto Lau (RightHere LLC)
 Author URI: http://plugins.righthere.com
  **/
 
-define('WLB_VERSION','4.0.7');
+define('WLB_VERSION','4.1.9');
 define('WLB_STANDALONE', true);
 define('WLB_PATH', plugin_dir_path(__FILE__) ); 
 define("WLB_URL", plugin_dir_url(__FILE__) ); 

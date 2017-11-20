@@ -17,7 +17,7 @@ class pop_downloadable_content {
 	var $module_url;
 	var $alt_temp = false;
 	var $plugin_codes = array();
-	function pop_downloadable_content($args=array()){
+	function __construct($args=array()){
 		if(count($args)==0)return;
 		$defaults = array(
 			'id'					=> 'downloadable_content',
@@ -492,21 +492,22 @@ var rh_custom_filter = <?php echo $this->custom_filter ? 'true' : 'false' ;?>;
 var dc_updates_available = "<?php _e('You have %s update(s) available for download','pop')?>";
 var rh_alipay  = <?php echo $alipay ? 'true' : 'false' ?>;
 var rh_bitcoin = <?php echo $bitcoin ? 'true' : 'false' ?>;
-jQuery('document').ready(function($){
+
+jQuery( document ).ready(function( $ ) {
 	get_bundles();
 	
-	$('#bundles').isotope({
+	$( '#bundles' ).isotope({
 		itemSelector : '.pop-dlc-item',
   		layoutMode : 'fitRows'
-		/*,filter : '.letter-a'*/
 	});
 	
-	$('.isotope-filter').on('click',function(e){
-		$('.isotope-filter').removeClass('current-cat');
-		$(this).addClass('current-cat');
-		var filter = $(this).attr('rel');
-		$('#bundles').isotope({filter:filter});
-	});	
+	$( '.isotope-filter' ).on( 'click', function( e ) {
+		$( '.isotope-filter' ).removeClass( 'nav-tab-active' );
+		$( this ).addClass( 'nav-tab-active' );
+		
+		var filter = $( this ).attr( 'rel' );
+		$( '#bundles' ).isotope({ filter: filter });
+	});
 });
 </script>
 <style>
@@ -517,27 +518,26 @@ min-width:200px;
 <?php	
 	}
 	
-	function body(){
+	function body() {
 		$license_keys = $this->get_license_keys();
 
-		if(!is_array($license_keys) || count($license_keys)==0){
-			$message = __('Please enter your License Key in the Options Panel to get access to the free add-ons and premium paid add-ons.','pop');
-			$message_class='updated';
-		}else{
+		if ( ! is_array( $license_keys ) || 0 == count( $license_keys ) ) {
+			$message = __( 'Please enter your License Key in the Options Panel to get access to the free add-ons and premium paid add-ons.', 'pop' );
+			$message_class = 'error';
+		} else {
 			$message = '';
-			$message_class='';		
+			$message_class='';
 			
-			if( $this->multisite ){
-				$message = __('Add-ons will be activated for all sites.','pop');
-				$message_class='updated';
+			if ( $this->multisite ) {
+				$message = __( 'Add-ons will be activated for all sites.', 'pop' );
+				$message_class = 'updated';
 			}
-		}
-		
+		}		
 ?>
 <div class="wrap">
 	<div class="icon32" id="icon-plugins"><br /></div>
 	<h2><?php echo $this->page_title?></h2>
-	<div id="messages" class="<?php echo $message_class?>"><?php echo $message?></div>
+	<div id="messages" class="<?php echo $message_class?>"><p><?php echo $message?></p></div>
 	
 	<div id="installing">
 		<div id="install-image" class="dc-loading"></div>
@@ -545,60 +545,60 @@ min-width:200px;
 		<div class="clear"></div>
 	</div>
 	<div class="dc-content">
-		<ul class="subsubsub">
-			<li><a class="isotope-filter" rel="" href="javascript:void(0);"><?php _e("Downloads",'pop')?></a>|</li>
-			<li><a class="isotope-filter" rel=".dlc-recent" href="javascript:void(0);"><?php _e("New",'pop')?></a>|</li>
-			<li><a class="isotope-filter" rel=".dlc-update" href="javascript:void(0);"><?php _e("Available Updates",'pop')?></a>|</li>
-			<li><a class="isotope-filter" rel=".dlc-installed" href="javascript:void(0);"><?php _e("Installed",'pop')?></a>|</li>
-			<li style="display:none;"><a class="isotope-filter" rel=".dlc-not-installed" href="javascript:void(0);"><?php _e("Not installed",'pop')?></a>|</li>
-			<li><a class="isotope-filter filter-dlc-addon" rel=".dlc-addon" href="javascript:void(0);"><?php _e("Add-ons",'pop')?></a>|</li>
-			<li><a class="isotope-filter" rel=".dlc-downloaded" href="javascript:void(0);"><?php _e("Downloaded",'pop')?></a></li>
-		</ul>
-		<div class="clear"></div>
-			
-		<div id="bundles" class="rhpop"></div>		
-
+		<h2 class="nav-tab-wrapper wp-clearfix dc-tabs">
+			<a href="javascript:void(0);" class="nav-tab isotope-filter nav-tab-active" rel=""><?php _e( 'Downloads', 'pop' ); ?></a>
+			<a href="javascript:void(0);" class="nav-tab isotope-filter" rel=".dlc-recent"><?php _e( 'New', 'pop' ); ?></a>
+			<a href="javascript:void(0);" class="nav-tab isotope-filter" rel=".dlc-update"><?php _e( 'Available Updates', 'pop' ); ?></a>
+			<a href="javascript:void(0);" class="nav-tab isotope-filter" rel=".dlc-installed"><?php _e( 'Installed', 'pop' ); ?></a>
+			<a href="javascript:void(0);" class="nav-tab isotope-filter" rel=".dlc-addon"><?php _e( 'Add-ons', 'pop' ); ?></a>
+			<a href="javascript:void(0);" class="nav-tab isotope-filter" rel=".dlc-downloaded"><?php _e( 'Downloaded', 'pop' ); ?></a>
+		</h2>
+		<div id="bundles" class="rhpop"></div>
 		<div class="clear"></div>	
 	</div>
 </div>
 
 <div style="display:none;" id="pop-dlc-item-template">
 	<div class="pop-dlc-item show-coupon">
+		<a class="pop-dlc-image" target="_blank"><img width="135"></a>
 		<h4 class="pop-dlc-name">{name}</h4>
-		
+		<div class="pop-dlc-description">{description}</div>
 		<div class="pop-dlc-details">
-			<a class="pop-dlc-image" target="_blank"><img width="135"></a>
-			<div class="pop-version-cont">
-				<div class="pop-dlc-version-label"><?php _e('Version','pop') ?></div>
-				<div class="pop-dlc-version">{version}</div>
-			</div>
-
-			<div class="pop-iversion-cont">
-				<div class="pop-dlc-iversion-label"><?php _e('Installed','pop') ?></div>
-				<div class="pop-dlc-iversion">{version}</div>
-			</div>
 			
-			<div class="pop-filesize-cont">
-				<div class="pop-dlc-filesize-label"><?php _e('Size','pop') ?></div>
-				<div class="pop-dlc-filesize">{filesize}</div>
+			<div class="pop-dlc-details-1">
+				<div class="pop-version-cont">
+					<div class="pop-dlc-version-label"><?php _e('Version','pop') ?></div>
+					<div class="pop-dlc-version">{version}</div>
+				</div>
+
+				<div class="pop-iversion-cont">
+					<div class="pop-dlc-iversion-label"><?php _e('Installed','pop') ?></div>
+					<div class="pop-dlc-iversion">{version}</div>
+				</div>			
 			</div>
+
+			<div class="pop-dlc-details-1">
+				<div class="pop-filesize-cont">
+					<div class="pop-dlc-filesize-label"><?php _e('Size','pop') ?></div>
+					<div class="pop-dlc-filesize">{filesize}</div>
+				</div>
 			
-			<div class="pop-price-cont">
-				<div class="pop-dlc-price-label"><?php _e('Price','pop') ?></div>
-				<div class="pop-dlc-price">{price}</div>
-			</div>
+				<div class="pop-price-cont">
+					<div class="pop-dlc-price-label"><?php _e('Price','pop') ?></div>
+					<div class="pop-dlc-price">{price}</div>
+				</div>
+			</div>			
+		</div>		
 
+		<div class="pop-clear"></div>
 
-
-			<div class="alert alert-error main-license-message" style="display:none;">
-				<?php _e('Enter your license key before you can purchase add-ons or download free add-ons.','pop')?>
-			</div>
-			<div class="alert alert-error addon-license-message" style="display:none;">
-				
-			</div>
+		<div class="alert alert-error main-license-message" style="display:none;">
+			<?php _e('Enter your license key before you can purchase add-ons or download free add-ons.','pop')?>
+		</div>
+		<div class="alert alert-error addon-license-message" style="display:none;">
+			
 		</div>		
 		
-		<div class="pop-dlc-description">{description}</div>
 		<div class="pop-clear"></div>
 		<div class="dlc-controls">				
 			<div class="dlc-row">

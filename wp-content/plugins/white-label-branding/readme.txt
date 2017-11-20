@@ -2,11 +2,67 @@
 Author: Alberto Lau (RightHere LLC)
 Author URL: http://plugins.righthere.com/white-label-branding/
 Tags: white label branding, custom menus, custom dashboard panel, custom login, cms, wordpress, role manager, capability manager, wp ms, multisite, custom colors, downloadable content, import and export
-Requires at least: 3.6
-Tested up to: 4.3.1
-Stable tag: 4.0.7.65075
+Requires at least: 3.9
+Tested up to: 4.8.2
+Stable tag: 4.1.9.81576
 
 ======== CHANGE LOG ========
+Version 4.1.9.81576 - September 26, 2017
+* Bug Fixed: PHP warning displayed when invalid username is set as WLB Administrator (when PHP warnings are active)
+* Bug Fixed: Some PHP warnings showing on PHP 7 console, about “Creating default object from empty value” in class.wlb_dashboard.php
+* Update: Added Spanish translation .po and .mo files
+
+Version 4.1.8.76505 - January 30, 2017
+* Bug Fixed: WooCommerce menu icons not changing when replaced
+* Update: Adjusted CSS in WLB Settings > Navigation > Admin Menu Settings
+
+Version 4.1.7.76151 - January 15, 2017
+* Bug Fixed: Old login sub-menu still visible after removing depreciated Login Branding.
+
+Version 4.1.6.75863 - December 29, 2016
+* Bug Fixed: Replace “Howdy, username” option stopped working after the release of WordPress 4.7
+* Update: Move the “Enable notifications on non options pages” from Options > Troubleshooting to Options > Advanced Settings
+* Update: Remove old Login Branding from Options > Advanced Settings. Over a year ago we announced that this feature would be depreciated and removed. It has been replaced with the much better Visual CSS Editor
+* Update: wlb_options capability required in order to see the White Label Branding dashboard notification
+
+Version 4.1.5.75687 - December 13, 2016
+* Update: When using the Panic Key, also remove the wlb_administrator option, so that regular Administrators with the appropriate User Role and Capabilities can see hidden WLB menus.
+
+Version 4.1.4.75349 - November 24, 2016
+* Update: Make the old login branding OFF by default (in August 2015 we introduced the new Visual CSS Editor and announced that the old login branding module would be removed by the end of 2016)
+* Bug Fixed: PHP warning in branding menu
+* New Feature: Added a self rescue link that makes it possible to restore the Administrator capabilities to the default settings in case the capabilities were modified and the user is locked out of wp-admin.
+
+Version 4.1.3.70836 - June 6, 2016
+* New Feature: Added Troubleshooting option to disable White Label Branding update notifications
+
+Version 4.1.2.70407 - May 26, 2016
+* New Feature: Allow to set multiple users in the WLB Administrator field
+* New Feature: Added filter wlb_skip_login to allow customization of the default WordPress login with the Visual CSS Editor without having to disable the old Login module
+* Update: Added depreciated message to the old Login module
+
+Version 4.1.1.69967 - May 10, 2016
+* Bug Fixed: PHP Warning when hiding Plugins and Themes menu in wp-admin
+* Bug Fixed: Disable Plugin and Theme notification is forcing an update every time. Implement a better notification disable that does not trigger a remote call every time
+* Bug Fixed: When the WLB Administrator is set, the update notifications should show for this user
+* Update: When WLB Administrator is set, Plugins and Appearance is only visible to this user if the Hide Plugins and Appearance options are set
+
+Version 4.1.0.69894 - May 9, 2016
+* New Feature: Added option to disable the Downloads section from in Calendarize it! for WordPress. Requires the latest version of both plugins that use the Options Panel
+* New Feature: Added feature to hide update plugins and update themes
+* New Feature: Added feature to hide plugins and appearance menu. This will only hide the menus, the screens are still accessible
+* New Feature: Added feature to specify a White Label Branding Administrator (single user). Fallback to user role if the user looses Administrator rights. This feature is specially useful if the plugin is used in a customers website, and the customer insists to be an Administrator, but you don’t want the customer to have access to certain features
+* New Feature: The White Label Branding (WLB) Administrator feature is only visible to the WLB Administrator
+
+Version 4.0.9.69776 - May 2, 2016
+* Compatibility Fix: Change classes where the constructor has the same name as the class to __construct (PHP 7 compatibility).
+* Bug Fixed: Function Reference get_currentuserinfo has been depreciated and replaced with wp_get_current_user()
+
+Version 4.0.8.66283 - January 6, 2016
+* Bug Fixed: Installation of bundled login templates is not working
+* Update: Updated the reported pop version
+* Update: Changed visibility of update notification to only Administrators
+
 Version 4.0.7.65075 - November 17, 2015
 * Bug Fixed: PHP warning when using the move logout to root option
 * Bug Fixed: Branding > Dashboard > Hide Dashboard Widgets, some widgets have empty labels

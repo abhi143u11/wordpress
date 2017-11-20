@@ -7,7 +7,7 @@ class al_importer {
 	var $post_author;
 	var $post_author_rewrite = true;
 	var $upload_dir;
-	function al_importer($args=array()){
+	function __construct($args=array()){
 		global $wpdb,$userdata;
 		$defaults = array(
 			'post_types'	=> $wpdb->get_col("SELECT DISTINCT(post_type) FROM `{$wpdb->posts}`",0),

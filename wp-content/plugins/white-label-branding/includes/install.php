@@ -24,9 +24,9 @@ function handle_wlb_install($option_varname='MWLB', $path, $pop_path){
 	
 	//--- update bundles
 	$install_bundles = array(
-		$path . 'bundles/blue_sky_and_grass.php',
-		$path . 'bundles/old_mathematics.php',
-		$path . 'bundles/tiles_and_grass.php'
+		$path . 'includes/bundles/blue_sky_and_grass.php',
+		$path . 'includes/bundles/old_mathematics.php',
+		$path . 'includes/bundles/tiles_and_grass.php'
 	);
 	if(!class_exists('pop_importer'))require_once $pop_path.'class.pop_importer.php';
 	$e = new pop_importer(array('plugin_id'=>'white-label-branding','options_varname'=>$option_varname,'resources_path'=>'white-label-branding','tdom'=>'wlb'));

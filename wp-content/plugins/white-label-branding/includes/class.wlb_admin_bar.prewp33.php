@@ -7,7 +7,7 @@
  * @copyright 2003 
  **/
 class wlb_admin_bar {
-	function wlb_admin_bar(){
+	function __construct(){
 		global $wlb_plugin;
 		$this->id = $wlb_plugin->id.'-nav';	
 		add_filter("pop-options_{$this->id}",array(&$this,'wlb_options'),10,1);	

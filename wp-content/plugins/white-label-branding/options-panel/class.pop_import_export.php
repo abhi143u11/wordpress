@@ -8,7 +8,7 @@
  **/
 
 class pop_import_export {
-	function pop_import_export($args=array()){
+	function __construct($args=array()){
 		$defaults = array(
 			'plugin_id'				=> '',
 			'plugin_code'			=> 'POP',
@@ -61,6 +61,8 @@ class pop_import_export {
 						
 						$new_options = $data->options;
 						$new_options = is_array($new_options)?$new_options:array();
+
+						$new_options = apply_filters( 'pop_import_options_'.$this->plugin_id, $new_options ); 
 						if($this->import_option($new_options,true)){
 						
 						}	
@@ -95,7 +97,7 @@ class pop_import_export {
 			$filename = str_replace('-','_',$filename);
 			$filename = str_replace(' ','_',$filename);
 			
-			$data = apply_filters('export-settings-'.$this->id,$data);
+			$data = apply_filters('export-settings-'.$this->plugin_id,$data);
 			$data = base64_encode(serialize($data));
 			$data = gzcompress($data);
 			
@@ -107,9 +109,9 @@ class pop_import_export {
 	
 	function options($t){
 		$i = count($t);
-		//-------------------------
-		$i++;
-		@$t[$i]->id 			= 'import_export'; 
+		$t[$i]=(object)array();
+		
+		$t[$i]->id 			= 'import_export'; 
 		$t[$i]->label 		= __('Settings import and export','pop');
 		$t[$i]->right_label	= __('Settings import and export','pop');
 		$t[$i]->page_title	= __('Settings import and export','pop');
@@ -686,7 +688,7 @@ class pop_saved_settings_item {
 	var $name;
 	var $date;
 	var $options;
-	function pop_saved_settings_item(){
+	function __construct(){
 	
 	}
 }

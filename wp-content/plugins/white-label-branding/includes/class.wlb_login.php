@@ -8,7 +8,7 @@
  **/
 
 class wlb_login {
-	function wlb_login( $url ){
+	function __construct( $url ){
 		$this->url = $url;
 		
 		global $wlb_plugin;
@@ -984,7 +984,7 @@ input.button-primary:hover, button.button-primary:hover, a.button-primary:hover 
 	} 
 	function login_head(){
 		global $wlb_plugin;
-		if(isset($_REQUEST['wlb_skip_login'])){
+		if( isset($_REQUEST['wlb_skip_login']) || apply_filters('wlb_skip_login',false) ){
 			return true;
 		}
 	

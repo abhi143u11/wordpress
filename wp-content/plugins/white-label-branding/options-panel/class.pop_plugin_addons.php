@@ -14,7 +14,7 @@ class pop_plugin_addons {
 	var $license_keys;
 	var $module_url;
 	var $uid = 0;
-	function pop_plugin_addons($args=array()){
+	function __construct($args=array()){
 		if(count($args)==0)return;
 		$defaults = array(
 			'id'					=> 'addons',

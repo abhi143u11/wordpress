@@ -9,7 +9,7 @@
 
 class wlb_screen_options {
 	var $admin_footer;
-	function wlb_screen_options($args=array()){
+	function __construct($args=array()){
 		global $wlb_plugin;
 		$this->id = $wlb_plugin->id;
 		

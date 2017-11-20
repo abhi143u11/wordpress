@@ -8,7 +8,7 @@
  **/
 
 class righthere_service {
-	function righthere_service(){
+	function __construct(){
 	
 	}
 	

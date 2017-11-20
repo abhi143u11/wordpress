@@ -19,7 +19,7 @@ class plugin_white_label_branding {
 	var $main_cap = false;
 	var $debug_menu = false;
 	var $debug_start = false;
-	function plugin_white_label_branding($args=array()){
+	function __construct($args=array()){
 		//------------
 		$defaults = array(
 			'id'					=> 'white-label-branding',
@@ -30,7 +30,7 @@ class plugin_white_label_branding {
 			'site_options_varname' 	=> 'MWLB_SETTINGS',
 			'admin_menu'			=> true,
 			'resources_path'		=> 'white-label-branding',
-			'options_panel_version'	=> '2.8.3',
+			'options_panel_version'	=> '2.8.7',
 			'multisite'				=> false,
 			'theme'					=> false,
 			'path'					=> '',
@@ -69,10 +69,81 @@ class plugin_white_label_branding {
 			rh_register_php('options-panel', $this->pop_path . 'class.PluginOptionsPanelModule.php', $this->options_panel_version);
 			rh_register_php('rh-functions',  $this->pop_path . 'rh-functions.php', $this->options_panel_version);
 		}
+		
+		if('1'!=$this->get_option('rhc_downloads','1')){
+			add_filter('rh_pop_args', array( &$this, 'rh_pop_args'), 10, 1);
+		}		
+		
+		if( ! is_multisite() ){
+			$this->handle_panic();
+		}
 	}
 	
+	function handle_panic(){
+		if( isset( $_REQUEST['wlb_panic'] ) ){
+			$panic = $this->get_option( 'wlb_panic', 'default', true );
+			if( $panic == $_REQUEST['wlb_panic'] ){
+				global $wpdb;
+
+				//remove the wlb_administrator option
+				//wlb_administrator
+				$options = get_option( $this->options_varname );
+				if( is_array( $options ) && isset( $options['wlb_administrator'] ) ){
+					$options['wlb_administrator']='';
+					update_option( $this->options_varname, $options );
+				}
+
+				$roles = get_option(  $wpdb->prefix.'user_roles' );		
+				
+				if( is_array( $roles ) && !isset( $roles['administrator'] ) ){
+					$roles['administrator'] = array(
+						'name' => 'Administrator',
+						'capabilities' => array()
+					);
+				}	
+				
+				if(isset($roles['administrator'])&&isset($roles['administrator']['capabilities'])){
+					$administrator_caps = array("switch_themes", "edit_themes", "activate_plugins", "edit_plugins", "edit_users", "edit_files", "manage_options", "moderate_comments", "manage_categories", "manage_links", "upload_files", "import", "unfiltered_html", "edit_posts", "edit_others_posts", "edit_published_posts", "publish_posts", "edit_pages", "read", "level_10", "level_9", "level_8", "level_7", "level_6", "level_5", "level_4", "level_3", "level_2", "level_1", "level_0", "edit_others_pages", "edit_published_pages", "publish_pages", "delete_pages", "delete_others_pages", "delete_published_pages", "delete_posts", "delete_others_posts", "delete_published_posts", "delete_private_posts", "edit_private_posts", "read_private_posts", "delete_private_pages", "edit_private_pages", "read_private_pages", "delete_users", "create_users", "unfiltered_upload", "edit_dashboard", "update_plugins", "delete_plugins", "install_plugins", "update_themes", "install_themes", "update_core", "list_users", "remove_users", "add_users", "promote_users", "edit_theme_options", "delete_themes", "export", "manage_staging", "view_restricted_content",
+						"wlb_branding",
+						'wlb_navigation',
+						'wlb_login',
+						'wlb_color_scheme',
+						'wlb_options',
+						'wlb_role_manager',
+						'wlb_license',
+						'wlb_downloads',
+						'wlb_dashboard_tool'		
+					);
+					foreach($administrator_caps as $capability){
+						$roles['administrator']['capabilities'][$capability]=1;
+					}
+					update_option( $wpdb->prefix.'user_roles' ,$roles);
+					die('Done, administrator capabilities updated.');
+				}							
+			}
+		}
+	}
+	function rh_pop_args( $args ){
+		if( isset( $args['id'] ) && 'rhc'==$args['id'] ){
+			$args['downloadables']=false;
+		}
+		return $args;
+	}	
 	function is_wlb_administrator(){		
 		if( is_multisite() && !$this->is_wlb_network_admin() && '1'!=$this->get_site_option('allow_blog_branding') )return false;//on ms setups, this test controls if certain branding options apply to the subsite administrator.
+		$wlb_admin_user = $this->get_option('wlb_administrator','');
+		if(!empty( $wlb_admin_user ) ){
+			$arr = explode(',',$wlb_admin_user);
+			$current_user = wp_get_current_user();
+			foreach( $arr as $user ){
+				$wlb_user_obj = get_user_by('login', $user );
+				if( is_object($wlb_user_obj) && $wlb_user_obj->user_login==$current_user->user_login ){
+					return true;
+				}
+			} 
+
+			return false;
+		} 
 		return WLB_ADMIN_ROLE==$this->get_user_role();
 	}
 	
@@ -121,10 +192,12 @@ class plugin_white_label_branding {
 		}	
 		new wlb_branding( $this->url );
 		
+		/* deprecated.
 		if( '1'==$this->get_option('enable_wlb_login','1',true) ){
 			require_once $this->path . 'class.wlb_login.php';
 			new wlb_login( $this->url );		
 		}
+		*/
 
 		/*
 		if( $this->wlb_color_scheme ){
@@ -235,6 +308,7 @@ class plugin_white_label_branding {
 					'plugin_code' 	=> WLB_PLUGIN_CODE,
 					'message'		=> __('White Label Branding update %s is available!','wlb').' <a href="%s">'.__('Please update now','wlb').'</a>'
 				),
+				'notifications_capability'	=> 'wlb_options',
 				'ad_options'			=> $ad_options,
 				'addons'				=> $this->debug_menu,				
 				'theme'					=> $this->theme,
@@ -250,13 +324,16 @@ class plugin_white_label_branding {
 				//'api_url' 		=> "http://localhost",
 				'api_url' 		=> "http://plugins.righthere.com",
 				'autoupdate'	=> false,
-				'layout'		=> $this->layout
+				'layout'		=> $this->layout,
+				'enable_notifications'	=> ( '1'==$this->get_option('enable_notifications','1',true) ? true : false )
+				//'enable_notifications' => false
 			);	
 			//require_once WLB_PATH.'options-panel/class.PluginOptionsPanelModule.php';	
 			do_action('rh-php-commons');	
 			if(!class_exists('PluginOptionsPanelModule')){
 				return;			
-			}			
+			}		
+			
 			//---------------
 			$settings['id'] 		= $this->id.'-bra';
 			$settings['menu_id'] 	= $this->get_pop_menu_id('-bra','wlb_branding');//$this->id.'-bra';
@@ -264,7 +341,9 @@ class plugin_white_label_branding {
 			$settings['import_export'] = true;
 			$settings['import_export_options'] =false;
 			$settings['capability'] = 'wlb_branding';
+			//$settings['enable_notifications'] = true;	
 			new PluginOptionsPanelModule($settings);
+			$settings['enable_notifications'] = false;	
 			
 			$settings['id'] 		= $this->id.'-nav';
 			$settings['menu_id'] 	= $this->get_pop_menu_id('-nav','wlb_navigation');//$this->id.'-nav';
@@ -273,8 +352,10 @@ class plugin_white_label_branding {
 			$settings['import_export_options'] =false;
 			$settings['capability'] = 'wlb_navigation';
 			$settings['addons'] = false;
+			
 			new PluginOptionsPanelModule($settings);
 			
+			/*
 			if( '1'==$this->get_option('enable_wlb_login','1',true) ){
 				$settings['id'] 		= $this->id.'-log';
 				$settings['menu_id'] 	= $this->get_pop_menu_id('-log','wlb_login');//$this->id.'-log';
@@ -284,6 +365,8 @@ class plugin_white_label_branding {
 				$settings['capability'] = 'wlb_login';
 				new PluginOptionsPanelModule($settings);
 			}
+			*/
+			
 			/*			
 			if( $this->wlb_color_scheme ){
 				$settings['id'] 		= $this->id.'-css';

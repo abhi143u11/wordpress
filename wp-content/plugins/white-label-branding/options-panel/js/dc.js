@@ -21,7 +21,7 @@ function rh_in_array(needle,haystack){
 }
 
 function get_bundles(){
-	jQuery('#install-message').empty().append('<div class="row-message"><span>Requesting downloadable content list, please wait...</span></div>');
+	jQuery('#install-message').empty().append('<div class="row-message"><p><span>Requesting downloadable content list, please wait...</span></p></div>');
 	jQuery('#installing').fadeIn();
 		
 	var args = {
@@ -314,22 +314,22 @@ function add_bundle(bundles){
 						$('#bundles').isotope('reLayout');
 					}
 				}
-			}else{
-				template.find('.pop-discount-code').hide();
+			} else {
+				template.find( '.pop-discount-code' ).hide();
 			}
 
-			//--	
-			$('#bundles').isotope('insert', template);
-			if( rh_custom_filter && $( '.req1_' + o.item_no_1 + '_filter' ).length == 0 ){
-				$('.subsubsub').append('<li class="custom-filter ' + 'req1_' + o.item_no_1 + '_filter'  + '">|<a class="isotope-filter" rel="' + ('.req1_' + o.item_no_1) + '" href="javascript:void(0);">' + o.req1 + '</a></li>');
-				$('.req1_' + o.item_no_1 + '_filter a').unbind('click').bind('click',function(e){
-					_filter_value = $(this).attr('rel');
-					$('#bundles').isotope({ filter: _filter_value });
+			$( '#bundles' ).isotope( 'insert', template );
+
+			if ( rh_custom_filter && $( '.req1_' + o.item_no_1 + '_filter' ).length == 0 ) {
+				$( '.dc-tabs' ).append( '<a href="javascript:void(0);" class="nav-tab isotope-filter" rel="' + ( '.req1_' + o.item_no_1 ) + '">' + o.req1 + '</a>' );
+				$( '.req1_' + o.item_no_1 + '_filter a' ).unbind( 'click' ).bind( 'click', function( e ) {
+					_filter_value = $( this ).attr( 'rel' );
+					
+					$( '#bundles' ).isotope({ filter: _filter_value });
 				});
 			}
-		
-			
-			add_bundle(bundles);
+
+			add_bundle( bundles );
 		});
 	}else{
 		populating_bundle = false;

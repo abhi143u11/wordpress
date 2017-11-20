@@ -11,7 +11,9 @@
 }
 
 .wlb-custom-icon:before,
-[class^="icon-"] div.wp-menu-image:before, [class*=" icon-"] div.wp-menu-image:before {
+[class^="icon-"].wlb-custom-icon div.wp-menu-image:before,
+[class*=" icon-"].wlb-custom-icon div.wp-menu-image:before,
+#adminmenu #toplevel_page_woocommerce .menu-icon-generic[class*="icon-"].wlb-custom-icon div.wp-menu-image:before {
 	font-family: 'wlb-' !important;
 	speak: none;
 	font-style: normal;
@@ -28,402 +30,482 @@
 
 .mp-menu .icon-heart.wlb-custom-icon:before,
 #adminmenuwrap #adminmenu .icon-heart .wp-menu-image:before,
-.wlb-iconset-helper .icon-heart .wp-menu-image:before {
+.wlb-iconset-helper .icon-heart .wp-menu-image:before,
+#adminmenu #toplevel_page_woocommerce .menu-icon-generic.icon-heart div.wp-menu-image:before{
 	content: "\e606";
 }
 .mp-menu .icon-cloud.wlb-custom-icon:before,
 #adminmenuwrap #adminmenu .icon-cloud .wp-menu-image:before,
-.wlb-iconset-helper .icon-cloud .wp-menu-image:before {
+.wlb-iconset-helper .icon-cloud .wp-menu-image:before,
+#adminmenu #toplevel_page_woocommerce .menu-icon-generic.icon-cloud div.wp-menu-image:before{
 	content: "\e607";
 }
 .mp-menu .icon-star.wlb-custom-icon:before,
 #adminmenuwrap #adminmenu .icon-star .wp-menu-image:before,
-.wlb-iconset-helper .icon-star .wp-menu-image:before {
+.wlb-iconset-helper .icon-star .wp-menu-image:before,
+#adminmenu #toplevel_page_woocommerce .menu-icon-generic.icon-star div.wp-menu-image:before{
 	content: "\e608";
 }
 .mp-menu .icon-tv.wlb-custom-icon:before,
 #adminmenuwrap #adminmenu .icon-tv .wp-menu-image:before,
-.wlb-iconset-helper .icon-tv .wp-menu-image:before {
+.wlb-iconset-helper .icon-tv .wp-menu-image:before,
+#adminmenu #toplevel_page_woocommerce .menu-icon-generic.icon-tv div.wp-menu-image:before{
 	content: "\e609";
 }
 .mp-menu .icon-sound.wlb-custom-icon:before,
 #adminmenuwrap #adminmenu .icon-sound .wp-menu-image:before,
-.wlb-iconset-helper .icon-sound .wp-menu-image:before {
+.wlb-iconset-helper .icon-sound .wp-menu-image:before,
+#adminmenu #toplevel_page_woocommerce .menu-icon-generic.icon-sound div.wp-menu-image:before{
 	content: "\e60a";
 }
 .mp-menu .icon-video.wlb-custom-icon:before,
 #adminmenuwrap #adminmenu .icon-video .wp-menu-image:before,
-.wlb-iconset-helper .icon-video .wp-menu-image:before {
+.wlb-iconset-helper .icon-video .wp-menu-image:before,
+#adminmenu #toplevel_page_woocommerce .menu-icon-generic.icon-video div.wp-menu-image:before{
 	content: "\e60b";
 }
 .mp-menu .icon-trash.wlb-custom-icon:before,
 #adminmenuwrap #adminmenu .icon-trash .wp-menu-image:before,
-.wlb-iconset-helper .icon-trash .wp-menu-image:before {
+.wlb-iconset-helper .icon-trash .wp-menu-image:before,
+#adminmenu #toplevel_page_woocommerce .menu-icon-generic.icon-trash div.wp-menu-image:before{
 	content: "\e60c";
 }
 .mp-menu .icon-user.wlb-custom-icon:before,
 #adminmenuwrap #adminmenu .icon-user .wp-menu-image:before,
-.wlb-iconset-helper .icon-user .wp-menu-image:before {
+.wlb-iconset-helper .icon-user .wp-menu-image:before,
+#adminmenu #toplevel_page_woocommerce .menu-icon-generic.icon-user div.wp-menu-image:before{
 	content: "\e60d";
 }
 .mp-menu .icon-key.wlb-custom-icon:before,
 #adminmenuwrap #adminmenu .icon-key .wp-menu-image:before,
-.wlb-iconset-helper .icon-key .wp-menu-image:before {
+.wlb-iconset-helper .icon-key .wp-menu-image:before,
+#adminmenu #toplevel_page_woocommerce .menu-icon-generic.icon-key div.wp-menu-image:before{
 	content: "\e60e";
 }
 .mp-menu .icon-search.wlb-custom-icon:before,
 #adminmenuwrap #adminmenu .icon-search .wp-menu-image:before,
-.wlb-iconset-helper .icon-search .wp-menu-image:before {
+.wlb-iconset-helper .icon-search .wp-menu-image:before,
+#adminmenu #toplevel_page_woocommerce .menu-icon-generic.icon-search div.wp-menu-image:before{
 	content: "\e60f";
 }
 .mp-menu .icon-settings.wlb-custom-icon:before,
 #adminmenuwrap #adminmenu .icon-settings .wp-menu-image:before,
-.wlb-iconset-helper .icon-settings .wp-menu-image:before {
+.wlb-iconset-helper .icon-settings .wp-menu-image:before,
+#adminmenu #toplevel_page_woocommerce .menu-icon-generic.icon-settings div.wp-menu-image:before{
 	content: "\e602";
 }
 .mp-menu .icon-camera.wlb-custom-icon:before,
 #adminmenuwrap #adminmenu .icon-camera .wp-menu-image:before,
-.wlb-iconset-helper .icon-camera .wp-menu-image:before {
+.wlb-iconset-helper .icon-camera .wp-menu-image:before,
+#adminmenu #toplevel_page_woocommerce .menu-icon-generic.icon-camera div.wp-menu-image:before{
 	content: "\e610";
 }
 .mp-menu .icon-tag.wlb-custom-icon:before,
 #adminmenuwrap #adminmenu .icon-tag .wp-menu-image:before,
-.wlb-iconset-helper .icon-tag .wp-menu-image:before {
+.wlb-iconset-helper .icon-tag .wp-menu-image:before,
+#adminmenu #toplevel_page_woocommerce .menu-icon-generic.icon-tag div.wp-menu-image:before{
 	content: "\e615";
 }
 .mp-menu .icon-lock.wlb-custom-icon:before,
 #adminmenuwrap #adminmenu .icon-lock .wp-menu-image:before,
-.wlb-iconset-helper .icon-lock .wp-menu-image:before {
+.wlb-iconset-helper .icon-lock .wp-menu-image:before,
+#adminmenu #toplevel_page_woocommerce .menu-icon-generic.icon-lock div.wp-menu-image:before{
 	content: "\e605";
 }
 .mp-menu .icon-buld.wlb-custom-icon:before,
 #adminmenuwrap #adminmenu .icon-bulb .wp-menu-image:before,
-.wlb-iconset-helper .icon-bulb .wp-menu-image:before {
+.wlb-iconset-helper .icon-bulb .wp-menu-image:before,
+#adminmenu #toplevel_page_woocommerce .menu-icon-generic.icon-bulb div.wp-menu-image:before {
 	content: "\e62f";
 }
 .mp-menu .icon-pen.wlb-custom-icon:before,
 #adminmenuwrap #adminmenu .icon-pen .wp-menu-image:before,
-.wlb-iconset-helper .icon-pen .wp-menu-image:before {
+.wlb-iconset-helper .icon-pen .wp-menu-image:before,
+#adminmenu #toplevel_page_woocommerce .menu-icon-generic.icon-pen div.wp-menu-image:before {
 	content: "\e62e";
 }
 .mp-menu .icon-diamond.wlb-custom-icon:before,
 #adminmenuwrap #adminmenu .icon-diamond .wp-menu-image:before,
-.wlb-iconset-helper .icon-diamond .wp-menu-image:before {
+.wlb-iconset-helper .icon-diamond .wp-menu-image:before.
+#adminmenu #toplevel_page_woocommerce .menu-icon-generic.icon-diamond div.wp-menu-image:before {
 	content: "\e629";
 }
 .mp-menu .icon-display.wlb-custom-icon:before,
 #adminmenuwrap #adminmenu .icon-display .wp-menu-image:before,
-.wlb-iconset-helper .icon-display .wp-menu-image:before {
+.wlb-iconset-helper .icon-display .wp-menu-image:before,
+#adminmenu #toplevel_page_woocommerce .menu-icon-generic.icon-display div.wp-menu-image:before {
 	content: "\e628";
 }
 .mp-menu .icon-location.wlb-custom-icon:before,
 #adminmenuwrap #adminmenu .icon-location .wp-menu-image:before,
-.wlb-iconset-helper .icon-location .wp-menu-image:before {
+.wlb-iconset-helper .icon-location .wp-menu-image:before,
+#adminmenu #toplevel_page_woocommerce .menu-icon-generic.icon-location div.wp-menu-image:before{
 	content: "\e627";
 }
 .mp-menu .icon-eye.wlb-custom-icon:before,
 #adminmenuwrap #adminmenu .icon-eye .wp-menu-image:before,
-.wlb-iconset-helper .icon-eye .wp-menu-image:before {
+.wlb-iconset-helper .icon-eye .wp-menu-image:before,
+#adminmenu #toplevel_page_woocommerce .menu-icon-generic.icon-eye div.wp-menu-image:before{
 	content: "\e622";
 }
 .mp-menu .icon-bubble.wlb-custom-icon:before,
 #adminmenuwrap #adminmenu .icon-bubble .wp-menu-image:before,
-.wlb-iconset-helper .icon-bubble .wp-menu-image:before {
+.wlb-iconset-helper .icon-bubble .wp-menu-image:before,
+#adminmenu #toplevel_page_woocommerce .menu-icon-generic.icon-bubble div.wp-menu-image:before{
 	content: "\e620";
 }
 .mp-menu .icon-stack.wlb-custom-icon:before,
 #adminmenuwrap #adminmenu .icon-stack .wp-menu-image:before,
-.wlb-iconset-helper .icon-stack .wp-menu-image:before {
+.wlb-iconset-helper .icon-stack .wp-menu-image:before,
+#adminmenu #toplevel_page_woocommerce .menu-icon-generic.icon-stack div.wp-menu-image:before{
 	content: "\e61e";
 }
 .mp-menu .icon-cup.wlb-custom-icon:before,
 #adminmenuwrap #adminmenu .icon-cup .wp-menu-image:before,
-.wlb-iconset-helper .icon-cup .wp-menu-image:before {
+.wlb-iconset-helper .icon-cup .wp-menu-image:before,
+#adminmenu #toplevel_page_woocommerce .menu-icon-generic.icon-cup div.wp-menu-image:before{
 	content: "\e61c";
 }
 .mp-menu .icon-phone.wlb-custom-icon:before,
 #adminmenuwrap #adminmenu .icon-phone .wp-menu-image:before,
-.wlb-iconset-helper .icon-phone .wp-menu-image:before {
+.wlb-iconset-helper .icon-phone .wp-menu-image:before,
+#adminmenu #toplevel_page_woocommerce .menu-icon-generic.icon-phone div.wp-menu-image:before {
 	content: "\e61a";
 }
 .mp-menu .icon-news.wlb-custom-icon:before,
 #adminmenuwrap #adminmenu .icon-news .wp-menu-image:before,
-.wlb-iconset-helper .icon-news .wp-menu-image:before {
+.wlb-iconset-helper .icon-news .wp-menu-image:before,
+#adminmenu #toplevel_page_woocommerce .menu-icon-generic.icon-news div.wp-menu-image:before {
 	content: "\e619";
 }
 .mp-menu .icon-mail.wlb-custom-icon:before,
 #adminmenuwrap #adminmenu .icon-mail .wp-menu-image:before,
-.wlb-iconset-helper .icon-mail .wp-menu-image:before {
+.wlb-iconset-helper .icon-mail .wp-menu-image:before,
+#adminmenu #toplevel_page_woocommerce .menu-icon-generic.icon-mail div.wp-menu-image:before {
 	content: "\e616";
 }
 .mp-menu .icon-like.wlb-custom-icon:before,
 #adminmenuwrap #adminmenu .icon-like .wp-menu-image:before,
-.wlb-iconset-helper .icon-like .wp-menu-image:before {
+.wlb-iconset-helper .icon-like .wp-menu-image:before,
+#adminmenu #toplevel_page_woocommerce .menu-icon-generic.icon-like div.wp-menu-image:before {
 	content: "\e612";
 }
 .mp-menu .icon-photo.wlb-custom-icon:before,
 #adminmenuwrap #adminmenu .icon-photo .wp-menu-image:before,
-.wlb-iconset-helper .icon-photo .wp-menu-image:before {
+.wlb-iconset-helper .icon-photo .wp-menu-image:before,
+#adminmenu #toplevel_page_woocommerce .menu-icon-generic.icon-photo div.wp-menu-image:before {
 	content: "\e611";
 }
 .mp-menu .icon-note.wlb-custom-icon:before,
 #adminmenuwrap #adminmenu .icon-note .wp-menu-image:before,
-.wlb-iconset-helper .icon-note .wp-menu-image:before {
+.wlb-iconset-helper .icon-note .wp-menu-image:before,
+#adminmenu #toplevel_page_woocommerce .menu-icon-generic.icon-note div.wp-menu-image:before {
 	content: "\e630";
 }
 .mp-menu .icon-clock.wlb-custom-icon:before,
 #adminmenuwrap #adminmenu .icon-clock .wp-menu-image:before,
-.wlb-iconset-helper .icon-clock .wp-menu-image:before {
+.wlb-iconset-helper .icon-clock .wp-menu-image:before,
+#adminmenu #toplevel_page_woocommerce .menu-icon-generic.icon-clock div.wp-menu-image:before {
 	content: "\e62d";
 }
 .mp-menu .icon-paperplane.wlb-custom-icon:before,
 #adminmenuwrap #adminmenu .icon-paperplane .wp-menu-image:before,
-.wlb-iconset-helper .icon-paperplane .wp-menu-image:before {
+.wlb-iconset-helper .icon-paperplane .wp-menu-image:before,
+#adminmenu #toplevel_page_woocommerce .menu-icon-generic.icon-paperplane div.wp-menu-image:before {
 	content: "\e62a";
 }
 .mp-menu .icon-params.wlb-custom-icon:before,
 #adminmenuwrap #adminmenu .icon-params .wp-menu-image:before,
-.wlb-iconset-helper .icon-params .wp-menu-image:before {
+.wlb-iconset-helper .icon-params .wp-menu-image:before,
+#adminmenu #toplevel_page_woocommerce .menu-icon-generic.icon-params div.wp-menu-image:before {
 	content: "\e603";
 }
 .mp-menu .icon-banknote.wlb-custom-icon:before,
 #adminmenuwrap #adminmenu .icon-banknote .wp-menu-image:before,
-.wlb-iconset-helper .icon-banknote .wp-menu-image:before {
+.wlb-iconset-helper .icon-banknote .wp-menu-image:before,
+#adminmenu #toplevel_page_woocommerce .menu-icon-generic.icon-banknote div.wp-menu-image:before {
 	content: "\e626";
 }
 .mp-menu .icon-data.wlb-custom-icon:before,
 #adminmenuwrap #adminmenu .icon-data .wp-menu-image:before,
-.wlb-iconset-helper .icon-data .wp-menu-image:before {
+.wlb-iconset-helper .icon-data .wp-menu-image:before,
+#adminmenu #toplevel_page_woocommerce .menu-icon-generic.icon-data div.wp-menu-image:before {
 	content: "\e623";
 }
 .mp-menu .icon-music.wlb-custom-icon:before,
 #adminmenuwrap #adminmenu .icon-music .wp-menu-image:before,
-.wlb-iconset-helper .icon-music .wp-menu-image:before {
+.wlb-iconset-helper .icon-music .wp-menu-image:before,
+#adminmenu #toplevel_page_woocommerce .menu-icon-generic.icon-music div.wp-menu-image:before {
 	content: "\e621";
 }
 .mp-menu .icon-megaphone.wlb-custom-icon:before,
 #adminmenuwrap #adminmenu .icon-megaphone .wp-menu-image:before,
-.wlb-iconset-helper .icon-megaphone .wp-menu-image:before {
+.wlb-iconset-helper .icon-megaphone .wp-menu-image:before,
+#adminmenu #toplevel_page_woocommerce .menu-icon-generic.icon-megaphone div.wp-menu-image:before{
 	content: "\e61f";
 }
 .mp-menu .icon-study.wlb-custom-icon:before,
 #adminmenuwrap #adminmenu .icon-study .wp-menu-image:before,
-.wlb-iconset-helper .icon-study .wp-menu-image:before {
+.wlb-iconset-helper .icon-study .wp-menu-image:before,
+#adminmenu #toplevel_page_woocommerce .menu-icon-generic.icon-study div.wp-menu-image:before {
 	content: "\e61d";
 }
 .mp-menu .icon-lab.wlb-custom-icon:before,
 #adminmenuwrap #adminmenu .icon-lab .wp-menu-image:before,
-.wlb-iconset-helper .icon-lab .wp-menu-image:before {
+.wlb-iconset-helper .icon-lab .wp-menu-image:before,
+#adminmenu #toplevel_page_woocommerce .menu-icon-generic.icon-lab div.wp-menu-image:before {
 	content: "\e61b";
 }
 .mp-menu .icon-food.wlb-custom-icon:before,
 #adminmenuwrap #adminmenu .icon-food .wp-menu-image:before,
-.wlb-iconset-helper .icon-food .wp-menu-image:before {
+.wlb-iconset-helper .icon-food .wp-menu-image:before,
+#adminmenu #toplevel_page_woocommerce .menu-icon-generic.icon-food div.wp-menu-image:before {
 	content: "\e618";
 }
 .mp-menu .icon-t-shirt.wlb-custom-icon:before,
 #adminmenuwrap #adminmenu .icon-t-shirt .wp-menu-image:before,
-.wlb-iconset-helper .icon-t-shirt .wp-menu-image:before {
+.wlb-iconset-helper .icon-t-shirt .wp-menu-image:before,
+#adminmenu #toplevel_page_woocommerce .menu-icon-generic.icon-t-shirt div.wp-menu-image:before {
 	content: "\e617";
 }
 .mp-menu .icon-fire.wlb-custom-icon:before,
 #adminmenuwrap #adminmenu .icon-fire .wp-menu-image:before,
-.wlb-iconset-helper .icon-fire .wp-menu-image:before {
+.wlb-iconset-helper .icon-fire .wp-menu-image:before,
+#adminmenu #toplevel_page_woocommerce .menu-icon-generic.icon-fire div.wp-menu-image:before {
 	content: "\e613";
 }
 .mp-menu .icon-clip.wlb-custom-icon:before,
 #adminmenuwrap #adminmenu .icon-clip .wp-menu-image:before,
-.wlb-iconset-helper .icon-clip .wp-menu-image:before {
+.wlb-iconset-helper .icon-clip .wp-menu-image:before,
+#adminmenu #toplevel_page_woocommerce .menu-icon-generic.icon-clip div.wp-menu-image:before{
 	content: "\e614";
 }
 .mp-menu .icon-shop.wlb-custom-icon:before,
 #adminmenuwrap #adminmenu .icon-shop .wp-menu-image:before,
-.wlb-iconset-helper .icon-shop .wp-menu-image:before {
+.wlb-iconset-helper .icon-shop .wp-menu-image:before,
+#adminmenu #toplevel_page_woocommerce .menu-icon-generic.icon-shop div.wp-menu-image:before{
 	content: "\e631";
 }
 .mp-menu .icon-calendar.wlb-custom-icon:before,
 #adminmenuwrap #adminmenu .icon-calendar .wp-menu-image:before,
-.wlb-iconset-helper .icon-calendar .wp-menu-image:before {
+.wlb-iconset-helper .icon-calendar .wp-menu-image:before,
+#adminmenu #toplevel_page_woocommerce .menu-icon-generic.icon-calendar div.wp-menu-image:before {
 	content: "\e604";
 }
 .mp-menu .icon-wallet.wlb-custom-icon:before,
 #adminmenuwrap #adminmenu .icon-wallet .wp-menu-image:before,
-.wlb-iconset-helper .icon-wallet .wp-menu-image:before {
+.wlb-iconset-helper .icon-wallet .wp-menu-image:before,
+#adminmenu #toplevel_page_woocommerce .menu-icon-generic.icon-wallet div.wp-menu-image:before {
 	content: "\e62b";
 }
 .mp-menu .icon-vynil.wlb-custom-icon:before,
 #adminmenuwrap #adminmenu .icon-vynil .wp-menu-image:before,
-.wlb-iconset-helper .icon-vynil .wp-menu-image:before {
+.wlb-iconset-helper .icon-vynil .wp-menu-image:before,
+#adminmenu #toplevel_page_woocommerce .menu-icon-generic.icon-vynil div.wp-menu-image:before {
 	content: "\e62c";
 }
 .mp-menu .icon-truck.wlb-custom-icon:before,
 #adminmenuwrap #adminmenu .icon-truck .wp-menu-image:before,
-.wlb-iconset-helper .icon-truck .wp-menu-image:before {
+.wlb-iconset-helper .icon-truck .wp-menu-image:before,
+#adminmenu #toplevel_page_woocommerce .menu-icon-generic.icon-truck div.wp-menu-image:before {
 	content: "\e625";
 }
 .mp-menu .icon-world.wlb-custom-icon:before,
 #adminmenuwrap #adminmenu .icon-world .wp-menu-image:before,
-.wlb-iconset-helper .icon-world .wp-menu-image:before {
+.wlb-iconset-helper .icon-world .wp-menu-image:before,
+#adminmenu #toplevel_page_woocommerce .menu-icon-generic.icon-world div.wp-menu-image:before {
 	content: "\e624";
 }
 .mp-menu .icon-link.wlb-custom-icon:before,
 #adminmenuwrap #adminmenu .icon-link .wp-menu-image:before,
-.wlb-iconset-helper .icon-link .wp-menu-image:before {
+.wlb-iconset-helper .icon-link .wp-menu-image:before,
+#adminmenu #toplevel_page_woocommerce .menu-icon-generic.icon-link div.wp-menu-image:before {
 	content: "\e2cf";
 }
 .mp-menu .icon-link2.wlb-custom-icon:before,
 #adminmenuwrap #adminmenu .icon-link2 .wp-menu-image:before,
-.wlb-iconset-helper .icon-link2 .wp-menu-image:before {
+.wlb-iconset-helper .icon-link2 .wp-menu-image:before,
+#adminmenu #toplevel_page_woocommerce .menu-icon-generic.icon-link2 div.wp-menu-image:before {
 	content: "\e2cd";
 }
 .mp-menu .icon-support.wlb-custom-icon:before,
 #adminmenuwrap #adminmenu .icon-support .wp-menu-image:before,
-.wlb-iconset-helper .icon-support .wp-menu-image:before {
+.wlb-iconset-helper .icon-support .wp-menu-image:before,
+#adminmenu #toplevel_page_woocommerce .menu-icon-generic.icon-support div.wp-menu-image:before{
 	content: "\e0d9";
 }
 .mp-menu .icon-cloudy.wlb-custom-icon:before,
 #adminmenuwrap #adminmenu .icon-cloudy .wp-menu-image:before,
-.wlb-iconset-helper .icon-cloudy .wp-menu-image:before {
+.wlb-iconset-helper .icon-cloudy .wp-menu-image:before,
+#adminmenu #toplevel_page_woocommerce .menu-icon-generic.icon-cloudy div.wp-menu-image:before{
 	content: "\e600";
 }
 .mp-menu .icon-sun.wlb-custom-icon:before,
 #adminmenuwrap #adminmenu .icon-sun .wp-menu-image:before,
-.wlb-iconset-helper .icon-sun .wp-menu-image:before {
+.wlb-iconset-helper .icon-sun .wp-menu-image:before,
+#adminmenu #toplevel_page_woocommerce .menu-icon-generic.icon-sun div.wp-menu-image:before{
 	content: "\e601";
 }
 .mp-menu .icon-cloudy2.wlb-custom-icon:before,
 #adminmenuwrap #adminmenu .icon-cloudy2 .wp-menu-image:before,
-.wlb-iconset-helper .icon-cloudy2 .wp-menu-image:before {
+.wlb-iconset-helper .icon-cloudy2 .wp-menu-image:before,
+#adminmenu #toplevel_page_woocommerce .menu-icon-generic.icon-cloudy2 div.wp-menu-image:before {
 	content: "\e632";
 }
 .mp-menu .icon-weather.wlb-custom-icon:before,
 #adminmenuwrap #adminmenu .icon-weather .wp-menu-image:before,
-.wlb-iconset-helper .icon-weather .wp-menu-image:before {
+.wlb-iconset-helper .icon-weather .wp-menu-image:before,
+#adminmenu #toplevel_page_woocommerce .menu-icon-generic.icon-weather div.wp-menu-image:before {
 	content: "\e633";
 }
 .mp-menu .icon-wrench.wlb-custom-icon:before,
 #adminmenuwrap #adminmenu .icon-wrench .wp-menu-image:before,
-.wlb-iconset-helper .icon-wrench .wp-menu-image:before {
+.wlb-iconset-helper .icon-wrench .wp-menu-image:before,
+#adminmenu #toplevel_page_woocommerce .menu-icon-generic.icon-wrench div.wp-menu-image:before {
 	content: "\e1d8";
 }
 .mp-menu .icon-pie.wlb-custom-icon:before,
 #adminmenuwrap #adminmenu .icon-pie .wp-menu-image:before,
-.wlb-iconset-helper .icon-pie .wp-menu-image:before {
+.wlb-iconset-helper .icon-pie .wp-menu-image:before,
+#adminmenu #toplevel_page_woocommerce .menu-icon-generic.icon-pie div.wp-menu-image:before {
 	content: "\e1fb";
 }
 .mp-menu .icon-lamp.wlb-custom-icon:before,
 #adminmenuwrap #adminmenu .icon-lamp .wp-menu-image:before,
-.wlb-iconset-helper .icon-lamp .wp-menu-image:before {
+.wlb-iconset-helper .icon-lamp .wp-menu-image:before,
+#adminmenu #toplevel_page_woocommerce .menu-icon-generic.icon-lamp div.wp-menu-image:before {
 	content: "\e24e";
 }
 .mp-menu .icon-users.wlb-custom-icon:before,
 #adminmenuwrap #adminmenu .icon-users .wp-menu-image:before,
-.wlb-iconset-helper .icon-users .wp-menu-image:before {
+.wlb-iconset-helper .icon-users .wp-menu-image:before,
+#adminmenu #toplevel_page_woocommerce .menu-icon-generic.icon-users div.wp-menu-image:before {
 	content: "\e18f";
 }
 .mp-menu .icon-eyedropper.wlb-custom-icon:before,
 #adminmenuwrap #adminmenu .icon-eyedropper .wp-menu-image:before,
-.wlb-iconset-helper .icon-eyedropper .wp-menu-image:before {
+.wlb-iconset-helper .icon-eyedropper .wp-menu-image:before,
+#adminmenu #toplevel_page_woocommerce .menu-icon-generic.icon-eyedropper div.wp-menu-image:before {
 	content: "\e023";
 }
 .mp-menu .icon-clock2.wlb-custom-icon:before,
 #adminmenuwrap #adminmenu .icon-clock2 .wp-menu-image:before,
-.wlb-iconset-helper .icon-clock2 .wp-menu-image:before {
+.wlb-iconset-helper .icon-clock2 .wp-menu-image:before,
+#adminmenu #toplevel_page_woocommerce .menu-icon-generic.icon-clock2 div.wp-menu-image:before {
 	content: "\e107";
 }
 .mp-menu .icon-compass.wlb-custom-icon:before,
 #adminmenuwrap #adminmenu .icon-compass .wp-menu-image:before,
-.wlb-iconset-helper .icon-compass .wp-menu-image:before {
+.wlb-iconset-helper .icon-compass .wp-menu-image:before,
+#adminmenu #toplevel_page_woocommerce .menu-icon-generic.icon-compass div.wp-menu-image:before {
 	content: "\e0f8";
 }
 .mp-menu .icon-location2.wlb-custom-icon:before,
 #adminmenuwrap #adminmenu .icon-location2 .wp-menu-image:before,
-.wlb-iconset-helper .icon-location2 .wp-menu-image:before {
+.wlb-iconset-helper .icon-location2 .wp-menu-image:before,
+#adminmenu #toplevel_page_woocommerce .menu-icon-generic.icon-location2 div.wp-menu-image:before {
 	content: "\e0f6";
 }
 .mp-menu .icon-user2.wlb-custom-icon:before,
 #adminmenuwrap #adminmenu .icon-user2 .wp-menu-image:before,
-.wlb-iconset-helper .icon-user2 .wp-menu-image:before {
+.wlb-iconset-helper .icon-user2 .wp-menu-image:before,
+#adminmenu #toplevel_page_woocommerce .menu-icon-generic.icon-users2 div.wp-menu-image:before {
 	content: "\e18e";
 }
 .mp-menu .icon-equalizer.wlb-custom-icon:before,
 #adminmenuwrap #adminmenu .icon-equalizer .wp-menu-image:before,
-.wlb-iconset-helper .icon-equalizer .wp-menu-image:before {
+.wlb-iconset-helper .icon-equalizer .wp-menu-image:before,
+#adminmenu #toplevel_page_woocommerce .menu-icon-generic.icon-equalizer div.wp-menu-image:before {
 	content: "\e1dd";
 }
 .mp-menu .icon-meter.wlb-custom-icon:before,
 #adminmenuwrap #adminmenu .icon-meter .wp-menu-image:before,
-.wlb-iconset-helper .icon-meter .wp-menu-image:before {
+.wlb-iconset-helper .icon-meter .wp-menu-image:before,
+#adminmenu #toplevel_page_woocommerce .menu-icon-generic.icon-meter div.wp-menu-image:before {
 	content: "\e235";
 }
 .mp-menu .icon-atom.wlb-custom-icon:before,
 #adminmenuwrap #adminmenu .icon-atom .wp-menu-image:before,
-.wlb-iconset-helper .icon-atom .wp-menu-image:before {
+.wlb-iconset-helper .icon-atom .wp-menu-image:before,
+#adminmenu #toplevel_page_woocommerce .menu-icon-generic.icon-atom div.wp-menu-image:before {
 	content: "\e241";
 }
 .mp-menu .icon-atom2.wlb-custom-icon:before,
 #adminmenuwrap #adminmenu .icon-atom2 .wp-menu-image:before,
-.wlb-iconset-helper .icon-atom2 .wp-menu-image:before {
+.wlb-iconset-helper .icon-atom2 .wp-menu-image:before,
+#adminmenu #toplevel_page_woocommerce .menu-icon-generic.icon-atom2 div.wp-menu-image:before{
 	content: "\e242";
 }
 .mp-menu .icon-puzzle.wlb-custom-icon:before,
 #adminmenuwrap #adminmenu .icon-puzzle .wp-menu-image:before,
-.wlb-iconset-helper .icon-puzzle .wp-menu-image:before {
+.wlb-iconset-helper .icon-puzzle .wp-menu-image:before,
+#adminmenu #toplevel_page_woocommerce .menu-icon-generic.icon-puzzle div.wp-menu-image:before {
 	content: "\e271";
 }
 .mp-menu .icon-link3.wlb-custom-icon:before,
 #adminmenuwrap #adminmenu .icon-link3 .wp-menu-image:before,
-.wlb-iconset-helper .icon-link3 .wp-menu-image:before {
+.wlb-iconset-helper .icon-link3 .wp-menu-image:before,
+#adminmenu #toplevel_page_woocommerce .menu-icon-generic.icon-link3 div.wp-menu-image:before {
 	content: "\e2c9";
 }
 .mp-menu .icon-home.wlb-custom-icon:before,
 #adminmenuwrap #adminmenu .icon-home .wp-menu-image:before,
-.wlb-iconset-helper .icon-home .wp-menu-image:before {
+.wlb-iconset-helper .icon-home .wp-menu-image:before,
+#adminmenu #toplevel_page_woocommerce .menu-icon-generic.icon-home div.wp-menu-image:before {
 	content: "\e008";
 }
 .mp-menu .icon-pen2.wlb-custom-icon:before,
 #adminmenuwrap #adminmenu .icon-pen2 .wp-menu-image:before,
-.wlb-iconset-helper .icon-pen2 .wp-menu-image:before {
+.wlb-iconset-helper .icon-pen2 .wp-menu-image:before,
+#adminmenu #toplevel_page_woocommerce .menu-icon-generic.icon-pen2 div.wp-menu-image:before {
 	content: "\e019";
 }
 .mp-menu .icon-camera2.wlb-custom-icon:before,
 #adminmenuwrap #adminmenu .icon-camera2 .wp-menu-image:before,
-.wlb-iconset-helper .icon-camera2 .wp-menu-image:before {
+.wlb-iconset-helper .icon-camera2 .wp-menu-image:before,
+#adminmenu #toplevel_page_woocommerce .menu-icon-generic.icon-camera2 div.wp-menu-image:before{
 	content: "\e04d";
 }
 .mp-menu .icon-mic.wlb-custom-icon:before,
 #adminmenuwrap #adminmenu .icon-mic .wp-menu-image:before,
-.wlb-iconset-helper .icon-mic .wp-menu-image:before {
+.wlb-iconset-helper .icon-mic .wp-menu-image:before,
+#adminmenu #toplevel_page_woocommerce .menu-icon-generic.icon-mic div.wp-menu-image:before {
 	content: "\e06c";
 }
 .mp-menu .icon-bag.wlb-custom-icon:before,
 #adminmenuwrap #adminmenu .icon-bag .wp-menu-image:before,
-.wlb-iconset-helper .icon-bag .wp-menu-image:before {
+.wlb-iconset-helper .icon-bag .wp-menu-image:before,
+#adminmenu #toplevel_page_woocommerce .menu-icon-generic.icon-bag div.wp-menu-image:before {
 	content: "\e0d0";
 }
 .mp-menu .icon-database.wlb-custom-icon:before,
 #adminmenuwrap #adminmenu .icon-database .wp-menu-image:before,
-.wlb-iconset-helper .icon-database .wp-menu-image:before {
+.wlb-iconset-helper .icon-database .wp-menu-image:before,
+#adminmenu #toplevel_page_woocommerce .menu-icon-generic.icon-database div.wp-menu-image:before {
 	content: "\e13a";
 }
 .mp-menu .icon-bars.wlb-custom-icon:before,
 #adminmenuwrap #adminmenu .icon-bars .wp-menu-image:before,
-.wlb-iconset-helper .icon-bars .wp-menu-image:before {
+.wlb-iconset-helper .icon-bars .wp-menu-image:before,
+#adminmenu #toplevel_page_woocommerce .menu-icon-generic.icon-bars div.wp-menu-image:before {
 	content: "\e205";
 }
 .mp-menu .icon-dashboard.wlb-custom-icon:before,
 #adminmenuwrap #adminmenu .icon-dashboard .wp-menu-image:before,
-.wlb-iconset-helper .icon-dashboard .wp-menu-image:before {
+.wlb-iconset-helper .icon-dashboard .wp-menu-image:before,
+#adminmenu #toplevel_page_woocommerce .menu-icon-generic.icon-dashboard div.wp-menu-image:before {
 	content: "\e23a";
 }
 .mp-menu .icon-checkmark.wlb-custom-icon:before,
 #adminmenuwrap #adminmenu .icon-checkmark .wp-menu-image:before,
-.wlb-iconset-helper .icon-checkmark .wp-menu-image:before {
+.wlb-iconset-helper .icon-checkmark .wp-menu-image:before,
+#adminmenu #toplevel_page_woocommerce .menu-icon-generic.icon-checkmark div.wp-menu-image:before {
 	content: "\e371";
 }
 .mp-menu .icon-filter.wlb-custom-icon:before,
 #adminmenuwrap #adminmenu .icon-filter .wp-menu-image:before,
-.wlb-iconset-helper .icon-filter .wp-menu-image:before {
+.wlb-iconset-helper .icon-filter .wp-menu-image:before,
+#adminmenu #toplevel_page_woocommerce .menu-icon-generic.icon-filter div.wp-menu-image:before {
 	content: "\e444";
 }
 
@@ -447,11 +529,11 @@
 /* Admin Icon */
 @font-face {
 	font-family: 'whitelabelbranding';
-	src:url('fonts/whitelabelbranding.eot?1c4sgw');
-	src:url('fonts/whitelabelbranding.eot?#iefix1c4sgw') format('embedded-opentype'),
-		url('fonts/whitelabelbranding.woff?1c4sgw') format('woff'),
-		url('fonts/whitelabelbranding.ttf?1c4sgw') format('truetype'),
-		url('fonts/whitelabelbranding.svg?1c4sgw#whitelabelbranding') format('svg');
+	src:  url('fonts/whitelabelbranding.eot?w1i5jw');
+	src:  url('fonts/whitelabelbranding.eot?w1i5jw#iefix') format('embedded-opentype'),
+	url('fonts/whitelabelbranding.ttf?w1i5jw') format('truetype'),
+	url('fonts/whitelabelbranding.woff?w1i5jw') format('woff'),
+	url('fonts/whitelabelbranding.svg?w1i5jw#whitelabelbranding') format('svg');
 	font-weight: normal;
 	font-style: normal;
 }
@@ -469,7 +551,7 @@
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	
-	content: "\e602";
+	content: "\e901";
 }
 
 #toplevel_page_white-label-branding .wp-menu-image.dashicons-before img {
