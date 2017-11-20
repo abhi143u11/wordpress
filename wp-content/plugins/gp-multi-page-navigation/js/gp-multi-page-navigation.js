@@ -14,6 +14,10 @@
 
         self.init = function() {
 
+            if( self.$formElem.length <= 0 ) {
+                self.$formElem = $( '#gform_wrapper_' + self.formId );
+            }
+
             // set page specific elements
             self.$footer                = $( '#gform_page_' + self.formId + '_' + self.getCurrentPage() + ' .gform_page_footer' );
             self.$saveAndContinueButton = self.$footer.find( 'a.gform_save_link' );
@@ -22,7 +26,7 @@
                 return;
             }
 
-            var $steps = $( 'form#gform_' + self.formId + ' .gf_step' );
+            var $steps = self.$formElem.find( '.gf_step' );
 
             $steps.each( function() {
 
@@ -59,17 +63,19 @@
 
                     var $parentForm      = $( this ).parents( 'form' ),
                         $formElem        = $parentForm.length > 0 ? $parentForm : $( '.gform_wrapper form' ),
-                        gpmpn            = $formElem.data( 'GPMultiPageNavigation' ),
+                        formId           = $formElem.attr( 'id' ).split( '_' )[1];
                         pageNumber       = hrefArray.pop();
-                        //bypassValidation = gpmpn.activationType == 'first_page';
+                    //bypassValidation = gpmpn.activationType == 'first_page';
 
-                    GPMultiPageNavigation.postToPage( pageNumber, gpmpn.formId, true );
+                    GPMultiPageNavigation.postToPage( pageNumber, formId, true );
 
                 }
 
             } );
 
             self.$formElem.data( 'GPMultiPageNavigation', self );
+
+            window[ 'gpmpn_' + self.formId ] = self;
 
         };
 
@@ -155,6 +161,12 @@
                 $form.append( $bypassValidationInput );
             }
 
+            /**
+             * If submit buttons are hidden via conditional logic (next/prev/submit), form will not be able to submit; this code finds
+             * all hidden submit inputs and hides them in a way that will still enable submission.
+             */
+            $form.find( '.gform_page:visible input[type="submit"]' ).not( ':visible' ).css( { display: 'block', visibility: 'hidden', position: 'absolute' } );
+
             $form.submit();
 
         };
@@ -175,9 +187,11 @@ window.gformInitSpinner = function( formId, spinnerUrl ) {
         spinnerUrl = gform.applyFilters( 'gform_spinner_url', gf_global.spinnerUrl, formId );
     }
 
-    jQuery( '#gform_' + formId ).submit( function() {
+    var $form = jQuery( '#gform_' + formId );
+
+    $form.submit( function() {
         if( jQuery( '#gform_ajax_spinner_' + formId ).length == 0 ) {
-            jQuery( '.gform_page_footer' ).append( '<img id="gform_ajax_spinner_' + formId + '"  class="gform_ajax_spinner" src="' + spinnerUrl + '" alt="" />' );
+            $form.find( '.gform_page_footer' ).append( '<img id="gform_ajax_spinner_' + formId + '"  class="gform_ajax_spinner" src="' + spinnerUrl + '" alt="" />' );
         }
     } );
 

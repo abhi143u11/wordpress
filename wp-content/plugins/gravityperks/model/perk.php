@@ -1,6 +1,6 @@
 <?php
 
-class GWPerk {
+class GP_Perk {
 
     public $tooltips;
 
@@ -25,6 +25,11 @@ class GWPerk {
 
         if( ! class_exists( 'GWPerks') ) {
 	        return;
+        }
+
+        if( ! $perk_file && empty( $this->basename ) ) {
+        	_doing_it_wrong( __CLASS__ . ':' . __METHOD__, 'Oops! You\'re instantiating this perk to early.', '1.2.21' );
+        	return;
         }
 
         $this->basename = $perk_file;
@@ -59,15 +64,26 @@ class GWPerk {
             if( ! class_exists( $perk_class ) ) {
 
 	            $perk_bits     = explode( '/', $perk_file );
-	            $alt_perk_file = sprintf( '%s/class-%s', $perk_bits[0], $perk_bits[1] );
-	            $alt_perk_path = WP_PLUGIN_DIR . '/' . $alt_perk_file;
-	            if( file_exists( $alt_perk_path ) ) {
-		            include_once( $alt_perk_path );
-	            }
+	            $alt_perk_file = sprintf( '%s/%s/class-%s', WP_PLUGIN_DIR, $perk_bits[0], $perk_bits[1] );
 
-	            if( ! class_exists( $perk_class ) ) {
-		            return new WP_Error( 'perk_class_error', __( 'There is no class for this perk.', 'gravityperks' ) );
-	            }
+                if( file_exists( $alt_perk_file ) ) {
+                    include_once( $alt_perk_file );
+                }
+
+                if( ! class_exists( $perk_class ) ) {
+                    $perk_data = self::get_perk_data( $perk_file );
+                    if( ! empty( $perk_data ) ) {
+                        $filename = strtolower( str_replace( ' ', '-', $perk_data['Name'] ) );
+                        $alt_perk_file = sprintf( '%s/%s/class-%s.php', WP_PLUGIN_DIR, $perk_bits[0], $filename );
+                        if( file_exists( $alt_perk_file ) ) {
+                            include_once( $alt_perk_file );
+                        }
+                    }
+                }
+
+                if( ! class_exists( $perk_class ) ) {
+                    return new WP_Error( 'perk_class_error', __( 'There is no class for this perk.', 'gravityperks' ) );
+                }
 
             }
 
@@ -135,7 +151,7 @@ class GWPerk {
             'property' => false,
             'method' => false,
             'version' => false
-            )) );
+        ) ) );
 
         if( !$class || !class_exists($class) )
             return false;
@@ -218,6 +234,10 @@ class GWPerk {
     }
 
     protected function setup() { }
+
+    public function activate() { }
+
+    public function uninstall() { }
 
 
 
@@ -351,6 +371,22 @@ class GWPerk {
 
     }
 
+    function add_css_class( $class, $classes = '' ) {
+        $classes = explode( ' ', $classes );
+        array_push( $classes, $class );
+        return implode( ' ', array_unique( $classes ) );
+    }
+
+    public static function doing_ajax( $action = false ) {
+
+        if(!defined('DOING_AJAX') || !DOING_AJAX)
+            return false;
+
+        return $action ? $action == $_REQUEST['action'] : true;
+    }
+
+
+
 
 
     // STATIC HELPER FUNCTIONS //
@@ -402,6 +438,7 @@ class GWPerk {
     *
     */
     function display_documentation() {
+    	_deprecated_function( __method__, '1.2.18.8' );
         echo GWPerks::markdown( $this->get_documentation() );
     }
 
@@ -446,9 +483,9 @@ class GWPerk {
         $this->update();
     }
 
-    public function activate() {
-        $this->set_property('is_active', true);
-    }
+//    public function activate() {
+//        $this->set_property('is_active', true);
+//    }
 
     public function deactivate() {
         $this->set_property('is_active', false);
@@ -735,11 +772,13 @@ class GWPerk {
 
     public static function generate_options($perk, $values, $selected_value) {
 
-        $options = array();
+        $options  = array();
+        $is_assoc = self::is_associative_array( $values );
 
-        foreach($values as $text => $value) {
-            if(is_numeric($text)) {
-                $text = $value;
+        foreach( $values as $value => $text ) {
+        	// allow non-associative arrays to be passed, use $value as as $text and $value
+            if( ! $is_assoc ) {
+                $value = $text;
             }
             $is_selected = $selected_value == $value ? 'selected="selected"' : '';
             $options[] = "<option value=\"$value\" $is_selected>$text</option>";
@@ -777,6 +816,11 @@ class GWPerk {
                 <input type=\"$type\" id=\"$id\" name=\"$id\" value=\"$value\" />
             </div>";
     }
+
+    public static function is_associative_array( $array ) {
+	    return array_keys( $array ) !== range( 0, count( $array ) - 1 );
+    }
+
 
 
 
@@ -847,7 +891,7 @@ class GWPerk {
         $input_name = 'input_' . str_replace('.', '_', $input_id);
         $value = gwpost( $input_name );
 
-        if( empty( $value ) && gwar($field, "adminOnly") && !IS_ADMIN){
+        if( empty( $value ) && $field->adminOnly && ! IS_ADMIN ) {
             $value = GFFormsModel::get_default_value($field, $input_id);
         }
 
@@ -915,3 +959,5 @@ class GWPerk {
     }
 
 }
+
+class GWPerk extends GP_Perk { }
