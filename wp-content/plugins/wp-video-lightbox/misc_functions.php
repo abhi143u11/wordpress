@@ -1,6 +1,8 @@
 <?php
 add_shortcode('video_lightbox_vimeo5', 'wp_vid_lightbox_vimeo5_handler');
 add_shortcode('video_lightbox_youtube', 'wp_vid_lightbox_youtube_handler');
+add_shortcode('video_lightbox_fb_vimeo', 'wp_vid_lightbox_fb_vimeo_handler');
+add_shortcode('video_lightbox_fb_youtube', 'wp_vid_lightbox_fb_youtube_handler');
 
 function wp_vid_lightbox_vimeo5_handler($atts) 
 {
@@ -30,10 +32,36 @@ function wp_vid_lightbox_vimeo5_handler($atts)
     }
     else    {
     	$anchor_replacement = $anchor;
-    }    
-    $href_content = 'https://vimeo.com/'.$video_id.'?width='.$width.'&amp;height='.$height;		
+    }   
+    $href_content = 'https://vimeo.com/'.$video_id.'?width='.$width.'&height='.$height;
+    $id = uniqid();
+    $aspect_ratio = $height/$width;
     $output = "";
-    $output .= '<a rel="'.WPVL_PRETTYPHOTO_REL.'" href="'.$href_content.'" title="'.$description.'">'.$anchor_replacement.'</a>';	
+    $output .= '<a id="'.$id.'" rel="'.WPVL_PRETTYPHOTO_REL.'" href="'.$href_content.'" title="'.$description.'">'.$anchor_replacement.'</a>';
+    $output .= <<<EOT
+    <script>
+    /* <![CDATA[ */
+    jQuery(document).ready(function($){
+        $(function(){
+            var width = $(window).innerWidth();
+            var setwidth = $width;
+            var ratio = $aspect_ratio;
+            var height = $height;
+            var link = '$href_content';
+            if(width < setwidth)
+            {
+                height = Math.floor(width * $aspect_ratio);
+                //console.log("device width "+width+", set width "+$width+", ratio "+$aspect_ratio+", new height "+ height);
+                var new_url = wpvl_paramReplace('width', link, width);
+                var new_url = wpvl_paramReplace('height', new_url, height);
+                $("a#$id").attr('href', new_url);
+                //console.log(new_url);
+            }    
+        });
+    });
+    /* ]]> */
+    </script>        
+EOT;
     return $output;
 }
 
@@ -66,9 +94,177 @@ function wp_vid_lightbox_youtube_handler($atts)
     else{
     	$anchor_replacement = $anchor;
     }
-    $href_content = 'https://www.youtube.com/watch?v='.$video_id.'&amp;width='.$width.'&amp;height='.$height;
-    $output = '<a rel="'.WPVL_PRETTYPHOTO_REL.'" href="'.$href_content.'" title="'.$description.'">'.$anchor_replacement.'</a>';
+    $href_content = 'https://www.youtube.com/watch?v='.$video_id.'&width='.$width.'&height='.$height;
+    $id = uniqid();
+    $aspect_ratio = $height/$width;
+    $output = '<a id="'.$id.'" rel="'.WPVL_PRETTYPHOTO_REL.'" href="'.$href_content.'" title="'.$description.'">'.$anchor_replacement.'</a>';
+    $output .= <<<EOT
+    <script>
+    /* <![CDATA[ */
+    jQuery(document).ready(function($){
+        $(function(){
+            var width = $(window).innerWidth();
+            var setwidth = $width;
+            var ratio = $aspect_ratio;
+            var height = $height;
+            var link = '$href_content';
+            if(width < setwidth)
+            {
+                height = Math.floor(width * $aspect_ratio);
+                //console.log("device width "+width+", set width "+$width+", ratio "+$aspect_ratio+", new height "+ height);
+                var new_url = wpvl_paramReplace('width', link, width);
+                var new_url = wpvl_paramReplace('height', new_url, height);
+                $("a#$id").attr('href', new_url);
+                //console.log(new_url);
+            }    
+        });
+    });
+    /* ]]> */
+    </script>        
+EOT;
     return $output;
+}
+
+function wp_vid_lightbox_fb_vimeo_handler($atts) 
+{
+    extract(shortcode_atts(array(
+            'video_id' => '',
+            'width' => '',	
+            'height' => '',
+            'caption' => '',
+            'anchor' => '',
+            'alt' => '',
+            'auto_thumb' => '',
+    ), $atts));
+    $enable_fancyBox = get_option('wpvl_enable_fancyBox');
+    if(!isset($enable_fancyBox) || empty($enable_fancyBox)){
+            return '<p>'.__('Error! You need to enable the fancyBox library in the settings!', 'wp-video-lightbox').'</p>';
+    }
+    if(empty($video_id) || empty($width) || empty($height)){
+            return '<p>'.__('Error! You must specify a value for the Video ID, Width, Height and Anchor parameters to use this shortcode!', 'wp-video-lightbox').'</p>';
+    }
+    if(empty($auto_thumb) && empty($anchor)){
+    	return '<p>'.__('Error! You must specify an anchor parameter if you are not using the auto_thumb option.', 'wp-video-lightbox').'</p>';
+    }
+        
+    $atts['vid_type'] = "vimeo";
+    if (preg_match("/http/", $anchor)){ // Use the image as the anchor
+        $anchor_replacement = '<img src="'.$anchor.'" class="video_lightbox_anchor_image" alt="'.$alt.'" />';
+    }
+    else if($auto_thumb == "1")
+    {
+        $anchor_replacement = wp_vid_lightbox_get_auto_thumb($atts);
+    }
+    else    {
+    	$anchor_replacement = $anchor;
+    }  
+    $args = array(); 
+    $id = uniqid();
+    $args['id'] = $id;
+    $args['width'] = $width;
+    $args['height'] = $height;
+    $href_content = 'https://vimeo.com/'.$video_id;    
+    $output = "";
+    $output .= '<a href="'.$href_content.'" data-fancybox="'.$id.'" data-caption="'.$caption.'">'.$anchor_replacement.'</a>';
+    $video_popup_code = wp_vid_lightbox_get_video_popup_code($args);
+    $output .= $video_popup_code;	
+    return $output;
+}
+
+function wp_vid_lightbox_fb_youtube_handler($atts)
+{
+    extract(shortcode_atts(array(
+            'video_id' => '',
+            'width' => '',	
+            'height' => '',
+            'caption' => '',
+            'anchor' => '',
+            'alt' => '',
+            'auto_thumb' => '',
+    ), $atts));
+    $enable_fancyBox = get_option('wpvl_enable_fancyBox');
+    if(!isset($enable_fancyBox) || empty($enable_fancyBox)){
+            return '<p>'.__('Error! You need to enable the fancyBox library in the settings!', 'wp-video-lightbox').'</p>';
+    }
+    if(empty($video_id) || empty($width) || empty($height)){
+            return '<p>'.__('Error! You must specify a value for the Video ID, Width, Height parameters to use this shortcode!', 'wp-video-lightbox').'</p>';
+    }
+    if(empty($auto_thumb) && empty($anchor)){
+    	return '<p>'.__('Error! You must specify an anchor parameter if you are not using the auto_thumb option.', 'wp-video-lightbox').'</p>';
+    }
+    
+    $atts['vid_type'] = "youtube";
+    if(preg_match("/http/", $anchor)){ // Use the image as the anchor
+        $anchor_replacement = '<img src="'.$anchor.'" class="video_lightbox_anchor_image" alt="'.$alt.'" />';
+    }
+    else if($auto_thumb == "1")
+    {
+        $anchor_replacement = wp_vid_lightbox_get_auto_thumb($atts);
+    }
+    else{
+    	$anchor_replacement = $anchor;
+    }
+    $args = array(); 
+    $id = uniqid();
+    $args['id'] = $id;
+    $args['width'] = $width;
+    $args['height'] = $height;
+    $href_content = 'https://www.youtube.com/watch?v='.$video_id;
+    $output = "";
+    $output .= '<a href="'.$href_content.'" data-fancybox="'.$id.'" data-caption="'.$caption.'">'.$anchor_replacement.'</a>';
+    $video_popup_code = wp_vid_lightbox_get_video_popup_code($args);
+    $output .= $video_popup_code;
+    return $output;
+}
+
+function wp_vid_lightbox_get_video_popup_code($args)
+{
+    $width = $args['width'];
+    $height = $args['height'];        
+    $content = '$content';
+    $aspect_ratio = $height/$width;
+    $output = <<<EOT
+    <script>
+    /* <![CDATA[ */
+        jQuery(document).ready(function($){
+            $(function(){
+                $('[data-fancybox="{$args['id']}"]').fancybox({
+                        afterLoad : function( instance, current ) {
+                            // Remove scrollbars and change background
+                           current.$content.css({
+                           width   : '$width',
+                           height  : '$height',
+                           overflow: 'visible',
+                           background : '#000'
+                        });
+                    },
+                    onUpdate : function( instance, current ) {
+                        var width = $(window).innerWidth(),
+                            height = $height,
+                            setwidth = $width,
+                            ratio = $aspect_ratio,
+                            video = current.$content;
+
+                        if ( video && width < setwidth) {
+                          video.hide();
+                          height = Math.floor(width * $aspect_ratio);
+                          //console.log("width: "+width+", height:"+height);
+
+                          video.css({
+                            width  : width,
+                            height : height
+                          }).show();
+
+                        }
+                    }
+                })
+            });
+        });
+        /* ]]> */    
+    </script>                 
+EOT;
+                
+   return $output;                     
 }
 
 function wp_vid_lightbox_get_auto_thumb($atts)
@@ -162,5 +358,12 @@ function wp_vid_lightbox_enqueue_script()
                 'ie6_fallback' => $wpvl_prettyPhoto->ie6_fallback
             )
         );
+    }
+    if(get_option('wpvl_enable_fancyBox')=='1')
+    {
+        wp_register_script('jquery.fancybox', WP_VID_LIGHTBOX_URL.'/js/jquery.fancybox.min.js', array('jquery'), WPVL_FANCYBOX_VERSION);
+        wp_enqueue_script('jquery.fancybox');
+        wp_register_style('jquery.fancybox', WP_VID_LIGHTBOX_URL.'/css/jquery.fancybox.min.css');
+        wp_enqueue_style('jquery.fancybox');
     }
 }

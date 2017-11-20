@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: WP Video Lightbox
-Version: 1.8.4
+Version: 1.8.5
 Plugin URI: https://www.tipsandtricks-hq.com/?p=2700
 Author: Tips and Tricks HQ, Ruhul Amin
 Author URI: https://www.tipsandtricks-hq.com/
@@ -15,7 +15,7 @@ if (!class_exists('WP_Video_Lightbox'))
 {
     class WP_Video_Lightbox
     {
-        var $version = '1.8.4';
+        var $version = '1.8.5';
         var $db_version = '1.0';
         var $plugin_url;
         var $plugin_path;
@@ -28,9 +28,10 @@ if (!class_exists('WP_Video_Lightbox'))
             $this->loader_operations();
             //Handle any db install and upgrade task
 
-            add_action( 'init', array( &$this, 'plugin_init' ), 0 );
-            add_action( 'wp_enqueue_scripts', array( &$this, 'plugin_scripts' ), 0 );
-            add_action( 'wp_footer', array( &$this, 'plugin_footer' ), 0 );
+            add_action( 'init', array( $this, 'plugin_init' ), 0 );
+            add_action( 'wp_enqueue_scripts', array( $this, 'plugin_scripts' ), 0 );
+            add_action( 'wp_head', array( $this, 'plugin_header' ));
+            add_action( 'wp_footer', array( $this, 'plugin_footer' ), 0 );
         }
 
         function define_constants(){
@@ -40,6 +41,7 @@ if (!class_exists('WP_Video_Lightbox'))
             define('WP_VIDEO_LIGHTBOX_DB_VERSION', $this->db_version);
             define('WPVL_PRETTYPHOTO_REL', 'wp-video-lightbox');
             define('WPVL_PRETTYPHOTO_VERSION', '3.1.6');
+            define('WPVL_FANCYBOX_VERSION', '3.0.47');
         }
 
         function includes() {
@@ -102,6 +104,35 @@ if (!class_exists('WP_Video_Lightbox'))
             {
                 wp_vid_lightbox_enqueue_script();
             }
+        }
+        
+        function plugin_header()
+        {
+            $custom_function = <<<EOT
+            function wpvl_paramReplace(name, string, value) {
+                // Find the param with regex
+                // Grab the first character in the returned string (should be ? or &)
+                // Replace our href string with our new value, passing on the name and delimeter
+
+                var re = new RegExp("[\\?&]" + name + "=([^&#]*)");
+                var matches = re.exec(string);
+                var newString;
+
+                if (matches === null) {
+                    // if there are no params, append the parameter
+                    newString = string + '?' + name + '=' + value;
+                } else {
+                    var delimeter = matches[0].charAt(0);
+                    newString = string.replace(re, delimeter + name + "=" + value);
+                }
+                return newString;
+            }
+EOT;
+            echo '<script>
+            WP_VIDEO_LIGHTBOX_VERSION="'.WP_VIDEO_LIGHTBOX_VERSION.'";
+            WP_VID_LIGHTBOX_URL="'.WP_VID_LIGHTBOX_URL.'";
+            '.$custom_function.'
+            </script>';
         }
 
         function plugin_footer()

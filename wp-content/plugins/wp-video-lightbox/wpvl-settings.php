@@ -15,7 +15,8 @@ class Video_Lightbox_Settings_Page
     {
         $wpvl_plugin_tabs = array(
             'wp_video_lightbox' => __('General', 'wp-video-lightbox'),
-            'wp_video_lightbox&action=prettyPhoto' => __('prettyPhoto', 'wp-video-lightbox')
+            'wp_video_lightbox&action=prettyPhoto' => __('prettyPhoto', 'wp-video-lightbox'),
+            //'wp_video_lightbox&action=fancyBox' => __('fancyBox', 'wp-video-lightbox')
         );
         echo '<div class="wrap"><h1>WP Video Lightbox v'.WP_VIDEO_LIGHTBOX_VERSION.'</h1>';    
         echo '<div id="poststuff"><div id="post-body">';  
@@ -46,6 +47,9 @@ class Video_Lightbox_Settings_Page
             {
                case 'prettyPhoto':
                    $this->prettyPhoto_settings_section();
+                   break;
+               case 'fancyBox':
+                   $this->fancyBox_settings_section();
                    break;
             }
         }
@@ -339,6 +343,53 @@ class Video_Lightbox_Settings_Page
         </table>
 
         <p class="submit"><input type="submit" name="wpvl_prettyPhoto_update_settings" id="wpvl_prettyPhoto_update_settings" class="button button-primary" value="<?php _e('Save Changes', 'wp-video-lightbox')?>"></p></form>
+ 
+        <?php
+    }
+    
+    function fancyBox_settings_section()
+    {        
+        if (isset($_POST['wpvl_fancyBox_update_settings']))
+        {
+            $nonce = $_REQUEST['_wpnonce'];
+            if ( !wp_verify_nonce($nonce, 'wpvl_fancyBox_settings')){
+                    wp_die('Error! Nonce Security Check Failed! Go back to fancyBox menu and save the settings again.');
+            }
+            
+            update_option('wpvl_enable_fancyBox', ($_POST["enable_fancyBox"]=='1')?'1':'');           
+            
+            echo '<div id="message" class="updated fade"><p><strong>';
+            _e('fancyBox Settings Updated!', 'wp-video-lightbox');
+            echo '</strong></p></div>';
+        }
+
+        ?>
+
+        <div style="background: none repeat scroll 0 0 #FFF6D5;border: 1px solid #D1B655;color: #3F2502;margin: 10px 0;padding: 5px 5px 5px 10px;text-shadow: 1px 1px #FFFFFF;">	
+        <p><?php _e("For more information, updates, detailed documentation and video tutorial, please visit:", "wp-video-lightbox"); ?><br />
+        <a href="https://www.tipsandtricks-hq.com/wordpress-video-lightbox-plugin-display-videos-in-a-fancy-lightbox-overlay-2700" target="_blank"><?php _e("WP Video Lightbox Homepage", "wp-video-lightbox"); ?></a></p>
+        </div>
+
+        <form method="post" action="<?php echo $_SERVER["REQUEST_URI"]; ?>">
+        <?php wp_nonce_field('wpvl_fancyBox_settings'); ?>
+
+        <table class="form-table">
+            
+        <tbody>
+        
+        <tr valign="top">
+        <th scope="row"><?php _e('Enable fancyBox', 'wp-video-lightbox')?></th>
+        <td> <fieldset><legend class="screen-reader-text"><span><?php _e('Enable fancyBox', 'wp-video-lightbox')?></span></legend><label for="enable_fancyBox">
+        <input name="enable_fancyBox" type="checkbox" id="enable_fancyBox" <?php if(get_option('wpvl_enable_fancyBox')=='1') echo ' checked="checked"';?> value="1">
+        <?php _e('Check this option if you want to enable fancyBox library', 'wp-video-lightbox')?></label>
+        </fieldset></td>
+        </tr>
+        
+        </tbody>
+        
+        </table>
+
+        <p class="submit"><input type="submit" name="wpvl_fancyBox_update_settings" id="wpvl_fancyBox_update_settings" class="button button-primary" value="<?php _e('Save Changes', 'wp-video-lightbox')?>"></p></form>
  
         <?php
     }
