@@ -27,10 +27,6 @@ class GF_Field_Price extends GF_Field {
 	}
 
 	public function validate( $value, $form ) {
-		if ( ! class_exists( 'RGCurrency' ) ) {
-			require_once( GFCommon::get_base_path() . '/currency.php' );
-		}
-
 		$price = GFCommon::to_number( $value );
 		if ( ! rgblank( $value ) && ( $price === false || $price < 0 ) ) {
 			$this->failed_validation  = true;
@@ -56,12 +52,14 @@ class GF_Field_Price extends GF_Field {
 		$class        = $size . $class_suffix;
 		$class        = esc_attr( $class );
 
-		$disabled_text = $is_form_editor ? 'disabled="disabled"' : '';
+		$disabled_text      = $is_form_editor ? 'disabled="disabled"' : '';
+		$required_attribute = $this->isRequired ? 'aria-required="true"' : '';
+		$invalid_attribute  = $this->failed_validation ? 'aria-invalid="true"' : 'aria-invalid="false"';
 
 		$tabindex = $this->get_tabindex();
 
 		return "<div class='ginput_container ginput_container_product_price'>
-					<input name='input_{$id}' id='{$field_id}' type='text' value='{$value}' class='{$class} ginput_amount' {$tabindex} {$logic_event} {$placeholder_attribute} {$disabled_text}/>
+					<input name='input_{$id}' id='{$field_id}' type='text' value='{$value}' class='{$class} ginput_amount' {$tabindex} {$logic_event} {$placeholder_attribute} {$required_attribute} {$invalid_attribute} {$disabled_text}/>
 				</div>";
 
 

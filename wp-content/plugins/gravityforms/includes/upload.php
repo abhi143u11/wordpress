@@ -80,8 +80,8 @@ class GFAsyncUpload {
 		$uploaded_filename = $_FILES['file']['name'];
 		$file_name = isset( $_REQUEST['name'] ) ? $_REQUEST['name'] : '';
 		$field_id  = rgpost( 'field_id' );
-		$field_id = absint( $field_id );
-		$field     = GFFormsModel::get_field( $form, $field_id );
+		$field_id  = absint( $field_id );
+		$field     = gf_apply_filters( array( 'gform_multifile_upload_field', $form['id'], $field_id ), GFFormsModel::get_field( $form, $field_id ), $form, $field_id );
 
 		if ( empty( $field ) || GFFormsModel::get_input_type( $field ) != 'fileupload' ) {
 			die();
@@ -111,19 +111,24 @@ class GFAsyncUpload {
 			}
 		}
 
+		/**
+		 * Allows the disabling of file upload whitelisting
+		 *
+		 * @param bool false Set to 'true' to disable whitelisting.  Defaults to 'false'.
+		 */
 		$whitelisting_disabled = apply_filters( 'gform_file_upload_whitelisting_disabled', false );
 
 		if ( empty( $allowed_extensions ) && ! $whitelisting_disabled ) {
 			// Whitelist the file type
 			$valid_uploaded_filename = GFCommon::check_type_and_ext( $_FILES['file'], $uploaded_filename );
 
-			if ( is_wp_error( $valid_uploaded_filename ) ){
+			if ( is_wp_error( $valid_uploaded_filename ) ) {
 				self::die_error( $valid_uploaded_filename->get_error_code(), $valid_uploaded_filename->get_error_message() );
 			}
 
 			$valid_file_name = GFCommon::check_type_and_ext( $_FILES['file'], $file_name );
 
-			if ( is_wp_error( $valid_uploaded_filename ) ){
+			if ( is_wp_error( $valid_file_name ) ) {
 				self::die_error( $valid_file_name->get_error_code(), $valid_file_name->get_error_message() );
 			}
 		}
