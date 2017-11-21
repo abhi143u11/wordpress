@@ -35,10 +35,6 @@ class GF_Field_Donation extends GF_Field {
 	}
 
 	public function validate( $value, $form ) {
-		if ( ! class_exists( 'RGCurrency' ) ) {
-			require_once( GFCommon::get_base_path() . '/currency.php' );
-		}
-
 		$price = GFCommon::to_number( $value );
 		if ( ! rgblank( $value ) && ( $price === false || $price < 0 ) ) {
 			$this->failed_validation  = true;
@@ -58,6 +54,8 @@ class GF_Field_Donation extends GF_Field {
 		$value = esc_attr( $value );
 
 		$placeholder_attribute = $this->get_field_placeholder_attribute();
+		$required_attribute    = $this->isRequired ? 'aria-required="true"' : '';
+		$invalid_attribute     = $this->failed_validation ? 'aria-invalid="true"' : 'aria-invalid="false"';
 
 		$size         = $this->size;
 		$class_suffix = $is_entry_detail ? '_admin' : '';
@@ -69,7 +67,7 @@ class GF_Field_Donation extends GF_Field {
 		$tabindex = $this->get_tabindex();
 
 		return "<div class='ginput_container ginput_container_donation'>
-					<input name='input_{$id}' id='{$field_id}' type='text' value='{$value}' class='{$class} ginput_donation_amount' {$tabindex} {$placeholder_attribute} {$disabled_text}/>
+					<input name='input_{$id}' id='{$field_id}' type='text' value='{$value}' class='{$class} ginput_donation_amount' {$tabindex} {$placeholder_attribute} {$required_attribute} {$invalid_attribute} {$disabled_text}/>
 				</div>";
 
 	}
