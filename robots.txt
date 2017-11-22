@@ -1,3 +1,5 @@
+Host: https://solarinnovations.com/
+
 User-agent: *
 sitemap: https://solarinnovations.com/sitemap_index.xml
 Disallow: /wp-admin/
