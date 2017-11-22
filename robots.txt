@@ -1,2 +1,5 @@
 User-agent: *
 sitemap: https://solarinnovations.com/sitemap_index.xml
+Disallow: /wp-admin/
+Allow: /wp-admin/admin-ajax.php
+
