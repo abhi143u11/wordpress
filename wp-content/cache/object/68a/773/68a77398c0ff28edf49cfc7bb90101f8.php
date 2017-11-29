@@ -1,1 +1,0 @@
-®ĞZ<?php exit; ?>a:1:{s:7:"content";s:65:"a:1:{s:11:"license_key";s:32:"c556c943b1065a298ed5a33312b0241a";}";}

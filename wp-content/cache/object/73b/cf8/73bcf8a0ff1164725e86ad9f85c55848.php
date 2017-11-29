@@ -1,14 +1,0 @@
-¦ÐZ<?php exit; ?>a:1:{s:7:"content";O:8:"stdClass":24:{s:2:"ID";i:33423;s:11:"post_author";s:1:"6";s:9:"post_date";s:19:"2014-10-28 11:32:04";s:13:"post_date_gmt";s:19:"2014-10-28 11:32:04";s:12:"post_content";s:1819:"If you're planning a home, or just looking to renovate an existing structure, it can often be difficult to choose between all the options out there. Should you build a sunroom or conservatory? what kind of doors fit your personal style? Would your living room benefit from a skylight?
-
-The amount of features to pick from can quickly become overwhelming -- and that's without taking into consideration the size and configuration of them. Nonetheless, they're all options you need to mull over before you get to the design phase.
-
-To make your decision easier, the Solar Innovations, Inc. website has an <a title="Project Gallery" href="/project-gallery/">extensive project gallery</a> complete with examples of every configuration of structure, product, and accessory we offer. If you're in the market for a greenhouse, you can view our greenhouse, hobby greenhouse, and garden window project galleries to decide what type is best for your individual needs. Take it a step further and check out the greenhouse accessory photo gallery so you can see all of our greenhouse benches, temperature control systems, lighting options, and more.
-
-Solar Â understands that the structures, windows, doors, and other products you install in your home or business are usually a lifetime commitment. Therefore, Solar tries its hardest to provide you with as many examples of standard, custom, and irregular options as possible to ensure you end up with the structure of your dreams.
-<table class="aligncenter" border="0" align="center">
-<tbody>
-<tr>
-<td><a title="Project Gallery" href="/project-gallery/" rel="attachment wp-att-33424"><img class="aligncenter size-full wp-image-33424" src="https://solarinnovations.com/wp-content/uploads/2014/10/Photo-Gallery.jpg" alt="" width="700" height="778" /></a></td>
-</tr>
-</tbody>
-</table>";s:10:"post_title";s:25:"Extensive Project Gallery";s:12:"post_excerpt";s:0:"";s:11:"post_status";s:7:"publish";s:14:"comment_status";s:6:"closed";s:11:"ping_status";s:6:"closed";s:13:"post_password";s:0:"";s:9:"post_name";s:25:"extensive-project-gallery";s:7:"to_ping";s:0:"";s:6:"pinged";s:0:"";s:13:"post_modified";s:19:"2014-10-28 11:32:04";s:17:"post_modified_gmt";s:19:"2014-10-28 11:32:04";s:21:"post_content_filtered";s:0:"";s:11:"post_parent";i:0;s:4:"guid";s:43:"http://solarinnov.webfactional.com/?p=33423";s:10:"menu_order";i:0;s:9:"post_type";s:4:"post";s:14:"post_mime_type";s:0:"";s:13:"comment_count";s:1:"0";s:6:"filter";s:3:"raw";}}

@@ -1,11 +1,0 @@
-��Z<?php exit; ?>a:1:{s:7:"content";O:8:"stdClass":23:{s:2:"ID";s:5:"39208";s:11:"post_author";s:2:"15";s:9:"post_date";s:19:"2017-11-28 08:53:03";s:13:"post_date_gmt";s:19:"2017-11-28 08:53:03";s:12:"post_content";s:1488:"There’s a chill in the air, which means it’s time to crank up the heat. Controlling the temperature is vital to keeping plants thriving in your greenhouse. An energy efficient way of doing this is through under bench heating. Below are several ways to accomplish this.
-
-One way is by piping the hot water through coils from your hot water heating system as close to the bottom of the growing bench as possible. This will allow the heat to be generated close to the plants’ roots and promote soil growth while maintaining a consistent temperature.
-
-Another option is using warm air in the same way by forcing the air through tubes or duct work. This transfers the air evenly under the bench. However, with this method you will experience drier conditions and will have to closely monitor your plants’ moisture levels.
-
-A third method is adding radiant floor heat during the greenhouse design process. It is an extremely efficient method of heating but loses efficiency if doors will be frequently opened and closed.
-
-If those don’t work, try one of these methods. Heat the water before transferring it with a propane unit or invest in solar panels for long term cost savings. Lastly, you can use dark color bricks on your floors to help hold in heat from natural sunlight longer.
-
-No matter which method works best or if you choose a combination, it is always something to think about when winter hits. Don’t let your plants freeze; at least give them a heated bench!";s:10:"post_title";s:42:"Tips for Heating Plants in Your Greenhouse";s:12:"post_excerpt";s:0:"";s:11:"post_status";s:7:"publish";s:14:"comment_status";s:6:"closed";s:11:"ping_status";s:4:"open";s:13:"post_password";s:0:"";s:9:"post_name";s:23:"tips-heating-greenhouse";s:7:"to_ping";s:0:"";s:6:"pinged";s:0:"";s:13:"post_modified";s:19:"2017-11-28 13:14:41";s:17:"post_modified_gmt";s:19:"2017-11-28 13:14:41";s:21:"post_content_filtered";s:0:"";s:11:"post_parent";s:1:"0";s:4:"guid";s:37:"https://solarinnovations.com/?p=39208";s:10:"menu_order";s:1:"0";s:9:"post_type";s:4:"post";s:14:"post_mime_type";s:0:"";s:13:"comment_count";s:1:"0";}}

@@ -1,18 +1,0 @@
-�Z<?php exit; ?>a:1:{s:7:"content";O:8:"stdClass":24:{s:2:"ID";i:38142;s:11:"post_author";s:1:"6";s:9:"post_date";s:19:"2017-08-29 17:06:27";s:13:"post_date_gmt";s:19:"2017-08-29 17:06:27";s:12:"post_content";s:2821:"[vc_row][vc_column][vc_column_text]
-<h1>Additional Products</h1>
-[/vc_column_text][/vc_column][/vc_row][vc_row][vc_column width="1/3"][vc_column_text]
-<h2><a href="/our-products/additional-products/glass-railings/"><img class="aligncenter wp-image-38841 size-full" src="https://solarinnovations.com/wp-content/uploads/glass-railings-more-info.png" alt="" width="440" height="200" /></a></h2>
-<h2>Glass Railings</h2>
-Solar Innovations<sup>®</sup>’s glass railings are designed for residential and commercial applications. The dry glazed mounting shoe provides a cleaner, simpler installation that delivers excellent performance.[/vc_column_text][/vc_column][vc_column width="1/3"][vc_column_text]
-<h2><a href="/our-products/additional-products/designer-palm-trees/"><img class="aligncenter wp-image-38842 size-full" src="https://solarinnovations.com/wp-content/uploads/palm-trees-more-info.png" alt="" width="440" height="200" /></a></h2>
-<h2>Ornamental Palm Trees</h2>
-Solar Innovations<sup>®</sup> now offers a line of ornamental palm trees.  These trees provide any home or business with a tropical feel, regardless of location.[/vc_column_text][/vc_column][vc_column width="1/3"][vc_column_text]
-<h2><a href="/our-products/additional-products/pet-sunroom/"><img class="aligncenter wp-image-38843 size-full" src="https://solarinnovations.com/wp-content/uploads/pet-products-more-info.png" alt="" width="440" height="200" /></a></h2>
-<h2>Pet Products</h2>
-As any pet owner knows, animals, much like humans, enjoy natural daylight. Your pets, much like you, do not enjoy being cooped up inside.[/vc_column_text][/vc_column][/vc_row][vc_row][vc_column width="1/3"][vc_column_text]
-<h2><a href="/our-products/additional-products/reels/"><img class="aligncenter wp-image-38844 size-full" src="https://solarinnovations.com/wp-content/uploads/irt-reels-more-info.png" alt="" width="440" height="200" /></a></h2>
-<h2>IRT Reels</h2>
-Innovative Reel Technologies, Ltd. began as a dream to create the most durable, high performing, aluminum machined fishing reels available. Our goal is to create a lifelong reel for sport and hobby fishermen.[/vc_column_text][/vc_column][vc_column width="1/3"][vc_column_text]
-<h2><a href="/our-products/additional-products/universal-clamps/"><img class="aligncenter wp-image-38845 size-full" src="https://solarinnovations.com/wp-content/uploads/universal-clamps-more-info.png" alt="" width="440" height="200" /></a></h2>
-<h2>Universal Clamps</h2>
-The Solar Innovations<sup>®</sup> Universal Clamp <sup>®</sup> is designed to attach loads to flanged materials and standing seam roofing by using an innovative design that allows for continuous pressure contact against the attachment surface.[/vc_column_text][/vc_column][vc_column width="1/3"][/vc_column][/vc_row]";s:10:"post_title";s:19:"Additional Products";s:12:"post_excerpt";s:0:"";s:11:"post_status";s:7:"publish";s:14:"comment_status";s:6:"closed";s:11:"ping_status";s:6:"closed";s:13:"post_password";s:0:"";s:9:"post_name";s:19:"additional-products";s:7:"to_ping";s:0:"";s:6:"pinged";s:0:"";s:13:"post_modified";s:19:"2017-09-07 12:43:43";s:17:"post_modified_gmt";s:19:"2017-09-07 12:43:43";s:21:"post_content_filtered";s:0:"";s:11:"post_parent";i:38089;s:4:"guid";s:42:"http://solarinnovations.com/?page_id=38142";s:10:"menu_order";i:0;s:9:"post_type";s:4:"page";s:14:"post_mime_type";s:0:"";s:13:"comment_count";s:1:"0";s:6:"filter";s:3:"raw";}}

@@ -1,10 +1,0 @@
-¦ÐZ<?php exit; ?>a:1:{s:7:"content";O:8:"stdClass":24:{s:2:"ID";i:33419;s:11:"post_author";s:1:"6";s:9:"post_date";s:19:"2014-10-24 19:30:37";s:13:"post_date_gmt";s:19:"2014-10-24 19:30:37";s:12:"post_content";s:964:"Solar Innovations, Inc.had another successful tradeshow at the Greenbuild Conference and Expo. Solar's team is always excited to share green building ideas and learn from other professionals in the industry, and this year definitely did not disappoint.
-
-Solar Innovations, Inc. would like to thank all the vendors and customers who stopped in to visit our booth. This concludes <a title="Upcoming Tradeshows" href="/about-us/upcoming-trade-shows/">Solar's 2014 tradeshow season</a>, but come visit Solar Innovations, Inc.'s Booth C6943 at the International Builders Show in Las Vegas from January 20th to January 22nd next year.
-<table class="aligncenter" border="0" align="center">
-<tbody>
-<tr>
-<td><a title="2013 IBS Booth" href="#" rel="attachment wp-att-33420"><img class="aligncenter size-full wp-image-33420" src="https://solarinnovations.com/wp-content/uploads/2014/10/DSCN0144-web700.jpg" alt="" width="700" height="525" /></a></td>
-</tr>
-</tbody>
-</table>";s:10:"post_title";s:40:"Solar Innovations, Inc. Greenbuild Recap";s:12:"post_excerpt";s:0:"";s:11:"post_status";s:7:"publish";s:14:"comment_status";s:6:"closed";s:11:"ping_status";s:6:"closed";s:13:"post_password";s:0:"";s:9:"post_name";s:38:"solar-innovations-inc-greenbuild-recap";s:7:"to_ping";s:0:"";s:6:"pinged";s:0:"";s:13:"post_modified";s:19:"2014-10-24 19:30:37";s:17:"post_modified_gmt";s:19:"2014-10-24 19:30:37";s:21:"post_content_filtered";s:0:"";s:11:"post_parent";i:0;s:4:"guid";s:43:"http://solarinnov.webfactional.com/?p=33419";s:10:"menu_order";i:0;s:9:"post_type";s:4:"post";s:14:"post_mime_type";s:0:"";s:13:"comment_count";s:1:"0";s:6:"filter";s:3:"raw";}}
