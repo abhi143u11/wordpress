@@ -7,7 +7,12 @@ wp-config*
 .vscode/settings.json
 *.sql
 
-
+wp-content/cache
+wp-content/cache/*
+wp-content/advanced-cache.php
+wp-content/object-cache.php
+wp-content/w3tc-config
+wp-content/w3tc-config/*
 
 !wp-content/uploads/multiple-styles-icon.png 
 !wp-content/uploads/thermal-break-icon-small-1.png
