@@ -1,0 +1,35 @@
+�Z<?php exit; ?>a:1:{s:7:"content";O:8:"stdClass":24:{s:2:"ID";i:38132;s:11:"post_author";s:1:"6";s:9:"post_date";s:19:"2017-08-29 16:31:16";s:13:"post_date_gmt";s:19:"2017-08-29 16:31:16";s:12:"post_content";s:6260:"[vc_row][vc_column][vc_column_text]
+<h1>Aluminum Skylights</h1>
+[/vc_column_text][/vc_column][/vc_row][vc_row][vc_column width="1/3"][vc_column_text]
+<h2>Fixed</h2>
+<a href="/our-products/aluminum-skylights/fixed-skylights/"><img class="alignnone wp-image-38005 size-full" src="https://solarinnovations.com/wp-content/uploads/fixed-skylight-more-info.png" alt="" width="440" height="200" /></a>
+
+We offer fixed skylights in virtually any size and can accommodate a wide range of configurations, including single slope, pyramids, <img class="alignright wp-image-38008 size-full" src="https://solarinnovations.com/wp-content/uploads/fixed-skylight-iso.png" alt="" width="196" height="144" />segmented radius domes, barrel vault, hip end, glass roofs, roof lanterns, and more. Our skylight systems can attach to virtually any substrate and are suited for both residential and commercial applications without size or design limitations.[/vc_column_text][/vc_column][vc_column width="1/3"][vc_column_text]
+<h2>Operable</h2>
+<a href="/our-products/aluminum-skylights/operable-skylights/"><img class="alignnone wp-image-38009 size-full" src="https://solarinnovations.com/wp-content/uploads/operable-skylight-more-info.png" alt="" width="440" height="200" /></a>
+
+Operable Skylights provide the benefits of increased natural light and ventilation. With a variety of operation possibilities, including Venting, Retractable, and 90° Operable, the design possibilities are endless; each skylight is designed and built completely custom to fit your project.[/vc_column_text][/vc_column][vc_column width="1/3"][vc_column_text]
+<h2>90° Operable</h2>
+<a href="/our-products/aluminum-skylights/90-degree-operable-skylights/"><img class="alignnone wp-image-38023 size-full" src="https://solarinnovations.com/wp-content/uploads/90-degree-operable-more-info.png" alt="" width="440" height="200" /></a>
+
+A 90° Operable Skylight lifts the glazed unit, or “lid,” 90° from the plane of the curb. This type of skylight offers several applications <img class="alignright wp-image-38011 size-full" src="https://solarinnovations.com/wp-content/uploads/90-degree-operable-iso.png" alt="" width="196" height="186" />and functions, the main being ventilation. A typical ridge vent or standard operable skylight only opens a few degrees, while the 90° Operable Skylight fully opens, allowing for optimum amounts of ventilation.[/vc_column_text][/vc_column][/vc_row][vc_row][vc_column width="1/3"][vc_column_text]
+<h2>Retractable</h2>
+<a href="/our-products/aluminum-skylights/retractable-skylights/"><img class="alignnone wp-image-38012 size-full" src="https://solarinnovations.com/wp-content/uploads/retractable-skylight-2-more-info.png" alt="" width="440" height="200" /></a>
+
+Solar Innovations® Retractable Skylights are a superior thermally enhanced system, limiting environmental temperature transfers, and are able to utilize high performance insulated glass to control air and moisture effectively, allowing them to be used in pool enclosures and other high-moisture environments.[/vc_column_text][/vc_column][vc_column width="1/3"][vc_column_text]
+<h2>Curb Mount</h2>
+<a href="/our-products/aluminum-skylights//curb-mount/"><img class="alignnone wp-image-38015 size-full" src="https://solarinnovations.com/wp-content/uploads/skylight-welded-curb-more-info.png" alt="" width="440" height="200" /></a>
+
+Curb mount skylights are uniquely designed to eliminate water penetration, by attaching through the side of the curb rather than the top as <img class="alignright wp-image-38013 size-full" src="https://solarinnovations.com/wp-content/uploads/curb-mount-skylight-iso.png" alt="" width="196" height="160" />is typical of many other industry skylights. This design minimizes the chances of long term water penetration through the sill pan.[/vc_column_text][/vc_column][vc_column width="1/3"][vc_column_text]
+<h2>Walkable</h2>
+<a href="/our-products/aluminum-skylights/walkable-skylights/"><img class="alignnone wp-image-38017 size-full" src="https://solarinnovations.com/wp-content/uploads/walkable-skylight-more-info.png" alt="" width="440" height="200" /></a>
+
+Walkable skylights provide the same natural daylighting solutions as traditional skylights while serving double duty as a walkable surface. While walkable<img class="alignright wp-image-38019 size-full" src="https://solarinnovations.com/wp-content/uploads/walkable-skylight-iso.png" alt="" width="196" height="150" /> skylights can be used for exterior applications, a covered area is recommended; walkable skylights may be placed on the floor below an existing skylight to bring daylight deeper into a building.[/vc_column_text][/vc_column][/vc_row][vc_row][vc_column width="1/3"][vc_column_text]
+<h2>Roof Lanterns</h2>
+<a href="/our-products/aluminum-skylights/roof-lanterns/"><img class="alignnone wp-image-38024 size-full" src="https://solarinnovations.com/wp-content/uploads/roof-lantern-more-info.png" alt="" width="440" height="200" /></a>
+
+Solar Innovations<sup>®</sup> provides the finest aluminum roof lanterns available in the industry today. Initially popular in the Victorian, Edwardian, and Georgian<img class="alignright wp-image-38026 size-full" src="https://solarinnovations.com/wp-content/uploads/roof-lantern-iso.png" alt="" width="196" height="186" /> eras, roof lanterns can add an exciting feature to any location. Roof lanterns are a daylighting architectural element that are located atop a roof to provide a natural lighting element to the space below.[/vc_column_text][/vc_column][vc_column width="1/3"][vc_column_text]
+<h2>Venting</h2>
+<a href="/our-products/aluminum-skylights/venting-skylights/"><img class="alignnone wp-image-38028 size-full" src="https://solarinnovations.com/wp-content/uploads/venting-skylight-more-info.png" alt="" width="440" height="200" /></a>
+
+Venting skylights are used to bring fresh air and circulation into a room and operate with the use of a continuous hinge, similar to a ridge vent’s function. A venting skylight has a higher profile than that of a ridge vent and offers better air and water performance along with a higher thermal value.[/vc_column_text][/vc_column][vc_column width="1/3"][/vc_column][/vc_row]";s:10:"post_title";s:18:"Aluminum Skylights";s:12:"post_excerpt";s:0:"";s:11:"post_status";s:7:"publish";s:14:"comment_status";s:6:"closed";s:11:"ping_status";s:6:"closed";s:13:"post_password";s:0:"";s:9:"post_name";s:18:"aluminum-skylights";s:7:"to_ping";s:0:"";s:6:"pinged";s:0:"";s:13:"post_modified";s:19:"2017-08-30 14:16:11";s:17:"post_modified_gmt";s:19:"2017-08-30 14:16:11";s:21:"post_content_filtered";s:0:"";s:11:"post_parent";i:38089;s:4:"guid";s:42:"http://solarinnovations.com/?page_id=38132";s:10:"menu_order";i:0;s:9:"post_type";s:4:"page";s:14:"post_mime_type";s:0:"";s:13:"comment_count";s:1:"0";s:6:"filter";s:3:"raw";}}
