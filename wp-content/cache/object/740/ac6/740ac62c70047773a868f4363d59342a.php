@@ -1,0 +1,39 @@
+ÑZ<?php exit; ?>a:1:{s:7:"content";O:8:"stdClass":24:{s:2:"ID";i:38122;s:11:"post_author";s:1:"6";s:9:"post_date";s:19:"2017-08-29 15:56:48";s:13:"post_date_gmt";s:19:"2017-08-29 15:56:48";s:12:"post_content";s:6829:"[vc_row][vc_column][vc_column_text]
+<h1>Aluminum Structures</h1>
+[/vc_column_text][/vc_column][/vc_row][vc_row][vc_column width="1/3"][vc_column_text]
+<h2>Greenhouses</h2>
+<a href="/our-products/aluminum-structures/greenhouses/"><img class="alignnone wp-image-36544 size-full" src="https://solarinnovations.com/wp-content/uploads/greenhouse-1-mini-link.png" alt="" width="440" height="200" /></a>
+
+Specializing in greenhouses since our inception, Solar is a leader in the industry for creating any type of greenhouse you might require. These greenhouses <img class="alignright wp-image-36554 size-full" src="https://solarinnovations.com/wp-content/uploads/greenhouse-1-iso.png" alt="" width="196" height="186" />come with an incredible number of configurations and options that allow you to have exactly what you need to make your greenhouse the envy of any homeowner or business.[/vc_column_text][/vc_column][vc_column width="1/3"][vc_column_text]
+<h2>Conservatories</h2>
+<a href="/our-products/aluminum-structures/conservatories/"><img class="alignnone wp-image-36563 size-full" src="https://solarinnovations.com/wp-content/uploads/conservatory-mini-1.png" alt="" width="440" height="200" /></a>
+
+Conservatories come in all shapes and sizes. In this section we are only showing you some examples.<img class="alignright wp-image-36555 size-full" src="https://solarinnovations.com/wp-content/uploads/conservatory-1-iso.png" alt="" width="196" height="186" /> Every one of our designs is unique to our customer and we have thousands of variations in the structure. Every situation is different allowing us to custom build your structure with your own imagination.[/vc_column_text][/vc_column][vc_column width="1/3"][vc_column_text]
+<h2>Sunrooms</h2>
+<a href="/our-products/aluminum-structures/sunrooms/"><img class="alignnone wp-image-36547 size-full" src="https://solarinnovations.com/wp-content/uploads/sunroom-1-mini-link.png" alt="" width="440" height="200" /></a>
+
+Sunrooms are extremely popular for those who wish to soak up some rays while being able to sit in their own home doing so.<img class="alignright wp-image-36556 size-full" src="https://solarinnovations.com/wp-content/uploads/sunroom-1-iso.png" alt="" width="196" height="186" />Sunrooms are becoming the more popular choice for those who do not have the full space of a conservatory but still want the look and feel of one, taking a much smaller footprint.[/vc_column_text][/vc_column][/vc_row][vc_row][vc_column width="1/3"][vc_column_text]
+<h2>Canopies</h2>
+<a href="/our-products/aluminum-structures/canopies/"><img class="alignnone wp-image-36548 size-full" src="https://solarinnovations.com/wp-content/uploads/canopy-1-mini-link.png" alt="" width="440" height="200" /></a>
+
+Canopy structures are great design choices for any commerce area.<img class="alignright wp-image-36570 size-full" src="https://solarinnovations.com/wp-content/uploads/canopy-1-iso.png" alt="" width="196" height="186" /> Because there is no limitation in design, adding a glass canopy is a great addition to a building trying to make a statement and reducing costs of a fully fledged parking structure.[/vc_column_text][/vc_column][vc_column width="1/3"][vc_column_text]
+<h2>Pool Enclosures</h2>
+<a href="/our-products/aluminum-structures/pool-and-spa-enclosures/"><img class="alignnone wp-image-36549 size-full" src="https://solarinnovations.com/wp-content/uploads/poolenclosure-1-mini-link.png" alt="" width="440" height="200" /></a>
+
+Pool Enclosures are great for resorts and homeowners wishing to have great natural lighting inside their pool arena<img class="alignright wp-image-36558 size-full" src="https://solarinnovations.com/wp-content/uploads/pool-enclosure-1-iso.png" alt="" width="196" height="186" /> These additions are custom built from inception and allow any type of variation or style your imagination can conceive.[/vc_column_text][/vc_column][vc_column width="1/3"][vc_column_text]
+<h2>Pool Houses</h2>
+<a href="/our-products/aluminum-structures/pool-houses/"><img class="alignnone wp-image-36536 size-full" src="https://solarinnovations.com/wp-content/uploads/test-structure-3.png" alt="" width="440" height="200" /></a>
+
+Pool Houses vary in size and scope and can be just as diverse as their counterparts.<img class="alignright wp-image-36559 size-full" src="https://solarinnovations.com/wp-content/uploads/pool-house-iso-1.png" alt="" width="196" height="186" /> Because there is no standard for these structures you can build your own design or have our skilled engineers design one for you.[/vc_column_text][/vc_column][/vc_row][vc_row][vc_column width="1/3"][vc_column_text]
+<h2>Carwashes</h2>
+<a href="/our-products/aluminum-structures/car-washes/"><img class="alignnone wp-image-36582 size-full" src="https://solarinnovations.com/wp-content/uploads/carwash-mini-1.png" alt="" width="440" height="200" /></a>
+
+Custom car washes are always easier to maintain as glass structures.<img class="alignright size-full wp-image-36537" src="https://solarinnovations.com/wp-content/uploads/test-structure-4.png" alt="" width="196" height="186" /> The amount of water used in these spaces make structures ideal for maintaining your businesses washing space. Any type of configuration you require can be custom designed by our specialists.[/vc_column_text][/vc_column][vc_column width="1/3"][vc_column_text]
+<h2>Walkways</h2>
+<a href="/our-products/aluminum-structures/walkways/"><img class="alignnone wp-image-36568 size-full" src="https://solarinnovations.com/wp-content/uploads/walkway-mini-1.png" alt="" width="440" height="200" /></a>
+
+Our walkways can fit any custom application you require in a business. Our design engineers can craft a custom walkway <img class="alignright wp-image-36569 size-full" src="https://solarinnovations.com/wp-content/uploads/walkway-1-iso.png" alt="" width="196" height="186" />to fit your needs walking you through the process every step of the way keeping in mind substrates and conditions which require careful analysis.[/vc_column_text][/vc_column][vc_column width="1/3"][vc_column_text]
+<h2>Glass Railings</h2>
+<a href="/our-products/additional-products/glass-railings/"><img class="alignnone wp-image-36580 size-full" src="https://solarinnovations.com/wp-content/uploads/glass-railing-mini-1.png" alt="" width="440" height="200" /></a>
+
+Glass railings always are custom because of their design against the space they occupy.<img class="alignright wp-image-36581 size-full" src="https://solarinnovations.com/wp-content/uploads/glass-railing-1-iso.png" alt="" width="196" height="186" /> At solar we make this seem easy in our analysis of the space creating beautiful eye catching railings that consumers will appreciate as they ascend your building.[/vc_column_text][/vc_column][/vc_row]";s:10:"post_title";s:19:"Aluminum Structures";s:12:"post_excerpt";s:0:"";s:11:"post_status";s:7:"publish";s:14:"comment_status";s:6:"closed";s:11:"ping_status";s:6:"closed";s:13:"post_password";s:0:"";s:9:"post_name";s:19:"aluminum-structures";s:7:"to_ping";s:0:"";s:6:"pinged";s:0:"";s:13:"post_modified";s:19:"2017-08-30 14:00:56";s:17:"post_modified_gmt";s:19:"2017-08-30 14:00:56";s:21:"post_content_filtered";s:0:"";s:11:"post_parent";i:38089;s:4:"guid";s:42:"http://solarinnovations.com/?page_id=38122";s:10:"menu_order";i:0;s:9:"post_type";s:4:"page";s:14:"post_mime_type";s:0:"";s:13:"comment_count";s:1:"0";s:6:"filter";s:3:"raw";}}

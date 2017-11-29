@@ -1,0 +1,3 @@
+ÑZ<?php exit; ?>a:1:{s:7:"content";s:454:"Solar InnovationsÂ® has succeeded by listening to its customers and delivering a complete line of high performance structures and accessories including doors, windows, ridge vents, and more. Solar resides in a state-of-the art 220,000 sq. ft. corporate office and manufacturing facility that is part of a three-building campus with over 325,000 sq.ft. of manufacturing space, located on 36+ acres in Pine Grove, PA, and employs over 170 team members.
+
+";}

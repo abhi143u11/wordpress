@@ -1,0 +1,1 @@
+¦ÐZ<?php exit; ?>a:1:{s:7:"content";a:4:{s:17:"_vc_post_settings";a:1:{i:0;s:30:"a:1:{s:10:"vc_grid_id";a:0:{}}";}s:11:"rcUserLevel";a:1:{i:0;s:4:"None";}s:15:"_nofilter_value";a:1:{i:0;s:7:"enabled";}s:28:"_yst_prominent_words_version";a:1:{i:0;s:1:"1";}}}
