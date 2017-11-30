@@ -26,7 +26,8 @@ echo $category[0]->cat_name;
 			<?php if ( has_post_thumbnail() ) : ?>
 						<?php if (has_post_thumbnail()) echo '<div class="post-feature-thumb">' . get_the_post_thumbnail($page->ID, 'blog-feature') . '</div>'; ?>
 			<?php endif; ?>
-            <?php the_time('F j, Y'); ?>
+			<!-- TODO: reformat blog pages -->
+            <?php // the_time('F j, Y'); ?>
 			<?php the_content(); ?>
 			</div>
 			<?php do_action( 'foundationpress_after_content' ); ?>
