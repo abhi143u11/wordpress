@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit05c22156389431c71694eb4553ba9936
+class ComposerStaticInit11afca893ed9aa559954cfd7ba405069
 {
     public static $files = array (
         '995b589e693a50f54393aa31ee1c3763' => __DIR__ . '/..' . '/yoast/whip/src/facades/wordpress.php',
@@ -195,6 +195,7 @@ class ComposerStaticInit05c22156389431c71694eb4553ba9936
         'WPSEO_Config_Field_Upsell_Site_Review' => __DIR__ . '/../..' . '/admin/config-ui/fields/class-field-upsell-site-review.php',
         'WPSEO_Configuration_Components' => __DIR__ . '/../..' . '/admin/config-ui/class-configuration-components.php',
         'WPSEO_Configuration_Endpoint' => __DIR__ . '/../..' . '/admin/config-ui/class-configuration-endpoint.php',
+        'WPSEO_Configuration_Notifier' => __DIR__ . '/../..' . '/admin/notifiers/class-configuration-notifier.php',
         'WPSEO_Configuration_Options_Adapter' => __DIR__ . '/../..' . '/admin/config-ui/class-configuration-options-adapter.php',
         'WPSEO_Configuration_Page' => __DIR__ . '/../..' . '/admin/config-ui/class-configuration-page.php',
         'WPSEO_Configuration_Service' => __DIR__ . '/../..' . '/admin/config-ui/class-configuration-service.php',
@@ -246,6 +247,7 @@ class ComposerStaticInit05c22156389431c71694eb4553ba9936
         'WPSEO_Installable' => __DIR__ . '/../..' . '/admin/interface-installable.php',
         'WPSEO_Installation' => __DIR__ . '/../..' . '/inc/class-wpseo-installation.php',
         'WPSEO_JSON_LD' => __DIR__ . '/../..' . '/frontend/class-json-ld.php',
+        'WPSEO_Language_Utils' => __DIR__ . '/../..' . '/inc/language-utils.php',
         'WPSEO_License_Page_Manager' => __DIR__ . '/../..' . '/admin/class-license-page-manager.php',
         'WPSEO_Link' => __DIR__ . '/../..' . '/admin/links/class-link.php',
         'WPSEO_Link_Cleanup_Transient' => __DIR__ . '/../..' . '/admin/links/class-link-cleanup-transient.php',
@@ -270,6 +272,7 @@ class ComposerStaticInit05c22156389431c71694eb4553ba9936
         'WPSEO_Link_Utils' => __DIR__ . '/../..' . '/admin/links/class-link-utils.php',
         'WPSEO_Link_Watcher' => __DIR__ . '/../..' . '/admin/links/class-link-watcher.php',
         'WPSEO_Link_Watcher_Loader' => __DIR__ . '/../..' . '/admin/links/class-link-watcher-loader.php',
+        'WPSEO_Listener' => __DIR__ . '/../..' . '/admin/listeners/class-listener.php',
         'WPSEO_Menu' => __DIR__ . '/../..' . '/admin/menu/class-menu.php',
         'WPSEO_Meta' => __DIR__ . '/../..' . '/inc/class-wpseo-meta.php',
         'WPSEO_Meta_Columns' => __DIR__ . '/../..' . '/admin/class-meta-columns.php',
@@ -312,6 +315,7 @@ class ComposerStaticInit05c22156389431c71694eb4553ba9936
         'WPSEO_Plugin_Compatibility' => __DIR__ . '/../..' . '/admin/class-plugin-compatibility.php',
         'WPSEO_Plugin_Conflict' => __DIR__ . '/../..' . '/admin/class-plugin-conflict.php',
         'WPSEO_Post_Metabox_Formatter' => __DIR__ . '/../..' . '/admin/formatter/class-post-metabox-formatter.php',
+        'WPSEO_Post_Type' => __DIR__ . '/../..' . '/inc/class-post-type.php',
         'WPSEO_Post_Type_Sitemap_Provider' => __DIR__ . '/../..' . '/inc/sitemaps/class-post-type-sitemap-provider.php',
         'WPSEO_Premium_Popup' => __DIR__ . '/../..' . '/admin/class-premium-popup.php',
         'WPSEO_Primary_Term' => __DIR__ . '/../..' . '/inc/class-wpseo-primary-term.php',
@@ -438,10 +442,10 @@ class ComposerStaticInit05c22156389431c71694eb4553ba9936
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit05c22156389431c71694eb4553ba9936::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit05c22156389431c71694eb4553ba9936::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit05c22156389431c71694eb4553ba9936::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit05c22156389431c71694eb4553ba9936::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit11afca893ed9aa559954cfd7ba405069::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit11afca893ed9aa559954cfd7ba405069::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit11afca893ed9aa559954cfd7ba405069::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInit11afca893ed9aa559954cfd7ba405069::$classMap;
 
         }, null, ClassLoader::class);
     }

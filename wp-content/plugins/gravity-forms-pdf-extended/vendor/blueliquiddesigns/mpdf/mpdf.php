@@ -1382,11 +1382,11 @@ class mPDF
 		$this->fh = $this->fhPt / _MPDFK;
 		//Page orientation
 		$orientation = strtolower($orientation);
-		if ($orientation == 'p' or $orientation == 'portrait') {
+		if ($orientation == 'p' || $orientation == 'portrait') {
 			$orientation = 'P';
 			$this->wPt = $this->fwPt;
 			$this->hPt = $this->fhPt;
-		} elseif ($orientation == 'l' or $orientation == 'landscape') {
+		} elseif ($orientation == 'l' || $orientation == 'landscape') {
 			$orientation = 'L';
 			$this->wPt = $this->fhPt;
 			$this->hPt = $this->fwPt;
@@ -10455,7 +10455,7 @@ class mPDF
 		if ($asSubset) {
 			$cwlen = $maxUni + 1;
 		} else {
-			$cwlen = (strlen($font['cw']) / 2);
+			$cwlen = (mb_strlen($font['cw']) / 2);
 		}
 
 		// for each character
@@ -10685,8 +10685,7 @@ class mPDF
 	function _putimages()
 	{
 		$filter = ($this->compress) ? '/Filter /FlateDecode ' : '';
-		reset($this->images);
-		while (list($file, $info) = each($this->images)) {
+        foreach ($this->images as $file => $info) {
 			$this->_newobj();
 			$this->images[$file]['n'] = $this->n;
 			$this->_out('<</Type /XObject');
@@ -12844,8 +12843,7 @@ class mPDF
 	// Moved outside WMF as also needed for SVG
 	function _putformobjects()
 	{
-		reset($this->formobjects);
-		while (list($file, $info) = each($this->formobjects)) {
+        foreach ($this->formobjects as $file => $info) {
 			$this->_newobj();
 			$this->formobjects[$file]['n'] = $this->n;
 			$this->_out('<</Type /XObject');
@@ -22550,9 +22548,11 @@ class mPDF
 						}
 					} elseif ($numcols) { // If all columns
 						$ttl = array_sum($table['l']);
-						for ($i = 0; $i < $numcols; $i++) {
-							$widthcols[$i]['miw'] += $surplus * $table['l'][$i] / $ttl;
-						}
+                        if ( ! empty( $ttl ) ) {
+                            for ($i = 0; $i < $numcols; $i++) {
+                                $widthcols[$i]['miw'] += $surplus * $table['l'][$i] / $ttl;
+                            }
+                        }
 					}
 				}
 			}
@@ -25641,10 +25641,10 @@ class mPDF
 			$this->_out('/Subtype /Form');
 			$this->_out('/FormType 1');
 			// Left/Bottom/Right/Top
-			$this->_out(sprintf('/BBox [%.2F %.2F %.2F %.2F]', floatval($tpl['box']['x']) * _MPDFK, floatval($tpl['box']['y']) * _MPDFK, (floatval($tpl['box']['x']) + floatval($tpl['box']['w'])) * _MPDFK, (floatval($tpl['box']['y']) + floatval($tpl['box']['h'])) * _MPDFK));
+			$this->_out(sprintf('/BBox [%.2F %.2F %.2F %.2F]', $tpl['box']['x'] * _MPDFK, $tpl['box']['y'] * _MPDFK, ($tpl['box']['x'] + $tpl['box']['w']) * _MPDFK, ($tpl['box']['y'] + $tpl['box']['h']) * _MPDFK));
 
 			if (isset($tpl['box'])) {
-				$this->_out( sprintf( '/Matrix [1 0 0 1 %.5F %.5F]', -1 * floatval( $tpl['box']['x'] ) * _MPDFK, -1 * floatval( $tpl['box']['y'] ) * _MPDFK ) );
+				$this->_out( sprintf( '/Matrix [1 0 0 1 %.5F %.5F]', -$tpl['box']['x'] * _MPDFK, -$tpl['box']['y'] * _MPDFK ) );
 			}
 
 			$this->_out('/Resources ');
@@ -26142,10 +26142,9 @@ class mPDF
 				foreach ($this->tpls as $tplidx => $tpl) {
 					if (isset($tpl['resources'])) {
 						$this->current_parser = $tpl['parser'];
-						reset($tpl['resources'][1]);
-						while (list($k, $v) = each($tpl['resources'][1])) {
+                        foreach ($tpl['resources'][1] as $k => $v) {
 							if ($k == '/Shading') {
-								while (list($k2, $v2) = each($v[1])) {
+                                foreach ($v[1] as $k2 => $v2) {
 									$this->_out($k2 . " ", false);
 									$this->pdf_write_value($v2);
 								}
@@ -30355,93 +30354,112 @@ class mPDF
 		// Returns values using 'mm' units
 		$size = trim(strtolower($size));
 
-		if ($size == 'thin')
-			$size = 1 * (25.4 / $this->dpi); //1 pixel width for table borders
-		elseif (stristr($size, 'px'))
-			$size *= (25.4 / $this->dpi); //pixels
-		elseif (stristr($size, 'cm'))
-			$size *= 10; //centimeters
-		elseif (stristr($size, 'mm'))
-			$size += 0; //millimeters
-		elseif (stristr($size, 'pt'))
-			$size *= 25.4 / 72; //72 pts/inch
-		elseif (stristr($size, 'rem')) {
-			$size += 0; //make "0.83rem" become simply "0.83"
-			$size *= ($this->default_font_size / _MPDFK);
-		} elseif (stristr($size, 'em')) {
-			$size += 0; //make "0.83em" become simply "0.83"
-			if ($fontsize) {
-				$size *= $fontsize;
-			} else {
-				$size *= $maxsize;
-			}
-		} elseif (stristr($size, '%')) {
-			$size += 0; //make "90%" become simply "90"
-			if ($fontsize && $usefontsize) {
-				$size *= $fontsize / 100;
-			} else {
-				$size *= $maxsize / 100;
-			}
-		} elseif (stristr($size, 'in'))
-			$size *= 25.4; //inches
-		elseif (stristr($size, 'pc'))
-			$size *= 38.1 / 9; //PostScript picas
-		elseif (stristr($size, 'ex')) { // Approximates "ex" as half of font height
-			$size += 0; //make "3.5ex" become simply "3.5"
-			if ($fontsize) {
-				$size *= $fontsize / 2;
-			} else {
-				$size *= $maxsize / 2;
-			}
-		} elseif ($size == 'medium')
-			$size = 3 * (25.4 / $this->dpi); //3 pixel width for table borders
-		elseif ($size == 'thick')
-			$size = 5 * (25.4 / $this->dpi); //5 pixel width for table borders
-		elseif ($size == 'xx-small') {
-			if ($fontsize) {
-				$size *= $fontsize * 0.7;
-			} else {
-				$size *= $maxsize * 0.7;
-			}
-		} elseif ($size == 'x-small') {
-			if ($fontsize) {
-				$size *= $fontsize * 0.77;
-			} else {
-				$size *= $maxsize * 0.77;
-			}
-		} elseif ($size == 'small') {
-			if ($fontsize) {
-				$size *= $fontsize * 0.86;
-			} else {
-				$size *= $maxsize * 0.86;
-			}
-		} elseif ($size == 'medium') {
-			if ($fontsize) {
-				$size *= $fontsize;
-			} else {
-				$size *= $maxsize;
-			}
-		} elseif ($size == 'large') {
-			if ($fontsize) {
-				$size *= $fontsize * 1.2;
-			} else {
-				$size *= $maxsize * 1.2;
-			}
-		} elseif ($size == 'x-large') {
-			if ($fontsize) {
-				$size *= $fontsize * 1.5;
-			} else {
-				$size *= $maxsize * 1.5;
-			}
-		} elseif ($size == 'xx-large') {
-			if ($fontsize) {
-				$size *= $fontsize * 2;
-			} else {
-				$size *= $maxsize * 2;
-			}
-		} else {
-            $size = (int) $size; /* fix height: auto issue - https://github.com/mpdf/mpdf/issues/294 */
-            $size *= (25.4 / $this->dpi); //nothing == px
+        $res = preg_match('/^(?P<size>[-0-9.,]+)?(?P<unit>[%a-z-]+)?$/', $size, $parts);
+        $unit = !empty($parts['unit']) ? $parts['unit'] : null;
+        $size = !empty($parts['size']) ? (float) $parts['size'] : 0.0;
+
+        switch ($unit) {
+            case 'mm':
+                // do nothing
+                break;
+            case 'cm':
+                $size *= 10;
+                break;
+            case 'pt':
+                $size *= 25.4 / 72;
+                break;
+            case 'rem':
+                $size *= ($this->default_font_size / _MPDFK);
+                break;
+            case '%':
+                if ($fontsize && $usefontsize) {
+                    $size *= $fontsize / 100;
+                } else {
+                    $size *= $maxsize / 100;
+                }
+                break;
+            case 'in':
+                // mm in an inch
+                $size *= 25.4;
+                break;
+            case 'pc':
+                // PostScript picas
+                $size *= 38.1 / 9;
+                break;
+            case 'ex':
+                // Approximates "ex" as half of font height
+                if ($fontsize) {
+                    $size *= $fontsize / 2;
+                } else {
+                    $size *= $maxsize / 2;
+                }
+                break;
+            case 'em':
+                if ($fontsize) {
+                    $size *= $fontsize;
+                } else {
+                    $size *= $maxsize;
+                }
+                break;
+            case 'thin':
+                $size = 1 * (25.4 / $this->dpi);
+                break;
+            case 'medium':
+                if ($fontsize) {
+                    $size *= $fontsize;
+                } else {
+                    $size *= $maxsize;
+                }
+                break;
+            case 'thick':
+                $size = 5 * (25.4 / $this->dpi); // 5 pixel width for table borders
+                break;
+            case 'xx-small':
+                if ($fontsize) {
+                    $size *= $fontsize * 0.7;
+                } else {
+                    $size *= $maxsize * 0.7;
+                }
+                break;
+            case 'x-small':
+                if ($fontsize) {
+                    $size *= $fontsize * 0.77;
+                } else {
+                    $size *= $maxsize * 0.77;
+                }
+                break;
+            case 'small':
+                if ($fontsize) {
+                    $size *= $fontsize * 0.86;
+                } else {
+                    $size *= $maxsize * 0.86;
+                }
+                break;
+            case 'large':
+                if ($fontsize) {
+                    $size *= $fontsize * 1.2;
+                } else {
+                    $size *= $maxsize * 1.2;
+                }
+                break;
+            case 'x-large':
+                if ($fontsize) {
+                    $size *= $fontsize * 1.5;
+                } else {
+                    $size *= $maxsize * 1.5;
+                }
+                break;
+            case 'xx-large':
+                if ($fontsize) {
+                    $size *= $fontsize * 2;
+                } else {
+                    $size *= $maxsize * 2;
+                }
+                break;
+            case 'px':
+            default:
+                $size *= (25.4 / $this->dpi);
+                break;
         }
 
 		return $size;
@@ -30955,8 +30973,7 @@ class mPDF
 			case pdf_parser::TYPE_DICTIONARY :
 				// A dictionary.
 				$this->_out("<<", false);
-				reset($value[1]);
-				while (list($k, $v) = each($value[1])) {
+                foreach ($value[1] as $k => $v) {
 					$this->_out($k . ' ',false);
 					$this->pdf_write_value($v);
 				}

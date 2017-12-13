@@ -5,7 +5,7 @@ Donate link: https://gravitypdf.com/donate-to-plugin/
 Tags: gravity, forms, pdf, automation, attachment, email
 Requires at least: 4.4
 Tested up to: 4.8
-Stable tag: 4.3.0
+Stable tag: 4.3.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl.txt
 
@@ -84,6 +84,12 @@ Also, if you enjoy using the software [we'd love it if you could give us a revie
 18. Blank Slate provides a print-friendly template focusing solely on the user-submitted data.
 
 == Changelog ==
+
+= 4.3.1 =
+* Bug: Restrict Gravity PDF JavaScript to the correct PDF pages (GH#693)
+* Bug: Fix PHP5.2 activation error (GH#697)
+* Bug: Fix RTL issue with Chosen Select library (GH#698)
+* Bug: Fix PDF Product table pricing issue by using the pre-calculated price field for the unit price (GH#699)
 
 = 4.3.0 =
 * Feature: Add support for Gravity Perks E-Commerce Add-on (GH#671)

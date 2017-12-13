@@ -57,12 +57,12 @@
         "source": {
             "type": "git",
             "url": "https://github.com/GravityPDF/mpdf.git",
-            "reference": "143e0e2e431fd62e09364cfdae36081e5b7daf7d"
+            "reference": "cc044df8810cbac9bc1badf705d7e13b1415121a"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/GravityPDF/mpdf/zipball/143e0e2e431fd62e09364cfdae36081e5b7daf7d",
-            "reference": "143e0e2e431fd62e09364cfdae36081e5b7daf7d",
+            "url": "https://api.github.com/repos/GravityPDF/mpdf/zipball/cc044df8810cbac9bc1badf705d7e13b1415121a",
+            "reference": "cc044df8810cbac9bc1badf705d7e13b1415121a",
             "shasum": ""
         },
         "require": {
@@ -76,7 +76,7 @@
         "suggest": {
             "ext-zlib": "Needed for compression of embedded resources, such as fonts"
         },
-        "time": "2017-08-07T05:52:58+00:00",
+        "time": "2017-10-24T22:06:21+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -232,17 +232,17 @@
     },
     {
         "name": "masterminds/html5",
-        "version": "2.2.2",
-        "version_normalized": "2.2.2.0",
+        "version": "2.3.0",
+        "version_normalized": "2.3.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/Masterminds/html5-php.git",
-            "reference": "7866e93dcf0245de22378414e0c2c7350abc45af"
+            "reference": "2c37c6c520b995b761674de3be8455a381679067"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/Masterminds/html5-php/zipball/7866e93dcf0245de22378414e0c2c7350abc45af",
-            "reference": "7866e93dcf0245de22378414e0c2c7350abc45af",
+            "url": "https://api.github.com/repos/Masterminds/html5-php/zipball/2c37c6c520b995b761674de3be8455a381679067",
+            "reference": "2c37c6c520b995b761674de3be8455a381679067",
             "shasum": ""
         },
         "require": {
@@ -254,7 +254,7 @@
             "sami/sami": "~2.0",
             "satooshi/php-coveralls": "1.0.*"
         },
-        "time": "2016-09-22T11:01:11+00:00",
+        "time": "2017-09-04T12:26:28+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {

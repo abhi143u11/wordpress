@@ -2059,7 +2059,7 @@ var LayerSlider = {
 		var $select = jQuery(select);
 
 			// Remove previously added options
-			$select.children(':gt(1)').remove();
+			$select.children('[value="forever"]').nextAll().remove();
 
 			// Gather slide data
 			var sliderData 	= window.lsSliderData,

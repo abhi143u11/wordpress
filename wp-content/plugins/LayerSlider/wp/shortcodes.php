@@ -1,6 +1,8 @@
 <?php
 
-$GLOBALS['lsLoadPlugins'] = array();
+$GLOBALS['lsLoadPlugins'] 	= array();
+$GLOBALS['lsLoadFonts'] 	= array();
+
 function layerslider( $id = 0, $filters = '', $options = array() ) {
 	echo LS_Shortcode::handleShortcode(
 		array_merge( array('id' => $id, 'filters' => $filters), $options)
@@ -311,10 +313,14 @@ class LS_Shortcode {
 			$output['markup'] = apply_filters('layerslider_slider_markup', $output['markup'], $slider, $sID);
 		}
 
-		// Origami
-		if( !empty( $output['plugins'] ) ) {
+		// Plugins
+		if( ! empty( $output['plugins'] ) ) {
 			$GLOBALS['lsLoadPlugins'] = array_merge($GLOBALS['lsLoadPlugins'], $output['plugins']);
+		}
 
+		// Fonts
+		if( ! empty( $output['fonts'] ) ) {
+			$GLOBALS['lsLoadFonts'] = array_merge($GLOBALS['lsLoadFonts'], $output['fonts']);
 		}
 
 		if($footer) {
@@ -335,15 +341,16 @@ class LS_Shortcode {
 		}
 
 		// Slider and markup data
-		$id = $slider['id'];
-		$sliderID = 'layerslider_'.$id;
-		$slides = $slider['data'];
+		$id 			= $slider['id'];
+		$sliderID 		= 'layerslider_'.$id;
+		$slides 		= $slider['data'];
 
 		// Store generated output
-		$lsInit = array();
-		$lsContainer = array();
-		$lsMarkup = array();
-		$lsPlugins = array();
+		$lsInit 		= array();
+		$lsContainer 	= array();
+		$lsMarkup 		= array();
+		$lsPlugins 		= array();
+		$lsFonts 		= array();
 
 		// Include slider file
 		if(is_array($slides)) {
@@ -372,9 +379,9 @@ class LS_Shortcode {
 
 
 
-			$lsInit = implode('', $lsInit);
-			$lsContainer = implode('', $lsContainer);
-			$lsMarkup = implode('', $lsMarkup);
+			$lsInit 		= implode('', $lsInit);
+			$lsContainer 	= implode('', $lsContainer);
+			$lsMarkup 		= implode('', $lsMarkup);
 		}
 
 		// Concatenate output
@@ -389,10 +396,11 @@ class LS_Shortcode {
 
 		// Return formatted data
 		return array(
-			'init' => $lsInit,
+			'init' 		=> $lsInit,
 			'container' => $lsContainer,
-			'markup' => $lsMarkup,
-			'plugins' => array_unique($lsPlugins)
+			'markup' 	=> $lsMarkup,
+			'plugins' 	=> array_unique( $lsPlugins ),
+			'fonts' 	=> array_unique( $lsFonts )
 		);
 	}
 

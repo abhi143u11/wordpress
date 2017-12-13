@@ -24,7 +24,9 @@ if( ! empty( $lsPlugins ) ) {
 	$init[] = 'plugins: ' . json_encode( array_unique( $lsPlugins ) );
 }
 
-$init = implode(', ', $init);
+$separator = apply_filters( 'layerslider_init_props_separator', ', ');
+$init = implode( $separator, $init );
+
 
 // Fix multiple jQuery issue
 $lsInit[] = '<script data-cfasync="false" type="text/javascript">';

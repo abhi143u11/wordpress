@@ -141,7 +141,7 @@ msgstr ""
 msgid "Gravity PDF"
 msgstr ""
 
-#: src/helper/Helper_Data.php:168, src/model/Model_Mergetags.php:135
+#: src/helper/Helper_Data.php:168, src/model/Model_Mergetags.php:140
 msgid "PDF"
 msgstr ""
 

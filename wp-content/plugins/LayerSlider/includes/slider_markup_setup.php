@@ -112,9 +112,9 @@ if(isset($slides['layers']) && is_array($slides['layers'])) {
 
 
 				// Marker for Font Awesome
-				if( empty( $GLOBALS['lsLoadFontAwesome'] ) && ! empty( $layer['html'] ) ) {
+				if( empty( $lsFonts['font-awesome'] ) && ! empty( $layer['html'] ) ) {
 					if( strpos( $layer['html'], 'fa fa-') !== false ) {
-						$GLOBALS['lsLoadFontAwesome'] = true;
+						$lsFonts['font-awesome'] = 'font-awesome';
 					}
 				}
 

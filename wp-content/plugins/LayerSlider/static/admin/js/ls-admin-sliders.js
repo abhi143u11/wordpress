@@ -265,6 +265,7 @@ jQuery(function($) {
 	};
 
 	var importModalWindowTimeline = null,
+		importModalWindowTransition = null,
 		importModalThumbnailsTransition = null;
 
 	// Checkboxes
@@ -414,8 +415,7 @@ jQuery(function($) {
 
 		event.preventDefault();
 
-		var	$modal,
-			width = jQuery( window ).width();
+		var	$modal;
 
 		// If the Template Store was previously opened on the current page,
 		// just grab the element, do not bother re-appending and setting
@@ -436,7 +436,6 @@ jQuery(function($) {
 			// Append the template & setup the live logo
 			$modal = jQuery( jQuery('#tmpl-import-sliders').text() ).hide().prependTo('body');
 			lsLogo.append( '#ls-import-modal-window .layerslider-logo', true );
-
 
 			// Update last store view date
 			if( $modal.hasClass('has-updates') ) {
@@ -493,26 +492,12 @@ jQuery(function($) {
 					jQuery( 'html, body' ).removeClass( 'ls-no-overflow' );
 					jQuery(document).off( 'keyup.LS' );
 					jQuery( '#ls-import-modal-overlay' ).hide();
+					TweenMax.set( jQuery( '#ls-import-modal-window' )[0], { css: { y: -100000 } });
 				},
 				paused: true
 			});
 
 			$(this).data( 'lsModalTimeline', importModalWindowTimeline );
-
-			importModalWindowTimeline.fromTo( $modal[0], 0.75, {
-				autoCSS: false,
-				css: {
-					position: 'fixed',
-					display: 'block',
-					x: width
-				}
-			},{
-				autoCSS: false,
-				css: {
-					x: 0
-				},
-				ease: Quart.easeInOut
-			}, 0 );
 
 			importModalWindowTimeline.fromTo( $('#ls-import-modal-overlay')[0], 0.75, {
 				autoCSS: false,
@@ -547,6 +532,26 @@ jQuery(function($) {
 				shuffle.update();
 			}, 0.25 );
 		}
+
+		importModalWindowTimeline.remove( importModalWindowTransition );
+
+		importModalWindowTransition = TweenMax.fromTo( $modal[0], 0.75, {
+			autoCSS: false,
+			css: {
+				position: 'fixed',
+				display: 'block',
+				y: 0,
+				x: jQuery( window ).width()
+			}
+		},{
+			autoCSS: false,
+			css: {
+				x: 0
+			},
+			ease: Quart.easeInOut
+		}, 0 );
+
+		importModalWindowTimeline.add( importModalWindowTransition, 0 );
 
 		importModalWindowTimeline.play();
 	});
