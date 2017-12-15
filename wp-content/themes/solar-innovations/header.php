@@ -44,6 +44,7 @@ global $current_user;
 <link rel="apple-touch-icon" sizes="120x120" href="<?php echo get_stylesheet_directory_uri(); ?>/assets/img/icons/touch-icon-iphone-retina.png">
 <link rel="apple-touch-icon" sizes="152x152" href="<?php echo get_stylesheet_directory_uri(); ?>/assets/img/icons/touch-icon-ipad-retina.png">
 <?php wp_head(); ?>
+<?php the_field('header_script'); ?>
 </head>
 <body <?php body_class(); ?>>
 

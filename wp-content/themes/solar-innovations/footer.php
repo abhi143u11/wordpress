@@ -121,6 +121,6 @@ jQuery(document).ready(function($) {
 	functionOne('<?=$post->post_title?>');
 	</script>
 <?php endif; ?>
-
+<?php the_field('footer_script'); ?>
 </body>
 </html>
