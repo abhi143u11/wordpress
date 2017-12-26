@@ -57,7 +57,7 @@ global $current_user;
 				<a class="shiftnav-toggle hide-for-large-up m-nav" data-shiftnav-target="shiftnav-main" href=""><img src="<?php bloginfo('template_directory'); ?>/img/m-nav.png" /></a>
 				<div class="row top-nav visible-for-large-up">
 					<div class="medium-6 columns global-nav">
-						<a href="<?php bloginfo('url'); ?>">Home</a>
+						<!-- <a href="<?php //bloginfo('url'); ?>">Home</a> -->
                         <a href="/Contact/">Contact Us</a>
                         <a href="/Careers/">Careers</a>
 						<a href="/find-a-dealer/">Find a Dealer</a>
@@ -67,11 +67,12 @@ global $current_user;
 							<a href="#" data-dropdown="hover1" data-options="is_hover:true; hover_timeout:50">Account</a>
 							<ul id="hover1" class="f-dropdown" data-dropdown-content>
 								<li><a href="<?=bloginfo('url')?>/account/account-settings#">Account Settings</a></li>
-								<li><a href="<?=bloginfo('url')?>/account/my-specifications">My Specifications</a></li>
-								<li><a href="<?=bloginfo('url')?>/technical-information/technical-docs/spec-writer/">Build a Spec</a></li>
-								<li><a href="<?=bloginfo('url')?>/account/my-quotes">My Quotes</a></li>
-								<li><a href="<?=bloginfo('url')?>/why-choose-solar/quote-form">Build a Quote</a></li>
-								<li><a href="<?=bloginfo('url')?>/account/my-gallery">My Gallery</a></li>
+								<li><a href="<?=bloginfo('url')?>/account/subscriptions/">Subscriptions</a></li>
+								<!-- <li><a href="<? //=bloginfo('url')?>/account/my-specifications">My Specifications</a></li> -->
+								<!-- <li><a href="<? //=bloginfo('url')?>/technical-information/technical-docs/spec-writer/">Build a Spec</a></li> -->
+								<!-- <li><a href="<? //=bloginfo('url')?>/account/my-quotes">My Quotes</a></li> -->
+								<!-- <li><a href="<? //=bloginfo('url')?>/why-choose-solar/quote-form">Build a Quote</a></li> -->
+								<!-- <li><a href="<? //= bloginfo('url')?>/account/my-gallery">My Gallery</a></li> -->
 								<?php if ($current_user->roles[0] == 'osr') : ?><li><a href="<?=bloginfo('url')?>/account/my-downloads">My Downloads</a></li><?php endif; ?>
 								<li class="log"><a href="<?=wp_logout_url(get_bloginfo('url'))?>">LOGOUT</a></li>
 							</ul>

@@ -24,10 +24,8 @@ get_header();
 	<div class="small-12 columns"><?php if (function_exists('qt_custom_breadcrumbs')) qt_custom_breadcrumbs(); ?></div>
 </div><!--breadcrumbs-->
 <section class="row int">
-	<div class="medium-12 large-4 sidebar columns show-for-large-up">
-		<?php get_sidebar(); ?>
-	</div><!--sidebar-->
-	<div class="medium-12 large-8 int-main columns">
+	
+	<div class="medium-12 large-12 int-main columns">
 		<?php 
 		do_action( 'foundationpress_before_content' );
  
@@ -36,7 +34,7 @@ get_header();
 				the_post(); 
 		?>
 				<h1>Account Settings</h1>
-				<p>This is an example of intro text styling. Intro text is a great way to lead into more complex content on a page. It is slightly larger than standard body content and draws the viewers eye in. Intro paragraphs are not intended to be long simply because the intent of the content is to provide a brief lead in. Often we recommend that longer paragraphs can be broken to create</p>
+				
 			    <div id="post-<?php the_ID(); ?>">
 			        <div class="entry-content entry">
 			            <?php the_content(); ?>
