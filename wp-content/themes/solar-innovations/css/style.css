@@ -136,6 +136,10 @@ form > div.um-col-alt > div.um-right.um-half > a{
 	text-decoration: none!important;
 }
 
+.um-profile-note{
+	display: none;
+}
+
 #preview_container {
 	display:none;
 	width:300px;
