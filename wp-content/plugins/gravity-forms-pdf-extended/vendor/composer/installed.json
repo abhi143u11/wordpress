@@ -76,7 +76,7 @@
         "suggest": {
             "ext-zlib": "Needed for compression of embedded resources, such as fonts"
         },
-        "time": "2017-10-24T22:06:21+00:00",
+        "time": "2017-12-21T21:34:55+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
