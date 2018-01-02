@@ -1523,7 +1523,7 @@ form > div.um-col-alt > div.um-right.um-half > a{
 	
 	p.tags {
 		font-size:14px;
-	}
+	}.wpb_wrapper a {
 	
 	.post-feature-thumb {
 		padding-bottom:25px;
@@ -2858,8 +2858,8 @@ h1 span {
 	margin-bottom: 0px!important;
 }
 .wpb_wrapper a {
-	color:#000!important;
-	text-decoration:underline!important;
+	/* color:#000!important;
+	text-decoration:underline!important; */
 /*	font-weight:600!important;*/
 }
 .wpb_wrapper a:hover {

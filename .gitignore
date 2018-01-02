@@ -20,3 +20,4 @@ wp-content/w3tc-config/*
 !wp-content/uploads/Ease-of-Operation-icon-small-1.png
 !wp-content/uploads/monster-sizes-icon-small.png
 !wp-content/uploads/BACKGROUND-ALL-isos-menu-1-1024x411.png
+*.log
