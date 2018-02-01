@@ -1,35 +1,48 @@
 <?php
 
-add_action('admin_notices', 'layerslider_important_notice');
+add_action('admin_init', 'layerslider_check_notices');
+function layerslider_check_notices() {
 
+	add_action('admin_notices', 'layerslider_important_notice');
 
-if(strpos($_SERVER['REQUEST_URI'], '?page=layerslider') !== false) {
-	add_action('admin_notices', 'layerslider_update_notice');
-	add_action('admin_notices', 'layerslider_unauthorized_update_notice');
-	add_action('admin_notices', 'layerslider_dependency_notice');
+	if(strpos($_SERVER['REQUEST_URI'], '?page=layerslider') !== false) {
+		add_action('admin_notices', 'layerslider_update_notice');
+		add_action('admin_notices', 'layerslider_unauthorized_update_notice');
+		add_action('admin_notices', 'layerslider_dependency_notice');
 
-	if( get_option('ls-show-support-notice', 1) && ! get_option('layerslider-authorized-site', null) ) {
-		add_action('admin_notices', 'layerslider_premium_support');
+		if( LS_Config::get('notices') && ! get_option('layerslider-authorized-site', null) ) {
+
+			// Make sure to set an initial timestamp for the notice.
+			if( ! $lastCheck = get_user_meta( get_current_user_id(), 'ls-show-support-notice-timestamp', true ) ) {
+				$lastCheck = time() - WEEK_IN_SECONDS * 3;
+				update_user_meta( get_current_user_id(), 'ls-show-support-notice-timestamp', $lastCheck );
+			}
+
+			if( time() - MONTH_IN_SECONDS > $lastCheck ) {
+				add_action('admin_notices', 'layerslider_premium_support');
+			}
+		}
+
+		if( get_option('ls-show-canceled_activation_notice', 0) ) {
+			add_action('admin_notices', 'layerslider_canceled_activation');
+		}
 	}
 
-	if( get_option('ls-show-canceled_activation_notice', 0) ) {
-		add_action('admin_notices', 'layerslider_canceled_activation');
+	// Storage notice
+	if(get_option('layerslider-slides') !== false) {
+
+		global $pagenow;
+		if($pagenow == 'plugins.php' || $pagenow == 'index.php' || strpos($_SERVER['REQUEST_URI'], 'layerslider')) {
+			add_action('admin_notices', 'layerslider_compatibility_notice');
+		}
+	}
+
+	// License notification under the plugin row on the Plugins screen
+	if(!get_option('layerslider-authorized-site', null)) {
+		add_action('after_plugin_row_'.LS_PLUGIN_BASE, 'layerslider_plugins_purchase_notice', 10, 3 );
 	}
 }
 
-// Storage notice
-if(get_option('layerslider-slides') !== false) {
-
-	global $pagenow;
-	if($pagenow == 'plugins.php' || $pagenow == 'index.php' || strpos($_SERVER['REQUEST_URI'], 'layerslider')) {
-		add_action('admin_notices', 'layerslider_compatibility_notice');
-	}
-}
-
-// License notification under the plugin row on the Plugins screen
-if(!get_option('layerslider-authorized-site', null)) {
-	add_action('after_plugin_row_'.LS_PLUGIN_BASE, 'layerslider_plugins_purchase_notice', 10, 3 );
-}
 
 function layerslider_important_notice() {
 
@@ -117,7 +130,9 @@ function layerslider_update_notice() {
 }
 
 function layerslider_unauthorized_update_notice() {
+
 	if(!get_option('layerslider-authorized-site', false)) {
+
 		$latest = get_option('ls-latest-version', false);
 		if($latest && version_compare(LS_PLUGIN_VERSION, $latest, '<')) {
 			$last_notification = get_option('ls-last-update-notification', LS_PLUGIN_VERSION);
@@ -162,30 +177,32 @@ function layerslider_dependency_notice() {
 		<img src="<?php echo LS_ROOT_URL.'/static/admin/img/ls_80x80.png' ?>" alt="LayerSlider icon">
 		<h1><?php _e('Server configuration issues detected!', 'LayerSlider') ?></h1>
 		<p>
-			<?php echo sprintf(__('LayerSlider and its external dependencies require PHP 5.3.0 or newer. Please contact with your web server hosting provider to resolve this issue, as it will likely prevent LayerSlider from functioning properly. %sThis issue could result a blank page in slider builder.%s Check %sSystem Status%s for more information and comprehensive test about your server environment.', 'LayerSlider'), '<strong>', '</strong>', '<a href="'.admin_url('admin.php?page=ls-system-status').'">', '</a>' ) ?>
+			<?php echo sprintf(__('LayerSlider and its external dependencies require PHP 5.3.0 or newer. Please contact with your web server hosting provider to resolve this issue, as it will likely prevent LayerSlider from functioning properly. %sThis issue could result a blank page in slider builder.%s Check %sSystem Status%s for more information and comprehensive test about your server environment.', 'LayerSlider'), '<strong>', '</strong>', '<a href="'.admin_url('admin.php?page=layerslider-options&section=system-status').'">', '</a>' ) ?>
 
-			<a href="<?php echo admin_url('admin.php?page=ls-system-status') ?>" class="button button-primary"><?php _e('Check System Status', 'LayerSlider') ?></a>
+			<a href="<?php echo admin_url('admin.php?page=layerslider-options&section=system-status') ?>" class="button button-primary"><?php _e('Check System Status', 'LayerSlider') ?></a>
 		</p>
 		<div class="clear"></div>
 	</div>
 <?php } }
 
-function layerslider_premium_support() {
-	if(get_user_meta(get_current_user_id(), 'layerslider_help_wp_pointer', true)) {
-?>
-
+function layerslider_premium_support() { ?>
 <div class="layerslider_notice">
 	<img src="<?php echo LS_ROOT_URL.'/static/admin/img/ls_80x80.png' ?>" alt="LayerSlider icon">
 		<h1><?php _e('Unlock the full potential of LayerSlider', 'LayerSlider') ?></h1>
 		<p>
-			<?php echo sprintf(__('Activate LayerSlider to unlock premium features, slider templates and other exclusive content & services. Receive live plugin updates with 1-Click installation (including optional early access releases) and premium support. If you’ve received LayerSlider bundled in a theme, please refer to %sthis guide%s in our online documentation.', 'LayerSlider'), '<a href="https://support.kreaturamedia.com/docs/layersliderwp/documentation.html#activation-bundles" target="_blank">', '</a>') ?>
+			<?php echo sprintf(
+				__('Activate LayerSlider to unlock premium features, slider templates and other exclusive content & services. Receive live plugin updates with 1-Click installation (including optional early access releases) and premium support. Please read our %sdocumentation%s for more information. %sGot LayerSlider with a theme?%s', 'LayerSlider'),
+				'<a href="https://support.kreaturamedia.com/docs/layersliderwp/documentation.html#activation" target="_blank">',
+				'</a>',
+				'<a href="https://support.kreaturamedia.com/docs/layersliderwp/documentation.html#activation-bundles" target="_blank">',
+				'</a>')
+			?>
 			<a href="<?php echo wp_nonce_url('?page=layerslider&action=hide-support-notice', 'hide-support-notice') ?>" class="button">Hide this message</a>
 		</p>
 	<div class="clear"></div>
 </div>
 
-<?php } }
-
+<?php }
 
 function layerslider_plugins_purchase_notice( $plugin_file, $plugin_data, $status ) {
 	$table = _get_list_table('WP_Plugins_List_Table');
@@ -197,7 +214,7 @@ function layerslider_plugins_purchase_notice( $plugin_file, $plugin_data, $statu
 				<p>
 					<?php
 						printf(__('License activation is required in order to receive updates and premium support for LayerSlider. %sPurchase a license%s or %sread the documentation%s to learn more. %sGot LayerSlider in a theme?%s', 'installer'),
-							'<a href="http://codecanyon.net/cart/add_items?ref=kreatura&amp;item_ids=1362246" target="_blank">', '</a>', '<a href="https://support.kreaturamedia.com/docs/layersliderwp/documentation.html#activation" target="_blank">', '</a>', '<a href="https://support.kreaturamedia.com/docs/layersliderwp/documentation.html#activation-bundles" target="_blank">', '</a>');
+							'<a href="'.LS_Config::get('purchase_url').'" target="_blank">', '</a>', '<a href="https://support.kreaturamedia.com/docs/layersliderwp/documentation.html#activation" target="_blank">', '</a>', '<a href="https://support.kreaturamedia.com/docs/layersliderwp/documentation.html#activation-bundles" target="_blank">', '</a>');
 					?>
 				</p>
 			</div>

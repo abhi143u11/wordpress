@@ -97,14 +97,14 @@ function ls_parse_defaults($defaults = array(), $raw = array()) {
 		$isPremium = false;
 		if( ! empty( $default['premium'] ) && ! $activated ) {
 
-			if( ! $permission ) {
+			//if( ! $permission ) {
 
 				if( ! empty( $raw['styles'][$phpKey] ) ) {
 					unset( $ret['props']['styles'][$jsKey] );
 				}
 
 				continue;
-			}
+			//}
 
 			$isPremium = true;
 		}

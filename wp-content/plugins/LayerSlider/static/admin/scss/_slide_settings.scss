@@ -304,6 +304,34 @@
 	}
 }
 
+#ls-layers .ls-custom-slide-properties {
+	margin: 7px 10px;
+
+	td {
+		border: 0 !important;
+	}
+
+	td:first-child {
+		width: 70px;
+		padding-right: 10px !important;
+
+		input {
+			width: 70px;
+		}
+	}
+
+	td:last-child {
+
+		input {
+			width: 100%;
+		}
+	}
+
+	input.error {
+		border: 1px solid #e11325;
+	}
+}
+
 
 .ls-slide-link {
 

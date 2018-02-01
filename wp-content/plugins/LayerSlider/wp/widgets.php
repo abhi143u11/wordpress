@@ -1,7 +1,11 @@
 <?php
 
 // Widget action
-add_action( 'widgets_init', create_function( '', 'register_widget("LayerSlider_Widget");' ) );
+add_action( 'widgets_init', 'layerslider_register_widget' );
+
+function layerslider_register_widget( ) {
+	register_widget( 'LayerSlider_Widget' );
+}
 
 class LayerSlider_Widget extends WP_Widget {
 

@@ -171,10 +171,13 @@ function layerslider_enqueue_admin_res() {
 
 	// Load LayerSlider-only resources
 	$screen = get_current_screen();
-	if(strpos($screen->base, 'layerslider') !== false) {
+
+	if( strpos( $screen->base, 'layerslider' ) !== false ) {
 
 		// New Media Library
-		if(function_exists( 'wp_enqueue_media' )){ wp_enqueue_media(); }
+		if( function_exists( 'wp_enqueue_media' ) ) {
+			wp_enqueue_media();
+		}
 
 		// Load some bundled WP resources
 		wp_enqueue_script('thickbox');
@@ -214,95 +217,121 @@ function layerslider_enqueue_admin_res() {
 		wp_localize_script('ls-admin-global', 'LS_l10n', $l10n_ls);
 
 
+		// Settings Page
+		if( strpos( $screen->base, 'layerslider-options' ) !== false ) {
+
+			// Avoid PHP undef notice
+			$section = ! empty( $_GET['section'] ) ? $_GET['section'] : false;
+
+			switch( $section ) {
+
+				case 'about':
+					wp_enqueue_style('ls-about-page', LS_ROOT_URL.'/static/admin/css/about.css', false, LS_PLUGIN_VERSION );
+					break;
+
+				case 'skin-editor':
+				case 'css-editor':
+					wp_enqueue_style('ls-skin-editor', LS_ROOT_URL.'/static/admin/css/skin.editor.css', false, LS_PLUGIN_VERSION );
+					break;
+
+
+				case 'transition-builder':
+					ls_require_builder_assets();
+					wp_enqueue_script('layerslider_tr_builder', LS_ROOT_URL.'/static/admin/js/ls-admin-transition-builder.js', array('jquery'), LS_PLUGIN_VERSION );
+					break;
+
+				default:
+					wp_enqueue_script('layerslider-settings', LS_ROOT_URL.'/static/admin/js/ls-admin-settings.js', array('jquery'), LS_PLUGIN_VERSION );
+					wp_enqueue_style('layerslider-settings', LS_ROOT_URL.'/static/admin/css/plugin_settings.css', false, LS_PLUGIN_VERSION );
+					break;
+			}
+
+
+
+		// Add-Ons Page
+		} elseif( strpos( $screen->base, 'layerslider-addons' ) !== false ) {
+			wp_enqueue_script('layerslider-addons', LS_ROOT_URL.'/static/admin/js/ls-admin-addons.js', array('jquery'), LS_PLUGIN_VERSION );
+			wp_enqueue_style('layerslider-addons', LS_ROOT_URL.'/static/admin/css/addons.css', false, LS_PLUGIN_VERSION );
+
+			wp_enqueue_style('ls-revisions', LS_ROOT_URL.'/static/admin/css/revisions.css', false, LS_PLUGIN_VERSION );
+			wp_enqueue_script('ls-revisions', LS_ROOT_URL.'/static/admin/js/ls-admin-revisions.js', array('jquery'), LS_PLUGIN_VERSION );
+
+			if( ! empty( $_GET['section'] ) && $_GET['section'] === 'revisions' ) {
+				ls_require_builder_assets();
+			}
+
 		// Sliders list page
-		if(!empty($_GET['page']) && $_GET['page'] != 'ls-transition-builder' && $_GET['page'] != 'ls-revisions' && empty($_GET['action'])) {
+		} elseif( empty( $_GET['action'] ) ) {
 			wp_enqueue_script('ls-admin-sliders', LS_ROOT_URL.'/static/admin/js/ls-admin-sliders.js', array('jquery'), LS_PLUGIN_VERSION );
 			wp_enqueue_script('ls-shuffle', LS_ROOT_URL.'/static/shuffle/shuffle.min.js', array('jquery'), LS_PLUGIN_VERSION );
 
 		// Slider & Transition Builder
 		} else {
-
-			// Load some bundled WP resources
-			wp_enqueue_script('jquery-ui-sortable');
-			wp_enqueue_script('jquery-ui-selectable');
-			wp_enqueue_script('jquery-ui-draggable');
-			wp_enqueue_script('jquery-ui-resizable');
-			wp_enqueue_script('jquery-ui-slider');
-
-			wp_register_script('layerslider-admin', LS_ROOT_URL.'/static/admin/js/ls-admin-slider-builder.js', array('jquery', 'json2'), LS_PLUGIN_VERSION );
-
-			// Slider Builder JS. Don't load automatically other than the Slider Builder
-			if(! empty( $_GET['page'] ) && $_GET['page'] != 'ls-transition-builder' && $_GET['page'] != 'ls-revisions') {
-				wp_enqueue_script('layerslider-admin');
-			}
-
-			// LayerSlider includes for preview
-			wp_enqueue_script('layerslider', LS_ROOT_URL.'/static/layerslider/js/layerslider.kreaturamedia.jquery.js', array('jquery'), LS_PLUGIN_VERSION );
-			wp_enqueue_script('layerslider-transitions', LS_ROOT_URL.'/static/layerslider/js/layerslider.transitions.js', false, LS_PLUGIN_VERSION );
-			wp_enqueue_script('layerslider-tr-gallery', LS_ROOT_URL.'/static/admin/js/layerslider.transition.gallery.js', array('jquery'), LS_PLUGIN_VERSION );
-			wp_enqueue_style('layerslider', LS_ROOT_URL.'/static/layerslider/css/layerslider.css', false, LS_PLUGIN_VERSION );
-			wp_enqueue_style('layerslider-tr-gallery', LS_ROOT_URL.'/static/admin/css/layerslider.transitiongallery.css', false, LS_PLUGIN_VERSION );
-
-			// LayerSlider Timeline plugin
-			wp_enqueue_script('layerslider-timeline', LS_ROOT_URL.'/static/layerslider/plugins/timeline/layerslider.timeline.js', array('jquery'), LS_PLUGIN_VERSION );
-			wp_enqueue_style('layerslider-timeline', LS_ROOT_URL.'/static/layerslider/plugins/timeline/layerslider.timeline.css', false, LS_PLUGIN_VERSION );
-
-			// LayerSlider Origami plugin
-			wp_enqueue_script('layerslider-origami', LS_ROOT_URL.'/static/layerslider/plugins/origami/layerslider.origami.js', array('jquery'), LS_PLUGIN_VERSION );
-			wp_enqueue_style('layerslider-origami', LS_ROOT_URL.'/static/layerslider/plugins/origami/layerslider.origami.css', false, LS_PLUGIN_VERSION );
-
-			// LayerSlider Popup plugin
-			wp_enqueue_script('layerslider-popup', LS_ROOT_URL.'/static/layerslider/plugins/popup/layerslider.popup.js', array('jquery'), LS_PLUGIN_VERSION );
-			wp_enqueue_style('layerslider-popup', LS_ROOT_URL.'/static/layerslider/plugins/popup/layerslider.popup.css', false, LS_PLUGIN_VERSION );
-
-			// 3rd-party: MiniColor
-			wp_enqueue_script('minicolor', LS_ROOT_URL.'/static/minicolors/jquery.minicolors.js', array('jquery'), LS_PLUGIN_VERSION );
-			wp_enqueue_style('minicolor', LS_ROOT_URL.'/static/minicolors/jquery.minicolors.css', false, LS_PLUGIN_VERSION );
-
-			// 3rd-party: CC Image Editor
-			wp_enqueue_script('cc-image-sdk', 'https://dme0ih8comzn4.cloudfront.net/imaging/v3/editor.js', false, LS_PLUGIN_VERSION );
-
-			// 3rd-party: Air Datepicker
-			wp_enqueue_style('air-datepicker', LS_ROOT_URL.'/static/air-datepicker/datepicker.min.css', false, '2.1.0' );
-			wp_enqueue_script('air-datepicker', LS_ROOT_URL.'/static/air-datepicker/datepicker.min.js', array('jquery'), '2.1.0' );
-			wp_enqueue_script('air-datepicker-en', LS_ROOT_URL.'/static/air-datepicker/i18n/datepicker.en.js', array('jquery'), '2.1.0' );
-
-
-			// User CSS
-			$uploads = wp_upload_dir();
-			$uploads['baseurl'] = set_url_scheme( $uploads['baseurl'] );
-
-			if(file_exists($uploads['basedir'].'/layerslider.custom.transitions.js')) {
-				wp_enqueue_script('ls-user-transitions', $uploads['baseurl'].'/layerslider.custom.transitions.js', false, LS_PLUGIN_VERSION );
-			}
-
-			// User transitions
-			if(file_exists($uploads['basedir'].'/layerslider.custom.css')) {
-				wp_enqueue_style('ls-user', $uploads['baseurl'].'/layerslider.custom.css', false, LS_PLUGIN_VERSION );
-			}
+			ls_require_builder_assets();
 		}
 	}
+}
 
-	// Transition builder
-	if(strpos($screen->base, 'ls-transition-builder') !== false) {
-		wp_enqueue_script('layerslider_tr_builder', LS_ROOT_URL.'/static/admin/js/ls-admin-transition-builder.js', array('jquery'), LS_PLUGIN_VERSION );
+
+function ls_require_builder_assets() {
+
+	// Load some bundled WP resources
+	wp_enqueue_script('jquery-ui-sortable');
+	wp_enqueue_script('jquery-ui-selectable');
+	wp_enqueue_script('jquery-ui-draggable');
+	wp_enqueue_script('jquery-ui-resizable');
+	wp_enqueue_script('jquery-ui-slider');
+
+	wp_register_script('layerslider-admin', LS_ROOT_URL.'/static/admin/js/ls-admin-slider-builder.js', array('jquery', 'json2'), LS_PLUGIN_VERSION );
+
+	//  Don't load automatically the Slider Builder JS file other than the Slider Builder itself.
+	if( empty( $_GET['section'] ) ) {
+		wp_enqueue_script('layerslider-admin');
 	}
 
-	// Revisions
-	if(strpos($screen->base, 'ls-revisions') !== false) {
-		wp_enqueue_style('ls-revisions', LS_ROOT_URL.'/static/admin/css/revisions.css', false, LS_PLUGIN_VERSION );
-		wp_enqueue_script('ls-revisions', LS_ROOT_URL.'/static/admin/js/ls-admin-revisions.js', array('jquery'), LS_PLUGIN_VERSION );
+	// LayerSlider includes for preview
+	wp_enqueue_script('layerslider', LS_ROOT_URL.'/static/layerslider/js/layerslider.kreaturamedia.jquery.js', array('jquery'), LS_PLUGIN_VERSION );
+	wp_enqueue_script('layerslider-transitions', LS_ROOT_URL.'/static/layerslider/js/layerslider.transitions.js', false, LS_PLUGIN_VERSION );
+	wp_enqueue_script('layerslider-tr-gallery', LS_ROOT_URL.'/static/admin/js/layerslider.transition.gallery.js', array('jquery'), LS_PLUGIN_VERSION );
+	wp_enqueue_style('layerslider', LS_ROOT_URL.'/static/layerslider/css/layerslider.css', false, LS_PLUGIN_VERSION );
+	wp_enqueue_style('layerslider-tr-gallery', LS_ROOT_URL.'/static/admin/css/layerslider.transitiongallery.css', false, LS_PLUGIN_VERSION );
+
+	// LayerSlider Timeline plugin
+	wp_enqueue_script('layerslider-timeline', LS_ROOT_URL.'/static/layerslider/plugins/timeline/layerslider.timeline.js', array('jquery'), LS_PLUGIN_VERSION );
+	wp_enqueue_style('layerslider-timeline', LS_ROOT_URL.'/static/layerslider/plugins/timeline/layerslider.timeline.css', false, LS_PLUGIN_VERSION );
+
+	// LayerSlider Origami plugin
+	wp_enqueue_script('layerslider-origami', LS_ROOT_URL.'/static/layerslider/plugins/origami/layerslider.origami.js', array('jquery'), LS_PLUGIN_VERSION );
+	wp_enqueue_style('layerslider-origami', LS_ROOT_URL.'/static/layerslider/plugins/origami/layerslider.origami.css', false, LS_PLUGIN_VERSION );
+
+	// LayerSlider Popup plugin
+	wp_enqueue_script('layerslider-popup', LS_ROOT_URL.'/static/layerslider/plugins/popup/layerslider.popup.js', array('jquery'), LS_PLUGIN_VERSION );
+	wp_enqueue_style('layerslider-popup', LS_ROOT_URL.'/static/layerslider/plugins/popup/layerslider.popup.css', false, LS_PLUGIN_VERSION );
+
+	// 3rd-party: MiniColor
+	wp_enqueue_script('minicolor', LS_ROOT_URL.'/static/minicolors/jquery.minicolors.js', array('jquery'), LS_PLUGIN_VERSION );
+	wp_enqueue_style('minicolor', LS_ROOT_URL.'/static/minicolors/jquery.minicolors.css', false, LS_PLUGIN_VERSION );
+
+	// 3rd-party: CC Image Editor
+	wp_enqueue_script('cc-image-sdk', 'https://dme0ih8comzn4.cloudfront.net/imaging/v3/editor.js', false, LS_PLUGIN_VERSION );
+
+	// 3rd-party: Air Datepicker
+	wp_enqueue_style('air-datepicker', LS_ROOT_URL.'/static/air-datepicker/datepicker.min.css', false, '2.1.0' );
+	wp_enqueue_script('air-datepicker', LS_ROOT_URL.'/static/air-datepicker/datepicker.min.js', array('jquery'), '2.1.0' );
+	wp_enqueue_script('air-datepicker-en', LS_ROOT_URL.'/static/air-datepicker/i18n/datepicker.en.js', array('jquery'), '2.1.0' );
+
+
+	// User CSS
+	$uploads = wp_upload_dir();
+	$uploads['baseurl'] = set_url_scheme( $uploads['baseurl'] );
+
+	if(file_exists($uploads['basedir'].'/layerslider.custom.transitions.js')) {
+		wp_enqueue_script('ls-user-transitions', $uploads['baseurl'].'/layerslider.custom.transitions.js', false, LS_PLUGIN_VERSION );
 	}
 
-
-	// Skin editor
-	if(strpos($screen->base, 'ls-skin-editor') !== false || strpos($screen->base, 'ls-style-editor') !== false) {
-		wp_enqueue_style('ls-skin-editor', LS_ROOT_URL.'/static/admin/css/skin.editor.css', false, LS_PLUGIN_VERSION );
-	}
-
-	// About page
-	if(strpos($screen->base, 'ls-about') !== false) {
-		wp_enqueue_style('ls-about-page', LS_ROOT_URL.'/static/admin/css/about.css', false, LS_PLUGIN_VERSION );
+	// User transitions
+	if(file_exists($uploads['basedir'].'/layerslider.custom.css')) {
+		wp_enqueue_style('ls-user', $uploads['baseurl'].'/layerslider.custom.css', false, LS_PLUGIN_VERSION );
 	}
 }
 

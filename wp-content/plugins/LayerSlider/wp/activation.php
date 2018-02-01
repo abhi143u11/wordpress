@@ -23,7 +23,7 @@ function layerslider_activation_redirect() {
 	if(get_option('layerslider_do_activation_redirect', false)) {
 		delete_option('layerslider_do_activation_redirect');
 		if(isset($_GET['activate']) && !isset($_GET['activate-multi'])) {
-			wp_redirect(admin_url('admin.php?page=ls-about'));
+			wp_redirect( admin_url( 'admin.php?page=layerslider-options&section=about' ) );
 		}
 	}
 }

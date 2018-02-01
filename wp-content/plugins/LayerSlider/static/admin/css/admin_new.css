@@ -182,6 +182,11 @@ select:-ms-input-placeholder {
     color: #999;
     text-align: center;
     font-size: 14px; }
+  .ls-checkbox.locked {
+    opacity: 0.6; }
+    .ls-checkbox.locked:hover {
+      cursor: default;
+      background: inherit; }
   .ls-checkbox.small {
     width: 28px;
     height: 14px; }
@@ -750,27 +755,6 @@ select:-ms-input-placeholder {
 
 #ls-screen-options-form button {
   margin-left: 10px; }
-
-#TB_window {
-  background: none; }
-
-#TB_title {
-  float: left;
-  height: 1px; }
-
-#TB_ajaxWindowTitle {
-  display: none; }
-
-.tb-close-icon {
-  left: auto;
-  right: -30px;
-  color: #EEE;
-  -webkit-transition: color .1s ease-in-out,background .1s ease-in-out;
-  transition: color .1s ease-in-out,background .1s ease-in-out;
-  font-size: 32px !important; }
-
-.tb-close-icon:before {
-  font-size: 32px; }
 
 .ls-version-number {
   position: absolute;
@@ -1363,30 +1347,6 @@ div.ls-bulk-actions {
     #ls-embed-modal-window .ls-separator div {
       text-align: center; }
 
-.ls-plugin-settings-tabs {
-  margin-top: 40px; }
-
-.ls-plugin-settings {
-  clear: both;
-  top: -1px;
-  margin: 0 !important; }
-
-.ls-plugin-settings figure {
-  margin: 0;
-  padding: 0 0 0 10px;
-  border-top: 0px;
-  border-bottom: 1px solid #dfdfdf;
-  background: #F1F1F1 !important;
-  line-height: 29px;
-  color: #999;
-  font-size: 12px;
-  text-shadow: 1px 1px 1px white; }
-
-.ls-plugin-settings .ls-box {
-  margin: 0 !important;
-  padding: 0;
-  border: 0; }
-
 .ls-export-wrapper .half:first-child {
   margin-right: -1px;
   border-right: 1px solid #dfdfdf; }
@@ -1461,25 +1421,6 @@ div.ls-bulk-actions {
     width: 100%;
     height: 350px;
     border: 0; }
-
-#ls-permission-form .inner {
-  padding: 20px;
-  text-align: center;
-  font-size: 13px; }
-
-#ls-permission-form i {
-  margin: 0 20px; }
-
-#ls-permission-form td:first-child {
-  width: 130px;
-  text-align: right; }
-
-#ls-permission-form input, #ls-permission-form select {
-  width: 200px;
-  border-radius: 3px; }
-
-#ls-permission-form p {
-  margin-bottom: 0; }
 
 .ls-auto-update {
   overflow: hidden;
@@ -1663,214 +1604,6 @@ div.ls-bulk-actions {
   top: 5px;
   right: 10px; }
 
-.ls-global-settings .inner {
-  padding: 0; }
-
-.ls-global-settings span.warning {
-  float: right;
-  margin: 0 5px;
-  color: red;
-  font-weight: 600; }
-
-.ls-global-settings thead {
-  color: #444; }
-
-.ls-global-settings tbody td:first-child {
-  width: 230px;
-  text-align: right; }
-
-.ls-global-settings input {
-  width: 58px;
-  border-radius: 3px;
-  border: 1px solid #dedede; }
-
-.ls-global-settings .ls-checkbox {
-  margin: 0 10px; }
-
-.ls-global-settings td.desc {
-  font-size: 12px; }
-
-.ls-global-settings .ls-cache-options td:last-child {
-  padding-right: 105px; }
-
-.ls-global-settings .ls-cache-options .button-small {
-  position: absolute;
-  top: 8px;
-  right: 8px;
-  box-shadow: none !important; }
-
-.ls-font-search {
-  padding: 0 !important;
-  margin: -9px 0 10px 24px; }
-  .ls-font-search input {
-    width: 260px;
-    height: 27px;
-    margin: 0 5px 0 10px;
-    font-size: 12px;
-    border-radius: 2px;
-    line-height: 17px; }
-
-.ls-font-search .ls-pointer {
-  display: none;
-  opacity: 0;
-  position: absolute;
-  left: 30px;
-  width: 280px;
-  margin-top: 40px;
-  box-shadow: 0px 0px 10px #666; }
-  .ls-font-search .ls-pointer:before {
-    box-shadow: 0px 0px 10px #666; }
-  .ls-font-search .ls-pointer .fonts h4 {
-    padding-top: 10px;
-    font: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", sans-serif;
-    font-weight: normal;
-    font-size: 18px;
-    text-align: center; }
-  .ls-font-search .ls-pointer .variants {
-    display: none; }
-    .ls-font-search .ls-pointer .variants .ls-checkbox {
-      margin: 0 10px -3px 10px; }
-  .ls-font-search .ls-pointer .inner div {
-    text-align: center; }
-
-ul.ls-font-list {
-  margin: 0;
-  padding: 0; }
-  ul.ls-font-list .ls-notice {
-    margin: 10px 10px 20px 10px;
-    text-align: center;
-    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", sans-serif;
-    font-size: 16px; }
-  ul.ls-font-list input {
-    width: 500px;
-    border-radius: 3px; }
-    ul.ls-font-list input[readonly] {
-      background-color: white; }
-  ul.ls-font-list .ls-checkbox {
-    margin: 0 10px -3px 10px; }
-  ul.ls-font-list a.remove {
-    color: #DF3A36;
-    font-size: 16px;
-    margin-top: 6px; }
-
-.ls-google-fonts .footer .right {
-  position: absolute;
-  top: 0px;
-  right: 0px;
-  padding: 10px;
-  height: 45px;
-  line-height: 25px; }
-
-.ls-google-fonts .footer .right div,
-.ls-google-fonts .footer .right ul {
-  float: right; }
-
-.ls-google-fonts .footer select {
-  height: 24px;
-  margin-top: -2px; }
-
-.ls-google-font-scripts {
-  margin: 0 10px;
-  padding-right: 10px;
-  border-right: 1px solid #dedede; }
-
-.ls-google-font-scripts li {
-  display: inline-block;
-  height: 23px;
-  padding: 0 0 0 22px;
-  margin: 0 15px 0 0;
-  float: left;
-  background: url(../img/tag.png) no-repeat left top;
-  cursor: pointer; }
-
-.ls-google-font-scripts li span {
-  padding: 0 25px 0 0;
-  margin: 0 -20px 0 0;
-  background: url(../img/tag.png) no-repeat right top;
-  font: normal normal normal 13px/23px Arial, sans-serif;
-  color: #996633;
-  text-shadow: 0px 1px 1px #ffeac1;
-  float: left; }
-
-.ls-google-font-scripts li a {
-  display: block;
-  width: 13px;
-  height: 13px;
-  margin-top: 4px;
-  float: left;
-  color: #A7753A;
-  text-decoration: none;
-  font-size: 16px; }
-
-.ls-system-status span {
-  color: #e14d43; }
-  .ls-system-status span.dashicons-yes {
-    color: #76b546; }
-
-.ls-system-status .ls-link {
-  display: block;
-  margin-top: 30px;
-  text-align: center;
-  font-size: 16px; }
-
-.ls-system-status .inner p {
-  max-width: 900px;
-  margin: 20px auto 30px auto;
-  text-align: center; }
-
-.ls-system-status .ls-info td span {
-  color: #00a6e2; }
-
-.ls-system-status .ls-info td:last-child span {
-  color: inherit; }
-
-.ls-system-status .ls-warning td span {
-  color: #ef9f0d; }
-
-.ls-system-status .ls-box {
-  margin-bottom: 20px; }
-
-.ls-system-status th {
-  background: #f1f1f1; }
-
-.ls-system-status td {
-  background: #fdfdfd;
-  padding: 1px 4px !important;
-  font-size: 12px !important; }
-
-.ls-system-status td:first-child {
-  width: 190px;
-  text-align: right;
-  padding-right: 15px !important; }
-
-.ls-system-status td:nth-child(2) {
-  width: 10px;
-  padding-right: 0 !important; }
-
-.ls-system-status td:nth-child(3) {
-  width: 130px; }
-
-.ls-system-status table mark {
-  display: inline-block;
-  background: #e9e9e9;
-  margin: 1px;
-  padding: 0 3px;
-  color: #555;
-  border-radius: 2px; }
-
-.ls-system-status td.has-button div {
-  min-height: 30px;
-  position: relative; }
-
-.ls-system-status td.has-button span {
-  display: block;
-  margin-right: 150px; }
-
-.ls-system-status td.has-button .button {
-  position: absolute;
-  top: 3px;
-  right: 0px; }
-
 #ls-import-modal-window {
   overflow: hidden; }
   #ls-import-modal-window .inner {
@@ -1907,38 +1640,6 @@ ul.ls-font-list {
     font-size: 12px !important; }
   #ls-import-modal-window .premium-sliders h3 span {
     color: #ff8a3b; }
-
-.button.ls-erase-button {
-  float: right; }
-
-.button.ls-erase-button,
-#ls-erase-modal-window .button {
-  background: #e14d43 !important;
-  border-color: #d02c21 #ba281e #ba281e !important;
-  color: #fff !important;
-  -webkit-box-shadow: 0 1px 0 #ba281e !important;
-  box-shadow: 0 1px 0 #ba281e !important;
-  text-shadow: 0 -1px 1px #ba281e,1px 0 1px #ba281e,0 1px 1px #ba281e,-1px 0 1px #ba281e !important; }
-  .button.ls-erase-button.disabled,
-  #ls-erase-modal-window .button.disabled {
-    color: #d1c8c7 !important;
-    background: #d92e23 !important;
-    border-color: #ba281e !important;
-    text-shadow: none !important; }
-
-#ls-erase-modal-window i.ls-notice {
-  position: absolute;
-  bottom: 16px;
-  right: 15px;
-  width: 350px;
-  color: #E14D43; }
-
-#ls-erase-modal-window {
-  height: 550px;
-  margin-top: -275px; }
-
-.ls-system-status-actions {
-  margin-top: 50px; }
 
 /* IMPORT MODAL WINDOW */
 /* Head */
@@ -2490,8 +2191,8 @@ ul.ls-font-list {
   position: absolute;
   top: 0px;
   left: 5px;
-  font-size: 14px;
-  color: #fd9148 !important; }
+  font-size: 16px;
+  color: #999 !important; }
 
 .ls-layout-popup-notice {
   padding: 10px !important;
@@ -2662,7 +2363,7 @@ ul.ls-font-list {
   width: 220px !important; }
 
 .ls-settings-popup .ls-description {
-  padding: 0 5px 5px 30px;
+  padding: 5px 10px 5px 10px;
   text-align: justify;
   color: #555;
   font-size: 13px; }
@@ -2823,6 +2524,11 @@ ul.ls-font-list {
       left: 5px;
       color: red;
       text-shadow: none; }
+    .ls-settings-sidebar li .dashicons-lock {
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      color: #999; }
     .ls-settings-sidebar li.active {
       color: white;
       text-shadow: 1px 1px 1px #666;
@@ -2842,6 +2548,8 @@ ul.ls-font-list {
         -o-transform: rotate(45deg);
         -ms-transform: rotate(45deg);
         transform: rotate(45deg); }
+      .ls-settings-sidebar li.active .dashicons-lock {
+        color: white; }
 
 .ls-publish-checkbox {
   float: left;
@@ -2925,6 +2633,21 @@ ul.ls-font-list {
   .ls-slider-dimensions div.active span {
     background-color: #7eb917;
     color: #fff; }
+  .ls-slider-dimensions div.locked {
+    cursor: default; }
+    .ls-slider-dimensions div.locked img {
+      opacity: 0.3; }
+    .ls-slider-dimensions div.locked .dashicons-lock {
+      position: absolute;
+      top: 37px;
+      left: 50%;
+      display: block;
+      width: 30px;
+      height: 30px;
+      margin: -15px 0 0 -15px;
+      text-align: center;
+      font-size: 32px;
+      color: #666; }
 
 #ls-more-slide-options {
   display: block;
@@ -3157,6 +2880,20 @@ ul.ls-font-list {
   margin-bottom: 6px !important; }
   .ls-slide-options .row-helper select, .ls-slide-options .row-helper input {
     margin-left: 5px; }
+
+#ls-layers .ls-custom-slide-properties {
+  margin: 7px 10px; }
+  #ls-layers .ls-custom-slide-properties td {
+    border: 0 !important; }
+  #ls-layers .ls-custom-slide-properties td:first-child {
+    width: 70px;
+    padding-right: 10px !important; }
+    #ls-layers .ls-custom-slide-properties td:first-child input {
+      width: 70px; }
+  #ls-layers .ls-custom-slide-properties td:last-child input {
+    width: 100%; }
+  #ls-layers .ls-custom-slide-properties input.error {
+    border: 1px solid #e11325; }
 
 .ls-slide-link a.change {
   display: none; }
@@ -6058,6 +5795,12 @@ span.ls-layer-top,
     background: #dedede;
     z-index: -1; }
 
+#ls-transition-window.hide-special-effects #tryorigami {
+  display: none; }
+
+#ls-transition-window.hide-special-effects #transitionmenu {
+  margin-top: 60px; }
+
 #ls-transition-window header #tryorigami {
   margin-top: 60px;
   width: 100%;
@@ -6184,10 +5927,8 @@ span.ls-layer-top,
     #ls-transition-window #ls-transitions-list section .separated h4 {
       font-size: 20px !important;
       margin: 0 !important; }
-      #ls-transition-window #ls-transitions-list section .separated h4 .dashicons-star-filled {
-        color: #fd9148 !important;
-        margin: 4px 0 0 10px; }
     #ls-transition-window #ls-transitions-list section .separated .ls-select-special-transition {
+      position: relative;
       display: inline-block !important;
       border-radius: 50px !important;
       border: 3px solid #00a0d2 !important;
@@ -6201,16 +5942,31 @@ span.ls-layer-top,
       text-align: center !important;
       padding: 0 30px !important;
       cursor: pointer !important; }
-      #ls-transition-window #ls-transitions-list section .separated .ls-select-special-transition .dashicons {
+      #ls-transition-window #ls-transitions-list section .separated .ls-select-special-transition .dashicons-yes {
         font-size: 50px !important;
         height: 100% !important;
         line-height: 42px !important;
         position: relative !important;
         left: -30px !important;
         display: none !important; }
+      #ls-transition-window #ls-transitions-list section .separated .ls-select-special-transition .dashicons-lock {
+        position: absolute;
+        left: 50%;
+        top: 6px;
+        width: 30px;
+        height: 30px;
+        margin-left: -11px;
+        color: #0085af !important;
+        font-size: 30px;
+        line-height: 30px; }
       #ls-transition-window #ls-transitions-list section .separated .ls-select-special-transition:hover, #ls-transition-window #ls-transitions-list section .separated .ls-select-special-transition.on {
         background: #00a0d2 !important;
         color: white !important; }
+      #ls-transition-window #ls-transitions-list section .separated .ls-select-special-transition.locked {
+        background: white !important;
+        color: rgba(0, 160, 210, 0.3) !important;
+        border: 3px solid rgba(0, 160, 210, 0.3) !important;
+        cursor: default !important; }
       #ls-transition-window #ls-transitions-list section .separated .ls-select-special-transition.on .dashicons {
         display: inline-block !important; }
     #ls-transition-window #ls-transitions-list section .separated .ls-example-link {

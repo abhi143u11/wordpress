@@ -910,8 +910,15 @@ var LayerSlider = {
 
 
 	selectSettingsTab: function(li) {
-		var index = jQuery(li).index();
-		jQuery(li).addClass('active').siblings().removeClass('active');
+
+		var $li 	= jQuery( li ),
+			index 	= $li.index();
+
+		if( $li.hasClass('locked') ) {
+			return false;
+		}
+
+		$li.addClass('active').siblings().removeClass('active');
 		jQuery('div.ls-settings-contents > table > tbody.active').removeClass('active');
 		jQuery('div.ls-settings-contents > table > tbody').eq(index).addClass('active');
 
@@ -1122,6 +1129,65 @@ var LayerSlider = {
 		// Select new slide
 		tab.click();
 	},
+
+
+	setCustomSlideProperties: function( event, element ) {
+
+		var $tr = jQuery(element).closest('tr'),
+			$inputs = jQuery('input', $tr );
+
+		if( ! $inputs.eq(0).val() && ! $inputs.eq(1).val() ) {
+			$tr.remove();
+		}
+
+
+		var properties = LS_activeSlideData.properties.customProperties = {};
+
+		jQuery('.ls-custom-slide-properties tr:not(:last-child)').each(function() {
+
+			var $key = jQuery('td:first-child input', this),
+				$val = jQuery('td:last-child input', this),
+				key  = $key.val(),
+				val  = $val.val();
+
+			if( key && /^[a-zA-Z]([a-zA-Z0-9_-]+)$/.test( key ) ) {
+				$key.removeClass('error');
+				properties[ key ] = val;
+
+			} else {
+				$key.addClass('error');
+			}
+		});
+	},
+
+
+	updateCustomSlideProperties: function( ) {
+
+		var slideData = LS_activeSlideData.properties;
+
+		slideData.customProperties = slideData.customProperties || {};
+
+		var properties = LS_activeSlideData.properties.customProperties || {},
+			$customProps = jQuery('.ls-custom-slide-properties');
+
+		// Sort keys
+		Object.keys( properties ).sort().forEach( function( key ) {
+			var value = properties[ key ];
+			delete properties[ key ];
+			properties[ key ] = value;
+		});
+
+		// Reset custom properties fields
+		jQuery('tr:not(:last-child)', $customProps).remove();
+
+		// Fill in custom properties
+		jQuery.each(properties, function(key, val) {
+			jQuery('tr:last-child input:eq(0)', $customProps).val( key );
+			jQuery('tr:last-child input:eq(1)', $customProps).val( val ).trigger('keyup');
+		});
+	},
+
+
 
 	toggleAdvancedSlideOptions: function( el ) {
 
@@ -4346,7 +4412,7 @@ var LayerSlider = {
 
 			// Stop LayerSlider and empty the preview contents
 			var layersliders = jQuery('#ls-layers .ls-real-time-preview');
-			layersliders.find('.ls-container').off().layerSlider( 'destroy', true );
+			layersliders.find('.ls-container').layerSlider( 'destroy', true );
 			layersliders.hide();
 
 			// Rewrote the Preview button text
@@ -6117,6 +6183,8 @@ var LS_DataSource = {
 
 		LS_GUI.updateLinkPicker('layer_link');
 
+		LayerSlider.updateCustomSlideProperties();
+
 		this.buildLayersList();
 	},
 
@@ -7088,6 +7156,10 @@ var initSliderBuilder = function() {
 		var $this 	= jQuery(this),
 			type 	= $this.data('type');
 
+		if( $this.hasClass('locked') ) {
+			return;
+		}
+
 		$this.siblings('input[type="hidden"]').val( type );
 		$this.addClass('active').siblings().removeClass('active');
 
@@ -7185,6 +7257,17 @@ var initSliderBuilder = function() {
 	jQuery('#ls-layers').on('click', 'button.ls-layer-duplicate', function(e){
 		e.preventDefault(); e.stopPropagation();
 		LayerSlider.duplicateSlide(this);
+
+	// Custom Slide Properties
+	}).on('keyup', '.ls-custom-slide-properties tr:last-child input', function() {
+
+	if( jQuery(this).val() ) {
+		var $tr = jQuery(this).closest('tr').removeClass('ls-hidden');
+		$tr.clone().insertAfter( $tr ).find('input').val('');
+	}
+	// Custom Slide Properties
+	}).on('keyup', '.ls-custom-slide-properties tr:not(:last-child) input', function( event ) {
+		LayerSlider.setCustomSlideProperties(event, this);
 	});
 
 	// Initialize floating layout
@@ -7308,6 +7391,10 @@ var initSliderBuilder = function() {
 
 		var $item = jQuery(this),
 			checked;
+
+		if( $item.hasClass('locked') ) {
+			return true;
+		}
 
 		// Turn off
 		if( $item.hasClass('on') ) {

@@ -10,9 +10,9 @@
 		<?php endif ?>
 
 		<?php if( ! get_option('layerslider-authorized-site', false) ) : ?>
-		<div class="ls-notification">
-			<i class="dashicons dashicons-warning"></i>
-			<?php echo sprintf(__('Slider Revisions is a premium feature. Activate your copy of LayerSlider in order to enjoy our premium benefits. %sPurchase a license%s or %sread the documentation%s to learn more. %sGot LayerSlider in a theme?%s', 'LayerSlider'), '<a href="http://codecanyon.net/cart/add_items?ref=kreatura&item_ids=1362246" target="_blank">', '</a>', '<a href="https://support.kreaturamedia.com/docs/layersliderwp/documentation.html#activation" target="_blank">', '</a>', '<a href="https://support.kreaturamedia.com/docs/layersliderwp/documentation.html#activation-bundles" target="_blank">', '</a>') ?>
+		<div class="ls-notification-info">
+			<i class="dashicons dashicons-info"></i>
+			<?php echo sprintf(__('Slider Revisions is a premium feature. Activate your copy of LayerSlider in order to enjoy our premium benefits. %sPurchase a license%s or %sread the documentation%s to learn more. %sGot LayerSlider in a theme?%s', 'LayerSlider'), '<a href="'.LS_Config::get('purchase_url').'" target="_blank">', '</a>', '<a href="https://support.kreaturamedia.com/docs/layersliderwp/documentation.html#activation" target="_blank">', '</a>', '<a href="https://support.kreaturamedia.com/docs/layersliderwp/documentation.html#activation-bundles" target="_blank">', '</a>') ?>
 		</div>
 		<?php endif ?>
 

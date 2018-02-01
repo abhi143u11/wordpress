@@ -165,7 +165,7 @@
 			<?php _e('Revisions for Slider:', 'LayerSlider') ?>
 			<?php $sliderName = !empty($slider['properties']['title']) ? $slider['properties']['title'] : 'Unnamed'; ?>
 			<?php echo apply_filters('ls_slider_title', $sliderName, 30) ?>
-			<a href="<?php echo admin_url('admin.php?page=layerslider&action=edit&id='.$id) ?>" class="add-new-h2"><?php _e('Back to Slider', 'LayerSlider') ?></a>
+			<a href="<?php echo admin_url('admin.php?page=layerslider&action=edit&id='.$id) ?>" class="add-new-h2"><?php _e('&larr; Back to Slider', 'LayerSlider') ?></a>
 		</h2>
 		<form method="post" id="ls-revisions-form">
 			<?php wp_nonce_field('ls-revert-slider-' . $id); ?>

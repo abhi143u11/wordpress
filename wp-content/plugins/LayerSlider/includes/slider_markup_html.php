@@ -67,6 +67,11 @@ if(!empty($slider['slides']) && is_array($slider['slides'])) {
 		// Get slide attributes
 		$slideId = !empty($slide['props']['id']) ? ' id="'.$slide['props']['id'].'"' : '';
 		$slideAttrs = !empty($slide['attrs']) ? ls_array_to_attr($slide['attrs']) : '';
+
+		if( ! empty( $slide['props']['customProperties'] ) && is_array( $slide['props']['customProperties'] ) ) {
+			$slideAttrs .= ls_array_to_attr( $slide['props']['customProperties'] );
+		}
+
 		$postContent = false;
 
 
@@ -230,8 +235,9 @@ if(!empty($slider['slides']) && is_array($slider['slides'])) {
 
 				// Get layer type
 				$layer['props']['media'] = !empty($layer['props']['media']) ? $layer['props']['media'] : '';
-				if(!empty($layer['props']['media'])) {
-					switch($layer['props']['media']) {
+
+				if( ! empty( $layer['props']['media'] ) ) {
+					switch( $layer['props']['media'] ) {
 						case 'img':
 							$layer['props']['type'] = 'img';
 							break;
@@ -250,6 +256,12 @@ if(!empty($slider['slides']) && is_array($slider['slides'])) {
 							$layer['props']['type'] = 'div';
 							break;
 					}
+				}
+
+				// v6.6.7: Ensure default value for the 'type' key if it's
+				// somehow missing.
+				if( empty( $layer['props']['type'] ) ) {
+					$layer['props']['type'] = 'div';
 				}
 
 				// Post layer

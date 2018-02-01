@@ -57,7 +57,19 @@
 				<i class="dashicons dashicons-video-alt3"></i>
 				<strong><?php _e('Video / Audio', 'LayerSlider') ?></strong>
 			</li>
-			<li data-deeplink="popup"><i class="dashicons dashicons-external"></i><?php _e('Popup', 'LayerSlider') ?><small><?php _e('NEW', 'LayerSlider') ?></small></li>
+
+			<?php if( ! LS_Config::get('theme_bundle') || $lsActivated ) : ?>
+			<li data-deeplink="popup" <?php echo ! $lsActivated ? 'class="locked" data-help="'.__('Popup requires product activation. Click on the padlock icon to learn more.', 'LayerSlider').'"' : '' ?>">
+				<i class="dashicons dashicons-external"></i>
+				<?php _e('Popup', 'LayerSlider') ?>
+				<small><?php _e('NEW', 'LayerSlider') ?></small>
+
+				<?php if( ! $lsActivated ) : ?>
+				<a class="dashicons dashicons-lock" target="_blank" href="<?php echo admin_url('admin.php?page=layerslider-addons' ) ?>"></a>
+				<?php endif; ?>
+			</li>
+			<?php endif ?>
+
 			<li data-deeplink="yourlogo">
 				<i class="dashicons dashicons-admin-post"></i>
 				<strong><?php _e('YourLogo', 'LayerSlider') ?></strong>
@@ -134,10 +146,18 @@
 								<img src="<?php echo LS_ROOT_URL.'/static/admin/img/layout-full-screen.png' ?>">
 								<span><?php _e('Full size', 'LayerSlider') ?></span>
 							</div>
-							<div data-type="popup">
+
+							<?php if( ! LS_Config::get('theme_bundle') || $lsActivated ) : ?>
+							<div data-type="popup" <?php echo ! $lsActivated ? 'class="locked" data-help="'.__('Popup requires product activation. Click on the padlock icon to learn more.', 'LayerSlider').'" data-help-delay="100"' : '' ?>">
 								<img src="<?php echo LS_ROOT_URL.'/static/admin/img/layout-popup.png' ?>">
 								<span><?php _e('Popup', 'LayerSlider') ?></span>
+
+								<?php if( ! $lsActivated ) : ?>
+								<a class="dashicons dashicons-lock" target="_blank" href="<?php echo admin_url('admin.php?page=layerslider-addons' ) ?>"></a>
+								<?php endif ?>
 							</div>
+							<?php endif ?>
+
 							<?php lsGetInput($sDefs['type'], $sProps); ?>
 						</td>
 					</tr>
@@ -211,13 +231,15 @@
 					<?php
 					lsOptionRow('checkbox', $sDefs['keybNavigation'], $sProps );
 					lsOptionRow('checkbox', $sDefs['touchNavigation'], $sProps );
-					?>
+
+					if( ! LS_Config::get('theme_bundle') || $lsActivated ) { ?>
 					<tr><th colspan="3"><?php _e('Play By Scroll', 'LayerSlider') ?></th></tr>
 					<?php
-					lsOptionRow('checkbox', $sDefs['playByScroll'], $sProps );
-					lsOptionRow('checkbox', $sDefs['playByScrollStart'], $sProps );
-					lsOptionRow('checkbox', $sDefs['playByScrollSkipSlideBreaks'], $sProps );
-					lsOptionRow('input', $sDefs['playByScrollSpeed'], $sProps );
+						lsOptionRow('checkbox', $sDefs['playByScroll'], $sProps );
+						lsOptionRow('checkbox', $sDefs['playByScrollStart'], $sProps );
+						lsOptionRow('checkbox', $sDefs['playByScrollSkipSlideBreaks'], $sProps );
+						lsOptionRow('input', $sDefs['playByScrollSpeed'], $sProps );
+					}
 					?>
 					<tr><th colspan="3"><?php _e('Cycles', 'LayerSlider') ?></th></tr>
 					<?php
@@ -346,11 +368,11 @@
 
 
 				<!-- Popup -->
+				<?php if( ! LS_Config::get('theme_bundle') || $lsActivated ) : ?>
 				<tbody class="ls-settings-popup">
 					<tr class="ls-premium">
 						<td colspan="3">
 							<div class="ls-description">
-								<a class="dashicons dashicons-star-filled" target="_blank" href="https://support.kreaturamedia.com/docs/layersliderwp/documentation.html#activation" data-help="<?php _e('Premium feature. Click to learn more.', 'LayerSlider') ?>"></a>
 								<?php echo sprintf(__('Instead of embedding sliders at a fixed location on your page, you can display them  on-the-fly at certain actions as a popup. Greet new visitors on your site with a beautifully designed animated banner with newsletter subscription or other offers. Display a message when they become idle. Show them recommended content before leaving the page or when they finished reading an article. There are a lot of possibilities and all of LayerSlider’s content creation and animation capabilities are now available in a popup form as well. This includes dynamic content from your WP posts and any other feature you would use in a slider. %sClick here for more information and live examples%s', 'LayerSlider'), '<a href="https://layerslider.kreaturamedia.com/features/popups/" target="_blank">', '</a>') ?>
 							</div>
 
@@ -358,7 +380,7 @@
 								<?php if( ! get_option('layerslider-authorized-site', false) ) : ?>
 								<div class="ls-notification">
 									<i class="dashicons dashicons-warning"></i>
-									<?php echo sprintf(__('Popup is a premium feature. You can preview all the options here with the Live Preview button, but you need to activate your copy of LayerSlider in order to use it on your front end pages. %sPurchase a license%s or %sread the documentation%s to learn more. %sGot LayerSlider in a theme?%s', 'LayerSlider'), '<a href="http://codecanyon.net/cart/add_items?ref=kreatura&item_ids=1362246" target="_blank">', '</a>', '<a href="https://support.kreaturamedia.com/docs/layersliderwp/documentation.html#activation" target="_blank">', '</a>', '<a href="https://support.kreaturamedia.com/docs/layersliderwp/documentation.html#activation-bundles" target="_blank">', '</a>') ?>
+									<?php echo sprintf(__('Popup is a premium feature. You can preview all the options here with the Live Preview button, but you need to activate your copy of LayerSlider in order to use it on your front end pages. %sPurchase a license%s or %sread the documentation%s to learn more. %sGot LayerSlider in a theme?%s', 'LayerSlider'), '<a href="'.LS_Config::get('purchase_url').'" target="_blank">', '</a>', '<a href="https://support.kreaturamedia.com/docs/layersliderwp/documentation.html#activation" target="_blank">', '</a>', '<a href="https://support.kreaturamedia.com/docs/layersliderwp/documentation.html#activation-bundles" target="_blank">', '</a>') ?>
 								</div>
 								<?php endif ?>
 
@@ -419,23 +441,25 @@
 												<?php _e('Align Popup to...', 'LayerSlider') ?>
 											</button>
 											<div class="ls-su-data">
-												<table class="ls-layer-alignment ls-popup-position">
-													<tr>
-														<td data-move="top left"><i><?php _e('top left', 'LayerSlider') ?></i></td>
-														<td data-move="top center"><i><?php _e('top center', 'LayerSlider') ?></i></td>
-														<td data-move="top right"><i><?php _e('top right', 'LayerSlider') ?></i></td>
-													</tr>
-													<tr>
-														<td data-move="middle left"><i><?php _e('middle left', 'LayerSlider') ?></i></td>
-														<td data-move="middle center"><i><?php _e('middle center', 'LayerSlider') ?></i></td>
-														<td data-move="middle right"><i><?php _e('middle right', 'LayerSlider') ?></i></td>
-													</tr>
-													<tr>
-														<td data-move="bottom left"><i><?php _e('bottom left', 'LayerSlider') ?></i></td>
-														<td data-move="bottom center"><i><?php _e('bottom center', 'LayerSlider') ?></i></td>
-														<td data-move="bottom right"><i><?php _e('bottom right', 'LayerSlider') ?></i></td>
-													</tr>
-												</table>
+												<div class="ls-layer-alignment">
+													<table class="ls-popup-position">
+														<tr>
+															<td data-move="top left"><i><?php _e('top left', 'LayerSlider') ?></i></td>
+															<td data-move="top center"><i><?php _e('top center', 'LayerSlider') ?></i></td>
+															<td data-move="top right"><i><?php _e('top right', 'LayerSlider') ?></i></td>
+														</tr>
+														<tr>
+															<td data-move="middle left"><i><?php _e('middle left', 'LayerSlider') ?></i></td>
+															<td data-move="middle center"><i><?php _e('middle center', 'LayerSlider') ?></i></td>
+															<td data-move="middle right"><i><?php _e('middle right', 'LayerSlider') ?></i></td>
+														</tr>
+														<tr>
+															<td data-move="bottom left"><i><?php _e('bottom left', 'LayerSlider') ?></i></td>
+															<td data-move="bottom center"><i><?php _e('bottom center', 'LayerSlider') ?></i></td>
+															<td data-move="bottom right"><i><?php _e('bottom right', 'LayerSlider') ?></i></td>
+														</tr>
+													</table>
+												</div>
 											</div>
 
 										</div>
@@ -667,6 +691,7 @@
 					?>
 
 				</tbody>
+				<?php endif ?>
 
 
 				<!-- YourLogo -->

@@ -1738,6 +1738,14 @@ $lsDefaults = array(
 			'keys' => array('custom_3d_transitions', 'customtransition3d')
 		),
 
+		'customProperties' => array(
+			'value' => '',
+			'keys' => 'customProperties',
+			'props' => array(
+				'meta' => true
+			)
+		),
+
 		'transitionOrigami' => array(
 			'value' => false,
 			'name' => __('Origami', 'LayerSlider'),

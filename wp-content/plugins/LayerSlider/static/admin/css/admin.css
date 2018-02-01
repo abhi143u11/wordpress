@@ -1070,7 +1070,8 @@ li.active .ls-sublayer-title {
 	border: 1px solid #00b4ff;
 }
 
-.ls-notification-info .dashicons-info {
+.ls-notification-info .dashicons-info,
+.ls-notification-info .dashicons-yes {
 	position: absolute;
 	top: 7px;
 	left: 7px;

@@ -58,10 +58,10 @@ function ls_register_form_actions() {
 		}
 
 		// Database Update
-		if(isset($_GET['page']) && $_GET['page'] == 'ls-system-status' && isset($_GET['action']) && $_GET['action'] == 'database_update') {
+		if( isset( $_GET['page']) && $_GET['page'] == 'layerslider-options' && isset($_GET['action']) && $_GET['action'] == 'database_update') {
 			if(check_admin_referer('database_update')) {
 				layerslider_create_db_table();
-				wp_redirect('admin.php?page=ls-system-status&message=dbUpdateSuccess');
+				wp_redirect('admin.php?page=layerslider-options&section=system-status&message=dbUpdateSuccess');
 			}
 		}
 
@@ -170,7 +170,7 @@ function ls_register_form_actions() {
 
 		if(isset($_GET['page']) && $_GET['page'] == 'layerslider' && isset($_GET['action']) && $_GET['action'] == 'hide-support-notice') {
 			if(check_admin_referer('hide-support-notice')) {
-				update_option('ls-show-support-notice', 0);
+				update_user_meta( get_current_user_id(), 'ls-show-support-notice-timestamp', time() );
 				header('Location: admin.php?page=layerslider');
 				die();
 			}
@@ -351,7 +351,7 @@ function ls_save_google_fonts() {
 
 	// Save & redirect back
 	update_option('ls-google-fonts', $fonts);
-	header('Location: admin.php?page=layerslider&message=googleFontsUpdated');
+	wp_redirect( admin_url('admin.php?page=layerslider-options&message=googleFontsUpdated') );
 	die();
 }
 
@@ -374,7 +374,7 @@ function ls_save_advanced_settings() {
 
 	update_option('ls_scripts_priority', (int)$_POST['scripts_priority']);
 
-	header('Location: admin.php?page=layerslider&message=generalUpdated');
+	wp_redirect( admin_url('admin.php?page=layerslider-options&message=generalUpdated') );
 	die();
 }
 
@@ -622,7 +622,7 @@ function ls_save_revisions_options() {
 		LS_Revisions::truncate();
 	}
 
-	wp_redirect( admin_url('admin.php?page=ls-revisions') );
+	wp_redirect( admin_url('admin.php?page=layerslider-addons') );
 }
 
 
@@ -795,7 +795,7 @@ function ls_import_online() {
 	if( ! $zip ) {
 		die(json_encode(array(
 			'success' => false,
-			'message' => __('LayerSlider couldn’t download your selected slider. Please check LayerSlider -> System Status for potential issues. The WP Remote functions may be unavailable or your web hosting provider has to allow external connections to our domain.', 'LayerSlider')
+			'message' => __('LayerSlider couldn’t download your selected slider. Please check LayerSlider -> Settings -> System Status for potential issues. The WP Remote functions may be unavailable or your web hosting provider has to allow external connections to our domain.', 'LayerSlider')
 		)));
 	}
 
@@ -832,7 +832,7 @@ function ls_import_online() {
 	if( ! file_put_contents($downloadPath, $zip) ) {
 		die(json_encode(array(
 			'success' => false,
-			'message' => __('LayerSlider couldn’t save the downloaded slider on your server. Please check LayerSlider -> System Status for potential issues. The most common reason for this issue is the lack of write permission on the /wp-content/uploads/ directory.', 'LayerSlider')
+			'message' => __('LayerSlider couldn’t save the downloaded slider on your server. Please check LayerSlider -> Settings -> System Status for potential issues. The most common reason for this issue is the lack of write permission on the /wp-content/uploads/ directory.', 'LayerSlider')
 		)));
 	}
 
@@ -868,12 +868,12 @@ function ls_save_access_permissions() {
 	$capability = ($_POST['custom_role'] == 'custom') ? $_POST['custom_capability'] : $_POST['custom_role'];
 
 	// Test value
-	if(empty($capability) || !current_user_can($capability)) {
-		header('Location: admin.php?page=layerslider&error=1&message=permissionError');
+	if( empty( $capability ) || ! current_user_can( $capability ) ) {
+		wp_redirect( admin_url('admin.php?page=layerslider-options&error=1&message=permissionError') );
 		die();
 	} else {
 		update_option('layerslider_custom_capability', $capability);
-		header('Location: admin.php?page=layerslider&message=permissionSuccess');
+		wp_redirect( admin_url('admin.php?page=layerslider-options&message=permissionSuccess') );
 		die();
 	}
 }
@@ -988,9 +988,9 @@ function ls_save_user_css() {
 	$file = $upload_dir['basedir'].'/layerslider.custom.css';
 
 	// Attempt to save changes
-	if(is_writable($upload_dir['basedir'])) {
-		file_put_contents($file, stripslashes($_POST['contents']));
-		header('Location: admin.php?page=ls-style-editor&edited=1');
+	if( is_writable( $upload_dir['basedir'] ) ) {
+		file_put_contents( $file, stripslashes( $_POST['contents'] ) );
+		wp_redirect( admin_url( 'admin.php?page=layerslider-options&section=css-editor&edited=1' ) );
 		die();
 
 	// File isn't writable
@@ -1008,21 +1008,21 @@ function ls_save_user_css() {
 function ls_save_user_skin() {
 
 	// Error checking
-	if(empty($_POST['skin']) || strpos($_POST['skin'], '..') !== false) {
-		wp_die(__('It looks like you haven’t selected any skin to edit.', 'LayerSlider'), __('No skin selected.', 'LayerSlider'), array('back_link' => true) );
+	if( empty( $_POST['skin'] ) || strpos( $_POST['skin'], '..' ) !== false ) {
+		wp_die( __('It looks like you haven’t selected any skin to edit.', 'LayerSlider'), __('No skin selected.', 'LayerSlider'), array('back_link' => true) );
 	}
 
 	// Get skin file and contents
-	$skin = LS_Sources::getSkin($_POST['skin']);
+	$skin = LS_Sources::getSkin( $_POST['skin'] );
 	$file = $skin['file'];
 
 	// Attempt to write the file
-	if(is_writable($file)) {
-		file_put_contents($file, stripslashes($_POST['contents']));
-		header('Location: admin.php?page=ls-skin-editor&skin='.$skin['handle'].'&edited=1');
+	if( is_writable( $file ) ) {
+		file_put_contents( $file, stripslashes( $_POST['contents'] ) );
+		wp_redirect( admin_url( 'admin.php?page=layerslider-options&section=skin-editor&edited=1&skin='.$skin['handle'] ) );
 		die();
 	} else {
-		wp_die(__('It looks like your files isn’t writable, so PHP couldn’t make any changes (CHMOD).', 'LayerSlider'), __('Cannot write to file', 'LayerSlider'), array('back_link' => true) );
+		wp_die( __('It looks like your files isn’t writable, so PHP couldn’t make any changes (CHMOD).', 'LayerSlider'), __('Cannot write to file', 'LayerSlider'), array('back_link' => true) );
 	}
 }
 
@@ -1222,6 +1222,7 @@ function ls_do_erase_plugin_data() {
 		'ls-share-displayed',
 		'ls-last-update-notification',
 		'ls-show-support-notice',
+		'ls-show-support-notice-timestamp',
 		'ls-show-canceled_activation_notice',
 		'layerslider_cancellation_update_info',
 		'layerslider-release-channel',
@@ -1230,6 +1231,7 @@ function ls_do_erase_plugin_data() {
 		'ls-latest-version',
 		'ls-store-data',
 		'ls-store-last-updated',
+		'ls-p-url',
 
 		// Revisions
 		'ls-revisions-enabled',

@@ -4,7 +4,7 @@
 	<table>
 		<thead class="ls-layer-options-thead">
 			<tr>
-				<td colspan="4">
+				<td colspan="5">
 					<i class="dashicons dashicons-welcome-write-blog"></i>
 					<h4><?php _e('Slide Options', 'LayerSlider') ?>
 						<button type="button" class="button ls-layer-duplicate"><span class="dashicons dashicons-admin-page"></span><?php _e('Duplicate slide', 'LayerSlider') ?></button>
@@ -19,7 +19,7 @@
 			<input type="hidden" name="custom_3d_transitions">
 			<input type="hidden" name="custom_2d_transitions">
 			<tr>
-				<td class="slide-image">
+				<td class="slide-image" colspan="2">
 					<h3 class="subheader"><?php _e('Slide Background Image', 'LayerSlider') ?></h3>
 					<div class="inner">
 						<div class="float">
@@ -91,7 +91,7 @@
 				</td>
 			</tr>
 			<tr class="ls-advanced ls-hidden">
-				<td class="ls-slide-link">
+				<td class="ls-slide-link" colspan="2">
 					<h3 class="subheader"><?php _e('Slide Linking', 'LayerSlider') ?></h3>
 					<div class="inner">
 						<div class="row-helper">
@@ -141,15 +141,19 @@
 							<?php lsGetInput($lsDefaults['slides']['deeplink'], null, array('class' => 'slideprop')) ?>
 						</div>
 
+						<?php if( ! LS_Config::get('theme_bundle') || $lsActivated ) : ?>
 						<div class="row-helper ls-global-hover">
 							<div class="ls-premium">
-								<a class="dashicons dashicons-star-filled" target="_blank" href="https://support.kreaturamedia.com/docs/layersliderwp/documentation.html#activation" data-help="<?php _e('Premium feature. Click to learn more.', 'LayerSlider') ?>"></a>
+								<?php if( ! $lsActivated ) : ?>
+								<a class="dashicons dashicons-lock" target="_blank" href="<?php echo admin_url('admin.php?page=layerslider-addons' ) ?>" data-help="<?php _e('This feature requires product activation. Click on the padlock icon to learn more.', 'LayerSlider') ?>"></a>
+								<?php endif ?>
 							</div>
 							<a href="https://layerslider.kreaturamedia.com/sliders/global-hover-example/" target="_blank">
 								<?php echo $lsDefaults['slides']['globalHover']['name'] ?>
 							</a>
 							<?php lsGetCheckbox($lsDefaults['slides']['globalHover'], null, array('class' => 'slideprop')) ?>
 						</div>
+						<?php endif ?>
 					</div>
 				</td>
 				<td class="slide-actions">
@@ -171,6 +175,21 @@
 				</td>
 			</tr>
 			<tr class="ls-advanced ls-hidden">
+				<td>
+					<h3 class="subheader"><?php _e('Custom Slide Properties', 'LayerSlider') ?></h3>
+					<div class="ls-custom-slide-properties">
+						<table>
+							<tr>
+								<td>
+									<input type="text" placeholder="<?php _e('Key', 'LayerSlider') ?>">
+								</td>
+								<td>
+									<input type="text" placeholder="<?php _e('Value', 'LayerSlider') ?>">
+								</td>
+							</tr>
+						</table>
+					</div>
+				</td>
 				<td class="slide-ken-burns">
 					<h3 class="subheader"><?php _e('Ken Burns Effect', 'LayerSlider') ?></h3>
 					<div class="inner">

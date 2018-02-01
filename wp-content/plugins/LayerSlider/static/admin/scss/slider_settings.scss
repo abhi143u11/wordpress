@@ -217,8 +217,8 @@
 	position: absolute;
 	top: 0px;
 	left: 5px;
-	font-size: 14px;
-	color: #fd9148 !important;
+	font-size: 16px;
+	color: #999 !important;
 }
 
 .ls-layout-popup-notice {
@@ -463,7 +463,7 @@ $height: $width / 16 * 9;
 	}
 
 	.ls-description {
-		padding: 0 5px 5px 30px;
+		padding: 5px 10px 5px 10px;
 		text-align: justify;
 		color: #555;
 		font-size: 13px;
@@ -690,6 +690,17 @@ $height: $width / 16 * 9;
 			text-shadow: none;
 		}
 
+		.dashicons-lock {
+			position: absolute;
+			top: 10px;
+			right: 20px;
+			color: #999;
+		}
+
+		&.locked {
+
+		}
+
 		&.active {
 			color: white;
 			text-shadow: 1px 1px 1px #666;
@@ -706,6 +717,10 @@ $height: $width / 16 * 9;
 				opacity: 1;
 				background: #8c8c8c;
 				@include transform(rotate(45deg));
+			}
+
+			.dashicons-lock {
+				color: white;
 			}
 		}
 	}
@@ -815,6 +830,27 @@ $height: $width / 16 * 9;
 	&.active span {
 		background-color: #7eb917;
 		color: #fff;
+	}
+
+	&.locked {
+		cursor: default;
+
+		img {
+			opacity: 0.3;
+		}
+
+		.dashicons-lock {
+			position: absolute;
+			top: 37px;
+			left: 50%;
+			display: block;
+			width: 30px;
+			height: 30px;
+			margin: -15px 0 0 -15px;
+			text-align: center;
+			font-size: 32px;
+			color: #666;
+		}
 	}
 }
 

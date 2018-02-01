@@ -173,6 +173,15 @@ select {
 		}
 	}
 
+	&.locked {
+		opacity: 0.6;
+
+		&:hover {
+			cursor: default;
+			background: inherit;
+		}
+	}
+
 	&.small {
 		width: 28px;
 		height: 14px;
