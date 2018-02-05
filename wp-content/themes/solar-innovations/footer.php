@@ -11,6 +11,7 @@
 
 ?>
 	<footer>
+ 
     <div class="footer-main">
       <div class="footer-body">
 				<div class="row">
@@ -122,5 +123,7 @@ jQuery(document).ready(function($) {
 	</script>
 <?php endif; ?>
 <?php the_field('footer_script'); ?>
+
+
 </body>
 </html>

@@ -48,6 +48,13 @@ global $current_user;
 </head>
 <body <?php body_class(); ?>>
 
+<?php 
+// find which template is rendering
+// if( current_user_can( 'manage_options' ) && $current_user->display_name == "N K" ) {
+// 	printf( '<div><strong>Current template:</strong> %s</div>', get_current_template() ); 
+// }
+?>
+
 	<section class="row site-container">
 		<header class="row header">
 			<div class="small-8 medium-8 large-3 columns">
@@ -67,7 +74,7 @@ global $current_user;
 							<a href="#" data-dropdown="hover1" data-options="is_hover:true; hover_timeout:50">Account</a>
 							<ul id="hover1" class="f-dropdown" data-dropdown-content>
 								<li><a href="<?=bloginfo('url')?>/account/account-settings#">Account Settings</a></li>
-								<li><a href="<?=bloginfo('url')?>/account/subscriptions/">Subscriptions</a></li>
+								<!-- <li><a href="<? //bloginfo('url')?>/account/subscriptions/">Subscriptions</a></li> -->
 								<!-- <li><a href="<? //=bloginfo('url')?>/account/my-specifications">My Specifications</a></li> -->
 								<!-- <li><a href="<? //=bloginfo('url')?>/technical-information/technical-docs/spec-writer/">Build a Spec</a></li> -->
 								<!-- <li><a href="<? //=bloginfo('url')?>/account/my-quotes">My Quotes</a></li> -->
