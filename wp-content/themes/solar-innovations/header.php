@@ -74,7 +74,7 @@ global $current_user;
 							<a href="#" data-dropdown="hover1" data-options="is_hover:true; hover_timeout:50">Account</a>
 							<ul id="hover1" class="f-dropdown" data-dropdown-content>
 								<li><a href="<?=bloginfo('url')?>/account/account-settings#">Account Settings</a></li>
-								<li><a href="<?=bloginfo('url')?>/account/help/">Help</a></li>								
+								<li><a href="<?=bloginfo('url')?>/help/">Help</a></li>								
 								<!-- <li><a href="<? //bloginfo('url')?>/account/subscriptions/">Subscriptions</a></li> -->
 								<!-- <li><a href="<? //=bloginfo('url')?>/account/my-specifications">My Specifications</a></li> -->
 								<!-- <li><a href="<? //=bloginfo('url')?>/technical-information/technical-docs/spec-writer/">Build a Spec</a></li> -->
