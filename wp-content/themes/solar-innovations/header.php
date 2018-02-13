@@ -70,6 +70,7 @@ global $current_user;
 						<a href="/find-a-dealer/">Find a Dealer</a>
 						<?php if (!is_user_logged_in()) : ?>
 							<a href="#" data-reveal-id="login">Login</a>
+							<a href="/registration/">Register</a>
 						<?php else : ?>
 							<a href="#" data-dropdown="hover1" data-options="is_hover:true; hover_timeout:50">Account</a>
 							<ul id="hover1" class="f-dropdown" data-dropdown-content>
