@@ -52,7 +52,7 @@
                 self.addNextPageWithErrorsButton();
             }
 
-            var pageLinksSelector = 'a.gpmpn-page-link, a.gwmpn-page-link';
+            var pageLinksSelector = 'a.gpmpn-page-link, a.gwmpn-page-link, .gpmpn-page-link a';
 
             $( document ).on( 'click', pageLinksSelector, function( event ) {
                 event.preventDefault();
