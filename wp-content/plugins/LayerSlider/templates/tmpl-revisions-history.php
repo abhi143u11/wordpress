@@ -157,6 +157,7 @@
 
 </script>
 
+<?php include LS_ROOT_PATH . '/templates/tmpl-slide-tab.php'; ?>
 
 <div id="ls-revisions">
 
@@ -212,21 +213,31 @@
 
 		<h2 class="ls-revisions-h2"><?php _e('Preview for Selected Revision', 'LayerSlider') ?></h2>
 		<div id="ls-slider-form">
-			<div id="ls-layer-tabs">
+
+			<div id="ls-slide-tabs" class="clearfix">
 				<?php
 					foreach($slider['layers'] as $key => $layer) :
 					$active = empty($key) ? 'active' : '';
 					$name = !empty($layer['properties']['title']) ? $layer['properties']['title'] : sprintf(__('Slide #%d', 'LayerSlider'), ($key+1));
+
 					$bgImage = !empty($layer['properties']['background']) ? $layer['properties']['background'] : null;
 					$bgImageId = !empty($layer['properties']['backgroundId']) ? $layer['properties']['backgroundId'] : null;
-					$image = apply_filters('ls_get_image', $bgImageId, $bgImage, true);
+
+					$thumb = !empty($layer['properties']['thumbnail']) ? $layer['properties']['thumbnail'] : null;
+					$thumbId = !empty($layer['properties']['thumbnailId']) ? $layer['properties']['thumbnailId'] : null;
+
+					$image = ! empty( $thumb ) ? apply_filters('ls_get_image', $thumbId, $thumb, true) : apply_filters('ls_get_image', $bgImageId, $bgImage, true);
+
+
 				?>
-				<a href="#" class="<?php echo $active ?>" data-help="<div style='background-image: url(<?php echo $image?>);'></div>" data-help-class="ls-slide-preview-tooltip popover-light km-ui-popup" data-help-delay="1" data-help-transition="false">
-					<span><?php echo $name ?></span>
-					<span class="dashicons dashicons-dismiss"></span>
-				</a>
+				<div class="ls-slide-tab <?php echo $active ?>">
+					<span class="ls-slide-counter"></span>
+					<div class="ls-slide-preview" style="background-image: url(<?php echo $image?>)"></div>
+					<div class="ls-slide-name">
+						<input type="text" disabled value="<?php echo htmlspecialchars($name) ?>">
+					</div>
+				</div>
 				<?php endforeach; ?>
-				<div class="unsortable clear"></div>
 			</div>
 
 			<!-- Slides -->

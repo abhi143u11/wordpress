@@ -18,18 +18,26 @@ $l10n_ls = array(
 	'selectAll' 	=> __('Select all', 'LayerSlider'),
 	'deselectAll' 	=> __('Deselect all', 'LayerSlider'),
 
+	// Notify OSD
+	'notifySliderSaved' 	=> __('Slider saved successfully', 'LayerSlider'),
+	'notifyCaptureSlide' 	=> __('Capturing slide. This might take a moment ...', 'LayerSlider'),
+
 	// Sliders list
-	'SLRemoveSlider' 	=> __('Are you sure you want to remove this slider?', 'LayerSlider'),
-	'SLUploadSlider' 	=> __('Uploading, please wait ...', 'LayerSlider'),
-	'SLEnterCode' 		=> __('Please enter a valid Item Purchase Code. For more information, please click on the “Where’s my purchase code?” button.', 'LayerSlider'),
-	'SLDeactivate' 		=> __('Are you sure you want to deactivate this site?', 'LayerSlider'),
-	'SLPermissions' 	=> __('WARNING: This option controls who can access to this plugin, you can easily lock out yourself by accident. Please, make sure that you have entered a valid capability without whitespaces or other invalid characters. Do you want to proceed?', 'LayerSlider'),
-	'SLJQueryConfirm' 	=> __('Do not enable this option unless you’re  experiencing issues with jQuery on your site. This option can easily cause unexpected issues when used incorrectly. Do you want to proceed?', 'LayerSlider'),
-	'SLJQueryReminder' 	=> __('Do not forget to disable this option later on if it does not help, or if you experience unexpected issues. This includes your entire site, not just LayerSlider.', 'LayerSlider'),
+	'SLRemoveSlider' 			=> __('Are you sure you want to remove this slider?', 'LayerSlider'),
+	'SLExportSliderHTML' 		=> __("You’re about to export this slider as HTML. This option is for the jQuery version of LayerSlider and you will *NOT* be able to use the downloaded package on WordPress sites. For that, you need to choose the regular export option. Are you sure you want to continue?\n\nThis message will be suppressed after a couple of attempts. Please mind the difference in the future between the various export methods to avoid potential harm and data loss.", 'LayerSlider'),
+	'SLExportActivationTitle' 	=> __('Product activation is required to access this feature.', 'LayerSlider'),
+	'SLExportActivationContent' => sprintf(__('This feature is only available for activated sites. Please review the PRODUCT ACTIVATION section on the main LayerSlider screen or %sclick here%s for more information.', 'LayerSlider'), '<a href="https://support.kreaturamedia.com/docs/layersliderwp/documentation.html#activation" target="_blank">', '</a>'),
+	'SLUploadSlider' 			=> __('Uploading, please wait ...', 'LayerSlider'),
+	'SLEnterCode' 				=> __('Please enter a valid Item Purchase Code. For more information, please click on the “Where’s my purchase code?” button.', 'LayerSlider'),
+	'SLDeactivate' 				=> __('Are you sure you want to deactivate this site?', 'LayerSlider'),
+	'SLPermissions' 			=> __('WARNING: This option controls who can access to this plugin, you can easily lock out yourself by accident. Please, make sure that you have entered a valid capability without whitespaces or other invalid characters. Do you want to proceed?', 'LayerSlider'),
+	'SLJQueryConfirm' 			=> __('Do not enable this option unless you’re  experiencing issues with jQuery on your site. This option can easily cause unexpected issues when used incorrectly. Do you want to proceed?', 'LayerSlider'),
+	'SLJQueryReminder' 			=> __('Do not forget to disable this option later on if it does not help, or if you experience unexpected issues. This includes your entire site, not just LayerSlider.', 'LayerSlider'),
 
 	'SLImporting' 		=> __('Importing, please wait...', 'LayerSlider'),
 	'SLImportError' 	=> __('It seems there is a server issue that prevented LayerSlider from importing your selected slider. Please check LayerSlider -> Settings -> System Status for potential errors, try to temporarily disable themes/plugins to rule out incompatibility issues or contact your hosting provider to resolve server configuration problems. Retrying the import might also help.', 'LayerSlider'),
-	'SLImportHTTPError' => __('It seems there is a server issue that prevented LayerSlider from importing your selected slider. Please check LayerSlider -> Settings -> System Status for potential errors, try to temporarily disable themes/plugins to rule out incompatibility issues or contact your hosting provider to resolve server configuration problems. Retrying the import might also help. Your HTTP server thrown the following error: \n\n %s', 'LayerSlider'),
+	'SLImportHTTPError' => __("It seems there is a server issue that prevented LayerSlider from importing your selected slider. Please check LayerSlider -> Settings -> System Status for potential errors, try to temporarily disable themes/plugins to rule out incompatibility issues or contact your hosting provider to resolve server configuration problems. Retrying the import might also help. Your HTTP server thrown the following error: \n\n %s", 'LayerSlider'),
+	'SLActivationError' => __("It seems there is a server issue that prevented LayerSlider from performing product activation. Please check LayerSlider -> Settings -> System Status for potential errors, try to temporarily disable themes/plugins to rule out incompatibility issues or contact your hosting provider to resolve server configuration problems. Your HTTP server thrown the following error: \n\n %s", 'LayerSlider'),
 
 	// Template Store
 	'TSImportWarningTitle' 		=> __('Product activation is required to access premium templates.', 'LayerSlider'),
@@ -93,7 +101,7 @@ $l10n_ls = array(
 	'SBEnterImageURL' 			=> __('Enter an image URL', 'LayerSlider'),
 	'SBTransitionApplyOthers' 	=> __('Are you sure you want to apply the currently selected transitions and effects on the other slides?', 'LayerSlider'),
 	'SBPostFilterWarning' 		=> __('No posts were found with the current filters.', 'LayerSlider'),
-	'SBSaveError' 				=> __('It seems there is a server issue that prevented LayerSlider from saving your work. Please check LayerSlider -> Settings -> System Status for potential errors, try to temporarily disable themes/plugins to rule out incompatibility issues or contact your hosting provider to resolve server configuration problems. Your HTTP server thrown the following error: \n\n %s', 'LayerSlider'),
+	'SBSaveError' 				=> __("It seems there is a server issue that prevented LayerSlider from saving your work. Please check LayerSlider -> Settings -> System Status for potential errors, try to temporarily disable themes/plugins to rule out incompatibility issues or contact your hosting provider to resolve server configuration problems. Your HTTP server thrown the following error: \n\n %s", 'LayerSlider'),
 	'SBUnsavedChanges' 			=> __('You have unsaved changes on this page. Do you want to leave and discard the changes made since your last save?', 'LayerSlider'),
 	'SBLinkTextPage' 			=> __('Linked to WP Page: %s', 'LayerSlider'),
 	'SBLinkTextPost' 			=> __('Linked to WP Post: %s', 'LayerSlider'),

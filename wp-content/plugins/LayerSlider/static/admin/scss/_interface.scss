@@ -105,14 +105,23 @@ select {
 		opacity: 1;
 	}
 
-	.dashicons {
-
+	.icon {
 		position: absolute;
-		top: 0;
-		left: 0;
+		top: 2px;
+		left: 5px;
+	}
+
+	.dashicons {
+		width: 50px;
+		height: 50px;
 		line-height: 50px;
-		color: #7eb917;
-		font-size: 45px;
+		text-align: center;
+		font-size: 40px;
+		color: inherit;
+	}
+
+	.text {
+		margin-left: 15px;
 	}
 }
 

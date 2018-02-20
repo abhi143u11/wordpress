@@ -321,6 +321,7 @@
 										data-id="<?php echo $item['id'] ?>"
 										data-slug="<?php echo htmlentities($item['slug']) ?>"
 										data-export-url="<?php echo wp_nonce_url('?page=layerslider&action=export&id='.$item['id'], 'export-sliders') ?>"
+										data-export-html-url="<?php echo wp_nonce_url('?page=layerslider&action=export-html&id='.$item['id'], 'export-sliders') ?>"
 										data-duplicate-url="<?php echo wp_nonce_url('?page=layerslider&action=duplicate&id='.$item['id'], 'duplicate_'.$item['id']) ?>"
 										data-revisions-url="<?php echo admin_url('admin.php?page=layerslider-addons&section=revisions&id='.$item['id']) ?>"
 										data-remove-url="<?php echo wp_nonce_url('?page=layerslider&action=remove&id='.$item['id'], 'remove_'.$item['id']) ?>">
@@ -350,6 +351,12 @@
 								<a href="#">
 									<i class="dashicons dashicons-share-alt2"></i>
 									<?php _e('Export', 'LayerSlider') ?>
+								</a>
+							</li>
+							<li>
+								<a href="#" class="ls-html-export">
+									<i class="dashicons dashicons-media-code"></i>
+									<?php _e('Export as HTML', 'LayerSlider') ?>
 								</a>
 							</li>
 							<li>
@@ -442,10 +449,13 @@
 									<?php _e('Embed Slider', 'LayerSlider') ?>
 								</a>
 							</li>
-							<li>
+							<li class="half">
 								<a href="<?php echo wp_nonce_url('?page=layerslider&action=export&id='.$item['id'], 'export-sliders') ?>">
 									<i class="dashicons dashicons-share-alt2"></i>
 									<?php _e('Export', 'LayerSlider') ?>
+								</a>
+								<a href="#" class="ls-export-options-button">
+									<i class="dashicons dashicons-arrow-right-alt2"></i>
 								</a>
 							</li>
 							<li>
@@ -464,6 +474,23 @@
 								<a href="<?php echo wp_nonce_url('?page=layerslider&action=remove&id='.$item['id'], 'remove_'.$item['id']) ?>" class="remove">
 									<i class="dashicons dashicons-trash"></i>
 									<?php _e('Remove', 'LayerSlider') ?>
+								</a>
+							</li>
+						</ul>
+
+						<ul class="ls-export-options">
+							<li>
+								<a href="<?php echo wp_nonce_url('?page=layerslider&action=export&id='.$item['id'], 'export-sliders') ?>">
+									<i class="dashicons dashicons-wordpress"></i>
+									<?php _e('Export for WordPress sites', 'LayerSlider') ?>
+									<small><?php _e('Usual method. Used for backups or to move sliders across WP sites.', 'LayerSlider') ?></small>
+								</a>
+							</li>
+							<li>
+								<a class="ls-html-export" href="<?php echo wp_nonce_url('?page=layerslider&action=export-html&id='.$item['id'], 'export-sliders') ?>">
+									<i class="dashicons dashicons-editor-code"></i>
+									<?php _e('Export as HTML', 'LayerSlider') ?>
+									<small><?php _e('Not suitable for WP sites. Used for the jQuery version of LayerSlider.', 'LayerSlider') ?></small>
 								</a>
 							</li>
 						</ul>
@@ -673,7 +700,7 @@
 		<div class="half">
 			<div class="ls-box ls-product-banner ls-newsletter">
 				<div class="header medium">
-					<h2><?php _e('Kreatura Newsletter', 'LayerSlider') ?></h2>
+					<h2><?php _e('LayerSlider Newsletter from Kreatura', 'LayerSlider') ?></h2>
 				</div>
 				<div class="inner">
 					<ul>
@@ -705,6 +732,7 @@
 
 
 		<!-- Tips & Recommendations -->
+		<?php if( LS_Config::get('promotions') ) : ?>
 		<div class="half">
 			<div class="ls-box ls-product-banner ls-product-tips">
 				<div class="header medium">
@@ -716,6 +744,7 @@
 				</div>
 			</div>
 		</div>
+		<?php endif ?>
 	</div>
 
 

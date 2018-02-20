@@ -36,10 +36,24 @@ if(isset($slides['properties']['autoPauseSlideshow'])) {
 	}
 }
 
+
+// Get global background image by attachment ID (if any)
 if( ! empty( $slides['properties']['props']['globalBGImageId'] ) ) {
 	$tempSrc = wp_get_attachment_image_src( $slides['properties']['props']['globalBGImageId'], 'full' );
-	$slides['properties']['attrs']['globalBGImage'] = $tempSrc[0];
+	$tempSrc = apply_filters('layerslider_init_props_image', $tempSrc[0]);
+
+	$slides['properties']['attrs']['globalBGImage'] = $tempSrc;
 }
+
+// Get YourLogo image by attachment ID (if any)
+
+if( ! empty( $slides['properties']['props']['yourlogoId'] ) ) {
+	$tempSrc = wp_get_attachment_image_src( $slides['properties']['props']['yourlogoId'], 'full' );
+	$tempSrc = apply_filters('layerslider_init_props_image', $tempSrc[0]);
+
+	$slides['properties']['attrs']['yourLogo'] = $tempSrc;
+}
+
 
 // Old and without type
 if( empty($slides['properties']['attrs']['sliderVersion']) && empty($slides['properties']['attrs']['type']) ) {

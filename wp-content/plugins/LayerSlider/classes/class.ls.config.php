@@ -13,7 +13,8 @@ class LS_Config {
 			'theme_bundle' => false,
 			'autoupdate' => true,
 			'notices' => true,
-			'purchase_url' => get_option('ls-p-url', 'https://codecanyon.net/cart/add_items?ref=kreatura&amp;item_ids=1362246')
+			'promotions' => true,
+			'purchase_url' => get_option('ls-p-url', 'https://kreaturamedia.com/cart/ls-wp/')
 		);
 	}
 

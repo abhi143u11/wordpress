@@ -69,6 +69,13 @@
     line-height: 50px;
     font-size: 26px; }
 
+.ls-global-settings form figure {
+  background: #f7f7f7 !important;
+  border-top: 1px solid #dfdfdf;
+  line-height: 22px; }
+  .ls-global-settings form figure.ls-first {
+    border-top-width: 0; }
+
 .ls-global-settings .inner {
   padding: 0; }
 
@@ -101,7 +108,7 @@
 
 .ls-global-settings .ls-cache-options .button-small {
   position: absolute;
-  top: 8px;
+  top: 31px;
   right: 8px;
   box-shadow: none !important; }
 
