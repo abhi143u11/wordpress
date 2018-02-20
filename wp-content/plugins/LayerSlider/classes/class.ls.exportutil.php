@@ -192,8 +192,10 @@ class LS_ExportUtil {
 		if(!empty($data['layers']) && is_array($data['layers'])) {
 		foreach($data['layers'] as $slide) {
 
-				$this->_addImageToList( $slide['properties'], 'backgroundId', 'background' );
-				$this->_addImageToList( $slide['properties'], 'thumbnailId', 'thumbnail' );
+				if( ! empty( $slide['properties'] ) ) {
+					$this->_addImageToList( $slide['properties'], 'backgroundId', 'background' );
+					$this->_addImageToList( $slide['properties'], 'thumbnailId', 'thumbnail' );
+				}
 
 
 				// Layers

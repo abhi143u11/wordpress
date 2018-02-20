@@ -1,5 +1,7 @@
 <?php
 /**
+ * WPSEO Premium plugin file.
+ *
  * @package WPSEO\Premium\Classes\Redirect
  */
 
@@ -117,7 +119,6 @@ class WPSEO_Redirect_Validator {
 	}
 
 	/**
-	 *
 	 * Getting the validations based on the set validation rules.
 	 *
 	 * @param array $validation_rules The rules for the validations that will be run.

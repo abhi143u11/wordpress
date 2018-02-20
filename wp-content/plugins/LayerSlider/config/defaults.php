@@ -1455,6 +1455,12 @@ $lsDefaults = array(
 		// |  YourLogo  | //
 		// ============== //
 
+		'yourLogoId' => array (
+			'value' => '',
+			'keys' => 'yourlogoId',
+			'props' => array( 'meta' => true )
+		),
+
 		// Places a fixed image on the top of the slider.
 		'yourLogoImage' => array(
 			'value' => '',

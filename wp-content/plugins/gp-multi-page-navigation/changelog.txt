@@ -1,6 +1,10 @@
 
 # Changelog
 
+## 1.0.2
+
+	- Added support for targeting custom page links from a parent element.
+
 ## 1.0.1
 
 	- Added support for specifying default form page to be rendered (via shortcode attribute, query string, or filter).

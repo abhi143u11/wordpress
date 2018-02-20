@@ -6,9 +6,7 @@
 			<tr>
 				<td colspan="5">
 					<i class="dashicons dashicons-welcome-write-blog"></i>
-					<h4><?php _e('Slide Options', 'LayerSlider') ?>
-						<button type="button" class="button ls-layer-duplicate"><span class="dashicons dashicons-admin-page"></span><?php _e('Duplicate slide', 'LayerSlider') ?></button>
-					</h4>
+					<h4><?php _e('Slide Options', 'LayerSlider') ?></h4>
 				</td>
 			</tr>
 		</thead>
@@ -62,7 +60,9 @@
 							<a href="#" class="dashicons dashicons-dismiss"></a>
 						</div>
 						<span class="indent">
-							<?php _e('or', 'LayerSlider') ?> <a href="#" class="ls-url-prompt"><?php _e('enter URL', 'LayerSlider') ?></a>
+							<?php _e('or', 'LayerSlider') ?>
+							<a href="#" class="ls-url-prompt"><?php _e('enter URL', 'LayerSlider') ?></a> |
+							<a href="#" class="ls-capture-slide"><?php _e('capture slide', 'LayerSlider') ?></a>
 						</span>
 					</div>
 				</td>
@@ -159,12 +159,6 @@
 				<td class="slide-actions">
 					<h3 class="subheader"></h3>
 					<div class="inner">
-						<div class="row-helper">
-							<span>
-								<?php _e('Hide this slide', 'LayerSlider') ?>
-							</span>
-							<input type="checkbox" name="skip" class="checkbox large slideprop" data-help="<?php _e('If you don’t want to use this slide in your front-page, but you want to keep it, you can hide it with this switch.', 'LayerSlider') ?>">
-						</div>
 						<div class="row-helper">
 							<span>
 								<?php echo $lsDefaults['slides']['overflow']['name'] ?>
@@ -314,7 +308,7 @@
 					<div class="ls-editor-alignment">
 						<button type="button" class="button" data-ls-su>
 							<span class="dashicons dashicons-align-right ls-layers-icon"></span>
-							<?php _e('Align Layer to...', 'LayerSlider') ?>
+							<?php _e('Align Layer ...', 'LayerSlider') ?>
 						</button>
 						<div class="ls-su-data">
 							<div id="ls-layer-alignment" class="ls-layer-alignment">
