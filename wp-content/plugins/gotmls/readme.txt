@@ -5,10 +5,10 @@ Author URI: http://wordpress.ieonly.com/category/my-plugins/anti-malware/
 Contributors: scheeeli, gotmls
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=QZHD8QHZ2E7PE
 Tags: security, firewall, anti-malware, scanner, automatic, repair, remove, malware, virus, threat, hacked, malicious, infection, timthumb, exploit, block, brute-force, wp-login, patch, antimalware, revslider, Revolution Slider
-Version: 4.17.57
-Stable tag: 4.17.57
+Version: 4.17.58
+Stable tag: 4.17.58
 Requires at least: 3.3
-Tested up to: 4.9.3
+Tested up to: 4.9.4
 
 This Anti-Malware scanner searches for Malware, Viruses, and other security threats and vulnerabilities on your server and it helps you fix them.
 
@@ -27,7 +27,7 @@ This Anti-Malware scanner searches for Malware, Viruses, and other security thre
 * Check the integrity of your WordPress Core files.
 * Automatically download new Definition Updates when running a Complete Scan.
 
-Updated February 5th
+Updated February 19th
 
 Register this plugin at [GOTMLS.NET](http://gotmls.net/) and get access to new definitions of "Known Threats" and added features like Automatic Removal, plus patches for specific security vulnerabilities like old versions of timthumb. Updated definition files can be downloaded automatically within the admin once your Key is registered. Otherwise, this plugin just scans for "Potential Threats" and leaves it up to you to identify and remove the malicious ones.
 
@@ -93,6 +93,12 @@ sucuri.net caches their scan results and will not refresh the scan until you cli
 5. The Quarantine showing threats that have been fix already.
 
 == Changelog ==
+
+= 4.17.58 =
+* Updated code for compatibility with WP 4.9.4 (latest release).
+* Fixed dashicons sizing in css.
+* Add ability to update registration email from within the plugin settings.
+* Cleaned up expired nonce tokens left behind from an older version.
 
 = 4.17.57 =
 * Updated code for compatibility with WP 4.9.3 (latest release).
@@ -345,6 +351,9 @@ sucuri.net caches their scan results and will not refresh the scan until you cli
 * First versions available for WordPress (code removed, no longer compatible).
 
 == Upgrade Notice ==
+
+= 4.17.58 =
+Updated code for compatibility with WP 4.9.4, fixed dashicons sizing in css, add ability to update registration email from within the plugin settings, and cleaned up expired nonce tokens left behind from an older version.
 
 = 4.17.57 =
 Updated code for compatibility with WP 4.9.3, fixed registration form and alternate domain for definition updates to work on HTTPS, and fixed the wording on the Title Check error message.

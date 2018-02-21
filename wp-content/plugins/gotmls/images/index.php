@@ -147,7 +147,7 @@ function GOTMLS_set_nonce($context = "NULL") {
 	$hour = round(($GLOBALS["GOTMLS"]["tmp"]["mt"]/60)/60);
 	$transient_name = md5(GOTMLS_installation_key.GOTMLS_plugin_path.$hour);
 	foreach ($GLOBALS["GOTMLS"]["tmp"]["nonce"] as $nonce_key => $nonce_value)
-		if (($nonce_value + 24) < $hour)
+		if (($nonce_value > $hour) || (($nonce_value + 24) < $hour))
 			unset($GLOBALS["GOTMLS"]["tmp"]["nonce"][$nonce_key]);
 	if (!isset($GLOBALS["GOTMLS"]["tmp"]["nonce"][$transient_name])) {
 		$GLOBALS["GOTMLS"]["tmp"]["nonce"][$transient_name] = $hour;
@@ -391,8 +391,7 @@ if (!(isset($GLOBALS["GOTMLS"]["tmp"]["definitions_array"]["firewall"]) && array
 	$GLOBALS["GOTMLS"]["tmp"]["definitions_array"]["firewall"] = array(
 		"RevSlider"=>array("CCIGG", "Revolution Slider Exploit Protection", "This protection is automatically activated because of the widespread attacks on WordPress that have affected so many sites. It is still recommended that you make sure to upgrade any older versions of the Revolution Slider plugin, especially those included in themes that will not update automatically. Even if you don't think you have Revolution Slider on your site it doen't hurt to have this protection enabled.", "SERVER", '/\/admin-ajax\.php/i', "REQUEST", '/\&img=[^\&]*(?<!\.'.implode(')(?<!\.', array_slice($GLOBALS["GOTMLS"]["tmp"]["skip_ext"], 0, 10)).')\&/i'),
 		"Traversal"=>array("CCIGG", "Directory Traversal Protection", "This protection is automatically activated because this type of attack is quite common. This protection can prevent hackers from accessing secure files in parent directories (or user's folders outside the site_root).", "REQUEST", '/=[\s\/]*\.\.\//'),
-		"UploadPHP"=>array("CCIGG", "Upload PHP File Protection", "This protection is automatically activated because this type of attack is extremely dangerous. This protection can prevent hackers from uploading malicious code via web scripts.", "FILES", '/name=[^\&]*\.php\&/')
-	);
+		"UploadPHP"=>array("CCIGG", "Upload PHP File Protection", "This protection is automatically activated because this type of attack is extremely dangerous. This protection can prevent hackers from uploading malicious code via web scripts.", "FILES", '/name=[^\&]*\.php\&/'));
 foreach ($GLOBALS["GOTMLS"]["tmp"]["definitions_array"]["firewall"] as $TP => $VA) {
 	$V = 3;
 	if (is_array($VA) && count($VA) > $V && is_array($VA[$V])) {
