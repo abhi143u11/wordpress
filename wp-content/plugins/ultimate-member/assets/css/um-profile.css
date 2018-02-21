@@ -192,6 +192,7 @@
 .um-profile-photo {
 	float: left;
 	position: relative;
+	width:200px;
 }
 
 .um-profile-photo a.um-profile-photo-img {
@@ -545,4 +546,10 @@ font-weight: normal;
 
 .um-profile.um-viewing .um-field-checkbox, .um-profile.um-viewing .um-field-radio{
 	cursor: default !important;
+}
+
+@media (min-width: 880px) {
+	.um-profile-nav-item .um-tip-n {
+		display: none;
+	}
 }

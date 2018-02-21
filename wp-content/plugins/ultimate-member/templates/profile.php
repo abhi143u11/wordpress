@@ -1,4 +1,4 @@
-<div class="um <?php echo $this->get_class( $mode ); ?> um-<?php echo $form_id; ?> um-role-<?php echo um_user('role'); ?> ">
+<div class="um <?php echo $this->get_class( $mode ); ?> um-<?php echo esc_attr( $form_id ); ?> um-role-<?php echo um_user( 'role' ); ?> ">
 
 	<div class="um-form">
 	
@@ -9,12 +9,15 @@
 			<?php do_action('um_profile_header_cover_area', $args ); ?>
 			
 			<?php do_action('um_profile_header', $args ); ?>
-			
-			<?php do_action('um_profile_navbar', $args ); ?>
-			
-			<?php
+
+			<div class="um-profile-navbar <?php echo apply_filters( 'um_profile_navbar_classes', '' ) ?>">
+				<?php do_action( 'um_profile_navbar', $args ); ?>
+				<div class="um-clear"></div>
+			</div>
+
+			<?php do_action( 'um_profile_menu', $args );
 				
-			$nav = $ultimatemember->profile->active_tab;
+			$nav = UM()->profile()->active_tab;
 			$subnav = ( get_query_var('subnav') ) ? get_query_var('subnav') : 'default';
 				
 			print "<div class='um-profile-body $nav $nav-$subnav'>";
