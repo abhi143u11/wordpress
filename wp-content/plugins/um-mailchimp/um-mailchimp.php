@@ -3,87 +3,87 @@
 Plugin Name: Ultimate Member - MailChimp
 Plugin URI: http://ultimatemember.com/
 Description: Integrates Ultimate Member with MailChimp newsletters.
-Version: 1.1.8
+Version: 2.0.1
 Author: Ultimate Member
 Author URI: http://ultimatemember.com/
 */
 
-	require_once(ABSPATH.'wp-admin/includes/plugin.php');
-	
-	$plugin_data = get_plugin_data( __FILE__ );
+require_once( ABSPATH.'wp-admin/includes/plugin.php' );
 
-	define('um_mailchimp_url',plugin_dir_url(__FILE__ ));
-	define('um_mailchimp_path',plugin_dir_path(__FILE__ ));
-	define('um_mailchimp_plugin', plugin_basename( __FILE__ ) );
-	define('um_mailchimp_extension', $plugin_data['Name'] );
-	define('um_mailchimp_version', $plugin_data['Version'] );
-	
-	define('um_mailchimp_requires', '1.3.32');
-	
-	$plugin = um_mailchimp_plugin;
+$plugin_data = get_plugin_data( __FILE__ );
 
-	/***
-	***	@Init
-	***/
-	require_once um_mailchimp_path . 'core/um-mailchimp-init.php';
-	
-	function um_mailchimp_plugins_loaded() {
-		load_plugin_textdomain( 'um-mailchimp', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
-	}
-	add_action( 'plugins_loaded', 'um_mailchimp_plugins_loaded', 0 );
-	
-	/* Licensing */
+define( 'um_mailchimp_url',plugin_dir_url(__FILE__ ));
+define( 'um_mailchimp_path',plugin_dir_path(__FILE__ ));
+define( 'um_mailchimp_plugin', plugin_basename( __FILE__ ) );
+define( 'um_mailchimp_extension', $plugin_data['Name'] );
+define( 'um_mailchimp_version', $plugin_data['Version'] );
 
-	if( !class_exists( 'EDD_SL_Plugin_Updater' ) ) {
-		include( dirname( __FILE__ ) . '/EDD_SL_Plugin_Updater.php' );
-	}
+define( 'um_mailchimp_requires', '2.0.1' );
 
-	
-	if( ! function_exists('um_mailchimp_get_licensey_key') ){
-		function um_mailchimp_get_licensey_key(){
-			global $ultimatemember;
-			$license_key = '';
+function um_mailchimp_plugins_loaded() {
+    load_plugin_textdomain( 'um-mailchimp', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+}
+add_action( 'plugins_loaded', 'um_mailchimp_plugins_loaded', 0 );
 
-			if( ! is_admin() ) return;
+add_action( 'plugins_loaded', 'um_mailchimp_check_dependencies', -20 );
 
-			$um_options = get_option("um_options");
+if ( ! function_exists( 'um_mailchimp_check_dependencies' ) ) {
+    function um_mailchimp_check_dependencies() {
+        if ( ! defined( 'um_path' ) || ! file_exists( um_path  . 'includes/class-dependencies.php' ) ) {
+            //UM is not installed
+            function um_mailchimp_dependencies() {
+                echo '<div class="error"><p>' . sprintf( __( 'The <strong>%s</strong> extension requires the Ultimate Member plugin to be activated to work properly. You can download it <a href="https://wordpress.org/plugins/ultimate-member">here</a>', 'um-mailchimp' ), um_mailchimp_extension ) . '</p></div>';
+            }
 
-			if( isset( $um_options["um_mailchimp_license_key"] ) ){
-				$license_key = trim( $um_options["um_mailchimp_license_key"] );
-			}
+            add_action( 'admin_notices', 'um_mailchimp_dependencies' );
+        } else {
 
-			return $license_key;
-		}
-	}
+            if ( ! function_exists( 'UM' ) ) {
+                require_once um_path . 'includes/class-dependencies.php';
+                $is_um_active = is_um_active();
+            } else {
+                $is_um_active = UM()->dependencies()->ultimatemember_active_check();
+            }
 
-	$edd_params = array( 
-				'version' 	=> '1.1.8', 		// current version number
-				'license' 	=>  um_mailchimp_get_licensey_key(), 	// license key 
-				'item_name' => 'MailChimp', 	// name of this plugin
-				'author' 	=> 'Ultimate Member',  // author of this plugin
-	);
-		
-	// setup the updater
-	$um_edd_enable = apply_filters("um_enable_edd_sl_plugin_updater", true, __FILE__, $edd_params );
-	if( $um_edd_enable ){
-		$edd_updater = new EDD_SL_Plugin_Updater( 'https://ultimatemember.com/', __FILE__, $edd_params );
-	}
+            if ( ! $is_um_active ) {
+                //UM is not active
+                function um_mailchimp_dependencies() {
+                    echo '<div class="error"><p>' . sprintf( __( 'The <strong>%s</strong> extension requires the Ultimate Member plugin to be activated to work properly. You can download it <a href="https://wordpress.org/plugins/ultimate-member">here</a>', 'um-mailchimp' ), um_mailchimp_extension ) . '</p></div>';
+                }
 
-	// add license key field
-	add_filter('um_licensed_products_settings', 'um_mailchimp_license_key');
-	function um_mailchimp_license_key( $array ) {
-		
-		if ( !function_exists( 'um_get_option' ) ) return;
-		
-		$array[] = array(
-				'id'       		=> "um_mailchimp_license_key",
-				'type'     		=> 'text',
-				'title'   		=> "MailChimp License Key",
-				'compiler' 		=> true,
-				'validate_callback' => "um_mailchimp_validate_license_key",
-				'class'			=> 'field-warning',
-		);
-		
-		return $array;
+                add_action( 'admin_notices', 'um_mailchimp_dependencies' );
 
-	}
+            } elseif ( true !== UM()->dependencies()->compare_versions( um_mailchimp_requires, um_mailchimp_version, 'mailchimp', um_mailchimp_extension ) ) {
+                //UM old version is active
+                function um_mailchimp_dependencies() {
+                    echo '<div class="error"><p>' . UM()->dependencies()->compare_versions( um_mailchimp_requires, um_mailchimp_version, 'mailchimp', um_mailchimp_extension ) . '</p></div>';
+                }
+
+                add_action( 'admin_notices', 'um_mailchimp_dependencies' );
+
+            } else {
+                require_once um_mailchimp_path . 'includes/core/um-mailchimp-init.php';
+            }
+        }
+    }
+}
+
+
+register_activation_hook( um_mailchimp_plugin, 'um_mailchimp_activation_hook' );
+function um_mailchimp_activation_hook() {
+    //first install
+    $version = get_option( 'um_mailchimp_version' );
+    if ( ! $version )
+        update_option( 'um_mailchimp_last_version_upgrade', um_mailchimp_version );
+
+    if ( $version != um_mailchimp_version )
+        update_option( 'um_mailchimp_version', um_mailchimp_version );
+
+
+    //run setup
+    if ( ! class_exists( 'um_ext\um_mailchimp\core\Mailchimp_Setup' ) )
+        require_once um_mailchimp_path . 'includes/core/class-mailchimp-setup.php';
+
+    $mailchimp_setup = new um_ext\um_mailchimp\core\Mailchimp_Setup();
+    $mailchimp_setup->run_setup();
+}

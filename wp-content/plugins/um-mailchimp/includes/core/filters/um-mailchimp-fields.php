@@ -1,12 +1,12 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) exit;
+
 
 	add_filter('um_edit_field_register_mailchimp','um_edit_field_register_mailchimp', 10, 2);
 	function um_edit_field_register_mailchimp( $output, $data ) {
-		global $um_mailchimp;
-
 		extract($data);
 
-		$list = $um_mailchimp->api->fetch_list( $mailchimp_list );
+		$list = UM()->Mailchimp_API()->api()->fetch_list( $mailchimp_list );
 
 		if ( $list['status'] != 1)
 			return false;
@@ -73,4 +73,40 @@
 	function um_mailchimp_requires_no_metakey( $array ) {
 		$array[] = 'mailchimp';
 		return $array;
+	}
+
+	add_filter('um_mailchimp_single_merge_fields','um_mailchimp_single_merge_fields', 10, 3 );
+	function um_mailchimp_single_merge_fields( $merge_vars, $user_id, $list_id ){
+
+		$apikey = UM()->options()->get( 'mailchimp_api' );
+		if ( ! $apikey ) return $merge_vars;
+
+		$MailChimp = new \UM_MailChimp_V3( $apikey );
+		um_fetch_user( $user_id );
+		
+		$arr_merge_vars = array();
+		$email = um_user('user_email');
+		$email_md5 = md5( $email );
+				
+		foreach( $merge_vars as $key => $value ) {
+
+				if( ! empty( $value ) ){
+						if ( is_array( $value ) ) {
+								$arr_merge_vars[ $key ] = implode(', ', $value );
+						}else{
+								$arr_merge_vars[ $key ] = $value;
+						}
+				}
+					
+		}
+
+		$mailchimp_status = apply_filters('um_mailchimp_default_subscription_status', 'subscribed' );
+
+		$response = $MailChimp->put("lists/{$list_id}/members/{$email_md5}",  array(
+				'email_address'     => $email,
+				'merge_fields'      => $arr_merge_vars,
+				'status'      		=> $mailchimp_status,
+		));
+
+		return $merge_vars;
 	}

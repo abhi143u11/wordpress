@@ -23,6 +23,7 @@ class UM_MailChimp_V3
     private $last_error         = '';
     private $last_response      = array();
     private $last_request       = array();
+    private $proxy              = false;
 
     /**
      * Create a new instance
@@ -46,7 +47,7 @@ class UM_MailChimp_V3
     /**
      * Create a new instance of a Batch request. Optionally with the ID of an existing batch.
      * @param string $batch_id Optional ID of an existing batch, if you need to check its status for example.
-     * @return Batch            New Batch object.
+     * @return UM_MailChimp_Batch New Batch object.
      */
     public function new_batch($batch_id = null)
     {
@@ -78,8 +79,13 @@ class UM_MailChimp_V3
      * @return  array|false  describing the error
      */
     public function getLastError()
-    {
-        return $this->last_error ?: false;
+    {   
+        if( ! empty( $this->last_error ) ){
+            return $this->last_error;
+        }
+
+        return false;
+       
     }
 
     /**
@@ -205,6 +211,12 @@ class UM_MailChimp_V3
         curl_setopt($ch, CURLOPT_ENCODING, '');
         curl_setopt($ch, CURLINFO_HEADER_OUT, true);
 
+        $this->proxy = apply_filters("um_mailchimp_api_curl_proxy", $this->proxy );
+        if ( $this->proxy ){
+            curl_setopt($ch, CURLOPT_PROXY, $this->proxy);
+        }
+ 
+
         switch ($http_verb) {
             case 'post':
                 curl_setopt($ch, CURLOPT_POST, true);
@@ -249,6 +261,10 @@ class UM_MailChimp_V3
         $this->determineSuccess($response, $formattedResponse);
 
         return $formattedResponse;
+    }
+
+    public function setProxy($host, $port, $user = null, $password = null) {
+        $this->proxy = sprintf('%s:%s', $host, $port);
     }
 
     /**
