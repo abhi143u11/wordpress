@@ -1,0 +1,127 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Ultimate Member - Terms & Conditions\n"
+"POT-Creation-Date: 2017-07-26 18:17+0800\n"
+"PO-Revision-Date: 2017-07-26 18:18+0800\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.0.1\n"
+"X-Poedit-Basepath: ..\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"X-Poedit-WPHeader: um-terms-conditions.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+
+#: admin/class-um-terms-conditions-admin.php:113
+#: admin/class-um-terms-conditions-admin.php:117
+msgid "Terms & Conditions"
+msgstr ""
+
+#: admin/class-um-terms-conditions-admin.php:168
+#: admin/partials/um-terms-conditions-admin-form-sidebar.php:8
+msgid "Yes"
+msgstr ""
+
+#: admin/class-um-terms-conditions-admin.php:169
+#: admin/partials/um-terms-conditions-admin-form-sidebar.php:9
+msgid "No"
+msgstr ""
+
+#: admin/partials/um-terms-conditions-admin-form-sidebar.php:4
+msgid "Enable on this form"
+msgstr ""
+
+#: admin/partials/um-terms-conditions-admin-form-sidebar.php:15
+msgid "Content"
+msgstr ""
+
+#: admin/partials/um-terms-conditions-admin-form-sidebar.php:17
+msgid "Select page"
+msgstr ""
+
+#: admin/partials/um-terms-conditions-admin-form-sidebar.php:31
+msgid "Toggle Show text"
+msgstr ""
+
+#: admin/partials/um-terms-conditions-admin-form-sidebar.php:32
+#: includes/class-um-terms-conditions.php:229
+msgid "Show Terms"
+msgstr ""
+
+#: admin/partials/um-terms-conditions-admin-form-sidebar.php:36
+msgid "Toggle Hide text"
+msgstr ""
+
+#: admin/partials/um-terms-conditions-admin-form-sidebar.php:37
+#: includes/class-um-terms-conditions.php:231
+msgid "Hide Terms"
+msgstr ""
+
+#: admin/partials/um-terms-conditions-admin-form-sidebar.php:41
+msgid "Checkbox agreement description"
+msgstr ""
+
+#: admin/partials/um-terms-conditions-admin-form-sidebar.php:42
+#: includes/class-um-terms-conditions.php:233
+msgid "Please confirm that you agree to our terms & conditions"
+msgstr ""
+
+#: admin/partials/um-terms-conditions-admin-form-sidebar.php:46
+msgid "Error Text"
+msgstr ""
+
+#: admin/partials/um-terms-conditions-admin-form-sidebar.php:47
+#: includes/class-um-terms-conditions.php:235
+msgid "You must agree to our terms & conditions"
+msgstr ""
+
+#: um-terms-conditions.php:43
+#, php-format
+msgid ""
+"The <strong>%s</strong> extension requires the Ultimate Member plugin to be "
+"activated to work properly. You can download it <a href=\"https://wordpress."
+"org/plugins/ultimate-member\">here</a>"
+msgstr ""
+
+#: um-terms-conditions.php:54
+#, php-format
+msgid ""
+"The <strong>%s</strong> extension requires <strong>PHP 5.4 or better</"
+"strong> installed on your server."
+msgstr ""
+
+#: um-terms-conditions.php:65
+#, php-format
+msgid ""
+"The <strong>%s</strong> extension requires a <a href=\"https://wordpress.org/"
+"plugins/ultimate-member\">newer version</a> of Ultimate Member to work "
+"properly."
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "Ultimate Member - Terms & Conditions"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+#. Author URI of the plugin/theme
+msgid "https://ultimatemember.com/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"Add a terms and condition checkbox to your registration forms & require "
+"users to agree to your T&Cs before registering on your site."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Ultimate Member"
+msgstr ""
