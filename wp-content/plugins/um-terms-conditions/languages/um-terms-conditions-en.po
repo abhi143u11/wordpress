@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Ultimate Member - Terms & Conditions\n"
-"POT-Creation-Date: 2017-07-26 18:17+0800\n"
-"PO-Revision-Date: 2017-07-26 18:18+0800\n"
+"POT-Creation-Date: 2018-01-28 15:14+0800\n"
+"PO-Revision-Date: 2018-01-28 15:14+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: en\n"
@@ -16,95 +16,82 @@ msgstr ""
 "X-Poedit-WPHeader: um-terms-conditions.php\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
-"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
-"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;"
+"_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 
-#: admin/class-um-terms-conditions-admin.php:113
-#: admin/class-um-terms-conditions-admin.php:117
+#: includes/admin/class-terms-conditions-admin.php:46
 msgid "Terms & Conditions"
 msgstr ""
 
-#: admin/class-um-terms-conditions-admin.php:168
-#: admin/partials/um-terms-conditions-admin-form-sidebar.php:8
-msgid "Yes"
-msgstr ""
-
-#: admin/class-um-terms-conditions-admin.php:169
-#: admin/partials/um-terms-conditions-admin-form-sidebar.php:9
-msgid "No"
-msgstr ""
-
-#: admin/partials/um-terms-conditions-admin-form-sidebar.php:4
-msgid "Enable on this form"
-msgstr ""
-
-#: admin/partials/um-terms-conditions-admin-form-sidebar.php:15
-msgid "Content"
-msgstr ""
-
-#: admin/partials/um-terms-conditions-admin-form-sidebar.php:17
+#: includes/admin/templates/form/register_terms-conditions.php:5
 msgid "Select page"
 msgstr ""
 
-#: admin/partials/um-terms-conditions-admin-form-sidebar.php:31
+#: includes/admin/templates/form/register_terms-conditions.php:20
+msgid "Enable on this form"
+msgstr ""
+
+#: includes/admin/templates/form/register_terms-conditions.php:23
+msgid "No"
+msgstr ""
+
+#: includes/admin/templates/form/register_terms-conditions.php:24
+msgid "Yes"
+msgstr ""
+
+#: includes/admin/templates/form/register_terms-conditions.php:30
+msgid "Content"
+msgstr ""
+
+#: includes/admin/templates/form/register_terms-conditions.php:38
 msgid "Toggle Show text"
 msgstr ""
 
-#: admin/partials/um-terms-conditions-admin-form-sidebar.php:32
-#: includes/class-um-terms-conditions.php:229
+#: includes/admin/templates/form/register_terms-conditions.php:39
+#: includes/admin/templates/form/register_terms-conditions.php:40
+#: templates/um-terms-conditions-public-display.php:34
+#: templates/um-terms-conditions-public-display.php:36
 msgid "Show Terms"
 msgstr ""
 
-#: admin/partials/um-terms-conditions-admin-form-sidebar.php:36
+#: includes/admin/templates/form/register_terms-conditions.php:46
 msgid "Toggle Hide text"
 msgstr ""
 
-#: admin/partials/um-terms-conditions-admin-form-sidebar.php:37
-#: includes/class-um-terms-conditions.php:231
+#: includes/admin/templates/form/register_terms-conditions.php:47
+#: includes/admin/templates/form/register_terms-conditions.php:48
+#: templates/um-terms-conditions-public-display.php:35
 msgid "Hide Terms"
 msgstr ""
 
-#: admin/partials/um-terms-conditions-admin-form-sidebar.php:41
+#: includes/admin/templates/form/register_terms-conditions.php:54
+#: includes/admin/templates/form/register_terms-conditions.php:56
+#: templates/um-terms-conditions-public-display.php:47
 msgid "Checkbox agreement description"
 msgstr ""
 
-#: admin/partials/um-terms-conditions-admin-form-sidebar.php:42
-#: includes/class-um-terms-conditions.php:233
+#: includes/admin/templates/form/register_terms-conditions.php:55
 msgid "Please confirm that you agree to our terms & conditions"
 msgstr ""
 
-#: admin/partials/um-terms-conditions-admin-form-sidebar.php:46
+#: includes/admin/templates/form/register_terms-conditions.php:62
 msgid "Error Text"
 msgstr ""
 
-#: admin/partials/um-terms-conditions-admin-form-sidebar.php:47
-#: includes/class-um-terms-conditions.php:235
+#: includes/admin/templates/form/register_terms-conditions.php:63
+#: includes/admin/templates/form/register_terms-conditions.php:64
+#: templates/um-terms-conditions-public-display.php:56
 msgid "You must agree to our terms & conditions"
 msgstr ""
 
-#: um-terms-conditions.php:43
+#: um-terms-conditions.php:37 um-terms-conditions.php:53
 #, php-format
 msgid ""
 "The <strong>%s</strong> extension requires the Ultimate Member plugin to be "
 "activated to work properly. You can download it <a href=\"https://wordpress."
 "org/plugins/ultimate-member\">here</a>"
-msgstr ""
-
-#: um-terms-conditions.php:54
-#, php-format
-msgid ""
-"The <strong>%s</strong> extension requires <strong>PHP 5.4 or better</"
-"strong> installed on your server."
-msgstr ""
-
-#: um-terms-conditions.php:65
-#, php-format
-msgid ""
-"The <strong>%s</strong> extension requires a <a href=\"https://wordpress.org/"
-"plugins/ultimate-member\">newer version</a> of Ultimate Member to work "
-"properly."
 msgstr ""
 
 #. Plugin Name of the plugin/theme
