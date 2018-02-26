@@ -111,6 +111,10 @@ ul.slick-dots {
 
 /*-- CUSTOM --*/
 
+.post-feature-thumb{
+	padding-bottom:20px;
+}
+
 #ls-global > div.shiftnav-wrap.ls-overflow-visible{
 	/* overflow-x: hidden!important; */
 }
