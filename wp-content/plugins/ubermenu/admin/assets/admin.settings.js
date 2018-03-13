@@ -41,7 +41,7 @@
 					var $control = $(this).closest( 'td' );
 					update_gradient_list( $control );
 					//$colorstop.data( 'cleared' , false );
-					
+
 				}, 300 ),
 
 				change: _.throttle( function( event , ui ){
@@ -272,9 +272,9 @@
 		}, 'json' ).fail( function(){
 			$( '.ubermenu_instance_container_wrap' ).fadeOut();
 			$( '.ubermenu_instance_delete_notice_error' ).fadeIn();
-		});	
+		});
 
-		
+
 	}
 
 	function uber_store( item , key , val ){
@@ -313,7 +313,7 @@
 			range.moveToElementText( element );
 			range.select();
 		} else if (window.getSelection) { //all others
-			selection = window.getSelection();        
+			selection = window.getSelection();
 			range = doc.createRange();
 			range.selectNodeContents( element );
 			selection.removeAllRanges();

@@ -33,7 +33,7 @@ $notifications = array(
 	'permissionError' => __('Your account does not have the necessary permission you have chosen, and your settings have not been saved in order to prevent locking yourself out of the plugin.', 'LayerSlider'),
 	'permissionSuccess' => __('Permission changes has been updated.', 'LayerSlider'),
 	'googleFontsUpdated' => __('Your Google Fonts library has been updated.', 'LayerSlider'),
-	'generalUpdated' => __('Your settings has been updated.', 'LayerSlider')
+	'generalUpdated' => __('Your settings have been updated.', 'LayerSlider')
 );
 ?>
 

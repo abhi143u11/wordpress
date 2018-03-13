@@ -346,7 +346,7 @@ class UberMenuItemDynamicTerms extends UberMenuItemDynamic{
 				$term_url = get_term_link( intval( $term_id ) , $view_all_taxonomy );
 				if( !is_wp_error( $term_url ) ){
 
-					$view_all_link_text = 'View all <i class="fa fa-angle-double-right"></i>';
+					$view_all_link_text = 'View all <i class="fas fa-angle-double-right"></i>';
 					$view_all_link_text_setting = $this->getSetting( 'dt_view_all_text' );
 					if( $view_all_link_text_setting != '' ){
 						$view_all_link_text = $view_all_link_text_setting;
@@ -571,6 +571,9 @@ class UberMenuItemDynamicTerm extends UberMenuItemDefault{
 			$atts['class'].= ' ubermenu-noindicator';
 		}
 
+		//Global Submenu Indicators
+		$display_submenu_indicators = $this->get_menu_op('display_submenu_indicators') === 'on' ? true : false;
+
 
 		//Target ID
 		$target_id = $this->getSetting( 'target_id' );
@@ -627,6 +630,10 @@ class UberMenuItemDynamicTerm extends UberMenuItemDefault{
 		}
 
 
+		//Dynamic Subcontent
+		$description = apply_filters( 'ubermenu_dt_subcontent' , $description , $term , $this->ID );
+
+
 		//ARIA controls
 		if( ubermenu_op( 'aria_controls' , 'general' ) == 'on' ){
 			$atts['aria-controls'] = $this->get_submenu_id();
@@ -669,6 +676,12 @@ class UberMenuItemDynamicTerm extends UberMenuItemDefault{
 		//Add pieces based on layout order
 		foreach( $layout_pieces as $piece ){
 			$a.= $piece;
+		}
+
+		//Submenu indicator
+		$submenu_type = $this->get_submenu_type();
+		if( $display_submenu_indicators && !$disable_submenu_indicator && $submenu_type && in_array( $submenu_type , array( 'mega' , 'flyout' , 'tab-content-panel' ) ) ){
+			$a.= '<i class="ubermenu-sub-indicator fas fa-angle-down"></i>';
 		}
 
 		if( isset( $this->args->link_after ) ) $a .= $this->args->link_after;

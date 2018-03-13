@@ -1,5 +1,4 @@
 <?php
-
 function ubermenu_get_settings_fields_instance( $config_id ){
 
 	$settings = array(
@@ -23,7 +22,7 @@ function ubermenu_get_settings_fields_instance( $config_id ){
 			'name'	=> 'skin',
 			'label'	=> __( 'Skin' , 'ubermenu' ),
 			'type'	=> 'select',
-			'desc'	=> __( 'If you disable the skin, you must provide your own custom skin.  Otherwise, use the Minimal Base or Vanilla skin as a Customizer base.' , 'ubermenu' ). ' <br/> <a target="_blank" href="http://sevenspark.com/goods/category/ubermenu-skin-packs?src=plugin">Get more skins</a>',
+			'desc'	=> __( 'If you disable the skin, you must provide your own custom skin.  Otherwise, use the Minimal Base or Vanilla skin as a Customizer base.' , 'ubermenu' ). ' <br/> <a target="_blank" href="https://sevenspark.com/goods/category/ubermenu-skin-packs?src=plugin">Get more skins</a>',
 			//'options'	=> array(),
 			'options' => 'ubermenu_get_skin_ops',
 			'default' => 'black-white-2',
@@ -368,7 +367,7 @@ function ubermenu_get_settings_fields_instance( $config_id ){
 			'label' 	=> __( 'Display Submenu Retractor [Bottom]', 'ubermenu' ),
 			'desc' 		=> __( 'Display a "Close" button at the bottom of the submenu on mobile devices.', 'ubermenu' ),
 			'type' 		=> 'checkbox',
-			'default' 	=> 'on',
+			'default' 	=> 'off',
 			'group'		=> array( 'responsive' , 'submenus' ),
 		),
 
@@ -570,6 +569,15 @@ function ubermenu_settings_panel_fields_general( $fields ){
 			'group'	=> 'script_config',
 		),
 
+		177	=> array(
+			'name'	=> 'submenu_indicator_close_mobile',
+			'label'	=> __( 'Show Indicator Submenu Close Button on Mobile' , 'ubermenu' ),
+			'desc'	=> __( 'When a submenu is toggled open on mobile, a close button will appear in place of the submenu indicator on the parent item.' , 'ubermenu' ),
+			'type'	=> 'checkbox',
+			'default'=> 'on',
+			'group'	=> 'script_config',
+		),
+
 
 		180 => array(
 			'name'	=> 'reposition_on_load',
@@ -580,8 +588,23 @@ function ubermenu_settings_panel_fields_general( $fields ){
 			'group'	=> 'script_config',
 		),
 
+		185 => array(
+			'name'	=> 'remove_conflicts',
+			'label' => __( 'Remove JS Conflicts' , 'ubermenu' ),
+			'desc'	=> __( 'This will disable any event bindings added with jQuery unbind() or off() before the UberMenu script runs.  If you wish to bind your own events, or have other scripts act on the menu, you may need to disable this.', 'ubermenu' ),
+			'type'	=> 'checkbox',
+			'default'=> 'on',
+			'group'	=> 'script_config',
+		),
+
 
 		190 => array(
+			'name'	=> 'header_hoverintent',
+			'label'	=> __( 'HoverIntent Settings' , 'ubermenu' ),
+			'type'	=> 'header',
+			'group'	=> 'script_config',
+		),
+		191 => array(
 			'name'	=> 'intent_delay',
 			'label'	=> __( 'Hover Intent Delay' , 'ubermenu' ),
 			'desc'	=> __( 'Time to wait until closing the submenu after hover-out (ms)' , 'ubermenu' ),
@@ -609,6 +632,12 @@ function ubermenu_settings_panel_fields_general( $fields ){
 		),
 
 		210 => array(
+			'name'	=> 'header_scrollto',
+			'label'	=> __( 'ScrollTo Settings' , 'ubermenu' ),
+			'type'	=> 'header',
+			'group'	=> 'script_config',
+		),
+		211 => array(
 			'name'	=> 'scrollto_offset',
 			'label' => __( 'ScrollTo Offset' , 'ubermenu' ),
 			'desc'	=> __( 'Pixel offset to leave when scrolling.', 'ubermenu' ),
@@ -625,6 +654,14 @@ function ubermenu_settings_panel_fields_general( $fields ){
 			'default'=> 1000,
 			'group'	=> 'script_config',
 		),
+		216 => array(
+			'name'	=> 'scrollto_disable_current',
+			'label' => __( 'Automatically Disable Current Item Classes on ScrollTo Items' , 'ubermenu' ),
+			'desc'	=> __( 'If you have multiple ScrollTo Links on the same page, they will all be marked as current on that page, if this setting is disabled.', 'ubermenu' ),
+			'type'	=> 'checkbox',
+			'default'=> 'on',
+			'group'	=> 'script_config',
+		),
 
 		217 => array(
 			'name'	=> 'collapse_after_scroll',
@@ -635,14 +672,7 @@ function ubermenu_settings_panel_fields_general( $fields ){
 			'group'	=> 'script_config',
 		),
 
-		220 => array(
-			'name'	=> 'remove_conflicts',
-			'label' => __( 'Remove JS Conflicts' , 'ubermenu' ),
-			'desc'	=> __( 'This will disable any event bindings added with jQuery unbind() or off() before the UberMenu script runs.  If you wish to bind your own events, or have other scripts act on the menu, you may need to disable this.', 'ubermenu' ),
-			'type'	=> 'checkbox',
-			'default'=> 'on',
-			'group'	=> 'script_config',
-		),
+
 
 
 
@@ -702,9 +732,18 @@ function ubermenu_settings_panel_fields_general( $fields ){
 		330 => array(
 			'name'	=> 'header_maintenance',
 			'label'	=> __( 'Maintenance' , 'ubermenu' ),
-			'desc'	=> '<i class="fa fa-warning"></i> '. __( 'You should only adjust settings in this section if you are certain of what you are doing.'  , 'ubermenu' ),
+			'desc'	=> '<i class="fas fa-exclamation-triangle"></i> '. __( 'You should only adjust settings in this section if you are certain of what you are doing.'  , 'ubermenu' ),
 			'type'	=> 'header',
 			'group'	=> 'maintenance',
+		),
+
+		335 => array(
+			'name'	=> 'migrate_fa4_fa5',
+			'label'	=> __( 'Migrate Font Awesome', 'ubermenu' ),
+			'desc'	=> '<a class="button button-primary" href="'.admin_url('themes.php?page=ubermenu-settings&do=fa4_to_fa5&ubermenu_nonce='.wp_create_nonce( 'ubermenu-control-panel-do' ) ).'">'.__( 'Migrate Font Awesome 4 to 5' , 'ubermenu' ).'</a><br/><p>'.__( 'Migrate Font Awesome 4 Icons to Font Awesome 5', 'ubermenu' ).'</p>',
+			'type'	=> 'html',
+			'group'	=> 'maintenance',
+
 		),
 
 		340 => array(
@@ -1020,6 +1059,9 @@ function ubermenu_control_panel() {
 		check_admin_referer( 'ubermenu-control-panel-do' , 'ubermenu_nonce' );
 
 		switch( $_GET['do'] ){
+			case 'fa4_to_fa5':
+				ubermenu_fa4_to_fa5_panel();
+				break;
 			case 'widget-manager':
 				ubermenu_widget_manager_panel();
 				break;
@@ -1392,13 +1434,13 @@ function ubermenu_settings_panel(){
 }
 
 function ubermenu_settings_links(){
-	if( ubermenu_is_pro() ) echo '<a class="button button-quickstart" href="#"><i class="fa fa-bolt"></i> QuickStart</a> ';
-	echo '<a target="_blank" class="button button-primary" href="'.UBERMENU_KB_URL.'"><i class="fa fa-book"></i> Knowledgebase</a> ';
-	echo '<a target="_blank" class="button button-tertiary" href="'.UBERMENU_VIDEOS_URL.'"><i class="fa fa-video-camera"></i> Video Tutorials</a> ';
-	if( ubermenu_is_pro() ) echo '<a target="_blank" class="button button-secondary" href="'.UBERMENU_TROUBLESHOOTER_URL.'"><i class="fa fa-wrench"></i> Troubleshooter</a> ';
+	if( ubermenu_is_pro() ) echo '<a class="button button-quickstart" href="#"><i class="fas fa-bolt"></i> QuickStart</a> ';
+	echo '<a target="_blank" class="button button-primary" href="'.UBERMENU_KB_URL.'"><i class="fas fa-book"></i> Knowledgebase</a> ';
+	echo '<a target="_blank" class="button button-tertiary" href="'.UBERMENU_VIDEOS_URL.'"><i class="fas fa-video"></i> Video Tutorials</a> ';
+	if( ubermenu_is_pro() ) echo '<a target="_blank" class="button button-secondary" href="'.UBERMENU_TROUBLESHOOTER_URL.'"><i class="fas fa-wrench"></i> Troubleshooter</a> ';
 	if( ubermenu_is_pro() &&
 		( !defined( 'UBERMENU_PACKAGED_THEME' ) || ubermenu_op( 'purchase_code' , 'updates' , '' ) )
-		) echo '<a target="_blank" class="button button-secondary ubermenu-button-support" href="'.ubermenu_get_support_url().'"><i class="fa fa-life-ring"></i> Support</a> ';
+		) echo '<a target="_blank" class="button button-secondary ubermenu-button-support" href="'.ubermenu_get_support_url().'"><i class="fas fa-life-ring"></i> Support</a> ';
 }
 add_action( 'ubermenu_settings_before_title' , 'ubermenu_settings_links' );
 
@@ -1452,7 +1494,13 @@ function ubermenu_admin_panel_assets( $hook ){
 	if( $hook == 'appearance_page_ubermenu-settings' ){
 		wp_enqueue_script( 'ubermenu-control-panel' , UBERMENU_URL . 'admin/assets/admin.settings.js' , array( 'jquery' ) , UBERMENU_VERSION , true );
 		wp_enqueue_style( 'ubermenu-settings-styles' , UBERMENU_URL.'admin/assets/admin.settings.css' );
-		wp_enqueue_style( 'ubermenu-font-awesome' , UBERMENU_URL.'assets/css/fontawesome/css/font-awesome.min.css' );
+
+		//font awesome 4
+		//wp_enqueue_style( 'ubermenu-font-awesome' , UBERMENU_URL.'assets/css/fontawesome/css/font-awesome.min.css' );
+
+		//font awesome 5
+		//wp_enqueue_script( 'ubermenu-font-awesome' , UBERMENU_URL.'assets/fontawesome/svg/js/fontawesome-all.min.js' , false , false , false );
+		wp_enqueue_style( 'ubermenu-font-awesome-all' , 	UBERMENU_URL .'assets/fontawesome/fonts/css/fontawesome-all.min.css' , false , false );
 
 		wp_localize_script( 'ubermenu-control-panel' , 'ubermenu_control_panel' , array(
 			'load_google_cse'	=> ubermenu_op( 'load_google_cse' , 'general' ),
@@ -1496,7 +1544,7 @@ function ubermenu_settings_panel_go_pro( $sections = array() ){
 
 	$sections[] = array(
 		'id'	=> UBERMENU_PREFIX.'go_pro',
-		'title' => __( 'Go Pro' , 'ubermenu' ) . ' <i class="fa fa-rocket"></i>',
+		'title' => __( 'Go Pro' , 'ubermenu' ) . ' <i class="fas fa-rocket"></i>',
 		'sub_sections'	=> array(
 			'compare'	=> array(
 				'title'	=> __( 'Compare', 'ubermenu' ),
@@ -1527,7 +1575,7 @@ function ubermenu_settings_panel_fields_go_pro( $fields ){
 	</p>
 
 	<div class="spark-action-button">
-		<a href="http://wpmegamenu.com" target="_blank" class="">Learn More <i class="fa fa-chevron-right"></i></a>
+		<a href="http://wpmegamenu.com" target="_blank" class="">Learn More <i class="fas fa-chevron-right"></i></a>
 	</div>
 	<table class="ss-table-compare">
 			<tbody><tr>
@@ -1539,71 +1587,71 @@ function ubermenu_settings_panel_fields_go_pro( $fields ){
 			</tr>
 			<tr>
 				<td class="ss-feature">Click or Hover Trigger</td>
-				<td><i class="fa fa-check"></i></td>
-				<td><i class="fa fa-check"></i></td>
+				<td><i class="fas fa-check"></i></td>
+				<td><i class="fas fa-check"></i></td>
 			</tr>
 			<tr>
 				<td class="ss-feature">Slide or Fade Effects</td>
-				<td><i class="fa fa-check"></i></td>
-				<td><i class="fa fa-check"></i></td>
+				<td><i class="fas fa-check"></i></td>
+				<td><i class="fas fa-check"></i></td>
 			</tr>
 			<tr>
 				<td class="ss-feature">Responsive</td>
-				<td><i class="fa fa-check"></i></td>
-				<td><i class="fa fa-check"></i></td>
+				<td><i class="fas fa-check"></i></td>
+				<td><i class="fas fa-check"></i></td>
 			</tr>
 			<tr>
 				<td class="ss-feature">Mega Menus</td>
-				<td><i class="fa fa-check"></i></td>
-				<td><i class="fa fa-check"></i></td>
+				<td><i class="fas fa-check"></i></td>
+				<td><i class="fas fa-check"></i></td>
 			</tr>
 			<tr>
 				<td class="ss-feature">Descriptions</td>
-				<td><i class="fa fa-check"></i></td>
-				<td><i class="fa fa-check"></i></td>
+				<td><i class="fas fa-check"></i></td>
+				<td><i class="fas fa-check"></i></td>
 			</tr>
 			<tr>
 				<td class="ss-feature">Images
 					<span class="desc">Insert images for each menu item based on the post\'s featured image, or upload your own.</span>
 				</td>
 				<td></td>
-				<td><i class="fa fa-check"></i></td>
+				<td><i class="fas fa-check"></i></td>
 			</tr>
 			<tr>
 				<td class="ss-feature">Dynamic Menu Items					<span class="desc">Automatically generate menu items from your site content</span></td>
 				<td></td>
-				<td><i class="fa fa-check"></i></td>
+				<td><i class="fas fa-check"></i></td>
 			</tr>
 			<tr>
 				<td class="ss-feature">Tabbed Submenus					<span class="desc">Organize your submenus into tabs to display even more content</span></td>
 				<td></td>
-				<td><i class="fa fa-check"></i></td>
+				<td><i class="fas fa-check"></i></td>
 			</tr>
 			<tr>
 				<td class="ss-feature">Custom Content &amp; Widgets					<span class="desc">Add any custom HTML or widget content to your menu</span></td>
 				<td></td>
-				<td><i class="fa fa-check"></i></td>
+				<td><i class="fas fa-check"></i></td>
 			</tr>
 			<tr>
 				<td class="ss-feature">Google Maps					<span class="desc">Easily add Google Maps to your menu with a shortcode</span></td>
 				<td></td>
-				<td><i class="fa fa-check"></i></td>
+				<td><i class="fas fa-check"></i></td>
 			</tr>
 
 			<tr>
 				<td class="ss-feature">Contact Forms &amp; Shortcodes					<span class="desc">Display a Contact Form 7 form or any shortcode in your menu</span></td>
 				<td></td>
-				<td><i class="fa fa-check"></i></td>
+				<td><i class="fas fa-check"></i></td>
 			</tr>
 			<tr>
 				<td class="ss-feature">20+ Skins					<span class="desc">Choose from over 20 preset styles</span></td>
 				<td></td>
-				<td><i class="fa fa-check"></i></td>
+				<td><i class="fas fa-check"></i></td>
 			</tr>
 			<tr>
 				<td class="ss-feature">Style Customizer					<span class="desc">Tweak over 50 settings in the Customizer</span></td>
 				<td></td>
-				<td><i class="fa fa-check"></i></td>
+				<td><i class="fas fa-check"></i></td>
 			</tr>
 
 			<tr>
@@ -1611,17 +1659,17 @@ function ubermenu_settings_panel_fields_go_pro( $fields ){
 					<span class="desc">Choose from 30 of the most popular Google Fonts</span>
 				</td>
 				<td></td>
-				<td><i class="fa fa-check"></i></td>
+				<td><i class="fas fa-check"></i></td>
 			</tr>
 			<tr>
 				<td class="ss-feature">Compatible with UberMenu Extensions					<span class="desc">Extend the functionality of your menu with great extensions like <a href="http://wpmegamenu.com/icons">Icons</a>, <a href="http://goo.gl/0LrTj">Conditionals</a> and <a href="wpmegamenu.com/sticky">Sticky</a></span></td>
 				<td></td>
-				<td><i class="fa fa-check"></i></td>
+				<td><i class="fas fa-check"></i></td>
 			</tr>
 		</tbody></table>
 
 		<div class="spark-action-button">
-			<a href="http://wpmegamenu.com" target="_blank" class="">Get UberMenu Pro <i class="fa fa-chevron-right"></i></a>
+			<a href="http://wpmegamenu.com" target="_blank" class="">Get UberMenu Pro <i class="fas fa-chevron-right"></i></a>
 		</div>
 
 		<div style="font-size:11px; color:#999; border-top:1px dotted #ccc; margin-top:80px;">

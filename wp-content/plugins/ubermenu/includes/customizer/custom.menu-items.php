@@ -232,7 +232,7 @@ function ubermenu_item_save_panels_padding( $item_id , $setting , $val , &$saved
 function ubermenu_item_save_submenu_column_divider_color( $item_id , $setting , $val , &$saved_settings ){
 	if( !$val ) return;
 
-	$selector = ".ubermenu .ubermenu-submenu-id-$item_id > .ubermenu-column + .ubermenu-column:not(.ubermenu-clear-row)";
+	$selector = "body:not(.rtl) .ubermenu .ubermenu-submenu-id-$item_id > .ubermenu-column + .ubermenu-column:not(.ubermenu-clear-row)";
 
 	if( $setting['id'] == 'row_column_dividers' ){
 		$selector = ".ubermenu .ubermenu-row-id-$item_id > .ubermenu-column + .ubermenu-column:not(.ubermenu-clear-row)";
@@ -245,16 +245,35 @@ function ubermenu_item_save_submenu_column_divider_color( $item_id , $setting , 
 	ubermenu_set_item_style( $item_id , $selector , $property_map );
 
 
+	//RTL
+	$rtl_selector = ".rtl .ubermenu .ubermenu-submenu-id-$item_id > .ubermenu-column + .ubermenu-column:not(.ubermenu-clear-row)";
+	$rtl_property_map = array(
+		'border-right' => "1px solid $val"
+	);
+	ubermenu_set_item_style( $item_id , $rtl_selector , $rtl_property_map );
+
+
 	//If auto-clear is on, and we have a new row, remove the left border from the first column in the second row
 	if( isset( $saved_settings['submenu_column_default'] ) && $saved_settings['submenu_column_default'] != 'auto' ){
 		if( isset( $saved_settings['submenu_column_autoclear'] ) && $saved_settings['submenu_column_autoclear'] == 'on' ){
+
+			$def = $saved_settings['submenu_column_default'];
+			$cols = substr( $def , strlen( $def ) - 1 );
+
+			//LTR
 			$property_map = array(
 				'border-left'	=> 'none',
 			);
-			$def = $saved_settings['submenu_column_default'];
-			$cols = substr( $def , strlen( $def ) - 1 );
-			$selector = ".ubermenu .ubermenu-submenu-id-$item_id > .ubermenu-column + .ubermenu-column-$def:nth-child({$cols}n+1)";
+			$selector = "body:not(.rtl) .ubermenu .ubermenu-submenu-id-$item_id > .ubermenu-column + .ubermenu-column-$def:nth-child({$cols}n+1)";
 			ubermenu_set_item_style( $item_id , $selector , $property_map );
+
+
+			//RTL
+			$rtl_property_map = array(
+				'border-right'	=> 'none',
+			);
+			$rtl_selector = ".rtl .ubermenu .ubermenu-submenu-id-$item_id > .ubermenu-column + .ubermenu-column-$def:nth-child({$cols}n+1)";
+			ubermenu_set_item_style( $item_id , $rtl_selector , $rtl_property_map );
 		}
 	}
 
@@ -585,6 +604,24 @@ function ubermenu_item_save_image_text_top_padding( $item_id , $setting , $val ,
 
 	$property_map = array(
 		'padding-top'	=>	$val,
+	);
+
+	ubermenu_set_item_style( $item_id , $selector , $property_map );
+
+}
+
+
+
+/* COLUMN BACKGROUND COLOR */
+function ubermenu_item_save_column_background_color( $item_id , $setting , $val , &$saved_settings ){
+	//up( $setting ); //echo $val; //die();
+
+	if( !$val ) return;
+
+	$selector = ".ubermenu .ubermenu-item.ubermenu-item-$item_id";
+
+	$property_map = array(
+		'background'	=> $val
 	);
 
 	ubermenu_set_item_style( $item_id , $selector , $property_map );

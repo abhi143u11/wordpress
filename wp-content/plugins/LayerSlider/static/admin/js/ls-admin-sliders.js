@@ -288,7 +288,9 @@ jQuery(function($) {
 					});
 				},
 				onComplete: function(){
-					importModalWindowTimeline.remove( importModalThumbnailsTransition );
+					if( importModalWindowTimeline ) {
+						importModalWindowTimeline.remove( importModalThumbnailsTransition );
+					}
 				},
 				onReverseComplete: function(){
 					jQuery( 'html, body' ).removeClass( 'ls-no-overflow' );

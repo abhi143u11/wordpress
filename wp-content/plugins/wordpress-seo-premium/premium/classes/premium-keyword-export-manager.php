@@ -6,7 +6,7 @@
  */
 
 /**
- * Class WPSEO_Export_Keywords_Manager
+ * Class WPSEO_Export_Keywords_Manager.
  *
  * Manages exporting keywords.
  */
@@ -133,6 +133,8 @@ class WPSEO_Premium_Keyword_Export_Manager implements WPSEO_WordPress_Integratio
 			'export-keywords-score'    => 'keywords_score',
 			'export-url'               => 'url',
 			'export-title'             => 'title',
+			'export-seo-title'         => 'seo_title',
+			'export-meta-description'  => 'meta_description',
 			'export-readability-score' => 'readability_score',
 		);
 

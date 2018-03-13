@@ -1370,7 +1370,7 @@ function ubermenu_get_menu_style_top_level_arrow_color( $field , $menu_id , &$me
 
 	$val = ubermenu_op( $field['name'] , $menu_id );
 	if( $val ){
-		$selector = ".ubermenu-$menu_id .ubermenu-item-level-0.ubermenu-has-submenu-drop > .ubermenu-target:after";
+		$selector = ".ubermenu-$menu_id .ubermenu-item-level-0.ubermenu-has-submenu-drop > .ubermenu-target > .ubermenu-sub-indicator";
 		$menu_styles[$selector]['color'] = $val;
 	}
 }
@@ -1382,7 +1382,7 @@ function ubermenu_get_menu_style_submenu_arrow_color( $field , $menu_id , &$menu
 
 	$val = ubermenu_op( $field['name'] , $menu_id );
 	if( $val ){
-		$selector = ".ubermenu-$menu_id .ubermenu-submenu .ubermenu-has-submenu-drop > .ubermenu-target:after";
+		$selector = ".ubermenu-$menu_id .ubermenu-submenu .ubermenu-has-submenu-drop > .ubermenu-target > .ubermenu-sub-indicator";
 		$menu_styles[$selector]['color'] = $val;
 	}
 }
@@ -1453,7 +1453,7 @@ function ubermenu_get_menu_style_search_font_size( $field , $menu_id , &$menu_st
 	if( $val ){
 		if( is_numeric( $val ) ) $val.= 'px';
 		$selector = ".ubermenu.ubermenu-$menu_id .ubermenu-search input.ubermenu-search-input";
-		$menu_styles[$selector]['font-size'] = $val;
+		$menu_styles[$selector.", .ubermenu.ubermenu-$menu_id .ubermenu-search button[type='submit']"]['font-size'] = $val;
 		$menu_styles[$selector.'::-webkit-input-placeholder']['font-size'] = $val;
 		$menu_styles[$selector.'::-moz-placeholder']['font-size'] = $val;
 		$menu_styles[$selector.'::-ms-input-placeholder']['font-size'] = $val;
@@ -1613,6 +1613,25 @@ function ubermenu_get_menu_style_icon_width( $field , $menu_id , &$menu_styles )
 		}
 
 		$menu_styles[$selector]['width'] = $icon_width;
+	}
+
+}
+
+/*
+ * ICON NUDGE
+ */
+function ubermenu_get_menu_style_icon_nudge( $field , $menu_id , &$menu_styles ){
+
+	$icon_nudge = ubermenu_op( $field['name'] , $menu_id );
+	if( $icon_nudge !== '' ){
+		$selector = ".ubermenu-$menu_id .ubermenu-icon";
+
+		//Assume pixels if no units provided
+		if( is_numeric( $icon_nudge ) ){
+			$icon_nudge.='px';
+		}
+
+		$menu_styles[$selector]['transform'] = "translateY($icon_nudge)";
 	}
 
 }

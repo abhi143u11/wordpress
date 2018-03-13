@@ -972,6 +972,7 @@ var LayerSlider = {
 		LayerSlider.updateSlidePreviews();
 		LayerSlider.addSlideSortables();
 		LS_activeLayerPageIndex = 0;
+		LS_editorIsDirty = true;
 
 		TweenLite.fromTo($tab[0], 0.4, {
 			scale: 0
@@ -3382,7 +3383,7 @@ var LayerSlider = {
 				if(jQuery(uploadInput).hasClass('ls-slide-image') ) {
 
 					// Set image chooser preview
-					previewImg = !typeof attachment.sizes.thumbnail ? attachment.sizes.thumbnail.url : attachment.sizes.full.url;
+					previewImg = !typeof attachment.sizes.medium ? attachment.sizes.medium.url : attachment.sizes.full.url;
 					LS_GUI.updateImagePicker( jQuery(uploadInput),  previewImg);
 
 					// Add action to UndoManager
@@ -3410,7 +3411,7 @@ var LayerSlider = {
 					for(c = 1; c < attachments.length; c++) {
 
 						// Get preview image url
-						previewImg = !typeof attachments[c].sizes.thumbnail ? attachments[c].sizes.thumbnail.url : attachments[c].sizes.full.url;
+						previewImg = !typeof attachments[c].sizes.medium ? attachments[c].sizes.medium.url : attachments[c].sizes.full.url;
 
 						// Build new slide
 						var newSlideData = jQuery.extend(true, {}, LS_DataSource.getDefaultSlideData());
@@ -3438,7 +3439,7 @@ var LayerSlider = {
 				} else if(jQuery(uploadInput).hasClass('ls-slide-thumbnail') ) {
 
 					// Set image chooser preview
-					previewImg = !typeof attachment.sizes.thumbnail ? attachment.sizes.thumbnail.url : attachment.sizes.full.url;
+					previewImg = !typeof attachment.sizes.medium ? attachment.sizes.medium.url : attachment.sizes.full.url;
 					LS_GUI.updateImagePicker( jQuery(uploadInput),  previewImg);
 
 					// Set current layer image
@@ -3514,7 +3515,7 @@ var LayerSlider = {
 				} else if( jQuery(uploadInput).hasClass('ls-media-image') ) {
 
 					// Set image chooser preview
-					previewImg = !typeof attachment.sizes.thumbnail ? attachment.sizes.thumbnail.url : attachment.sizes.full.url;
+					previewImg = !typeof attachment.sizes.medium ? attachment.sizes.medium.url : attachment.sizes.full.url;
 					LS_GUI.updateImagePicker( jQuery(uploadInput),  previewImg);
 
 					// Add action to UndoManager
@@ -3543,7 +3544,7 @@ var LayerSlider = {
 				} else if( jQuery(uploadInput).hasClass('ls-global-background') ) {
 
 					// Set image chooser preview
-					previewImg = !typeof attachment.sizes.thumbnail ? attachment.sizes.thumbnail.url : attachment.sizes.full.url;
+					previewImg = !typeof attachment.sizes.medium ? attachment.sizes.medium.url : attachment.sizes.full.url;
 					LS_GUI.updateImagePicker( jQuery(uploadInput),  previewImg);
 
 					// Store changes and update the preview
@@ -3556,7 +3557,7 @@ var LayerSlider = {
 				} else if( jQuery(uploadInput).hasClass('ls-yourlogo-upload') ) {
 
 					// Set image chooser preview
-					previewImg = !typeof attachment.sizes.thumbnail ? attachment.sizes.thumbnail.url : attachment.sizes.full.url;
+					previewImg = !typeof attachment.sizes.medium ? attachment.sizes.medium.url : attachment.sizes.full.url;
 					LS_GUI.updateImagePicker( jQuery(uploadInput),  previewImg);
 
 					// Store changes and update the preview
@@ -3569,7 +3570,7 @@ var LayerSlider = {
 				} else if( jQuery(uploadInput).hasClass('ls-slider-preview') ) {
 
 					// Set image chooser preview
-					previewImg = !typeof attachment.sizes.thumbnail ? attachment.sizes.thumbnail.url : attachment.sizes.full.url;
+					previewImg = !typeof attachment.sizes.medium ? attachment.sizes.medium.url : attachment.sizes.full.url;
 					LS_GUI.updateImagePicker( jQuery(uploadInput),  previewImg);
 
 					// Make sure that the meta object exits
@@ -3599,11 +3600,11 @@ var LayerSlider = {
 						url = '/' + attachments[c].url.split('/').slice(3).join('/');
 						if(attachments[c].type === 'video') {
 							hasVideo = true;
-							videos.push({ url: url, mime: attachment.mime });
+							videos.push({ url: url, mime: attachments[c].mime });
 
 						} else if(attachments[c].type === 'audio') {
 							hasAudio = true;
-							audios.push({ url: url, mime: attachment.mime });
+							audios.push({ url: url, mime: attachment[c].mime });
 						}
 					}
 

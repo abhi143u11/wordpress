@@ -27,7 +27,7 @@ class WPSEO_Premium {
 	const OPTION_CURRENT_VERSION = 'wpseo_current_version';
 
 	/** @var string */
-	const PLUGIN_VERSION_NAME = '6.3.1';
+	const PLUGIN_VERSION_NAME = '7.0.3';
 
 	/** @var string */
 	const PLUGIN_VERSION_CODE = '16';
@@ -90,7 +90,6 @@ class WPSEO_Premium {
 	 */
 	public function __construct() {
 		$link_suggestions_service        = new WPSEO_Premium_Link_Suggestions_Service();
-
 		$prominent_words_unindexed_query = new WPSEO_Premium_Prominent_Words_Unindexed_Post_Query();
 		$prominent_words_support         = new WPSEO_Premium_Prominent_Words_Support();
 
@@ -361,9 +360,8 @@ class WPSEO_Premium {
 	 */
 	public function redirect_canonical_fix( $redirect_url, $requested_url ) {
 		$redirects = new WPSEO_Redirect_Option( false );
-		// @todo Replace with call to wp_parse_url() once minimum requirement has gone up to WP 4.7.
-		$path     = parse_url( $requested_url, PHP_URL_PATH );
-		$redirect = $redirects->get( $path );
+		$path      = wp_parse_url( $requested_url, PHP_URL_PATH );
+		$redirect  = $redirects->get( $path );
 		if ( $redirect === false ) {
 			return $redirect_url;
 		}
@@ -493,19 +491,6 @@ class WPSEO_Premium {
 	 */
 	public function change_premium_indicator_text( $text ) {
 		return __( 'Enabled', 'wordpress-seo-premium' );
-	}
-
-	/**
-	 * Add redirects to admin pages so the Yoast scripts are loaded
-	 *
-	 * @param array $admin_pages Array with the admin pages.
-	 *
-	 * @return array
-	 * @deprecated 3.1
-	 */
-	public function add_admin_pages( $admin_pages ) {
-		_deprecated_function( 'WPSEO_Premium::add_admin_pages', 'WPSEO 3.1' );
-		return $admin_pages;
 	}
 
 	/**

@@ -2,8 +2,8 @@
 msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
-"Project-Id-Version: LayerSlider WP 6.7.0\n"
-"POT-Creation-Date: 2018-02-14 20:56+0100\n"
+"Project-Id-Version: LayerSlider WP 6.7.1\n"
+"POT-Creation-Date: 2018-03-05 20:28+0100\n"
 "PO-Revision-Date: 2017-04-23 19:11+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -6178,8 +6178,8 @@ msgstr ""
 msgid "Your Google Fonts library has been updated."
 msgstr ""
 
-#: views/settings.php:36 views/slider_list.php:148
-msgid "Your settings has been updated."
+#: views/settings.php:36
+msgid "Your settings have been updated."
 msgstr ""
 
 #: views/settings.php:57
@@ -6916,6 +6916,10 @@ msgid "%d slider has been successfully imported."
 msgid_plural "%d sliders has been successfully imported."
 msgstr[0] ""
 msgstr[1] ""
+
+#: views/slider_list.php:148
+msgid "Your settings has been updated."
+msgstr ""
 
 #: views/slider_list.php:163
 msgid "Show me"
@@ -7793,7 +7797,7 @@ msgid ""
 "online documentation by clicking on this help menu."
 msgstr ""
 
-#: wp/actions.php:808
+#: wp/actions.php:810
 msgid ""
 "LayerSlider couldn’t download your selected slider. Please check LayerSlider "
 "-> Settings -> System Status for potential issues. The WP Remote functions "
@@ -7801,13 +7805,13 @@ msgid ""
 "connections to our domain."
 msgstr ""
 
-#: wp/actions.php:829
+#: wp/actions.php:831
 msgid ""
 "LayerSlider couldn’t download your selected slider. The server responded "
 "with the following error message: "
 msgstr ""
 
-#: wp/actions.php:845
+#: wp/actions.php:847
 msgid ""
 "LayerSlider couldn’t save the downloaded slider on your server. Please check "
 "LayerSlider -> Settings -> System Status for potential issues. The most "
@@ -7815,29 +7819,29 @@ msgid ""
 "content/uploads/ directory."
 msgstr ""
 
-#: wp/actions.php:1008 wp/actions.php:1035
+#: wp/actions.php:1010 wp/actions.php:1037
 msgid ""
 "It looks like your files isn’t writable, so PHP couldn’t make any changes "
 "(CHMOD)."
 msgstr ""
 
-#: wp/actions.php:1008 wp/actions.php:1035
+#: wp/actions.php:1010 wp/actions.php:1037
 msgid "Cannot write to file"
 msgstr ""
 
-#: wp/actions.php:1022
+#: wp/actions.php:1024
 msgid "It looks like you haven’t selected any skin to edit."
 msgstr ""
 
-#: wp/actions.php:1022
+#: wp/actions.php:1024
 msgid "No skin selected."
 msgstr ""
 
-#: wp/actions.php:1455
+#: wp/actions.php:1457
 msgid "The PHP ZipArchive extension is required to export sliders."
 msgstr ""
 
-#: wp/actions.php:1459
+#: wp/actions.php:1461
 msgid "Product activation is required in order to use this feature."
 msgstr ""
 

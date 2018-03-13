@@ -69,8 +69,8 @@ function ls_get_thumbnail($id = null, $url = null, $blankPlaceholder = false) {
 
 	// Image ID
 	if(!empty($id)) {
-		if($image = wp_get_attachment_thumb_url($id, 'thumbnail')) {
-			return $image;
+		if( $image = wp_get_attachment_image_src( $id, 'medium' ) ) {
+			return $image[0];
 		}
 	}
 

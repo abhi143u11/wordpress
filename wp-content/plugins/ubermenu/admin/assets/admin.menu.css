@@ -36,6 +36,7 @@ body.ubermenu-settings-panel-is-open #wpwrap{
 	transition: opacity .5s ease;
 	white-space:nowrap;
 	left:auto;
+	line-height:12px;
 }
 .menu-item:hover .ubermenu-settings-toggle,
 .menu-item:hover .shiftnav-settings-toggle{ /* Stopgap */
@@ -45,8 +46,10 @@ body.ubermenu-settings-panel-is-open #wpwrap{
 	z-index:50;
 	position:relative;
 	left:auto;
+	margin-left: 5px;
 }
-.ubermenu-settings-toggle i.fa{
+.ubermenu-settings-toggle i[class^="fa"],
+.ubermenu-settings-toggle .svg-inline--fa{
 	font-size:inherit;
 	position:relative;
 }
@@ -83,15 +86,21 @@ body.ubermenu-settings-panel-is-open #wpwrap{
 	color:#f9f9f9;
 	text-shadow:0px 0px 1px rgba(0,0,0,.3);
 	left:100%;
-	padding:3px 5px;
+	padding:0 3px;
+	line-height:18px;
+	height:100%;
 	display:inline-block;
 	top:0;
-	left:0;
+	left:100%;
 }
 .ubermenu-unsaved:hover .ubermenu-unsaved-alert-message{
 	max-width:100px;
 	visibility:visible;
 	opacity:1;
+}
+.ubermenu-unsaved:not(:hover) .ubermenu-settings-toggle {
+    margin-top: 2px;
+    display: inline-block;
 }
 
 /* Wrapper */
@@ -126,7 +135,7 @@ body.ubermenu-settings-panel-is-open #wpwrap{
 
 	box-shadow:0 0 10px #111;
 	backface-visibility:hidden; /* fixed flash on hover */
-	
+
 }
 .ubermenu-menu-item-settings-open{
 	width:100%;
@@ -157,9 +166,10 @@ body.ubermenu-settings-panel-is-open #wpwrap{
 	position:fixed;
 	z-index:100;
 	margin-top:-50px;
-	background:#191919;	
+	background:#191919;
 	border-bottom: 1px solid #000;
 	box-shadow: 0 0 1px #333;
+	text-align:left;
 }
 .ubermenu-up-link{
 	color:#fff;
@@ -187,7 +197,7 @@ body.ubermenu-settings-panel-is-open #wpwrap{
 	min-height:200px;
 	position:relative;
 	z-index:50;
-	
+
 	color:#eee;
 	float:left;
 }
@@ -227,7 +237,7 @@ body.ubermenu-settings-panel-is-open #wpwrap{
 	font-size:18px;
 	font-weight:normal;
 	padding:3px 0;
-	line-height:20px;	
+	line-height:20px;
 	float:left;
 	margin-right:20px;
 }
@@ -235,7 +245,7 @@ body.ubermenu-settings-panel-is-open #wpwrap{
 	color:#fff;
 	text-decoration:none;
 }
-.ubermenu-menu-item-title a:before{
+/*.ubermenu-menu-item-title a:before{
 	content:"\f124";
 	font-family:"FontAwesome";
 	font-weight:normal;
@@ -248,10 +258,31 @@ body.ubermenu-settings-panel-is-open #wpwrap{
 	transition:all .3s ease-in;
 	text-shadow:0 0 10px #000;
 }
-.ubermenu-menu-item-title a:hover:before{
+*/
+.ubermenu-menu-item-title a i[class^="fa"],
+.ubermenu-menu-item-title a .svg-inline--fa{
+	position:absolute;
+	left:-13px;
+	margin-top:2px;
+	font-size:14px;
+	color:#999;
+	text-align:center;
+	opacity:.5;
+	transition:all .3s ease-in;
+	text-shadow:0 0 10px #000;
+}
+/*.ubermenu-menu-item-title a:hover:before{
 	visibility:visible;
 	opacity:1;
-	transform:rotate(0deg);	
+	transform:rotate(0deg);
+	color:#4D90FE;
+	text-shadow:0 0 3px #000, 0 0 35px rgba(255,255,255,.9);
+}*/
+.ubermenu-menu-item-title a:hover i[class^="fa"],
+.ubermenu-menu-item-title a:hover .svg-inline--fa{
+	visibility:visible;
+	opacity:1;
+	transform:rotate(0deg);
 	color:#4D90FE;
 	text-shadow:0 0 3px #000, 0 0 35px rgba(255,255,255,.9);
 }
@@ -298,7 +329,7 @@ body.ubermenu-settings-panel-is-open #wpwrap{
 .ubermenu-menu-item-tab{
 	display:block;
 	margin:0;
-	
+
 }
 .ubermenu-menu-item-tab a{
 	position: relative;
@@ -326,7 +357,8 @@ body.ubermenu-settings-panel-is-open #wpwrap{
 	top:50%;
 	margin-top:-6px;
 }
-.ubermenu-menu-item-tab .fa{
+.ubermenu-menu-item-tab i[class^="fa"],
+.ubermenu-menu-item-tab .svg-inline--fa{
 	margin-left:10px;
 	font-size:14px;
 	width:20px;
@@ -353,7 +385,8 @@ body.ubermenu-settings-panel-is-open #wpwrap{
 	margin-top: 0;
 	font-size: 20px;
 }
-.ubermenu-menu-item-tab-header h3 i.fa{
+.ubermenu-menu-item-tab-header h3 i[class^="fa"],
+.ubermenu-menu-item-tab-header h3 .svg-inline--fa{
 	margin-right:6px;
 }
 .ubermenu-menu-item-tab-header-info,
@@ -537,7 +570,7 @@ body.ubermenu-settings-panel-is-open #wpwrap{
 	color:#aaa;
 	font-size:11px;
 }
-.ubermenu-radio-blocks .ubermenu-radio-label-with-image{	
+.ubermenu-radio-blocks .ubermenu-radio-label-with-image{
 	min-height:125px;
 }
 .ubermenu-radio-blocks .ubermenu-radio-label-with-image input{
@@ -592,7 +625,7 @@ h4.ubermenu-radio-group-title{
 }
 
 
-.ubermenu-autocomplete, 
+.ubermenu-autocomplete,
 .ubermenu-autocomplete *{
 	-webkit-box-sizing:border-box;
 	-moz-box-sizing:border-box;
@@ -685,13 +718,13 @@ h4.ubermenu-radio-group-title{
 
 /* Saving */
 
-.ubermenu-menu-item-save-button-wrapper{	
+.ubermenu-menu-item-save-button-wrapper{
 	right:0px;
 	vertical-align:top;
-	
+
 	position:absolute;
 	top:0px;
-	margin-top:0;	
+	margin-top:0;
 }
 .ubermenu-menu-item-settings-open .ubermenu-menu-item-save-button-wrapper{
 	position:fixed;
@@ -739,7 +772,7 @@ h4.ubermenu-radio-group-title{
 .ubermenu-menu-item-meta-ops-wrap:hover .ubermenu-menu-item-meta-ops{
 	max-width:500px;
 
-	
+
 	padding-right:10px;
 }
 
@@ -773,7 +806,7 @@ h4.ubermenu-radio-group-title{
 /* Clear Settings */
 .ubermenu-clear-settings{
 	float: right;
-	padding: 10px 10px;
+	padding: 11px 10px;
 	color: #FFF;
 	margin-left:10px;
 	cursor:pointer;
@@ -802,6 +835,7 @@ h4.ubermenu-radio-group-title{
 	padding:10px 10px;
 	color:white;
 	height:40px;
+	font-size:12px;
 }
 .ubermenu-status-message{
 	max-width:0;
@@ -827,9 +861,10 @@ h4.ubermenu-radio-group-title{
 	margin:10px 0;
 	border:none;
 }
-.ubermenu-menu-item-status i{
+.ubermenu-menu-item-status i,
+.ubermenu-menu-item-status .svg-inline--fa{
 	display:none;
-	padding:3px 10px;
+	margin:3px 10px;
 	float:left;
 
 	/*position:relative;
@@ -850,15 +885,16 @@ h4.ubermenu-radio-group-title{
 .ubermenu-menu-item-status-error{
 	background:#C50B0B;
 }
-.ubermenu-menu-item-status-save i.ubermenu-status-save,
-.ubermenu-menu-item-status-success i.ubermenu-status-success,
-.ubermenu-menu-item-status-working i.ubermenu-status-working,
-.ubermenu-menu-item-status-warning i.ubermenu-status-warning,
-.ubermenu-menu-item-status-error i.ubermenu-status-error{
+.ubermenu-menu-item-status-save .ubermenu-status-save,
+.ubermenu-menu-item-status-success .ubermenu-status-success,
+.ubermenu-menu-item-status-working .ubermenu-status-working,
+.ubermenu-menu-item-status-warning .ubermenu-status-warning,
+.ubermenu-menu-item-status-error .ubermenu-status-error{
 	display:inline-block;
 }
 
-.ubermenu-menu-item-status i.ubermenu-status-working{
+.ubermenu-menu-item-status i.ubermenu-status-working,
+.ubermenu-menu-item-status .svg-inline--fa.ubermenu-status-working{
 	-webkit-animation:spin 2s infinite;
 }
 
@@ -1001,7 +1037,7 @@ h4.ubermenu-radio-group-title{
 	background:#ccc;
 }
 .ubermenu-icon-wrap.ubermenu-remove-icon{
-	width:auto;	
+	width:auto;
 	float:right;
 }
 
@@ -1102,7 +1138,7 @@ h4.ubermenu-radio-group-title{
 .ubermenu-js-check-peek{
 	background:#4D90FE;
 	color:#fff;
-	
+
 	font-weight:bold;
 	padding:20px;
 	float:right;
@@ -1118,7 +1154,7 @@ h4.ubermenu-radio-group-title{
 
 	width:500px;
 	max-width:100%;
-	
+
 	transition:height .2s ease;
 }
 .ubermenu-js-check-details p{
@@ -1348,4 +1384,17 @@ h4.ubermenu-radio-group-title{
 .ubermenu-menu-item-panel-type-ubermenu_dynamic_terms .ubermenu-menu-item-setting-custom_url,
 .ubermenu-menu-item-panel-type-ubermenu_dynamic_posts .ubermenu-menu-item-setting-custom_url{
 	display:none;
+}
+
+
+
+
+/* RTL */
+
+.rtl .ubermenu-menu-item-setting-label,
+.rtl .ubermenu-item-setting-title,
+.rtl .ubermenu-menu-item-setting-input-wrap,
+.rtl .ubermenu-radio-multiple-subgroups .ubermenu-radio-subgroup,
+.rtl .ubermenu-radio-blocks .ubermenu-radio-option{
+	float:right;
 }

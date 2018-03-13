@@ -13,7 +13,9 @@
 .wlb-custom-icon:before,
 [class^="icon-"].wlb-custom-icon div.wp-menu-image:before,
 [class*=" icon-"].wlb-custom-icon div.wp-menu-image:before,
-#adminmenu #toplevel_page_woocommerce .menu-icon-generic[class*="icon-"].wlb-custom-icon div.wp-menu-image:before {
+#adminmenu #toplevel_page_woocommerce .menu-icon-generic[class*="icon-"].wlb-custom-icon div.wp-menu-image:before,
+.wlb-iconset-helper .wlb-icon.wp-menu-image:before,
+.wlb-iconset-helper .wlb-icon:before{
 	font-family: 'wlb-' !important;
 	speak: none;
 	font-style: normal;

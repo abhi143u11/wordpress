@@ -45,7 +45,7 @@ class UberMenu_Settings_API {
 			wp_enqueue_style( 'wp-color-picker' );
 			wp_enqueue_script('wp-color-picker');
 			wp_enqueue_script( 'jquery' );
-			
+
 			wp_enqueue_media();
 		}
 	}
@@ -297,7 +297,7 @@ class UberMenu_Settings_API {
 	 * @param array   $args settings field args
 	 */
 	function callback_html( $args ) {
-		
+
 		if( function_exists( $args['desc'] ) ){
 			echo $args['desc']();
 		}
@@ -456,8 +456,8 @@ class UberMenu_Settings_API {
 		echo $html;
 	}
 */
-	
-	
+
+
 	/**
 	 * Sanitize callback for Settings API
 	 */
@@ -466,7 +466,7 @@ class UberMenu_Settings_API {
 			$sanitize_callback = $this->get_sanitize_callback( $option_slug );
 
 			// If callback is set, call it
-			if ( $sanitize_callback ) { 
+			if ( $sanitize_callback ) {
 				$options[ $option_slug ] = call_user_func( $sanitize_callback, $option_value );
 				continue;
 			}
@@ -595,7 +595,7 @@ class UberMenu_Settings_API {
 
 							<?php do_action( 'wsa_form_top_' . $form['id'], $form ); ?>
 							<?php settings_fields( $form['id'] ); ?>
-							
+
 							<!-- Tabs -->
 							<?php //up( $form ); ?>
 							<div class="uber-sub-sections">
@@ -604,14 +604,14 @@ class UberMenu_Settings_API {
 								<?php //echo 'do '.$form['id'] . '-' . $section_id; ?>
 								<a class="uber-sub-section-tab" data-section-group="<?php echo $section_id; ?>"><?php echo $section_ops['title']; ?></a>
 								<?php endforeach; ?>
-							</div>							
-							
+							</div>
+
 							<div class="uber-form-table-wrap">
 								<div class="uber-form-table-wrap-inner">
 									<?php $this->do_settings_sections( $form['id'] ); ?>
 								</div>
 							</div>
-							
+
 							<?php do_action( 'wsa_form_bottom_' . $form['id'], $form ); ?>
 
 							<div class="uber-submit-wrap">
@@ -625,6 +625,29 @@ class UberMenu_Settings_API {
 		</div>
 		<?php
 		$this->script();
+		//$this->show_fields();
+	}
+
+
+	function show_fields(){
+		//uberp( $this->settings_fields['ubermenu_main'] , 2 );
+		//$fields = ubermenu_get_settings_fields_instance( 'main' );
+		//$fields = $this->settings_fields['ubermenu_main'];
+		//$fields = ubermenu_get_settings_fields();
+
+		$section_id = UBERMENU_PREFIX.'main';
+		$all_fields = array( $section_id => ubermenu_get_settings_fields_instance( 'main' ) );
+		$all_fields = apply_filters( 'ubermenu_settings_panel_fields' , $all_fields );
+		$fields = $all_fields[$section_id];
+		ksort( $fields );
+
+		//uberp( $fields , 3 );
+		foreach( $fields as $k => $field ){
+			$label = '&nbsp;&nbsp;'.$k.' '.$field['label'];
+			if( $field['type'] == 'header' ) echo "<br/><strong>$label</strong>";
+			else echo $label;
+			echo "<br/>";
+		}
 	}
 
 	/* From wp-admin/includes/templates.php 'do_settings_sections()' */
@@ -689,11 +712,11 @@ class UberMenu_Settings_API {
 			else{
 				echo '<td colspan="2">';
 			}
-			
+
 			call_user_func($field['callback'], $field['args']);
 			echo '</td>';
 			echo '</tr>';
-			
+
 			$k++;
 		}
 	}
@@ -732,7 +755,7 @@ class UberMenu_Settings_API {
 				if( console && init_point == 'window.load' ) console.log( 'UberMenu Setting API initialized via ' + init_point );
 
 
-			
+
 
 				//Initiate Color Picker
 				$('.wp-color-picker-field').wpColorPicker();
@@ -758,7 +781,7 @@ class UberMenu_Settings_API {
 					});
 				});
 
-				
+
 				if (activetab != '' && $(activetab + '-tab').length ) {
 					$(activetab + '-tab').addClass('nav-tab-active');
 				}
@@ -783,19 +806,19 @@ class UberMenu_Settings_API {
 
 				// Uploading files
 				var file_frame;
-				 
+
 				jQuery( '.set-image-wrapper' ).on( 'click', '.button' , function( event ){
 
 					var $wrap = $( this ).parents( '.set-image-wrapper' );
-				 
+
 				    event.preventDefault();
-				 
+
 				    // If the media frame already exists, reopen it.
 				    if ( file_frame ) {
 				      file_frame.open();
 				      return;
 				    }
-				 
+
 				    // Create the media frame.
 				    file_frame = wp.media.frames.file_frame = wp.media({
 				      title: jQuery( this ).data( 'uploader_title' ),
@@ -804,7 +827,7 @@ class UberMenu_Settings_API {
 				      },
 				      multiple: false  // Set to true to allow multiple files to be selected
 				    });
-				 
+
 				    // When an image is selected, run a callback.
 				    file_frame.on( 'select', function() {
 				      // We set multiple to false so only get one image from the uploader
@@ -814,7 +837,7 @@ class UberMenu_Settings_API {
 				      $wrap.find( '.image-setting-wrap' ).html( '<img src="' + attachment.url + '"/>' );
 				      $wrap.find( 'input.image-url' ).val( attachment.id );
 				    });
-				 
+
 				    // Finally, open the modal
 				    file_frame.open();
 				});

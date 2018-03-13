@@ -2,11 +2,15 @@
 Author: Alberto Lau (RightHere LLC)
 Author URL: http://plugins.righthere.com/white-label-branding/
 Tags: white label branding, custom menus, custom dashboard panel, custom login, cms, wordpress, role manager, capability manager, wp ms, multisite, custom colors, downloadable content, import and export
-Requires at least: 3.9
-Tested up to: 4.8.2
-Stable tag: 4.1.9.81576
+Requires at least: 4.0
+Tested up to: 4.9.4
+Stable tag: 4.2.0.83030
+
 
 ======== CHANGE LOG ========
+Version 4.2.0.83030 - March 7, 2018
+* Bug Fixed: Missing icons for Admin Menu Settings
+
 Version 4.1.9.81576 - September 26, 2017
 * Bug Fixed: PHP warning displayed when invalid username is set as WLB Administrator (when PHP warnings are active)
 * Bug Fixed: Some PHP warnings showing on PHP 7 console, about “Creating default object from empty value” in class.wlb_dashboard.php

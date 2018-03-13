@@ -1,7 +1,7 @@
 <?php
 
 if( !defined( 'UBERMENU_UPDATES_URL' ) ){
-	define( 'UBERMENU_UPDATES_URL' , 'http://updates.sevenspark.com/ubermenu' );	//TODO
+	define( 'UBERMENU_UPDATES_URL' , 'https://updates.sevenspark.com/ubermenu' );	//TODO
 }
 if( !defined( 'UBERMENU_AUTO_UPDATES' ) ){
 	define( 'UBERMENU_AUTO_UPDATES' , 1 );
@@ -23,7 +23,7 @@ function ubermenu_update_checker(){
 	$settings = ubermenu_updates_get_account_settings();
 
 	if( is_array( $settings ) && isset( $settings['envato_username'] ) ){
-	
+
 		//$uber_update_checker = new PluginUpdateChecker_1_6 (
 		$uber_update_checker = new PluginUpdateChecker_3_2 (
 			//$url,
@@ -61,18 +61,18 @@ function ubermenu_updater_check_download_notice(){
 				//uberp( $plugin_updates , 3 );
 				if( isset( $plugin_updates[ 'ubermenu/ubermenu.php' ] ) ): ?>
 					<div class="notice notice-warning">
-						<?php //<p><strong>UberMenu</strong> automatic updates are in beta.  To test them out, please see <a target="_blank" href="http://sevenspark.com/docs/ubermenu-3/updates/automatic">Automatic Updates</a>.  Make sure to run a backup first!</p> ?>
+						<?php //<p><strong>UberMenu</strong> automatic updates are in beta.  To test them out, please see <a target="_blank" href="https://sevenspark.com/docs/ubermenu-3/updates/automatic">Automatic Updates</a>.  Make sure to run a backup first!</p> ?>
 						<p><strong>UberMenu</strong> automatic updates have been disabled.  To re-enable them, set <code>UBERMENU_AUTO_UPDATES</code> to <code>1</code> in wp-config.php</p>
 
 					</div>
-				<?php endif; 
+				<?php endif;
 			}
 			else{
 				$plugin_updates = get_plugin_updates();
 				//uberp( $plugin_updates , 3 );
 				if( isset( $plugin_updates[ 'ubermenu/ubermenu.php' ] ) ): ?>
 					<div class="notice notice-success">
-						<p><strong>UberMenu</strong> Automatic Update capability has been activated.  <a target="_blank" href="http://sevenspark.com/docs/ubermenu-3/updates/automatic">Make sure to run a backup first to be safe!</a></p>
+						<p><strong>UberMenu</strong> Automatic Update capability has been activated.  <a target="_blank" href="https://sevenspark.com/docs/ubermenu-3/updates/automatic">Make sure to run a backup first to be safe!</a></p>
 					</div>
 				<?php endif;
 			}
@@ -93,7 +93,7 @@ function ubermenu_filter_update_checks( $queryArgs ) {
 	$queryArgs['site_url'] = get_site_url( null , '' , 'http' );
 	$queryArgs['ubermenu_version'] = UBERMENU_VERSION;
 	$queryArgs['auto_updates'] = UBERMENU_AUTO_UPDATES;
-    
+
     return $queryArgs;
 }
 
@@ -163,7 +163,7 @@ function ubermenu_updates_section( $sections ){
 
 	$sections[] = $update_section;
 
-	return $sections;	
+	return $sections;
 }
 function ubermenu_updates_fields( $fields = array() ){
 	$section = UBERMENU_PREFIX.'updates';
@@ -256,7 +256,7 @@ function ubermenu_updates_fields( $fields = array() ){
 function ubermenu_unlicensed_notice(){
 	?>
 	<div id="ubermenu-unlicensed-notice" class="ubermenu-settings-notice ubermenu-settings-notice-large">
-		<i class="ubermenu-settings-notice-icon fa fa-warning"></i>
+		<i class="ubermenu-settings-notice-icon fas fa-exclamation-triangle"></i>
 		<strong>UberMenu Plugin License Required</strong>
 		<p>This section requires a valid UberMenu plugin license - as opposed to a theme license - which can be <a target="_blank" href="http://codecanyon.net/item/ubermenu-wordpress-mega-menu-plugin/154703?ref=sevenspark">purchased here</a> if you do not already have one.  An UberMenu license code entitles you to updates and support directly from the plugin author; otherwise, support and updates will be provided by <?php echo defined( 'UBERMENU_PACKAGED_THEME' ) ? UBERMENU_PACKAGED_THEME : 'the author of your theme'; ?></p>
 		<br/>
@@ -283,7 +283,7 @@ function ubermenu_field_backup_notice(){
 
 	//Find the Backups directory
 	$uploads = wp_upload_dir();
-	
+
 	$uploads_dir = trailingslashit( $uploads['basedir'] );
 	$backups_dir = $uploads_dir . 'ubermenu_backups/';
 
@@ -291,11 +291,11 @@ function ubermenu_field_backup_notice(){
 	$backups_url = $uploads_url . 'ubermenu_backups/';
 
 	if( !is_writable( $uploads_dir ) ){
-		//TODO - readd this: <strong>These files will be lost when updating if not backed up first</strong></p>  
+		//TODO - readd this: <strong>These files will be lost when updating if not backed up first</strong></p>
 		$note = '<p>The uploads directory is not writable by the server ( <code>'.$uploads_dir.'</code> ).  </p><p>UberMenu will not automatically be able to back up your <strong><code>custom.css</code></strong> and <strong><code>custom.js</code></strong> if you create them.  Please make this directory writable if you wish to automatically back up these files, otherwise you can back them up and restore manually after plugin update. <p>(If you are not using <code>custom.css</code> or <code>custom.js</code>, you can safely ignore this message)</p>';
 
-		$msg.= '<div id="setting-error-update-write" class="ubermenu-settings-notice ubermenu-settings-notice-large ubermenu-settings-error">' . 
-				'<i class="ubermenu-settings-notice-icon fa fa-warning"></i>'.
+		$msg.= '<div id="setting-error-update-write" class="ubermenu-settings-notice ubermenu-settings-notice-large ubermenu-settings-error">' .
+				'<i class="ubermenu-settings-notice-icon fas fa-exclamation-triangle"></i>'.
 				'<strong>Automatic Backups Not Available</strong>'.
 				'<p>'.$note.'</p></div>';
 	}
@@ -309,10 +309,10 @@ function ubermenu_field_backup_notice(){
 
 			$backups_exist = true;
 
-			$msg.= '<div class="ubermenu-settings-notice ubermenu-settings-success">' . 
-				'<i class="ubermenu-settings-notice-icon fa fa-check"></i>'.
+			$msg.= '<div class="ubermenu-settings-notice ubermenu-settings-success">' .
+				'<i class="ubermenu-settings-notice-icon fas fa-check"></i>'.
 				'<strong>custom.css backup available</strong>'.
-				' <a href="'.$custom_css_url .'" target="_blank" download="custom.css"><i class="fa fa-download"></i></a>'.
+				' <a href="'.$custom_css_url .'" target="_blank" download="custom.css"><i class="fas fa-download"></i></a>'.
 				'</div>';
 		}
 
@@ -322,10 +322,10 @@ function ubermenu_field_backup_notice(){
 
 			$backups_exist = true;
 
-			$msg.= '<div class="ubermenu-settings-notice ubermenu-settings-success">' . 
-				'<i class="ubermenu-settings-notice-icon fa fa-check"></i>'.
+			$msg.= '<div class="ubermenu-settings-notice ubermenu-settings-success">' .
+				'<i class="ubermenu-settings-notice-icon fas fa-check"></i>'.
 				'<strong>custom.js backup available</strong>'.
-				' <a href="'.$custom_js_url .'" download="custom.js" target="_blank"><i class="fa fa-download"></i></a>'.
+				' <a href="'.$custom_js_url .'" download="custom.js" target="_blank"><i class="fas fa-download"></i></a>'.
 				'</div>';
 		}
 
@@ -334,16 +334,16 @@ function ubermenu_field_backup_notice(){
 		if( file_exists( $backups_dir ) ){
 
 			if( file_exists( $custom_dir . 'custom.css' ) && !is_writable( $backups_dir . 'css' ) ){
-				$msg.= '<div class="ubermenu-settings-notice ubermenu-settings-error">' . 
-					'<i class="ubermenu-settings-notice-icon fa fa-warning"></i>'.
+				$msg.= '<div class="ubermenu-settings-notice ubermenu-settings-error">' .
+					'<i class="ubermenu-settings-notice-icon fas fa-exclamation-triangle"></i>'.
 					'<strong>Daily CSS backups not writable</strong>'.
 					' <p>UberMenu attempts to save daily backups, but this directory is not writable. <code>'.$backups_dir.'css/</code></p>'.
 					'</div>';
 			}
 
 			if( file_exists( $custom_dir . 'custom.js' ) && !is_writable( $backups_dir . 'js' ) ){
-				$msg.= '<div class="ubermenu-settings-notice ubermenu-settings-error">' . 
-					'<i class="ubermenu-settings-notice-icon fa fa-warning"></i>'.
+				$msg.= '<div class="ubermenu-settings-notice ubermenu-settings-error">' .
+					'<i class="ubermenu-settings-notice-icon fas fa-exclamation-triangle"></i>'.
 					'<strong>Daily JS backups not writable</strong>'.
 					' <p>UberMenu attempts to save daily backups, but this directory is not writable. <code>'.$backups_dir.'js/</code></p>'.
 					'</div>';
@@ -357,24 +357,24 @@ function ubermenu_field_backup_notice(){
 
 			if( file_exists( $custom_dir.'custom.css' ) ||
 				file_exists( $custom_dir.'custom.js' )){
-				$msg.= '<div class="ubermenu-settings-notice ubermenu-settings-success"><i class="fa fa-info-circle"></i> No backups found.  If this message is present after refreshing, please check that your /uploads directory is writable.</div>';
+				$msg.= '<div class="ubermenu-settings-notice ubermenu-settings-success"><i class="fas fa-info-circle"></i> No backups found.  If this message is present after refreshing, please check that your /uploads directory is writable.</div>';
 			}
 			else{
-				$msg.= '<div class="ubermenu-settings-notice ubermenu-settings-success"><i class="fa fa-info-circle"></i> No custom assets in use.</div>';
+				$msg.= '<div class="ubermenu-settings-notice ubermenu-settings-success"><i class="fas fa-info-circle"></i> No custom assets in use.</div>';
 			}
 		}
 
 	}
 
-	
+
 	if( UBERMENU_AUTO_UPDATES && ubermenu_op( 'purchase_code' , 'updates' , '' ) ){
 		$msg.= '<br/><br/><p class="notice notice-success clear">UberMenu Automatic Updates capability has been activated</p>';
 	}
-	
 
-	
-	
-	
+
+
+
+
 
 	return $msg;
 }
@@ -382,7 +382,7 @@ function ubermenu_field_backup_notice(){
 
 
 
-
+//This only runs in the admin because this file is only loaded in the admin
 function ubermenu_update_db_check() {
     if( get_site_option( UBERMENU_VERSION_KEY ) != UBERMENU_VERSION ){
         ubermenu_run_update();
@@ -391,6 +391,24 @@ function ubermenu_update_db_check() {
 add_action( 'plugins_loaded', 'ubermenu_update_db_check' );
 
 function ubermenu_run_update(){
+
+	//Restore custom.css and custom.js if they exist
 	ubermenu_restore_custom_assets();
+
+	//Regenerate custom styles and custom prefix stylesheets
+	//add_action( 'wp' , 'ubermenu_regenerate_custom_generated' ); //only runs on backend because this file is not loaded on front end
+	add_action( 'in_admin_header' , 'ubermenu_regenerate_custom_generated' );
+
+	//Update the version to the current version
 	update_site_option( UBERMENU_VERSION_KEY , UBERMENU_VERSION );
 }
+
+function ubermenu_regenerate_custom_generated(){
+
+	//Invalidate Customizer settings so they'll be regenerated
+	ubermenu_reset_generated_styles();
+
+	//Regenerate custom prefix files
+	ubermenu_booster_prefix_generate_all();
+}
+//ubermenu_run_update(); //TODO REMOVE

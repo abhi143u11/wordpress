@@ -1,6 +1,6 @@
 <?php
 
-define( 'UBERMENU_EDD_UPDATES_URL', 'http://sevenspark.com' );
+define( 'UBERMENU_EDD_UPDATES_URL', 'https://sevenspark.com' );
 define( 'UBERMENU_ICONS_EDD_NAME', 'UberMenu Icons Extension' );
 define( 'UBERMENU_STICKY_EDD_NAME', 'UberMenu Sticky Extension' );
 define( 'UBERMENU_CONDITIONALS_EDD_NAME', 'UberMenu Conditionals Extension' );
@@ -14,27 +14,27 @@ if( !defined( 'UBERMENU_CONDITIONALS_VERSION' ) )
 
 
 if( !defined( 'UBERMENU_EXT_ICONS_UPDATES_URL' ) )
-	define( 'UBERMENU_EXT_ICONS_UPDATES_URL' , 'http://updates.sevenspark.com/ubermenu-icons' );	//TODO
+	define( 'UBERMENU_EXT_ICONS_UPDATES_URL' , 'https://updates.sevenspark.com/ubermenu-icons' );	//TODO
 
 if( !defined( 'UBERMENU_EXT_ICONS_UPDATE_NOTICES_KEY' ) )
 	define( 'UBERMENU_EXT_ICONS_UPDATE_NOTICES_KEY' , '_ubermenu_ext_icons_update_errors' );
 
 
 if( !defined( 'UBERMENU_EXT_STICKY_UPDATES_URL' ) )
-	define( 'UBERMENU_EXT_STICKY_UPDATES_URL' , 'http://updates.sevenspark.com/ubermenu-sticky' );	//TODO
+	define( 'UBERMENU_EXT_STICKY_UPDATES_URL' , 'https://updates.sevenspark.com/ubermenu-sticky' );	//TODO
 
 if( !defined( 'UBERMENU_EXT_STICKY_UPDATE_NOTICES_KEY' ) )
 	define( 'UBERMENU_EXT_STICKY_UPDATE_NOTICES_KEY' , '_ubermenu_ext_sticky_update_errors' );
 
 
 if( !defined( 'UBERMENU_EXT_CONDITIONALS_UPDATES_URL' ) )
-	define( 'UBERMENU_EXT_CONDITIONALS_UPDATES_URL' , 'http://updates.sevenspark.com/ubermenu-conditionals' );	//TODO
+	define( 'UBERMENU_EXT_CONDITIONALS_UPDATES_URL' , 'https://updates.sevenspark.com/ubermenu-conditionals' );	//TODO
 if( !defined( 'UBERMENU_EXT_CONDITIONALS_UPDATE_NOTICES_KEY' ) )
 	define( 'UBERMENU_EXT_CONDITIONALS_UPDATE_NOTICES_KEY' , '_ubermenu_ext_conditionals_update_errors' );
 
 
 	if( !defined( 'UBERMENU_EXT_SKINS_FLAT_UPDATES_URL' ) )
-		define( 'UBERMENU_EXT_SKINS_FLAT_UPDATES_URL' , 'http://updates.sevenspark.com/ubermenu-skins-flat' );	//TODO
+		define( 'UBERMENU_EXT_SKINS_FLAT_UPDATES_URL' , 'https://updates.sevenspark.com/ubermenu-skins-flat' );	//TODO
 	if( !defined( 'UBERMENU_EXT_SKINS_FLAT_UPDATE_NOTICES_KEY' ) )
 		define( 'UBERMENU_EXT_SKINS_FLAT_UPDATE_NOTICES_KEY' , '_ubermenu_ext_skins_flat_update_errors' );
 
@@ -350,7 +350,7 @@ function ubermenu_updates_extensions_fields( $fields = array() ){
 	$fields[$section][] = array(
 			'name'	=> 'extensions_header',
 			'label' => __( 'Extensions Licenses' , 'ubermenu' ),
-			'desc'	=> __( 'Enter licenses for any extensions installed below to receive automatic updates.  ', 'ubermenu' ) . '<a target="_blank" href="http://sevenspark.com/goods/category/wordpress-plugins/ubermenu-extensions?src=plugin">View Extensions</a>',
+			'desc'	=> __( 'Enter licenses for any extensions installed below to receive automatic updates.  ', 'ubermenu' ) . '<a target="_blank" href="https://sevenspark.com/goods/category/wordpress-plugins/ubermenu-extensions?src=plugin">View Extensions</a>',
 			'type'	=> 'header',
 			'group'	=> 'extensions',
 		);

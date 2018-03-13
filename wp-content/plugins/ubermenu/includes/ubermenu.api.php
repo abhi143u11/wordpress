@@ -46,7 +46,7 @@ function ubermenu_toggle( $target = '_any_' , $config_id = 'main' , $echo = true
 
 	$toggle = '<'.$tag . $aria . $id.' class="'.$class.'" data-ubermenu-target="'.
 				$target.'">';
-	if( $icon_class ) $toggle.= '<i class="fa fa-'.$icon_class.'"></i>';
+	if( $icon_class ) $toggle.= '<i class="fas fa-'.$icon_class.'"></i>';
 	if( $toggle_content ) $toggle.= do_shortcode( $toggle_content );
 	$toggle.= '</'.$tag.'>';
 

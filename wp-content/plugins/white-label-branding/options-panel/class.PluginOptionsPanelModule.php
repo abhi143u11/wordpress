@@ -704,7 +704,6 @@ class PluginOptionsPanelModule {
 		$existing_options = apply_filters('pop-existing-options_'.$this->id,$existing_options);
 ?>
 <div class="wrap">
-<?php screen_icon('options-general'); ?>
 <h2><?Php echo $this->menu_text?></h2>
 <?php echo isset($_REQUEST['updated'])?'<div class="updated"><p>'.__('Options updated.','pop').'</p></div>':'' ?>
 <div id="sys_msg"></div>

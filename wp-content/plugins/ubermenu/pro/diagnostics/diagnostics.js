@@ -59,16 +59,16 @@
 
 	//Run General Diagnostics
 
-	var umd = '<div class="ubermenu-diagnostics-button"><i class="fa fa-stethoscope"></i></div><div id="ubermenu-diagnostics">';
+	var umd = '<div class="ubermenu-diagnostics-button"><i class="fas fa-stethoscope"></i></div><div id="ubermenu-diagnostics">';
 
-		umd+= '<h3 class="ubermenu-diagnostics-toggle"><i class="fa fa-stethoscope"></i> UberMenu Diagnostics (Alpha)</h3>';
+		umd+= '<h3 class="ubermenu-diagnostics-toggle"><i class="fas fa-stethoscope"></i> UberMenu Diagnostics (Alpha)</h3>';
 
 		umd+= '<div class="umd-inner">';
 
 		umd+= 	'<div class="umd-tabs">' +
-					'<a class="umd-tab umd-tab-current" href="#umd-status-check"><i class="fa fa-tachometer"></i> Status Check</a>' +
-					'<a class="umd-tab" href="#umd-site-data"><i class="fa fa-desktop"></i> Site Info</a>' +
-					'<a class="umd-tab" href="#umd-tools"><i class="fa fa-wrench"></i> Tools</a>' +
+					'<a class="umd-tab umd-tab-current" href="#umd-status-check"><i class="fas fa-tachometer-alt"></i> Status Check</a>' +
+					'<a class="umd-tab" href="#umd-site-data"><i class="fas fa-desktop"></i> Site Info</a>' +
+					'<a class="umd-tab" href="#umd-tools"><i class="fas fa-wrench"></i> Tools</a>' +
 				'</div>';
 
 		umd+= '<div class="umd-tab-panels">';
@@ -267,7 +267,7 @@
 
 		//Tools
 		umd+= '<div id="umd-tools" class="umd-tab-panel">';
-		umd+= '<a class="umd-tool-button" id="umd-tool-residualstyling-button" href="#">Run Residual Styling Detection / Manual Integration Tool <span class="umd-tool-button-details">This tool will help you determine the code in your theme that needs to be replaced to avoid interference from your theme.</span><i class="fa fa-chevron-right"></i></a>';
+		umd+= '<a class="umd-tool-button" id="umd-tool-residualstyling-button" href="#">Run Residual Styling Detection / Manual Integration Tool <span class="umd-tool-button-details">This tool will help you determine the code in your theme that needs to be replaced to avoid interference from your theme.</span><i class="fas fa-chevron-right"></i></a>';
 		umd+= '</div>'; // end tools tab panel
 
 
@@ -363,7 +363,7 @@
 			$unwrap_btn.on( 'click' , function(){
 				var $p = $um.parent();
 				if( $p.is( 'body' ) ){
-					$umd_console.prepend( '<div class="umd-tool-warning"><i class="fa fa-warning"></i> Reached &lt;body&gt; tag, cannot unwrap further</div>' );
+					$umd_console.prepend( '<div class="umd-tool-warning"><i class="fas fa-exclamation-triangle"></i> Reached &lt;body&gt; tag, cannot unwrap further</div>' );
 					$unwrap_btn.off( 'click' ).addClass( 'umd-tool-btn-disabled' );
 				}
 				else{
@@ -488,16 +488,16 @@
 		var icon = '';
 		switch( status ){
 			case 'success':
-				icon = 'fa fa-check-circle';
+				icon = 'fas fa-check-circle';
 				break;
 			case 'warning':
-				icon = 'fa fa-warning';
+				icon = 'fas fa-exclamation-triangle';
 				break;
 			case 'error':
-				icon = 'fa fa-minus-circle';
+				icon = 'fas fa-minus-circle';
 				break;
 			case 'notice':
-				icon = 'fa fa-info-circle';
+				icon = 'fas fa-info-circle';
 				break;
 		}
 
@@ -666,20 +666,20 @@
 
 				//Pin
 				if( has_submenu ){
-					dbox+= '<a title="Pin Submenu Open" class="um-db-button um-db-button-pin"><i class="fa fa-thumb-tack"></i></a>';
-					dbox+= '<a title="Highlight Submenu Layout" class="um-db-button um-db-button-highlight"><i class="fa fa-columns"></i></a>';
+					dbox+= '<a title="Pin Submenu Open" class="um-db-button um-db-button-pin"><i class="fas fa-thumbtack"></i></a>';
+					dbox+= '<a title="Highlight Submenu Layout" class="um-db-button um-db-button-highlight"><i class="fas fa-columns"></i></a>';
 				}
 
 				//Overview - At a glance
-				dbox+= '<a title="Overview" class="um-db-button um-db-button-tab" data-umdb-target="um-db-content-overview"><i class="fa fa-sliders"></i></a>';
+				dbox+= '<a title="Overview" class="um-db-button um-db-button-tab" data-umdb-target="um-db-content-overview"><i class="fas fa-sliders-h"></i></a>';
 
 				//Submenu
 				if( has_submenu ){
-					dbox+= '<a title="Submenu" class="um-db-button um-db-button-tab" data-umdb-target="um-db-content-submenu"><i class="fa fa-chevron-down"></i></a>';
+					dbox+= '<a title="Submenu" class="um-db-button um-db-button-tab" data-umdb-target="um-db-content-submenu"><i class="fas fa-chevron-down"></i></a>';
 				}
 
 				//Image
-				//dbox+= '<a class="um-db-button um-db-button-tab" data-umdb-target="um-db-content-image"><i class="fa fa-picture-o"></i></a>';
+				//dbox+= '<a class="um-db-button um-db-button-tab" data-umdb-target="um-db-content-image"><i class="fas fa-image"></i></a>';
 
 			//Content
 
@@ -740,7 +740,7 @@
 				}
 
 				if( status == 'warning' ){
-					title = '<i class="fa fa-warning"></i> ' + title;
+					title = '<i class="fas fa-exclamation-triangle"></i> ' + title;
 				}
 
 				dbox+= '<div class="um-db-status um-db-status-'+status+'">';

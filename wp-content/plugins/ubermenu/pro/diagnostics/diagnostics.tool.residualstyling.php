@@ -1,18 +1,18 @@
 <div class="umd-tool umd-tool-residual-styling">
 
-	<h1 class="umd-tool-toggle">Residual Styling Detection / Manual Integration Tool <i class="fa fa-minus"></i><i class="fa fa-plus"></i></h1>
+	<h1 class="umd-tool-toggle">Residual Styling Detection / Manual Integration Tool <i class="fas fa-minus"></i><i class="fas fa-plus"></i></h1>
 
 	<div class="umd-tool-body">
 		<div class="umd-tool-steps">
 
 			<div class="umd-tool-step">
 				<h3>Overview</h3>
-				<p><a target="_blank" href="http://sevenspark.com/docs/ubermenu-3/integration/residual-styling">Residual styling</a> is when CSS styles from your theme interfere with UberMenu's styles.  This is most commonly caused by CSS applied based on an element wrapping UberMenu.</p>
+				<p><a target="_blank" href="https://sevenspark.com/docs/ubermenu-3/integration/residual-styling">Residual styling</a> is when CSS styles from your theme interfere with UberMenu's styles.  This is most commonly caused by CSS applied based on an element wrapping UberMenu.</p>
 				<p>This tool allows you to determine the source element of your residual styling, by removing containers surrounding the menu until the residual styling has disappeared from the menu.  The tool will then tell you where to look in your theme files to find the code that needs to be replaced to eliminate the residual styling permanently.</p>
 
-				<p>Please visit this Knowledgebase article for a <a target="_blank" href="http://sevenspark.com/docs/ubermenu-3/diagnostics/residual-styling-detection-tool" target="_blank">Walkthrough of the Residual Styling Detection / Manual Integration Tool</a></p>
+				<p>Please visit this Knowledgebase article for a <a target="_blank" href="https://sevenspark.com/docs/ubermenu-3/diagnostics/residual-styling-detection-tool" target="_blank">Walkthrough of the Residual Styling Detection / Manual Integration Tool</a></p>
 
-				<p>Before beginning, check if there is an <a href="http://sevenspark.com/docs/ubermenu-3/theme-integration" target="_blank">Integration Guide</a> specifically for your theme, to save you some time</p>
+				<p>Before beginning, check if there is an <a href="https://sevenspark.com/docs/ubermenu-3/theme-integration" target="_blank">Integration Guide</a> specifically for your theme, to save you some time</p>
 
 				<a href="#" class="umd-tool-step-btn umd-tool-step-next">Next</a>
 			</div>
@@ -22,11 +22,11 @@
 
 				<p>Enable the Direct Injection setting in the UberMenu Control Panel and assign your menu to it.</p>
 
-				<p>This will add an extra menu at the top of your site (you will disable it at the end of this process).  If the source of the residual styling is from a container/wrapper on the menu, this menu will not be affected, so it will serve as a "control" (if this menu is also broken, it means the theme or another plugin may be interfering in a different way.  Please see <a target="_blank" href="http://sevenspark.com/docs/ubermenu-3/integration/theme-interference" title="Permalink to Theme Interference" rel="bookmark">Theme Interference</a> for more information).  By comparing the styles of this menu to your main menu, you can tell when the source of the issue has been removed.</p>
+				<p>This will add an extra menu at the top of your site (you will disable it at the end of this process).  If the source of the residual styling is from a container/wrapper on the menu, this menu will not be affected, so it will serve as a "control" (if this menu is also broken, it means the theme or another plugin may be interfering in a different way.  Please see <a target="_blank" href="https://sevenspark.com/docs/ubermenu-3/integration/theme-interference" title="Permalink to Theme Interference" rel="bookmark">Theme Interference</a> for more information).  By comparing the styles of this menu to your main menu, you can tell when the source of the issue has been removed.</p>
 
 				<a href="#" class="umd-tool-step-btn umd-tool-step-next">Next</a>
 				<a href="#" class="umd-tool-step-btn umd-tool-step-prev">Back</a>
-				
+
 			</div>
 
 			<div class="umd-tool-step">
@@ -42,11 +42,11 @@
 					<h6>Removed Containers:</h6>
 					<p class="umd-tool-rs-unwrapped-element"></p>
 
-					<a href="#" class="umd-tool-action-btn" id="umd-tool-rs-unwrap"><i class="fa fa-wrench"></i> Remove Container</a>
-					<a href="#" class="umd-tool-action-btn" id="umd-tool-rs-resolved"><i class="fa fa-check-circle"></i> Click once Residual Styling is Removed</a>
+					<a href="#" class="umd-tool-action-btn" id="umd-tool-rs-unwrap"><i class="fas fa-wrench"></i> Remove Container</a>
+					<a href="#" class="umd-tool-action-btn" id="umd-tool-rs-resolved"><i class="fas fa-check-circle"></i> Click once Residual Styling is Removed</a>
 					<a href="#" class="umd-tool-step-btn umd-tool-step-prev">Back</a>
 
-					<p>If your styles never end up looking correct, the source of the residual styling my be overly generic and not be able to be eliminated by removing a container (try using Chrome Developer Tools to source the issue instead), or the interference may not be from CSS - please see <a href="http://sevenspark.com/docs/ubermenu-3/integration/theme-interference" title="Permalink to Theme Interference" rel="bookmark">Theme Interference</a> for more information.</p>
+					<p>If your styles never end up looking correct, the source of the residual styling my be overly generic and not be able to be eliminated by removing a container (try using Chrome Developer Tools to source the issue instead), or the interference may not be from CSS - please see <a href="https://sevenspark.com/docs/ubermenu-3/integration/theme-interference" title="Permalink to Theme Interference" rel="bookmark">Theme Interference</a> for more information.</p>
 				</div>
 
 			</div>
@@ -62,7 +62,7 @@
 
 				<p><code id="umd-tool-rs-new-wrappers"></code></p>
 
-				<p class="umd-tool-warning"><i class="fa fa-warning"></i> (Do not copy and paste this code, it is just an approximation based on the front end markup, while you will be replacing back end PHP)</p>
+				<p class="umd-tool-warning"><i class="fas fa-exclamation-triangle"></i> (Do not copy and paste this code, it is just an approximation based on the front end markup, while you will be replacing back end PHP)</p>
 
 				<p>Click below to search for the theme's menu code within your theme files</p>
 
@@ -86,7 +86,7 @@
 				<div class="umd-tools-rs-manual-integration-skeleton">
 
 					<h3>What to do next</h3>
-					
+
 					<p>Now that you have the potential locations for the code in the theme, look through those locations in your theme files to locate the correct code block.  If you had an ID hit in your results, that's likely the exact spot.  The point is to replace the theme's entire block of menu code with UberMenu, effectively moving UberMenu outside of the theme's menu container.  Remember, it'll look something like (but not exactly like) this:</p>
 
 					<p><code id="umd-tools-rs-code-replace-reminder-full"></code></p>

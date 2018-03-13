@@ -519,13 +519,13 @@ abstract class UberMenuItem{
 			$retractor_label = ubermenu_op( 'retractor_label' , $this->args->uber_instance );
 			if( !$retractor_label )	$retractor_label = __( 'Close' , 'ubermenu' );
 
-			$item_output.= '<'.$retractor_tag.' class="ubermenu-retractor ubermenu-retractor-mobile"><i class="fa fa-times"></i> '.$retractor_label.'</'.$retractor_tag.'>';
+			$item_output.= '<'.$retractor_tag.' class="ubermenu-retractor ubermenu-retractor-mobile"><i class="fas fa-times"></i> '.$retractor_label.'</'.$retractor_tag.'>';
 		}
 
 		//Close button
 		if( $close_button ){
 			$retractor_tag = $this->submenu_tag == 'ul' ? 'li' : 'div';
-			$item_output.= '<'.$retractor_tag.' class="ubermenu-retractor ubermenu-retractor-desktop"><i class="fa fa-times"></i></'.$retractor_tag.'>';
+			$item_output.= '<'.$retractor_tag.' class="ubermenu-retractor ubermenu-retractor-desktop"><i class="fas fa-times"></i></'.$retractor_tag.'>';
 		}
 
 
@@ -553,7 +553,7 @@ abstract class UberMenuItem{
 			$retractor_label = ubermenu_op( 'retractor_label' , $this->args->uber_instance );
 			if( !$retractor_label )	$retractor_label = __( 'Close' , 'ubermenu' );
 
-			$html.= '<'.$retractor_tag.' class="ubermenu-retractor ubermenu-retractor-mobile"><i class="fa fa-times"></i> '.$retractor_label.'</'.$retractor_tag.'>';
+			$html.= '<'.$retractor_tag.' class="ubermenu-retractor ubermenu-retractor-mobile"><i class="fas fa-times"></i> '.$retractor_label.'</'.$retractor_tag.'>';
 		}
 
 		$html.= "</$this->submenu_tag>";
@@ -575,7 +575,10 @@ abstract class UberMenuItem{
 			$this->item_classes = array_merge( $this->item_classes , $this->item->classes );
 
 			//Disable Current Menu Item Classes (do this first for efficiency)
-			if( $this->getSetting( 'disable_current' ) == 'on' ){
+			if(
+				( $this->getSetting( 'disable_current' ) == 'on' ) ||
+				( ubermenu_op( 'scrollto_disable_current', 'general' ) !== 'off' && $this->getSetting( 'scrollto' ) )
+				){
 				$remove_current = array( 'current-menu-item' , 'current-menu-parent' , 'current-menu-ancestor' );
 				foreach( $this->item_classes as $k => $c ){
 					if( in_array( $c ,  $remove_current ) ){
@@ -591,6 +594,7 @@ abstract class UberMenuItem{
 	}
 	function prefix_classes(){
 		//uberp( $this->item_classes );
+		//if( $this->type == 'tabs' ) uberp( $this->item_classes );
 		$k = 0;
 		$found = false;
 		foreach( $this->item_classes as $i => $class ){
@@ -782,6 +786,9 @@ abstract class UberMenuItem{
 		if( ( $this->get_submenu_type() == 'mega' ) && ( $this->getSetting( 'submenu_position' ) == 'right_edge_item' ) ) {
 			$this->item_classes[] = 'ubermenu-submenu-rtl';
 		}
+		else if( $this->depth >= 1 && ( $this->get_submenu_type() == 'mega' ) && ( $this->getSetting( 'submenu_position' ) == 'left_edge_item' ) ) {
+			$this->item_classes[] = 'ubermenu-submenu-flyout-mega-left'; //special flag in case flyout > mega goes left
+		}
 		else if( ( $this->get_submenu_type() == 'flyout' ) && ( $this->getSetting( 'flyout_submenu_position' ) == 'right_edge_item' ) ){
 			$this->item_classes[] = 'ubermenu-submenu-rtl';
 			$this->item_classes[] = 'ubermenu-submenu-reverse';
@@ -844,7 +851,7 @@ abstract class UberMenuItem{
 		 * @param object $item    The current menu item.
 		 * @param array  $args    An array of arguments. @see wp_nav_menu()
 		 */
-		$class_names = join( ' ', apply_filters( 'nav_menu_css_class', array_filter( $this->item_classes ), $this->item, $this->args ) );
+		$class_names = join( ' ', apply_filters( 'nav_menu_css_class', array_filter( $this->item_classes ), $this->item, $this->args , $this->depth ) );
 		$class_names = $class_names ? ' class="' . esc_attr( $class_names ) . '"' : '';
 		return $class_names;
 	}
@@ -913,7 +920,7 @@ abstract class UberMenuItem{
 		 * @param object $item The current menu item.
 		 * @param array  $args An array of arguments. @see wp_nav_menu()
 		 */
-		$atts = apply_filters( 'nav_menu_link_attributes', $atts, $this->item, $this->args );
+		$atts = apply_filters( 'nav_menu_link_attributes', $atts, $this->item, $this->args , $this->depth );
 
 		return $atts;
 	}
@@ -950,21 +957,35 @@ abstract class UberMenuItem{
 
 		//Icon
 		$icon = $this->getSetting( 'icon' );
+		if( $icon ) $icon = ubermenu_fa5_convert( $icon , true );
 		$icon_classes = apply_filters( 'ubermenu_icon_custom_class' , $icon , $this->ID , isset( $this->settings['icon_custom_class'] ) ? $this->settings['icon_custom_class'] : '' );
 		if( $icon_classes ){
 			$atts['class'] .= ' ubermenu-target-with-icon';
 			$icon_tag = $this->get_menu_op( 'icon_tag' );
 			if( !$icon_tag ) $icon_tag = 'i';
+
+			//Accessibility
 			$aria = '';
-			if( ubermenu_op( 'aria_hidden_icons' , 'general' ) == 'on' ){
+			$icon_title = $this->getSetting( 'icon_title' );
+
+			if( $icon_title ){
+				$icon_title = ' title="'.$icon_title.'"';
+				//Font Awesome JS takes care of aria hidden if there's a title
+			}
+			else if( ubermenu_op( 'aria_hidden_icons' , 'general' ) == 'on' ){	//TODO deprecate
 				$aria = 'aria-hidden="true"';
 			}
-			$icon = '<'.$icon_tag.' class="ubermenu-icon '.$icon_classes.'" '.$aria.'></'.$icon_tag.'>';
+
+			$icon = '<'.$icon_tag.' class="ubermenu-icon '.$icon_classes.'" '.$aria.$icon_title.'></'.$icon_tag.'>';
 		}
 
 		//Layout
 		$layout = $this->getSetting( 'item_layout' );
+		//If there is no image, don't allow image layout
+		if( !$image && ( 0 === strpos( $layout, 'image' ) ) ) $layout = 'default';
 		$atts['class'].= ' ubermenu-item-layout-'.$layout;
+
+
 
 		//Content Align
 		$content_align = $this->getSetting( 'content_alignment' );
@@ -1039,8 +1060,12 @@ abstract class UberMenuItem{
 		//Disable Submenu Indicator
 		$disable_submenu_indicator = false;
 		if( $this->getSetting( 'disable_submenu_indicator' ) == 'on' ){
+			$disable_submenu_indicator = true;
 			$atts['class'].= ' ubermenu-noindicator';
 		}
+
+		//Global Submenu Indicators
+		$display_submenu_indicators = $this->get_menu_op('display_submenu_indicators') === 'on' ? true : false;
 
 
 		//ScrollTo
@@ -1166,6 +1191,18 @@ abstract class UberMenuItem{
 		foreach( $layout_pieces as $piece ){
 			$a.= $piece;
 		}
+
+
+		//Submenu indicator
+		$submenu_type = $this->get_submenu_type();
+		if( $display_submenu_indicators && !$disable_submenu_indicator && $submenu_type && in_array( $submenu_type , array( 'mega' , 'flyout' , 'tab-content-panel' ) ) ){
+			$a.= '<i class="ubermenu-sub-indicator fas fa-angle-down"></i>';
+		}
+
+		//Display mobile close toggle - do in JS?
+		// if( in_array( $submenu_type , array( 'mega' , 'flyout' , 'tab-content-panel' ) ) ){
+		// 	$a.= '<span class="ubermenu-sub-indicator-close"><i class="fas fa-times"></i></span>';
+		// }
 
 		if( isset( $this->args->link_after ) ) $a .= $this->args->link_after;
 		$a .= '</'.$tag.'>';

@@ -15,6 +15,8 @@ add_filter( 'query_vars', 'ubermenu_sandbox_query_vars' );
 
 function ubermenu_sandbox_standalone_path( &$wp_query ) {
 
+  if( !function_exists( 'wp_get_current_user' ) ) return; // something is calling this too early
+
   //Admins only
   if( !current_user_can( 'manage_options' ) ){
     return;

@@ -4,7 +4,7 @@ add_action( 'admin_bar_menu', 'ubermenu_add_toolbar_items', 100 );
 
 function ubermenu_toolbar_icon( $icon_name ){
 	if( is_admin() ) return '';
-	return '<i class="fa fa-'.$icon_name.'"></i> ';
+	return '<i class="fas fa-'.$icon_name.'"></i> ';
 }
 
 function ubermenu_add_toolbar_items( $admin_bar ){
@@ -17,7 +17,7 @@ function ubermenu_add_toolbar_items( $admin_bar ){
 
 	$admin_bar->add_node( array(
 		'id'    => 'ubermenu',
-		'title' => ubermenu_toolbar_icon( 'gears' ). 'UberMenu',
+		'title' => ubermenu_toolbar_icon( 'cogs' ). 'UberMenu',
 		'href'  => admin_url( 'themes.php?page=ubermenu-settings' ),
 		'meta'  => array(
 			'title' => __( 'UberMenu' , 'UberMenu' ),
@@ -39,10 +39,10 @@ function ubermenu_add_toolbar_items( $admin_bar ){
 	$admin_bar->add_node( array(
 		'id'    => 'ubermenu_control_panel',
 		'parent' => 'ubermenu',
-		'title' => ubermenu_toolbar_icon( 'sliders' ).__( 'UberMenu Control Panel' , 'ubermenu' ),
+		'title' => ubermenu_toolbar_icon( 'sliders-h' ).__( 'UberMenu Control Panel' , 'ubermenu' ),
 		'href'  => admin_url( 'themes.php?page=ubermenu-settings' ),
 		'meta'  => array(
-			'title' => '<i class="fa fa-sliders"></i> '.__( 'Configure the UberMenu Settings' , 'ubermenu' ),
+			'title' => '<i class="fas fa-sliders"></i> '.__( 'Configure the UberMenu Settings' , 'ubermenu' ),
 			'target' => '_blank',
 			'class' => ''
 		),
@@ -51,7 +51,7 @@ function ubermenu_add_toolbar_items( $admin_bar ){
 	$admin_bar->add_node( array(
 		'id'    	=> 'ubermenu_edit_menus',
 		'parent' 	=> 'ubermenu',
-		'title' 	=> ubermenu_toolbar_icon( 'pencil' ).__( 'Edit Menus', 'ubermenu' ),
+		'title' 	=> ubermenu_toolbar_icon( 'pencil-alt' ).__( 'Edit Menus', 'ubermenu' ),
 		'href'  	=> admin_url( 'nav-menus.php' ),
 		'meta'  	=> array(
 			'title' => __('Add, remove, and configure menu items' , 'ubermenu' ),
@@ -117,7 +117,7 @@ function ubermenu_add_toolbar_items( $admin_bar ){
 	$admin_bar->add_node( array(
 		'id'		=> 'ubermenu_video_tutorials',
 		'parent'	=> 'ubermenu_knowledgebase',
-		'title'		=> ubermenu_toolbar_icon( 'video-camera' ).__( 'Video Tutorials', 'ubermenu' ),
+		'title'		=> ubermenu_toolbar_icon( 'video' ).__( 'Video Tutorials', 'ubermenu' ),
 		'href'		=> UBERMENU_VIDEOS_URL,
 		'meta'		=> array(
 			'title'	=> __( 'UberMenu Video Tutorials' , 'ubermenu' ),

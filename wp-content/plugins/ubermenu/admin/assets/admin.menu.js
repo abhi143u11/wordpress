@@ -39,7 +39,7 @@
 		//handle adding the "Uber" button on each menu item upon first interaction
 		$( '#menu-management' ).on( 'mouseenter touchEnd MSPointerUp pointerup' , '.menu-item:not(.ubermenu-processed)' , function(e){
 			$(this).addClass( 'ubermenu-processed' );
-			$(this).find( '.item-title' ).append( '<span class="ubermenu-settings-toggle" data-uber-toggle="' + $(this).attr('id') + '"><i class="fa fa-gear"></i> Uber <span class="ubermenu-unsaved-alert"><i class="fa fa-warning"></i> <span class="ubermenu-unsaved-alert-message">Unsaved</span></span></span>' );
+			$(this).find( '.item-title' ).append( '<span class="ubermenu-settings-toggle" data-uber-toggle="' + $(this).attr('id') + '"><i class="fas fa-cog"></i> Uber <span class="ubermenu-unsaved-alert"><i class="fas fa-exclamation-triangle"></i> <span class="ubermenu-unsaved-alert-message">Unsaved</span></span></span>' );
 			//console.log( $(this).find( '.item-title' ).text() );
 		});
 
@@ -131,7 +131,7 @@
 					}
 
 					//Set Panel's Item Title, ID link, and Type
-					$current_panel.find( '.ubermenu-menu-item-title' ).html( '<a href="'+hash+'">'+_title+'</a>' );
+					$current_panel.find( '.ubermenu-menu-item-title' ).html( '<a href="'+hash+'"><i class="fas fa-location-arrow"></i> '+_title+'</a>' );
 					$current_panel.find( '.ubermenu-menu-item-id' ).html( '<a href="'+hash+'">'+hash+'</a>' );
 					$current_panel.find( '.ubermenu-menu-item-type' ).text( item_type );
 
@@ -258,7 +258,7 @@
 								case 'icon':
 									var $icon_wrap = $( this ).parents( '.ubermenu-icon-settings-wrap' );
 									//console.log( item_data.icon );
-									$icon_wrap.find( '.ubermenu-icon-selected i' ).attr( 'class' , item_data.icon );
+									$icon_wrap.find( '.ubermenu-icon-selected i' ).attr( 'class' , 'ubermenu-icon ' + item_data.icon ); //This can stay as an <i> because it isn't processed into an SVG prior to this
 									break;
 
 							}
@@ -405,24 +405,31 @@
 
 		//Show Icon Selection panel when icon is clicked
 		$settingswrap.on( 'click' , '.ubermenu-icon-selected' , function( e ){
-			$icon_set = $( this ).parents( '.ubermenu-icon-settings-wrap' );
-			$icon_set.find( '.ubermenu-icons' ).fadeToggle();
+			// console.log( 'clicked' );
+			// console.log( this );
+			var $icon_set = $( this ).closest( '.ubermenu-icon-settings-wrap' );
+			$icon_set.find( '.ubermenu-icons' ).fadeToggle(100);
 			$icon_set.find( '.ubermenu-icons-search' ).focus();
 		});
 
 
+		//Change selected icon when clicked
 		$settingswrap.on( 'click' , '.ubermenu-icon-settings-wrap .ubermenu-icon-wrap' , function( e ){
-			$icon = $( this ).find( '.ubermenu-icon' );
-			$icon_set = $( this ).parents( '.ubermenu-icon-settings-wrap' );
+			$icon = $( this ).find( '.ubermenu-icon' ); //The icon that was clicked
+			var $icon_set = $( this ).closest( '.ubermenu-icon-settings-wrap' ); //The wrapper for this setting
 			//console.log( $icon.attr( 'class' ) + ' | ' + $icon.data( 'ubermenu-icon' )  );
-			$icon_set.find( '.ubermenu-icon-selected i' ).attr( 'class' , $icon.attr( 'class' ) );
+			//$icon_set.find( '.ubermenu-icon-selected i' ).attr( 'class' , $icon.attr( 'class' ) ); //TODO
+
+			//Change the SVG's data and Font Awesome will reload it - what about non-SVG or another standard?
+			//$icon_set.find( '.ubermenu-icon-selected .ubermenu-icon' ).attr( 'data-prefix' , $icon.attr( 'data-prefix' ) ).attr( 'data-icon' , $icon.attr( 'data-icon' ) );
+			$icon_set.find( '.ubermenu-icon-selected .ubermenu-icon' ).replaceWith( '<i class="ubermenu-icon ' + $icon.attr( 'data-ubermenu-icon' ) + '"></i>' );
 			$icon_set.find( 'select' ).val( $icon.data( 'ubermenu-icon' ) ).change();
 			$( this ).parents( '.ubermenu-icons' ).fadeOut();
 		});
 
 		/* Filter Icons */
 		$settingswrap.on( 'keyup' , '.ubermenu-icons-search' , function( e ){
-			$icon_set = $( this ).parents( '.ubermenu-icon-settings-wrap' ).find( '.ubermenu-icon-wrap' );
+			var $icon_set = $( this ).closest( '.ubermenu-icon-settings-wrap' ).find( '.ubermenu-icon-wrap' );
 			var val = $(this).val();
 			if( val == '' ){
 				$icon_set.show();

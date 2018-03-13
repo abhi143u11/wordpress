@@ -250,7 +250,8 @@ function layerslider_delete_caches() {
 
 function layerslider_empty_caches() {
 	layerslider_delete_caches();
-	wp_redirect('admin.php?page=layerslider&message=cacheEmpty');
+	wp_redirect( admin_url('admin.php?page=layerslider-options&message=cacheEmpty') );
+	die();
 }
 
 
@@ -433,6 +434,7 @@ function ls_get_mce_slides() {
 
 		if( ! empty( $slide['properties']['thumbnailId'] ) ) {
 			$slides[ $slideKey ]['properties'][ 'thumbnail' ] = apply_filters('ls_get_image', $slide['properties']['thumbnailId'], $slide['properties']['thumbnail']);
+			$slides[ $slideKey ]['properties'][ 'thumbnailThumb' ] = apply_filters('ls_get_image', $slide['properties']['thumbnailId'], $slide['properties']['thumbnail']);
 		}
 
 		$slides[ $slideKey ]['properties']['title'] = ! empty( $slide['properties']['title'] ) ? stripslashes( $slide['properties']['title'] ) : 'Slide #'.($slideKey+1);
