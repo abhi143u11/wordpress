@@ -166,6 +166,10 @@ form > div.um-col-alt > div.um-right.um-half > a{
 	-webkit-font-smoothing:antialiased;
 }
 
+p{
+	font-family:'Open Sans', sans-serif;
+}
+
 @media only screen {
 	:focus {
 		outline:none!important;
@@ -1990,7 +1994,7 @@ form > div.um-col-alt > div.um-right.um-half > a{
 }
 
 p {
-	font-family:'montserratlight','proxima-nova',Helvetica Neue,adriane,Times New Roman,times,palatino,serif !important;
+	/* font-family:'montserratlight','proxima-nova',Helvetica Neue,adriane,Times New Roman,times,palatino,serif !important; */
 	letter-spacing:1px!important;
 	font-size:15px!important;
 }
