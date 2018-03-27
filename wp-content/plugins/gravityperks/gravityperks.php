@@ -3,7 +3,7 @@
  * Plugin Name: Gravity Perks
  * Plugin URI: http://gravitywiz.com/
  * Description: Effortlessly install and manage small functionality enhancements (aka "perks") for Gravity Forms.
- * Version: 2.0.2
+ * Version: 2.0.3
  * Author: Gravity Wiz
  * Author URI: http://gravitywiz.com/
  * License: GPL2
@@ -11,7 +11,7 @@
  * Domain Path: /languages
  */
 
-define( 'GRAVITY_PERKS_VERSION', '2.0.2' );
+define( 'GRAVITY_PERKS_VERSION', '2.0.3' );
 
 /**
  * Include the perk model as early as possible to when Perk plugins are loaded, they can safely extend
@@ -366,16 +366,14 @@ class GravityPerks {
 
     // ERRORS AND NOTICES //
 
-    private static function handle_error($error_slug, $plugin_file = false, $message = '') {
+    public static function handle_error($error_slug, $plugin_file = false, $message = '') {
         global $pagenow;
 
         $plugin_file = $plugin_file ? $plugin_file : self::$basename;
         $is_perk = $plugin_file != self::$basename;
         $action = $is_perk ? array('GWPerks', 'after_perk_plugin_row') : array('GWPerks', 'after_plugin_row');
 
-        // only display on plugins.php page when there is no action (ie 'delete-selected')
-        $query_action = isset( $_GET['action'] ) ? $_GET['action'] : false;
-        $is_plugins_page = $pagenow == 'plugins.php' && !$query_action;
+        $is_plugins_page = self::is_plugins_page();
 
         switch($error_slug) {
 
@@ -455,20 +453,28 @@ class GravityPerks {
         if( $is_perk ) {
             require_once( ABSPATH . 'wp-admin/includes/plugin.php' );
             $perk = GWPerk::get_perk( $plugin_file );
-            $perk_data = GWPerk::get_perk_data( $plugin_file );
-            $min_gravity_forms_version = $perk->get_property('min_gravity_forms_version');
-            $min_wp_version = $perk->get_property('min_wp_version');
+	        $perk_data = GWPerk::get_perk_data( $plugin_file );
+
+	        if ( $perk->is_old_school() ) {
+		        $min_gravity_forms_version = $perk->get_property('min_gravity_forms_version');
+		        $min_wp_version = $perk->get_property('min_wp_version');
+            } else {
+		        $requirements = $perk->parent->minimum_requirements();
+
+		        $min_gravity_forms_version = rgars($requirements, 'gravityforms/version');
+		        $min_wp_version = rgars($requirements, 'wordpress/version');
+            }
         }
 
         switch($message_slug) {
 
         case 'gravity_forms_required':
-            if(isset($perk)) {
-                return sprintf(__('%1$s requires Gravity Forms %2$s or greater. Activate it now or %3$spurchase it today!%4$s', 'gravityperks'),
-                    $perk_data['Name'], $min_gravity_forms_version, '<a href="' . GW_GFORM_AFFILIATE_URL . '">', '</a>');
+            if (class_exists('GFForms')) {
+	            return sprintf(__('Current Gravity Forms version (%1$s) does not meet minimum Gravity Forms version requirement (%2$s).', 'gravityperks'),
+		            GFForms::$version, $min_gravity_forms_version);
             } else {
-                return sprintf(__('Gravity Forms %1$s or greater is required. Activate it now or %2$spurchase it today!%3$s', 'gravityperks'),
-                    $min_gravity_forms_version, '<a href="' . GW_GFORM_AFFILIATE_URL . '">', '</a>');
+	            return sprintf(__('Gravity Forms %1$s or greater is required. Activate it now or %2$spurchase it today!%3$s', 'gravityperks'),
+		            $min_gravity_forms_version, '<a href="' . GW_GFORM_AFFILIATE_URL . '">', '</a>');
             }
 
 
@@ -573,13 +579,11 @@ class GravityPerks {
 	    <style type="text/css" scoped>
 		    <?php printf( '#%1$s td, #%1$s th', $id ); ?>,
 		    <?php printf( 'tr[data-slug="%1$s"] td, tr[data-slug="%1$s"] th', $id ); ?> { border-bottom: 0; box-shadow: none !important; -webkit-box-shadow: none !important; }
-		    .gwp-plugin-notice td { padding: 0 !important; }
-		    .gwp-plugin-notice .update-message p:before { content: '\f534'; font-size: 18px; }
 	    </style>
 
 	    <tr class="plugin-update-tr <?php echo $active; ?> gwp-plugin-notice">
 		    <td colspan="3" class="colspanchange">
-			    <div class="update-message notice inline notice-error notice-alt"><p><?php echo $message ?></p></div>
+			    <div class="update-message notice inline notice-error notice-alt"><?php echo $message ?></div>
 		    </td>
 	    </tr>
 
@@ -1278,7 +1282,15 @@ class GravityPerks {
         return class_exists( 'RGForms' ) ? RGForms::is_gravity_page() : false;
     }
 
-    private static function is_gravity_perks_page($page = false){
+	public static function is_plugins_page() {
+		global $pagenow;
+
+		$query_action = isset( $_GET['action'] ) ? $_GET['action'] : false;
+
+		return $pagenow == 'plugins.php' && ! $query_action;
+	}
+
+    public static function is_gravity_perks_page($page = false){
 
         $current_page = self::get_current_page();
         $gp_pages = array('gwp_perks', 'gwp_settings');
