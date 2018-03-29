@@ -124,6 +124,13 @@ jQuery(document).ready(function($) {
 <?php endif; ?>
 <?php the_field('footer_script'); ?>
 
+<!-- start number replacer -->
+<script type="text/javascript"><!--
+vs_account_id      = "Ch4NmlqVjNF1vgCq";
+//--></script>
+<script type="text/javascript" src="https://rw1.marchex.io/euinc/number-changer.js">
+</script>
+<!-- end ad widget -->
 
 </body>
 </html>

@@ -1,6 +1,7 @@
 <div class="um-online" data-max="<?php echo $max; ?>">
 	
-	<?php foreach( $online as $user => $last_seen ) { $this->setup( $user ); 
+	<?php foreach( $online as $user => $last_seen ) {
+		UM()->Online_API()->shortcode()->setup( $user );
 		if ( $role != 'all' && $user['role'] != $role ) continue;
 		if ( empty($user['name']) ) continue;
 	?>

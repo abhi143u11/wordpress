@@ -84,7 +84,8 @@
 	color:#999;
 	text-align:center;
 }
-.wp-core-ui .ubermenu-wrap .button .fa{
+.wp-core-ui .ubermenu-wrap .button i[class^="fa"],
+.wp-core-ui .ubermenu-wrap .button .svg-inline--fa{
 	padding-right:3px;
 }
 .wp-core-ui .ubermenu-wrap .button-primary{
@@ -430,7 +431,8 @@ h4.ubermenu-settings-section{
 .ubermenu-help-video-tuts-link:hover img{
 	opacity:.5;
 }
-.ubermenu-help-video-tuts-link .fa{
+.ubermenu-help-video-tuts-link i[class^="fa"],
+.ubermenu-help-video-tuts-link .svg-inline--fa{
 	position:absolute;
 	font-size:50px;
 	color:#14BBAE;
@@ -450,7 +452,8 @@ h4.ubermenu-settings-section{
 	opacity:.4;
 	transition:opacity .3s ease-in;
 }
-.ubermenu-help-video-tuts-link:hover .fa{
+.ubermenu-help-video-tuts-link:hover i[class^="fa"],
+.ubermenu-help-video-tuts-link:hover .svg-inline--fa{
 	opacity:1;
 }
 
@@ -722,7 +725,8 @@ h4.ubermenu-settings-section{
 	font-size:14px;
 	margin-right:10px;
 }
-.ubermenu-welcome .button .fa{
+.ubermenu-welcome .button i[class^="fa"],
+.ubermenu-welcome .button .svg-inline--fa{
 	margin-right:2px;
 }
 
@@ -985,4 +989,43 @@ small code{
 	display:inline-block;
 	font-style:italic;
 	color:#85cca8;
+}
+
+
+
+/* Table */
+.ubermenu-table{
+	border-collapse:collapse;
+}
+.ubermenu-table tr th,
+.ubermenu-table tr td{
+	text-align:left;
+	padding:5px 10px;
+}
+.ubermenu-table tr:nth-child(odd) {
+    background-color: #e9e9e9;
+}
+
+
+/* RTL */
+.rtl .ubermenu-wrap .form-table th {
+    padding-left: 0 !important;
+    padding-right:20px !important;
+}
+.rtl a.ubermenu_instance_toggle, a.ubermenu_pro_button,
+.rtl .ubermenu-settings-links{
+    float: left;
+}
+
+.rtl .uber-submit-wrap{
+	right:auto;
+	left:220px;
+}
+
+
+
+/* Plugin Compat */
+.ubermenu-plugin-compatibility-fail{
+	color:red;
+	font-weight:bold;
 }

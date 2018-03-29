@@ -1,5 +1,7 @@
 <?php
 /**
+ * WPSEO Premium plugin file.
+ *
  * @package WPSEO\Premium\Classes\Redirect
  */
 
@@ -42,7 +44,7 @@ class WPSEO_Redirect_Presence_Validation implements WPSEO_Redirect_Validation {
 	}
 
 	/**
-	 * Returns the validation error
+	 * Returns the validation error.
 	 *
 	 * @return WPSEO_Validation_Result
 	 */
@@ -51,7 +53,7 @@ class WPSEO_Redirect_Presence_Validation implements WPSEO_Redirect_Validation {
 	}
 
 	/**
-	 * Allows an empty target when the given redirect type matches one of the values in the array
+	 * Allows an empty target when the given redirect type matches one of the values in the array.
 	 *
 	 * @param string $redirect_type The type to match.
 	 *

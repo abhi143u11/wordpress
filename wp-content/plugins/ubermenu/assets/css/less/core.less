@@ -144,12 +144,18 @@
 .ubermenu-responsive-toggle:hover{
 	text-decoration: none;
 }
-.ubermenu-responsive-toggle .fa{
+.ubermenu-responsive-toggle .fas,
+.ubermenu-responsive-toggle .fab,
+.ubermenu-responsive-toggle .far,
+.ubermenu-responsive-toggle .svg-inline--fa{
 	width: 1.3em;
 	text-align: center;
 	margin-right:.6em;
 }
-.ubermenu-responsive-toggle-icon-only .fa{
+.ubermenu-responsive-toggle-icon-only .fas,
+.ubermenu-responsive-toggle-icon-only .fab,
+.ubermenu-responsive-toggle-icon-only .far,
+.ubermenu-responsive-toggle-icon-only .svg-inline--fa{
 	margin-right:0;
 }
 .ubermenu-responsive-toggle-align-left{
@@ -302,14 +308,13 @@ body:not(.rtl) .ubermenu.ubermenu-horizontal .ubermenu-item-level-0:first-child 
 }
 
 /* Submenu Indicators */
-.ubermenu-sub-indicators .ubermenu-has-submenu-drop > .ubermenu-target:after{
-
+.ubermenu-sub-indicators .ubermenu-has-submenu-drop>.ubermenu-target > .ubermenu-sub-indicator {
 	position:absolute;
 	right:10px;
 	top:50%;
 	margin-top:-6px;
 
-	content:"\f107"; /*"\f0d7";*/
+	/*content:"\f107";
 	display: inline-block;
 	font-family: FontAwesome;
 	font-style: normal;
@@ -317,7 +322,7 @@ body:not(.rtl) .ubermenu.ubermenu-horizontal .ubermenu-item-level-0:first-child 
 	line-height: 1;
 	color:inherit;
 	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
+	-moz-osx-font-smoothing: grayscale;*/
 }
 .ubermenu-sub-indicators .ubermenu-has-submenu-drop > .ubermenu-target{
 	padding-right:25px;
@@ -328,31 +333,59 @@ body:not(.rtl) .ubermenu.ubermenu-horizontal .ubermenu-item-level-0:first-child 
 .ubermenu-sub-indicators .ubermenu-item-mini.ubermenu-item-has-children > .ubermenu-target.ubermenu-noindicator{
     padding-right:5px;
 }
-.ubermenu-sub-indicators .ubermenu-has-submenu-drop > .ubermenu-noindicator:after{
-	content: '';
+.ubermenu-sub-indicators .ubermenu-has-submenu-drop > .ubermenu-noindicator > .ubermenu-sub-indicator{
 	display:none;
 }
-.ubermenu-sub-indicators.ubermenu-sub-indicators-align-text .ubermenu-has-submenu-drop > .ubermenu-target:after{
+.ubermenu-sub-indicators.ubermenu-sub-indicators-align-text .ubermenu-has-submenu-drop > .ubermenu-target > .ubermenu-sub-indicator{
     right:auto;
     margin-left:.6em;
 }
 /* Right arrows */
-.ubermenu-sub-indicators .ubermenu-submenu-type-flyout > .ubermenu-has-submenu-drop > .ubermenu-target:after,
-.ubermenu-sub-indicators .ubermenu-submenu-type-stack > .ubermenu-has-submenu-drop.ubermenu-has-submenu-flyout > .ubermenu-target:after{
-	content:"\f105"; /*"\f0da";*/
+.ubermenu-sub-indicators .ubermenu-submenu-type-flyout > .ubermenu-has-submenu-drop > .ubermenu-target > .ubermenu-sub-indicator,
+.ubermenu-sub-indicators .ubermenu-submenu-type-stack > .ubermenu-has-submenu-drop.ubermenu-has-submenu-flyout > .ubermenu-target > .ubermenu-sub-indicator{
+	transform:rotate(-90deg);
 }
+
 /* Reverse Flyouts */
-.ubermenu-sub-indicators .ubermenu-submenu .ubermenu-has-submenu-flyout.ubermenu-submenu-reverse > .ubermenu-target:after{
+.ubermenu-sub-indicators .ubermenu-submenu .ubermenu-has-submenu-flyout.ubermenu-submenu-reverse > .ubermenu-target > .ubermenu-sub-indicator{
 	right:auto;
 	left:10px;
-	content:'\f104';
+	transform:rotate(90deg);
 }
+
+
+/* Sub indicator close */
+.ubermenu.ubermenu-submenu-indicator-closes .ubermenu-sub-indicator-close{
+	position:absolute;
+	right:0;
+	top:0;
+	width:28px;
+	text-align:center;
+	vertical-align:bottom;
+	display:none;
+	height:100%;
+}
+.ubermenu.ubermenu-submenu-indicator-closes .ubermenu-sub-indicator-close > [class^="fa"]{
+	display:inline-block;
+	position:absolute;
+	top:50%;
+	margin-top:-.4em;
+	left:0;
+	width:100%;
+}
+.ubermenu.ubermenu-submenu-indicator-closes .ubermenu-sub-indicator-close > .svg-inline--fa{
+	position:absolute;
+	top:50%;
+	bottom:50%;
+	transform:translate(-50%, -50%);
+}
+
 
 
 /* Target Text */
 .ubermenu .ubermenu-target-text{
 	display:inline-block;
-	vertical-align:middle;
+	vertical-align:baseline;
 	font-family:inherit;
 	font-weight:inherit;
 	color:inherit;
@@ -414,22 +447,37 @@ body:not(.rtl) .ubermenu.ubermenu-horizontal .ubermenu-item-level-0:first-child 
 	width:1.3em;
 	text-align:center;
 	line-height:1em;
+	vertical-align:baseline; /* i version */
+}
+.ubermenu .ubermenu-icon.svg-inline--fa{
+	vertical-align:-.125em; /* svg-version - Font Awesome dictated */
 }
 .ubermenu .ubermenu-item-notext > .ubermenu-icon{
 	line-height:1.3em;
 }
+/*
 .ubermenu .ubermenu-item-layout-icon_left > .ubermenu-icon,
 .ubermenu .ubermenu-item-layout-icon_right > .ubermenu-icon{
 	vertical-align:middle;
 }
+*/
 .ubermenu .ubermenu-item-layout-icon_top > .ubermenu-icon,
 .ubermenu .ubermenu-item-layout-icon_bottom > .ubermenu-icon{
 	line-height:1.3em;
+	vertical-align:baseline;
 }
-.ubermenu.ubermenu-sub-indicators .ubermenu-has-submenu-drop > .ubermenu-target.ubermenu-item-layout-icon_top:after,
-.ubermenu.ubermenu-sub-indicators .ubermenu-has-submenu-drop > .ubermenu-target.ubermenu-item-layout-icon_bottom:after{
+.ubermenu.ubermenu-sub-indicators .ubermenu-has-submenu-drop:not(.ubermenu-tab) > .ubermenu-target.ubermenu-item-layout-icon_top > .ubermenu-sub-indicator,
+.ubermenu.ubermenu-sub-indicators .ubermenu-has-submenu-drop:not(.ubermenu-tab) > .ubermenu-target.ubermenu-item-layout-icon_bottom > .ubermenu-sub-indicator{
 	left:50%;
+	right:auto;
+	margin-left:-4px;
+	bottom:7px;
+	top:auto;
 }
+.ubermenu .ubermenu-item-layout-icon_top > .ubermenu-icon { margin-bottom:5px; }
+.ubermenu .ubermenu-item-layout-icon_bottom > .ubermenu-icon { margin-top:5px; }
+.ubermenu .ubermenu-item-layout-icon_top.ubermenu-item-notext > .ubermenu-icon{ margin:0; }
+
 .ubermenu .ubermenu-item-layout-icon_left > .ubermenu-target-title{
 	margin-left:.6em;
 	display:inline-block;

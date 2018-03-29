@@ -6,7 +6,7 @@
 	-moz-box-sizing:border-box;
 	-o-box-sizing:border-box;
 	box-sizing:border-box;
-	white-space:normal;	
+	white-space:normal;
 }
 
 /* Container */
@@ -174,7 +174,7 @@
 	border:2px solid tomato !important;
 }
 .ubermenu .ubermenu-highlight-layout .ubermenu-submenu.ubermenu-submenu-drop:before{
-	content:'Submenu';	
+	content:'Submenu';
 	background:tomato;
 	bottom:0;
 	right:0;
@@ -185,7 +185,7 @@
 	border:2px solid #2260C2;
 }
 .ubermenu .ubermenu-highlight-layout .ubermenu-item.ubermenu-item-header:before{
-	content:'Header (Column)';	
+	content:'Header (Column)';
 	background:	#2260C2;
 }
 
@@ -200,7 +200,7 @@
 	margin:-15px 0 0 -7px;
 }
 .ubermenu .ubermenu-highlight-layout .ubermenu-submenu .ubermenu-tabs{
-	
+
 	border: 10px solid #0D6DBD;
 	background: #B6E3FF;
 }
@@ -249,7 +249,7 @@
 .ubermenu .ubermenu-highlight-layout .ubermenu-submenu.ubermenu-submenu-type-stack:before{
 	content:'Stack';
 	background:#66A01E;
-	margin:-10px 0;	
+	margin:-10px 0;
 }
 
 .ubermenu .ubermenu-highlight-layout .ubermenu-item-type-column > .ubermenu-submenu.ubermenu-submenu-type-stack{
@@ -418,7 +418,7 @@
 
 
 #ubermenu-diagnostics .umd-tabs{
-	
+
 	background:#e4e4e4;
 }
 #ubermenu-diagnostics .umd-tab{
@@ -494,7 +494,7 @@
 	border-bottom:2px solid #666;
 	width:100%;
 
-	transition-delay:0;	
+	transition-delay:0;
 	transition:opacity .2s ease;
 
 	position:absolute;
@@ -510,7 +510,7 @@
 #ubermenu-diagnostics .umd-status:hover .umd-status-explanation{
 	opacity:1;
 	visibility:visible;
-	transition-delay:.3s;	
+	transition-delay:.3s;
 }
 #ubermenu-diagnostics .umd-status-explanation:before{
 	content:'';
@@ -563,7 +563,8 @@
 .umd-tool.umd-tool-closed .umd-tool-body{
 	display:none;
 }
-.umd-tool .umd-tool-toggle .fa{
+.umd-tool .umd-tool-toggle .fa,
+.umd-tool .umd-tool-toggle .svg-inline--fa{
 	float:right;
 	display:none;
 	cursor:pointer;
@@ -656,7 +657,7 @@
 	margin-right:4px;
 }
 #umd-tool-rs-unwrap{
-	
+
 }
 #umd-tool-rs-resolved{
 	background: #21A77F;

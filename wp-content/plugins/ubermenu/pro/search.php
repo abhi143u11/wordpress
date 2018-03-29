@@ -1,5 +1,5 @@
 <?php
-
+//<input type="submit" class="ubermenu-search-submit" value="&#xf002;" />
 function ubermenu_searchbar( $placeholder = null , $post_type = '' ){
 	if( is_null( $placeholder ) ){
 		$placeholder = __( 'Search...' , 'ubermenu'  );
@@ -12,7 +12,7 @@ function ubermenu_searchbar( $placeholder = null , $post_type = '' ){
 			<?php if( $post_type ): ?>
 			<input type="hidden" name="post_type" value="<?php echo $post_type; ?>" />
 			<?php endif; ?>
-			<input type="submit" class="ubermenu-search-submit" value="&#xf002;" />
+			<button type="submit" class="ubermenu-search-submit"><i class="fas fa-search" title="Search"></i></button>
 		</form>
 	</div>
 	<!-- end .ubermenu-search -->

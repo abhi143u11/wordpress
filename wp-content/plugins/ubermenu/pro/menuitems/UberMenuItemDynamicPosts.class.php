@@ -436,7 +436,7 @@ class UberMenuItemDynamicPosts extends UberMenuItemDynamic{
 				if( $term_id ){
 					//$term_url = get_term_link( $term_id , $view_all_taxonomy );
 					$term_url = get_term_link( intval( $term_id ) , $view_all_taxonomy );	//Some servers misinterpret as non-int?
-					$view_all_link_text = 'View all <i class="fa fa-angle-double-right"></i>';
+					$view_all_link_text = 'View all <i class="fas fa-angle-double-right"></i>';
 					if( $this->getSetting( 'dp_view_all_text' ) != '' ){
 						$view_all_link_text_setting = $this->getSetting( 'dp_view_all_text' );
 						$view_all_link_text = $view_all_link_text_setting;
@@ -646,6 +646,9 @@ class UberMenuItemDynamicPost extends UberMenuItemDefault{
 			$atts['class'].= ' ubermenu-noindicator';
 		}
 
+		//Global Submenu Indicators
+		$display_submenu_indicators = $this->get_menu_op('display_submenu_indicators') === 'on' ? true : false;
+
 
 		//Disabled Link (change tag)
 		$disable_link = false;
@@ -668,8 +671,6 @@ class UberMenuItemDynamicPost extends UberMenuItemDefault{
 			$atts['class'].= ' '.$target_class;
 		}
 
-		//Disabled (change el)
-		//TODO
 
 		//Title
 		$title = '';
@@ -773,6 +774,12 @@ class UberMenuItemDynamicPost extends UberMenuItemDefault{
 		//Add pieces based on layout order
 		foreach( $layout_pieces as $piece ){
 			$a.= $piece;
+		}
+
+		//Submenu indicator
+		$submenu_type = $this->get_submenu_type();
+		if( $display_submenu_indicators && !$disable_submenu_indicator && $submenu_type && in_array( $submenu_type , array( 'mega' , 'flyout' , 'tab-content-panel' ) ) ){
+			$a.= '<i class="ubermenu-sub-indicator fas fa-angle-down"></i>';
 		}
 
 		if( isset( $this->args->link_after ) ) $a .= $this->args->link_after;

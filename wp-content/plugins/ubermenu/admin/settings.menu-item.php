@@ -12,7 +12,16 @@ function ubermenu_admin_menu_load_assets() {
 
 	$assets = UBERMENU_URL . 'admin/assets/';
 	wp_enqueue_style( 'ubermenu-menu-admin', $assets.'admin.menu.css' );
-	wp_enqueue_style( 'ubermenu-menu-admin-font-awesome', $assets.'fontawesome/css/font-awesome.min.css' );
+
+	//fontawesome 4
+	//wp_enqueue_style( 'ubermenu-menu-admin-font-awesome', $assets.'fontawesome/css/font-awesome.min.css' );
+	//fontawesome 5
+	//wp_enqueue_script( 'ubermenu-font-awesome' , UBERMENU_URL.'assets/fontawesome/svg/js/fontawesome-all.min.js' , false , false , false );
+	//add_filter( 'script_loader_tag', 'ubermenu_fontawesome_defer', 10, 2 );
+
+	wp_enqueue_style( 'ubermenu-font-awesome-all' , 	UBERMENU_URL .'assets/fontawesome/fonts/css/fontawesome-all.min.css' , false , false );
+
+
 	wp_enqueue_script( 'ubermenu-menu-admin', $assets.'admin.menu.js' , array( 'jquery' ) , UBERMENU_VERSION , true );
 
 	$ubermenu_menu_data = ubermenu_get_menu_items_data();
@@ -43,7 +52,7 @@ function ubermenu_menu_item_settings_panel(){
 
 	?>
 	<div class="ubermenu-js-check">
-		<div class="ubermenu-js-check-peek"><i class="fa fa-truck"></i> Loading UberMenu...</div>
+		<div class="ubermenu-js-check-peek"><i class="fas fa-truck"></i> Loading UberMenu...</div>
 		<div class="ubermenu-js-check-details">
 			<p>
 			If this message does not disappear, it means that UberMenu has not been able to load.
@@ -55,14 +64,14 @@ function ubermenu_menu_item_settings_panel(){
 	<div class="ubermenu-menu-item-settings-wrapper">
 
 		<div class="ubermenu-menu-item-settings-topper">
-			<i class="fa fa-cogs"></i> UBERMENU SETTINGS
-			<?php /* if( !UBERMENU_PRO ): ?><a target="_blank" href="http://goo.gl/7jzDSQ" class="ubermenu-up-link"><i class="fa fa-rocket"></i> Go Pro</a><?php endif; */ ?>
+			<i class="fas fa-cogs"></i> UBERMENU SETTINGS
+			<?php /* if( !UBERMENU_PRO ): ?><a target="_blank" href="http://goo.gl/7jzDSQ" class="ubermenu-up-link"><i class="fas fa-rocket"></i> Go Pro</a><?php endif; */ ?>
 		</div>
 
 		<div class="ubermenu-menu-item-panel ubermenu-menu-item-panel-negative">
 
 			<div class="ubermenu-menu-item-stats shift-clearfix">
-				<div class="ubermenu-menu-item-title">Menu Item Unknown Template</div>
+				<div class="ubermenu-menu-item-title"><i class="fas fa-location-arrow"></i> Menu Item Unknown Template</div>
 				<div class="ubermenu-menu-item-id">#menu-item-X</div>
 				<div class="ubermenu-menu-item-type">Custom</div>
 			</div>
@@ -74,7 +83,7 @@ function ubermenu_menu_item_settings_panel(){
 					<?php foreach( $ordered_panels as $order => $panel_id ):
 						$panel = $panels[$panel_id];
 						$icon = '';
-						if( isset( $panel['icon'] ) ) $icon = '<i class="fa fa-'.$panel['icon'].'"></i> ';
+						if( isset( $panel['icon'] ) ) $icon = '<i class="fas fa-'.$panel['icon'].'"></i> ';
 						?>
 					<li class="ubermenu-menu-item-tab"  data-ubermenu-tab="<?php echo $panel_id; ?>"><a href="#" data-ubermenu-tab="<?php echo $panel_id; ?>" ><?php echo $panel['title']; echo $icon; ?></a></li>
 					<?php endforeach; ?>
@@ -88,43 +97,45 @@ function ubermenu_menu_item_settings_panel(){
 
 					<div class="ubermenu-menu-item-save-button-wrapper">
 
-						<a class="ubermenu-menu-item-settings-close" href="#"><i class="fa fa-times"></i> <span class="ubermenu-key">ESC</span></a>
+						<a class="ubermenu-menu-item-settings-close" href="#"><i class="fas fa-times"></i> <span class="ubermenu-key">ESC</span></a>
 
 						<input class="ubermenu-menu-item-save-button" type="submit" value="Save Menu Item" />
 						<div class="ubermenu-menu-item-status ubermenu-menu-item-status-save">
-							<i class="ubermenu-status-save fa fa-floppy-o"></i>
-							<i class="ubermenu-status-success fa fa-check"></i>
-							<i class="ubermenu-status-working fa fa-cog" title="Working..."></i>
-							<i class="ubermenu-status-warning fa fa-exclamation-triangle"></i>
-							<i class="ubermenu-status-error fa fa-exclamation-circle"></i>
+							<i class="ubermenu-status-save fas fa-save"></i>
+							<i class="ubermenu-status-success fas fa-check"></i>
+							<i class="ubermenu-status-working fas fa-cog" title="Working..."></i>
+							<i class="ubermenu-status-warning fas fa-exclamation-triangle"></i>
+							<i class="ubermenu-status-error fas fa-exclamation-circle"></i>
 
 							<span class="ubermenu-status-message"></span>
 						</div>
 
 						<a class="ubermenu-clear-settings">
-							<i class="fa fa-eraser"></i>
-							<div class="ubermenu-menu-item-setting-tip ubermenu-menu-item-setting-tip-below"><i class="ubermenu-tip-icon fa fa-lightbulb-o"></i> <?php
+							<i class="fas fa-eraser"></i>
+							<div class="ubermenu-menu-item-setting-tip ubermenu-menu-item-setting-tip-below"><i class="ubermenu-tip-icon fas fa-lightbulb"></i> <?php
 								_e( 'Clear the settings for this item.' , 'ubermenu' ); ?>
 							</div>
 						</a>
 
-						<span class="ubermenu-menu-item-meta-ops-wrap">
-							<i class="fa fa-gear ubermenu-menu-item-toggle-meta-ops"></i>
-							<span class="ubermenu-menu-item-meta-ops">
-								<span class="ubermenu-menu-item-setting">
-									<label><input type="checkbox" name="ubermenu-meta-save-defaults" /> <?php _e( 'Set as defaults' , 'ubermenu' ); ?></label>
-									<div class="ubermenu-menu-item-setting-tip"><i class="ubermenu-tip-icon fa fa-lightbulb-o"></i> <?php
-										_e( 'Set this item\'s current settings as the default menu item settings for all menu items (won\'t affect menu items whose settings have already been saved).  Be careful - if these aren\'t set intelligently, it can have undesirable effects.  After saving menu item, ave/refresh menu to enable new defaults.' , 'ubermenu' ); ?>
-									</div>
-								</span>
-								<span class="ubermenu-menu-item-setting">
-									<label><input type="checkbox" name="ubermenu-meta-reset-defaults" /> <?php _e( 'Reset defaults' , 'ubermenu' ); ?></label>
-									<div class="ubermenu-menu-item-setting-tip"><i class="ubermenu-tip-icon fa fa-lightbulb-o"></i> <?php
-										_e( 'Clear the custom settings defaults and restore the standard defaults.  After saving menu item, save/refresh menu to reset defaults' , 'ubermenu' ); ?>
-									</div>
+						<?php if( ubermenu_op( 'allow_custom_defaults' , 'general' ) == 'on' ): ?>
+							<span class="ubermenu-menu-item-meta-ops-wrap">
+								<i class="fas fa-cog ubermenu-menu-item-toggle-meta-ops"></i>
+								<span class="ubermenu-menu-item-meta-ops">
+									<span class="ubermenu-menu-item-setting">
+										<label><input type="checkbox" name="ubermenu-meta-save-defaults" /> <?php _e( 'Set as defaults' , 'ubermenu' ); ?></label>
+										<div class="ubermenu-menu-item-setting-tip"><i class="ubermenu-tip-icon fas fa-lightbulb"></i> <?php
+											_e( 'Set this item\'s current settings as the default menu item settings for all menu items (won\'t affect menu items whose settings have already been saved).  Be careful - if these aren\'t set intelligently, it can have undesirable effects.  After saving menu item, ave/refresh menu to enable new defaults.' , 'ubermenu' ); ?>
+										</div>
+									</span>
+									<span class="ubermenu-menu-item-setting">
+										<label><input type="checkbox" name="ubermenu-meta-reset-defaults" /> <?php _e( 'Reset defaults' , 'ubermenu' ); ?></label>
+										<div class="ubermenu-menu-item-setting-tip"><i class="ubermenu-tip-icon fas fa-lightbulb"></i> <?php
+											_e( 'Clear the custom settings defaults and restore the standard defaults.  After saving menu item, save/refresh menu to reset defaults' , 'ubermenu' ); ?>
+										</div>
+									</span>
 								</span>
 							</span>
-						</span>
+						<?php endif; ?>
 					</div>
 
 					<div class="ubermenu-menu-item-load-error-notice ubermenu-admin-notice ubermenu-admin-notice-warning">
@@ -142,7 +153,7 @@ function ubermenu_menu_item_settings_panel(){
 							$panel_settings = $settings[$panel_id];
 							ksort( $panel_settings );
 							$icon = '';
-							if( isset( $panel['icon'] ) ) $icon = '<i class="fa fa-'.$panel['icon'].'"></i>';
+							if( isset( $panel['icon'] ) ) $icon = '<i class="fas fa-'.$panel['icon'].'"></i>';
 							?>
 						<div class="ubermenu-menu-item-tab-content" data-ubermenu-tab-content="<?php echo $panel_id; ?>"<?php
 								if( isset( $panel['apply_if'] ) ){
@@ -153,25 +164,25 @@ function ubermenu_menu_item_settings_panel(){
 							<div class="ubermenu-menu-item-tab-header">
 
 								<h3><?php echo $icon; ?>
-									<!--<i class="fa fa-sliders"></i>--> <?php echo $panel['title']; ?> Settings</h3>
+									<!--<i class="fas fa-sliders"></i>--> <?php echo $panel['title']; ?> Settings</h3>
 
 								<?php if( isset( $panel['info'] ) ): ?>
 								<div class="ubermenu-menu-item-tab-header-info">
-									<i class="ubermenu-panel-info-icon fa fa-info-circle"></i>
+									<i class="ubermenu-panel-info-icon fas fa-info-circle"></i>
 									<?php echo $panel['info']; ?>
 								</div>
 								<?php endif; ?>
 
 								<?php if( isset( $panel['tip'] ) ): ?>
 								<div class="ubermenu-menu-item-tab-header-tip">
-									<i class="ubermenu-panel-info-icon fa fa-lightbulb-o"></i>
+									<i class="ubermenu-panel-info-icon fas fa-lightbulb"></i>
 									<?php echo $panel['tip']; ?>
 								</div>
 								<?php endif; ?>
 
 								<?php if( isset( $panel['warning'] ) ): ?>
 								<div class="ubermenu-menu-item-tab-header-warning">
-									<i class="ubermenu-panel-info-icon fa fa-exclamation-triangle"></i>
+									<i class="ubermenu-panel-info-icon fas fa-exclamation-triangle"></i>
 									<?php echo $panel['warning']; ?>
 								</div>
 								<?php endif; ?>
@@ -188,14 +199,14 @@ function ubermenu_menu_item_settings_panel(){
 								}
 								$class = implode( ' ' , $classes );
 
-								//$tip = isset( $setting['tip'] ) ? '<div class="ubermenu-menu-item-setting-tip"><i class="ubermenu-tip-icon fa fa-lightbulb-o"></i> '.$setting['tip'].'</div>' : '';
+								//$tip = isset( $setting['tip'] ) ? '<div class="ubermenu-menu-item-setting-tip"><i class="ubermenu-tip-icon fas fa-lightbulb"></i> '.$setting['tip'].'</div>' : '';
 								?>
 
 								<div class="<?php echo $class; ?>">
 									<label class="ubermenu-menu-item-setting-label"><?php
 										echo '<span class="ubermenu-item-setting-title">'.$setting['title'].'</span>';
 										if( isset( $setting['scenario'] ) ){
-											echo '<span class="ubermenu-item-setting-scenario"><i class="fa fa-info-circle"></i> '.$setting['scenario'].' <span class="ubermenu-item-setting-scenario-tip">This setting was designed specifically for this scenario.  Using this setting with a different scenario may have unpredictable results.</span></span>';
+											echo '<span class="ubermenu-item-setting-scenario"><i class="fas fa-info-circle"></i> '.$setting['scenario'].' <span class="ubermenu-item-setting-scenario-tip">This setting was designed specifically for this scenario.  Using this setting with a different scenario may have unpredictable results.</span></span>';
 										}
 										if( isset( $setting['cue'] ) ){
 											echo '<span class="ubermenu-item-setting-cue">'.$setting['cue'].'</span>';
@@ -237,7 +248,7 @@ function ubermenu_show_menu_item_setting( $setting , $default ){
 	$type = $setting['type'];
 	//$default = $setting['default'];
 	$desc = isset( $setting['desc'] ) ? '<span class="ubermenu-menu-item-setting-description">'.$setting['desc'].'</span>' : '';
-	$tip = isset( $setting['tip'] ) ? '<div class="ubermenu-menu-item-setting-tip"><i class="ubermenu-tip-icon fa fa-lightbulb-o"></i> '.$setting['tip'].'</div>' : '';
+	$tip = isset( $setting['tip'] ) ? '<div class="ubermenu-menu-item-setting-tip"><i class="ubermenu-tip-icon fas fa-lightbulb"></i> '.$setting['tip'].'</div>' : '';
 
 
 
@@ -370,7 +381,7 @@ function ubermenu_show_menu_item_setting( $setting , $default ){
 		case 'icon': ?>
 			<div class="ubermenu-icon-settings-wrap">
 				<div class="ubermenu-icon-selected">
-					<i class="<?php echo $default; ?>"></i>
+					<i class="ubermenu-icon <?php echo $default; ?>"></i>
 					<span class="ubermenu-icon-set-icon">Set Icon</span>
 				</div>
 				<div class="ubermenu-icons shift-clearfix">
@@ -398,9 +409,9 @@ function ubermenu_show_menu_item_setting( $setting , $default ){
 				<input class="<?php echo $class_str; ?> ubermenu-media-id" type="text" <?php echo "$name $value $data_setting"; ?> />
 
 				<div class="ubermenu-media-buttons">
-					<a class="ubermenu-setting-button" data-uploader-title="Upload or Choose from Media Library" ><i class="fa fa-picture-o"></i> Select</a>
+					<a class="ubermenu-setting-button" data-uploader-title="Upload or Choose from Media Library" ><i class="fas fa-image"></i> Select</a>
 					<a class="ubermenu-remove-button">&times; Remove</a>
-					<a class="ubermenu-edit-media-button" target="_blank"><i class="fa fa-pencil"></i> Edit</a>
+					<a class="ubermenu-edit-media-button" target="_blank"><i class="fas fa-pencil"></i> Edit</a>
 				</div>
 			</div>
 			<?php break;
@@ -413,8 +424,8 @@ function ubermenu_show_menu_item_setting( $setting , $default ){
 				<input class="ubermenu-autocomplete-input" data-auto-set="true" data-current-id="" data-current-name="" placeholder="Type to filter" type="text" />
 				<input class="ubermenu-menu-item-setting-input ubermenu-autocomplete-setting" placeholder="ID" type="text" <?php echo "$name $value $data_setting"; ?> />
 
-				<span class="ubermenu-autocomplete-toggle"><i class="fa fa-chevron-down"></i></span>
-				<span class="ubermenu-autocomplete-clear"><i class="fa fa-ban"></i></span>
+				<span class="ubermenu-autocomplete-toggle"><i class="fas fa-chevron-down"></i></span>
+				<span class="ubermenu-autocomplete-clear"><i class="fas fa-ban"></i></span>
 
 				<div class="ubermenu-autocomplete-ops">
 					<?php foreach( $ops as $_val => $_name ):
@@ -450,7 +461,7 @@ function ubermenu_menu_item_settings_panels(){
 
 	$panels['row'] = array(
 		'title'	=> __( 'Row', 'ubermenu' ),
-		'icon'	=> 'gear',
+		'icon'	=> 'cog',
 	);
 
 	$panels['general'] = array(
@@ -783,7 +794,7 @@ function ubermenu_menu_item_settings(){
 							'auto'	=>	array(
 								'name'	=> __( 'Automatic' , 'ubermenu' ),
 								'desc'	=> __( 'UberMenu will attempt to automatically determine the best type of submenu for this item.' , 'ubermenu' ),
-								'img_icon'	=> 'fa fa-bolt',
+								'img_icon'	=> 'fas fa-bolt',
 							),
 							'mega'	=>	array(
 								'name'	=> __( 'Mega Submenu' , 'ubermenu' ),
@@ -1157,6 +1168,11 @@ function ubermenu_get_menu_item_data( $item_id ){
 			$meta['submenu_background_image_url'] = $src[0];
 			$meta['submenu_background_image_edit'] = get_edit_post_link( $meta['submenu_background_image'], 'raw' );
 		}
+	}
+
+	//Convert icons //TODO FA5 - only do this until update has been run
+	if( !empty( $meta['icon'] ) ){
+		$meta['icon'] = ubermenu_fa5_convert( $meta['icon'] , true );
 	}
 
 	return $meta;
@@ -1761,6 +1777,7 @@ function ubermenu_dp_tag_ops(){
 }
 function ubermenu_dp_post_parent_ops(){
 	return ubermenu_get_post_parent_ops( array(
+		'0'		=> '[Top level posts only]',
 		'-1' 	=> 'Inherit Parent Menu Item',
 	));
 }

@@ -67,10 +67,11 @@
 &.ubermenu-responsive .ubermenu-item.ubermenu-has-submenu-flyout{
 	position:static;
 }
-&.ubermenu-responsive.ubermenu-sub-indicators .ubermenu-submenu-type-flyout .ubermenu-has-submenu-drop > .ubermenu-target:after{
-	content:"\f107";
+&.ubermenu-responsive.ubermenu-sub-indicators .ubermenu-submenu-type-flyout .ubermenu-has-submenu-drop > .ubermenu-target > .ubermenu-sub-indicator{
+	transform:rotate(0);
+	right:10px;
+	left:auto;
 }
-
 &.ubermenu-responsive .ubermenu-nav .ubermenu-item .ubermenu-submenu.ubermenu-submenu-drop{
 	width:100%;
 	min-width:100%;
@@ -155,8 +156,10 @@
 &.ubermenu-responsive .ubermenu-tab > .ubermenu-target{
 	border-width:0 0 1px 0;
 }
-&.ubermenu-responsive.ubermenu-sub-indicators .ubermenu-tabs > .ubermenu-tabs-group > .ubermenu-tab.ubermenu-has-submenu-drop > .ubermenu-target:after{
-	content:"\f107";
+&.ubermenu-responsive.ubermenu-sub-indicators .ubermenu-tabs > .ubermenu-tabs-group > .ubermenu-tab.ubermenu-has-submenu-drop > .ubermenu-target > .ubermenu-sub-indicator{
+	transform:rotate(0);
+	right:10px;
+	left:auto;
 }
 
 &.ubermenu-responsive .ubermenu-tabs > .ubermenu-tabs-group > .ubermenu-tab > .ubermenu-tab-content-panel{
@@ -210,8 +213,10 @@
 &.ubermenu-vertical .ubermenu-item.ubermenu-item-level-0{
 	width:100%;
 }
-&.ubermenu-vertical.ubermenu-sub-indicators .ubermenu-item-level-0.ubermenu-item-has-children > .ubermenu-target:after{
-	content:'\f107';
+&.ubermenu-vertical.ubermenu-sub-indicators .ubermenu-item-level-0.ubermenu-item-has-children > .ubermenu-target > .ubermenu-sub-indicator{
+	right:10px;
+	left:auto;
+	transform:rotate(0);
 }
 &.ubermenu-vertical .ubermenu-item.ubermenu-item-level-0.ubermenu-relative.ubermenu-active > .ubermenu-submenu-drop.ubermenu-submenu-align-vertical_parent_item{
     top:auto;
@@ -219,9 +224,17 @@
 
 
 /* Tabs on Mobile with mouse (but not click) - leave space to hover off */
-&.ubermenu:not(.ubermenu-is-mobile) .ubermenu-submenu .ubermenu-tab[data-ubermenu-trigger="mouseover"] .ubermenu-tab-content-panel,
-&.ubermenu:not(.ubermenu-is-mobile) .ubermenu-submenu .ubermenu-tab[data-ubermenu-trigger="hover_intent"] .ubermenu-tab-content-panel{
+&.ubermenu:not(.ubermenu-is-mobile):not(.ubermenu-submenu-indicator-closes) .ubermenu-submenu .ubermenu-tab[data-ubermenu-trigger="mouseover"] .ubermenu-tab-content-panel,
+&.ubermenu:not(.ubermenu-is-mobile):not(.ubermenu-submenu-indicator-closes) .ubermenu-submenu .ubermenu-tab[data-ubermenu-trigger="hover_intent"] .ubermenu-tab-content-panel{
     margin-left:6%;
 		width:94%;
 		min-width:94%;
+}
+
+/* Sub indicator close visibility */
+&.ubermenu.ubermenu-submenu-indicator-closes .ubermenu-active > .ubermenu-target > .ubermenu-sub-indicator-close{
+	display:block;
+}
+&.ubermenu.ubermenu-submenu-indicator-closes .ubermenu-active > .ubermenu-target > .ubermenu-sub-indicator{
+	display:none;
 }

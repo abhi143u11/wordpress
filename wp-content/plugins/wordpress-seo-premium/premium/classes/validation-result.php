@@ -1,5 +1,7 @@
 <?php
 /**
+ * WPSEO Premium plugin file.
+ *
  * @package WPSEO\Premium\Classes
  */
 
@@ -26,7 +28,7 @@ abstract class WPSEO_Validation_Result {
 	abstract public function get_type();
 
 	/**
-	 * Constructing the object
+	 * Constructing the object.
 	 *
 	 * @param string       $message The validation message contained by the result.
 	 * @param string|array $fields  The fields that errored.

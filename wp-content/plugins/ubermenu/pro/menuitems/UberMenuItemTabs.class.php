@@ -89,7 +89,8 @@ class UberMenuItemTabs extends UberMenuItem{
 		$class_names = '';
 
 		//Tabs class
-		$this->item_classes[] = 'ubermenu-tabs';
+		$this->item_classes[] = 'menu-item';
+		$this->item_classes[] = 'tabs';
 
 
 		//Setup Classes
@@ -130,6 +131,11 @@ class UberMenuItemTabs extends UberMenuItem{
 		//Show Default
 		if( $this->getSetting( 'show_default_panel' ) == 'on' ){
 			$this->item_classes[] = 'ubermenu-tabs-show-default';
+		}
+
+		//Show Current
+		if( $this->getSetting( 'show_current_panel' ) == 'on' ){
+			$this->item_classes[] = 'ubermenu-tabs-show-current';
 		}
 
 

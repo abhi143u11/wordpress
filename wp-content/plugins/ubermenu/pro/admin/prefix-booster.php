@@ -55,6 +55,8 @@ function ubermenu_get_uploads_dir(){
  */
 function ubermenu_booster_prefix_generate_all(){
   $prefix = ubermenu_op( 'custom_prefix' , 'general' );
+
+  if( !$prefix ) return;
   //echo 'Prefix: ' . $prefix;
 
   //Get filesystem access

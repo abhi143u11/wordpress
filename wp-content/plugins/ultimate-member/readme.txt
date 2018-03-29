@@ -1,7 +1,7 @@
 === Ultimate Member - User Profile & Membership Plugin ===
 Author URI: https://ultimatemember.com/
 Plugin URI: https://ultimatemember.com/
-Contributors: ultimatemember, champsupertramp
+Contributors: ultimatemember, champsupertramp, nsinelnikov
 Donate link: 
 Tags: community, member, membership, user-profile, user-registration
 Requires at least: 4.1

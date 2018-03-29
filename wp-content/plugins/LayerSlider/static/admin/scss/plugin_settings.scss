@@ -93,6 +93,16 @@ $fontHelvetica: "HelveticaNeue-Light","Helvetica Neue Light","Helvetica Neue",sa
 
 .ls-global-settings {
 
+	form figure {
+		background: #f7f7f7 !important;
+		border-top: 1px solid #dfdfdf;
+		line-height: 22px;
+
+		&.ls-first {
+			border-top-width: 0;
+		}
+	}
+
 	.inner {
 		padding: 0;
 	}
@@ -136,7 +146,7 @@ $fontHelvetica: "HelveticaNeue-Light","Helvetica Neue Light","Helvetica Neue",sa
 
 		.button-small {
 			position: absolute;
-			top: 8px;
+			top: 31px;
 			right: 8px;
 			box-shadow: none !important;
 		}

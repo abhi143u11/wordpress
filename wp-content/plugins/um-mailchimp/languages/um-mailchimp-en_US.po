@@ -1,157 +1,392 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Ultimate Member\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-02-10 18:14+0200\n"
-"PO-Revision-Date: 2015-02-10 18:14+0200\n"
-"Last-Translator: Calum Allison <umplugin@gmail.com>\n"
-"Language-Team: Ultimate Member <umplugin@gmail.com>\n"
-"Language: en_US\n"
+"Project-Id-Version: Ultimate Member - MailChimp\n"
+"POT-Creation-Date: 2018-01-28 15:09+0800\n"
+"PO-Revision-Date: 2018-01-28 15:09+0800\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: en\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.7.1\n"
-"X-Poedit-Basepath: .\n"
-"X-Poedit-KeywordsList: __;_e\n"
+"X-Generator: Poedit 2.0.1\n"
+"X-Poedit-Basepath: ..\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"X-Poedit-WPHeader: um-mailchimp.php\n"
 "X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
 "X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
 
-#: admin/templates/list.php:5
+#: includes/admin/templates/list.php:24
+msgid "Connected to Mailing List ID"
+msgstr ""
+
+#: includes/admin/templates/list.php:32
 msgid "Choose a list"
 msgstr ""
 
-#: admin/templates/list.php:5
+#: includes/admin/templates/list.php:33
 msgid "Choose a list from your MailChimp account"
 msgstr ""
 
-#: admin/templates/list.php:18
+#: includes/admin/templates/list.php:43
 msgid "Enable this MailChimp list"
 msgstr ""
 
-#: admin/templates/list.php:18
+#: includes/admin/templates/list.php:44
 msgid ""
 "Turn on or off this list globally. If enabled the list will be available in "
 "user account page."
 msgstr ""
 
-#: admin/templates/list.php:27
+#: includes/admin/templates/list.php:50
 msgid "List Description in Account Page"
 msgstr ""
 
-#: admin/templates/list.php:27
+#: includes/admin/templates/list.php:51
 msgid ""
 "This text will be displayed in Account > Notifications to encourage user to "
 "sign or know what this list is about"
 msgstr ""
 
-#: admin/templates/list.php:36
+#: includes/admin/templates/list.php:57
 msgid "List Description in Registration"
 msgstr ""
 
-#: admin/templates/list.php:36
+#: includes/admin/templates/list.php:58
 msgid ""
 "This text will be displayed in register form if you enable this mailing list "
 "to be available during signup"
 msgstr ""
 
-#: admin/templates/list.php:45
+#: includes/admin/templates/list.php:64
 msgid "Automatically add new users to this list"
 msgstr ""
 
-#: admin/templates/list.php:45
-msgid "Turn on to automatically add new signups to this list"
+#: includes/admin/templates/list.php:65
+msgid ""
+"If turned on users will automatically be subscribed to this when they "
+"register. When turned on this list will not show on register form even if "
+"you add MailChimp field to register form."
 msgstr ""
 
-#: admin/templates/list.php:54
-msgid "Make available to these <strong>user roles only</strong>"
+#: includes/admin/templates/list.php:73
+msgid "Which roles can subscribe to this list"
 msgstr ""
 
-#: admin/templates/list.php:54
-msgid "By default, the list will be available to everyone."
+#: includes/admin/templates/list.php:74
+msgid ""
+"Select which roles can subscribe to this list. Users who cannot subscribe to "
+"this list will not see this list on their account page."
 msgstr ""
 
-#: core/actions/um-mailchimp-fields.php:18
+#: includes/admin/templates/merge.php:8
+msgid "Ignore this field"
+msgstr ""
+
+#: includes/admin/templates/metabox.php:4
+msgid "Connection status"
+msgstr ""
+
+#: includes/admin/templates/metabox.php:8
+#: includes/admin/templates/metabox.php:18
+#, php-format
+msgid ""
+"<a href=\"%s\"><strong>Please enter your valid API key</strong></a> in "
+"settings."
+msgstr ""
+
+#: includes/admin/templates/metabox.php:22
+#, php-format
+msgid ""
+"Your site is successfully <strong><span class=\"ok\">linked</span></strong> "
+"to <strong>%s</strong> MailChimp account."
+msgstr ""
+
+#: includes/admin/templates/metabox.php:25
+msgid "Account status"
+msgstr ""
+
+#: includes/admin/templates/metabox.php:27
+#, php-format
+msgid "%d subscriber"
+msgid_plural " %d subscribers"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/admin/templates/metabox.php:31
+#, php-format
+msgid "%d Mailchimp list"
+msgid_plural "%d Mailchimp lists"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/admin/templates/metabox.php:35
+#, php-format
+msgid "%d UM Mailchimp list"
+msgid_plural "%d UM Mailchimp lists"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/admin/templates/metabox.php:46
+msgid "In queue (updated daily)"
+msgstr ""
+
+#: includes/admin/templates/metabox.php:48
+#, php-format
+msgid "%s new subscriber"
+msgid_plural "%s new subscribers"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/admin/templates/metabox.php:51
+#: includes/admin/templates/metabox.php:59
+#: includes/admin/templates/metabox.php:77
+#: includes/admin/templates/metabox.php:128
+msgid "Sync Now"
+msgstr ""
+
+#: includes/admin/templates/metabox.php:56
+#, php-format
+msgid "%d new unsubscriber"
+msgid_plural "%d new unsubscribers"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/admin/templates/metabox.php:64
+#, php-format
+msgid "%d new profile update"
+msgid_plural "%d new profile updates"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/admin/templates/metabox.php:82
+msgid "Sync Profiles"
+msgstr ""
+
+#: includes/admin/templates/metabox.php:99
+msgid "Approved"
+msgstr ""
+
+#: includes/admin/templates/metabox.php:100
+msgid "Awaiting Admin Review"
+msgstr ""
+
+#: includes/admin/templates/metabox.php:101
+msgid "Awaiting Email Confirmation"
+msgstr ""
+
+#: includes/admin/templates/metabox.php:102
+#: includes/core/class-mailchimp-admin.php:169
+msgid "Inactive"
+msgstr ""
+
+#: includes/admin/templates/metabox.php:103
+msgid "Rejected"
+msgstr ""
+
+#: includes/admin/templates/metabox.php:111
+msgid "Scan Now"
+msgstr ""
+
+#: includes/admin/templates/metabox.php:119
+#, php-format
+msgid "%s profile not opted-in"
+msgid_plural "%s profiles not opted-in"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/admin/templates/metabox.php:120
+msgid "Opt-in Now"
+msgstr ""
+
+#: includes/admin/templates/metabox.php:127
+#, php-format
+msgid "%s profile opted-in"
+msgid_plural "%s profiles opted-in"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/admin/templates/metabox.php:250
+msgid "Last Batch Operations: "
+msgstr ""
+
+#: includes/admin/templates/metabox.php:251
+#, php-format
+msgid "%s total operation"
+msgid_plural "%s total operations"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/admin/templates/metabox.php:252
+#, php-format
+msgid "%s finished operation"
+msgid_plural "%s finished operations"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/admin/templates/metabox.php:253
+#, php-format
+msgid "%s errored operation"
+msgid_plural "%s errored operations"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/core/actions/um-mailchimp-fields.php:17
 msgid "Select a List"
 msgstr ""
 
-#: core/actions/um-mailchimp-fields.php:18
+#: includes/core/actions/um-mailchimp-fields.php:17
 msgid "You can set up lists or integrations in Ultimate Member > MailChimp"
 msgstr ""
 
-#: core/filters/um-mailchimp-account.php:19
-msgid "Email Newsletters"
+#: includes/core/class-mailchimp-admin.php:60
+msgid "Setup List"
 msgstr ""
 
-#: core/filters/um-mailchimp-fields.php:54
-#: core/filters/um-mailchimp-settings.php:12 core/um-mailchimp-admin.php:42
-#: core/um-mailchimp-taxonomies.php:18 core/um-mailchimp-taxonomies.php:19
+#: includes/core/class-mailchimp-admin.php:70
+msgid "Merge User Meta"
+msgstr ""
+
+#: includes/core/class-mailchimp-admin.php:132
+#, php-format
+msgid ""
+"You must add your <strong>MailChimp API</strong> key before connecting your "
+"newsletter lists. <a href=\"%s\">Hide this notice</a>"
+msgstr ""
+
+#: includes/core/class-mailchimp-admin.php:136
+msgid "Setup MailChimp API"
+msgstr ""
+
+#: includes/core/class-mailchimp-admin.php:147
+msgid "Title"
+msgstr ""
+
+#: includes/core/class-mailchimp-admin.php:148
+msgid "Status"
+msgstr ""
+
+#: includes/core/class-mailchimp-admin.php:149
+msgid "Automatic Signup"
+msgstr ""
+
+#: includes/core/class-mailchimp-admin.php:150
+msgid "List ID"
+msgstr ""
+
+#: includes/core/class-mailchimp-admin.php:151
+msgid "Subscribers"
+msgstr ""
+
+#: includes/core/class-mailchimp-admin.php:152
+msgid "Roles"
+msgstr ""
+
+#: includes/core/class-mailchimp-admin.php:167
+#: includes/core/class-mailchimp-admin.php:176
+msgid "Active"
+msgstr ""
+
+#: includes/core/class-mailchimp-admin.php:178
+msgid "Manual"
+msgstr ""
+
+#: includes/core/class-mailchimp-admin.php:194
+msgid "Everyone"
+msgstr ""
+
+#: includes/core/class-mailchimp-admin.php:263
+#: includes/core/class-mailchimp-admin.php:303
+#: includes/core/filters/um-mailchimp-fields.php:54
+#: includes/core/filters/um-mailchimp-settings.php:22
+#: includes/core/um-mailchimp-init.php:84
+#: includes/core/um-mailchimp-init.php:85
 msgid "MailChimp"
 msgstr ""
 
-#: core/filters/um-mailchimp-fields.php:60
+#: includes/core/class-mailchimp-admin.php:284
+msgid "e.g. My First Mailing List"
+msgstr ""
+
+#: includes/core/class-mailchimp-func.php:963
+msgid "No lists found"
+msgstr ""
+
+#: includes/core/class-mailchimp-func.php:978
+msgid "Please setup MailChimp API"
+msgstr ""
+
+#: includes/core/filters/um-mailchimp-account.php:16
+msgid "Notifications"
+msgstr ""
+
+#: includes/core/filters/um-mailchimp-account.php:17
+msgid "Update Notifications"
+msgstr ""
+
+#: includes/core/filters/um-mailchimp-account.php:43
+msgid "Email Newsletters"
+msgstr ""
+
+#: includes/core/filters/um-mailchimp-fields.php:60
 msgid "You must provide a title"
 msgstr ""
 
-#: core/filters/um-mailchimp-settings.php:18
+#: includes/core/filters/um-mailchimp-settings.php:14
+msgid "MailChimp License Key"
+msgstr ""
+
+#: includes/core/filters/um-mailchimp-settings.php:27
 msgid "MailChimp API Key"
 msgstr ""
 
-#: core/filters/um-mailchimp-settings.php:19
+#: includes/core/filters/um-mailchimp-settings.php:28
 msgid ""
 "The MailChimp API Key is required and enables you access and integration "
 "with your lists."
 msgstr ""
 
-#: core/um-mailchimp-admin.php:23
-msgid "e.g. My First Mailing List"
+#: includes/core/filters/um-mailchimp-settings.php:35
+msgid "Enable Real-time Subscription Status"
 msgstr ""
 
-#: core/um-mailchimp-cols.php:20
-msgid "Title"
+#: includes/core/filters/um-mailchimp-settings.php:36
+msgid ""
+"Careful as this option will contact the MailChimp API when you request a "
+"status of user subscription to a specific list."
 msgstr ""
 
-#: core/um-mailchimp-cols.php:21
-msgid "Status"
+#: includes/core/filters/um-mailchimp-settings.php:55
+msgid "Mailchimp Subscription"
 msgstr ""
 
-#: core/um-mailchimp-cols.php:22
-msgid "Automatic Signup"
+#: includes/core/um-mailchimp-init.php:86
+#: includes/core/um-mailchimp-init.php:87
+msgid "Add New List"
 msgstr ""
 
-#: core/um-mailchimp-cols.php:23
-msgid "List ID"
+#: includes/core/um-mailchimp-init.php:88
+msgid "Edit List"
 msgstr ""
 
-#: core/um-mailchimp-cols.php:24
-msgid "Subscribers"
+#: includes/core/um-mailchimp-init.php:89
+msgid "You did not create any MailChimp lists yet"
 msgstr ""
 
-#: core/um-mailchimp-cols.php:25
-msgid "Roles"
+#: includes/core/um-mailchimp-init.php:90
+msgid "Nothing found in Trash"
 msgstr ""
 
-#: core/um-mailchimp-cols.php:42 core/um-mailchimp-cols.php:51
-msgid "Active"
+#: includes/core/um-mailchimp-init.php:91
+msgid "Search MailChimp lists"
 msgstr ""
 
-#: core/um-mailchimp-cols.php:44
-msgid "Inactive"
-msgstr ""
-
-#: core/um-mailchimp-cols.php:53
-msgid "Manual"
-msgstr ""
-
-#: core/um-mailchimp-cols.php:69
-msgid "Everyone"
-msgstr ""
-
-#: core/um-mailchimp-func.php:161
-msgid "No lists found"
-msgstr ""
-
-#: core/um-mailchimp-init.php:22
+#: um-mailchimp.php:35 um-mailchimp.php:51
 #, php-format
 msgid ""
 "The <strong>%s</strong> extension requires the Ultimate Member plugin to be "
@@ -159,58 +394,19 @@ msgid ""
 "org/plugins/ultimate-member\">here</a>"
 msgstr ""
 
-#: core/um-mailchimp-init.php:27
-#, php-format
-msgid ""
-"The <strong>%s</strong> extension requires a <a href=\"https://wordpress.org/"
-"plugins/ultimate-member\">newer version</a> of Ultimate Member to work "
-"properly."
+#. Plugin Name of the plugin/theme
+msgid "Ultimate Member - MailChimp"
 msgstr ""
 
-#: core/um-mailchimp-metabox.php:30
-msgid "Setup List"
+#. Plugin URI of the plugin/theme
+#. Author URI of the plugin/theme
+msgid "http://ultimatemember.com/"
 msgstr ""
 
-#: core/um-mailchimp-notices.php:27
-#, php-format
-msgid ""
-"You must add your <strong>MailChimp API</strong> key before connecting your "
-"newsletter lists. <a href=\"%s\">Hide this notice</a>"
+#. Description of the plugin/theme
+msgid "Integrates Ultimate Member with MailChimp newsletters."
 msgstr ""
 
-#: core/um-mailchimp-notices.php:31
-msgid "Setup MailChimp API"
+#. Author of the plugin/theme
+msgid "Ultimate Member"
 msgstr ""
-
-#: core/um-mailchimp-taxonomies.php:20 core/um-mailchimp-taxonomies.php:21
-msgid "Add New List"
-msgstr ""
-
-#: core/um-mailchimp-taxonomies.php:22
-msgid "Edit List"
-msgstr ""
-
-#: core/um-mailchimp-taxonomies.php:23
-msgid "You did not create any MailChimp lists yet"
-msgstr ""
-
-#: core/um-mailchimp-taxonomies.php:24
-msgid "Nothing found in Trash"
-msgstr ""
-
-#: core/um-mailchimp-taxonomies.php:25
-msgid "Search MailChimp lists"
-msgstr ""
-
-#~ msgid "outdatedBrowser_page_message"
-#~ msgstr ""
-#~ "The site you are visiting can only be viewed using a modern browser. "
-#~ "Please upgrade your browser to increase safety and your browsing "
-#~ "experience. Choose one of the browsers above. If you don't care <a href="
-#~ "\"?forwardOutdatedBrowser=1\">click here</a>"
-
-#~ msgid "404_page_message"
-#~ msgstr ""
-#~ "The Page you are looking for doesn't exist or an other error occurred. <a "
-#~ "href=\"javascript:history.go(-1)\">Go back</a>, or head over to <a href="
-#~ "\"%s\">%s</a> to choose a new direction."

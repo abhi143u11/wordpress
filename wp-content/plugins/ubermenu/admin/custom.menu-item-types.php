@@ -3,12 +3,12 @@
 
 add_filter( 'wp_setup_nav_menu_item' , 'ubermenu_setup_nav_menu_item' );
 function ubermenu_setup_nav_menu_item( $menu_item ){
-	
+
 
 	if( $menu_item->type == 'custom' ){
 
 		//Check flag FIRST, only deal with URL if flag hasn't been set
-		
+
 		$custom_item_type = '';
 		$items = ubermenu_get_custom_menu_item_types();
 		$url = $menu_item->url;
@@ -45,7 +45,7 @@ function ubermenu_setup_nav_menu_item( $menu_item ){
 
 function ubermenu_get_custom_menu_item_types(){
 
-	$items = array(		
+	$items = array(
 
 		'row'	=> array(
 			'label'	=>	__( 'Row' , 'ubermenu' ),
@@ -57,7 +57,7 @@ function ubermenu_get_custom_menu_item_types(){
 		'column' => array(
 			'label'	=>	__( 'Column' , 'ubermenu' ),
 			'title' =>	'['.__( 'Column' , 'ubermenu' ) . ']',
-			'panels'	=> array( 'column_layout' , 'responsive' ),
+			'panels'	=> array( 'column_layout' , 'responsive' , 'customize_column'),
 			'desc'	=>	__( 'A column, which can contain any type of item.  Useful for placing multiple blocks of items in a single column.' , 'ubermenu' ),
 		),
 
@@ -66,7 +66,7 @@ function ubermenu_get_custom_menu_item_types(){
 			'title'	=>	'['.__( 'Divider' , 'ubermenu' ).']',
 			'panels'=> array( 'divider' ),
 			'desc'	=>	__( 'A visual divider between submenu segments.' , 'ubermenu' )
-		),		
+		),
 
 	);
 	return apply_filters( 'ubermenu_custom_menu_item_types' , $items );
@@ -107,7 +107,7 @@ function ubermenu_add_custom_menu_items_meta_box(){
 	add_meta_box( 'ubermenu_custom_nav_items', 'UberMenu Advanced Items', 'ubermenu_custom_menu_items_meta_box', 'nav-menus', 'side', 'low' );
 }
 
-function ubermenu_custom_menu_items_meta_box() { 
+function ubermenu_custom_menu_items_meta_box() {
 	global $_nav_menu_placeholder, $nav_menu_selected_id;
 
 	$items = ubermenu_get_custom_menu_item_types();
@@ -117,7 +117,7 @@ function ubermenu_custom_menu_items_meta_box() {
 		<div id="tabs-panel-ubermenu-custom" class="tabs-panel tabs-panel-active">
 			<ul id ="ubermenu-custom-checklist" class="categorychecklist form-no-clear">
 
-			<?php foreach( $items as $id => $item ): 
+			<?php foreach( $items as $id => $item ):
 				$url = '#ubermenu-'.$id;
 				if( isset( $item['url'] ) ){
 					$url = $item['url'];
@@ -141,7 +141,7 @@ function ubermenu_custom_menu_items_meta_box() {
 			</ul>
 		</div>
 		<p class="button-controls">
-			
+
 			<span class="add-to-menu">
 				<input type="submit" class="button-secondary submit-add-to-menu right" value="Add to Menu" name="add-ubermenu-custom-menu-item" id="submit-ubermenu-custom-menu-metabox">
 				<span class="spinner"></span>

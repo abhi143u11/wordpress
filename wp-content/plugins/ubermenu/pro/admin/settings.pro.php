@@ -101,7 +101,7 @@ function ubermenu_menu_integration_code( $args , $config_id ){
 			</div>
 			<p class="ubermenu-sub-desc ubermenu-desc-mini" >Click to select, then <strong><em>&#8984;+c</em></strong> or <strong><em>ctrl+c</em></strong> to copy to clipboard</p>
 			<p class="ubermenu-sub-desc ubermenu-desc-understated">Pick the appropriate code and add to your theme template or content where you want the menu to appear.</p>
-			<p class="ubermenu-sub-desc ubermenu-sub-desc-manualint"><i class="fa fa-arrow-down"></i> Select a <strong>Theme Location</strong> or <strong>Menu</strong> below to generate the proper code above <i class="fa fa-arrow-up"></i></p>'.
+			<p class="ubermenu-sub-desc ubermenu-sub-desc-manualint"><i class="fas fa-arrow-down"></i> Select a <strong>Theme Location</strong> or <strong>Menu</strong> below to generate the proper code above <i class="fas fa-arrow-up"></i></p>'.
 		'</div>';
 
 	return $code;
@@ -183,7 +183,7 @@ function ubermenu_pro_instance_settings( $settings , $config_id ){
 		'label'	=> __( 'Automatic Integration Theme Location' , 'ubermenu' ),
 		'type'	=> 'multicheck',
 		'desc'	=> __( 'Select the theme locations to activate automatically.  Works with most modularly coded themes.  The above theme locations are specific to your site.' , 'ubermenu' ) .
-					'<div class="ubermenu-alert">Please note that if your menu doesn\'t seem to be working properly after using Automatic Integration, the most common scenario is that you have <a href="http://sevenspark.com/docs/ubermenu-3/integration/residual-styling" target="_blank" title="What is residual styling and how can it be avoided?">Residual Styling <i class="fa fa-book"></i></a> from your theme and would need to use <a href="http://sevenspark.com/docs/ubermenu-3/integration/manual" target="_blank" title="How to add the menu code directly to the theme template to avoid interference from the theme">Manual Integration <i class="fa fa-book"></i></a> to prevent the theme from interfering.  For assistance, try the <a href="http://sevenspark.com/docs/ubermenu-3/diagnostics/residual-styling-detection-tool" title="This tool helps you detect, locate, and resolve residual styling" target="_blank" >Residual Styling Detection / Manual Integration Tool <i class="fa fa-book"></i></a>.  If the issues occur in the Direct Injection menu as well, please see <a href="http://sevenspark.com/docs/ubermenu-3/integration/theme-interference" title="Knowledgebase: Other ways in which themes can interfere with the menu" target="_blank">Theme Interference <i class="fa fa-book"></i></a></div>',
+					'<div class="ubermenu-alert">Please note that if your menu doesn\'t seem to be working properly after using Automatic Integration, the most common scenario is that you have <a href="https://sevenspark.com/docs/ubermenu-3/integration/residual-styling" target="_blank" title="What is residual styling and how can it be avoided?">Residual Styling <i class="fas fa-book"></i></a> from your theme and would need to use <a href="https://sevenspark.com/docs/ubermenu-3/integration/manual" target="_blank" title="How to add the menu code directly to the theme template to avoid interference from the theme">Manual Integration <i class="fas fa-book"></i></a> to prevent the theme from interfering.  For assistance, try the <a href="https://sevenspark.com/docs/ubermenu-3/diagnostics/residual-styling-detection-tool" title="This tool helps you detect, locate, and resolve residual styling" target="_blank" >Residual Styling Detection / Manual Integration Tool <i class="fas fa-book"></i></a>.  If the issues occur in the Direct Injection menu as well, please see <a href="https://sevenspark.com/docs/ubermenu-3/integration/theme-interference" title="Knowledgebase: Other ways in which themes can interfere with the menu" target="_blank">Theme Interference <i class="fas fa-book"></i></a></div>',
 		'options' => 'ubermenu_get_theme_location_ops',
 		'default' => '',
 		'group'	=> 'integration',
@@ -193,7 +193,7 @@ function ubermenu_pro_instance_settings( $settings , $config_id ){
 		'name'	=> 'disable_mobile',
 		'label'	=> __( 'Disable UberMenu on Mobile' , 'ubermenu' ),
 		'type'	=> 'checkbox',
-		'desc'	=> __( '(Automatic Integration Only).  When a mobile device is detected via <a href="https://codex.wordpress.org/Function_Reference/wp_is_mobile" target="_blank">wp_is_mobile()</a>, UberMenu will not replace the menu via automatic integration.  By default this includes tablets.  <br/>- <strong>Keep in mind if you are using a cache, you must cache desktop and mobile separately in order for this to work properly</strong>.  <br/>- Remember that UberMenu Advanced Items can only be used within UberMenus, so you likely don\'t want to enable this setting if you are using them.  <br/>- To customize what is considered "mobile", you can use the <a href="http://sevenspark.com/docs/ubermenu-3/developers/php-api/filters/ubermenu_is_mobile" target="_blank"><code>ubermenu_is_mobile</code></a> filter', 'ubermenu' ),
+		'desc'	=> __( '(Automatic Integration Only).  When a mobile device is detected via <a href="https://codex.wordpress.org/Function_Reference/wp_is_mobile" target="_blank">wp_is_mobile()</a>, UberMenu will not replace the menu via automatic integration.  By default this includes tablets.  <br/>- <strong>Keep in mind if you are using a cache, you must cache desktop and mobile separately in order for this to work properly</strong>.  <br/>- Remember that UberMenu Advanced Items can only be used within UberMenus, so you likely don\'t want to enable this setting if you are using them.  <br/>- To customize what is considered "mobile", you can use the <a href="https://sevenspark.com/docs/ubermenu-3/developers/php-api/filters/ubermenu_is_mobile" target="_blank"><code>ubermenu_is_mobile</code></a> filter', 'ubermenu' ),
 		'default' => 'off',
 		'group'	=> 'integration',
 	);
@@ -319,12 +319,13 @@ function ubermenu_pro_instance_settings( $settings , $config_id ){
 		'label'		=> __( 'Horizontal Item Alignment' , 'ubermenu' ),
 		'type'		=> 'radio',
 		'options' 	=> array(
+			'auto'	=> __( 'Automatic' , 'ubermenu' ),
 			'left' 	=> __( 'Left', 'ubermenu' ),
 			'center'=> __( 'Center', 'ubermenu' ),
 			'right'	=> __( 'Right', 'ubermenu' ),
 		),
-		'desc'	=> __( 'The alignment of the top level menu items within the menu bar.' , 'ubermenu' ),
-		'default' 	=> 'left',
+		'desc'	=> __( 'The alignment of the top level menu items within the menu bar.  Automatic will align left/right based on the current language direction LTR/RTL' , 'ubermenu' ),
+		'default' 	=> 'auto',
 		'group'	=> 'position',
 		'customizer'	=> true,
 		'customizer_section' => 'menu_bar',
@@ -619,7 +620,7 @@ function ubermenu_pro_instance_settings( $settings , $config_id ){
 		'name'	=> 'header_style_customizations',
 		'label'	=> __( 'Style Customizations' , 'ubermenu' ),
 		'type'	=> 'header',
-		'desc'	=> __( 'Visit the Theme Customizer to edit most of these settings with a Live Preview.' , 'ubermenu' ) . ' <a class="button button-tertiary" href="'.admin_url('customize.php').'"><i class="fa fa-pencil"></i> Customizer</a>',
+		'desc'	=> __( 'Visit the Theme Customizer to edit most of these settings with a Live Preview.' , 'ubermenu' ) . ' <a class="button button-tertiary" href="'.admin_url('customize.php').'"><i class="fas fa-pencil-alt"></i> Customizer</a>',
 		'group'	=> 'style_customizations',
 	);
 
@@ -1737,7 +1738,7 @@ function ubermenu_pro_instance_settings( $settings , $config_id ){
 
 
 	/* Icons */
-	$settings[1028] = array(
+	$settings[2027] = array(
 		'name'		=> 'icons_header',
 		'label'		=> __( 'Icons' , 'ubermenu' ),
 		'type'		=> 'header',
@@ -1745,7 +1746,7 @@ function ubermenu_pro_instance_settings( $settings , $config_id ){
 	);
 
 
-	$settings[1029] = array(
+	$settings[2028] = array(
 		'name'		=> 'icon_width',
 		'label'		=> __( 'Icon Width' , 'ubermenu' ),
 		'desc'		=> __( 'The width to allot for the icon.  Icon will be centered within this width.  1.3em by default.' , 'ubermenu' ),
@@ -1754,10 +1755,19 @@ function ubermenu_pro_instance_settings( $settings , $config_id ){
 		'custom_style' => 'icon_width',
 	);
 
-	$settings[1030] = array(
+	$settings[2029] = array(
+		'name'		=> 'icon_nudge',
+		'label'		=> __( 'Nudge Icons' , 'ubermenu' ),
+		'desc'		=> __( 'Depending on your font, you may wish to nudge the icons up or down a few pixels.  Negative values move the icon up, positive values move the icon down.' , 'ubermenu' ),
+		'type'		=> 'text',
+		'group'		=> 'icons',
+		'custom_style' => 'icon_nudge',
+	);
+
+	$settings[2030] = array(
 		'name'		=> 'icon_tag',
 		'label'		=> __( 'Icon Tag' , 'ubermenu' ),
-		'desc'		=> __( 'The HTML tag to use for the icons.' , 'ubermenu' ),
+		'desc'		=> __( 'The HTML tag to use for the icons.  Please note that with Font Awesome 5 Javascript, both tags will be converted to SVG dynamically.' , 'ubermenu' ),
 		'type'		=> 'radio',
 		'default'	=> 'i',
 		'options'	=> array(
@@ -1767,7 +1777,7 @@ function ubermenu_pro_instance_settings( $settings , $config_id ){
 		'group'		=> 'icons',
 	);
 
-	$settings[1031] = array(
+	$settings[2031] = array(
 		'name'		=> 'icon_display',
 		'label'		=> __( 'Display Icons' , 'ubermenu' ),
 		'desc'		=> __( 'If your text is too long to fit on one line along with the icon, set the icon display to Inline so that the icon and text will appear on the same line.' , 'ubermenu' ),
@@ -1779,6 +1789,7 @@ function ubermenu_pro_instance_settings( $settings , $config_id ){
 		),
 		'group'		=> 'icons',
 	);
+
 
 	//1032 is in icons extension
 
@@ -1916,7 +1927,7 @@ function ubermenu_pro_instance_settings( $settings , $config_id ){
 	$settings[1120] = array(
 		'name'		=> 'header_advanced',
 		'label'		=> __( 'Advanced' , 'ubermenu' ),
-		'desc'		=> '<i class="fa fa-warning"></i> '.__( 'You should only adjust settings in this section if you are certain of what you are doing.', 'ubermenu' ),
+		'desc'		=> '<i class="fas fa-exclamation-triangle"></i> '.__( 'You should only adjust settings in this section if you are certain of what you are doing.', 'ubermenu' ),
 		'type'		=> 'header',
 		'group'		=> 'advanced',
 	);
@@ -2024,7 +2035,7 @@ function ubermenu_settings_panel_fields_pro( $all_fields = array() ){
 	$fields[60] = array(
 		'name' 		=> 'load_custom_css',
 		'label' 	=> __( 'Load Custom Stylesheet', 'ubermenu' ),
-		'desc' 		=> __( 'Create a custom.css in the <code>custom/</code> directory.  You may wish to disable the skin preset.', 'ubermenu' ),
+		'desc' 		=> __( 'Enable this setting and then create a custom.css in the <code>custom/</code> directory in order to add your own custom external CSS.  You may wish to disable the skin preset.', 'ubermenu' ),
 		'type' 		=> 'checkbox',
 		'default' 	=> 'off',
 		'group'		=> 'assets',
@@ -2033,7 +2044,7 @@ function ubermenu_settings_panel_fields_pro( $all_fields = array() ){
 	$fields[70] = array(
 		'name' 		=> 'load_custom_js',
 		'label' 	=> __( 'Load Custom Javascript', 'ubermenu' ),
-		'desc' 		=> __( 'Create a custom.js in the <code>custom/</code> directory.', 'ubermenu' ),
+		'desc' 		=> __( 'Enable this setting and then create a custom.js in the <code>custom/</code> directory in order to add your own custom Javascript.  Do not enable if you do not create the file.', 'ubermenu' ),
 		'type' 		=> 'checkbox',
 		'default' 	=> 'off',
 		'group'		=> 'assets',
@@ -2048,16 +2059,107 @@ function ubermenu_settings_panel_fields_pro( $all_fields = array() ){
 		'group'		=> 'assets',
 	);
 
+
 	$fields[90] = array(
-		'name' 		=> 'load_fontawesome',
-		'label' 	=> __( 'Load Font Awesome', 'ubermenu' ),
-		'desc' 		=> __( 'If you are already loading Font Awesome 4 elsewhere in your setup, you can disable this.', 'ubermenu' ),
+		'name'	=> 'header_assets_font_awesome',
+		'label'	=> __( 'Font Awesome 5 - Font Icons' , 'ubermenu' ),
+		'desc'	=> __( 'If you enable all Font Icon assets, they will be loaded as a package.  Disabling one or more will load the selected assets individually.' , 'ubermenu' ).'<br/>'.
+							 __( 'If you are already loading Font Awesome 5 elsewhere in your setup, you can disable these assets.' , 'ubermenu' ),
+		'type'	=> 'header',
+		'group'	=> array( 'assets', 'font_awesome' )
+	);
+	$fields[91] = array(
+		'name' 		=> 'load_fontawesome_fontcss_solid',
+		'label' 	=> __( 'Load Solid Icons <br/>[Font Icons]', 'ubermenu' ),
+		'desc' 		=> __( 'Load the Font Awesome 5 Solid icon set via CSS and font icons.', 'ubermenu' ),
 		'type' 		=> 'checkbox',
 		'default' 	=> 'on',
-		'group'		=> 'assets',
+		'group'	=> array( 'assets', 'font_awesome' )
+	);
+	$fields[92] = array(
+		'name' 		=> 'load_fontawesome_fontcss_brands',
+		'label' 	=> __( 'Load Brand Icons <br/>[Font Icons]', 'ubermenu' ),
+		'desc' 		=> __( 'Load the Font Awesome 5 Brand icon set via CSS and font icons.', 'ubermenu' ),
+		'type' 		=> 'checkbox',
+		'default' 	=> 'on',
+		'group'	=> array( 'assets', 'font_awesome' )
+	);
+	$fields[93] = array(
+		'name' 		=> 'load_fontawesome_fontcss_regular',
+		'label' 	=> __( 'Load Regular Icons <br/>[Font Icons]', 'ubermenu' ),
+		'desc' 		=> __( 'Load the Font Awesome 5 Regular icon set via CSS and font icons.', 'ubermenu' ),
+		'type' 		=> 'checkbox',
+		'default' 	=> 'on',
+		'group'	=> array( 'assets', 'font_awesome' )
 	);
 
+	//FA5 SVG
+	$fields[94] = array(
+		'name'	=> 'header_assets_font_awesome_svg',
+		'label'	=> __( 'Font Awesome 5 - SVG Icons' , 'ubermenu' ),
+		'desc'	=> __( 'If you enable all Font Icon assets, they will be loaded as a package.  Disabling one or more will load the selected assets individually.' , 'ubermenu' ).'<br/>'.
+							 __( 'If you are already loading Font Awesome 5 elsewhere in your setup, you can disable these assets.' , 'ubermenu' ),
+		'type'	=> 'header',
+		'group'	=> array( 'assets', 'font_awesome' )
+	);
+	$fields[95] = array(
+		'name' 		=> 'load_fontawesome_svg_solid',
+		'label' 	=> __( 'Load Solid Icons <br/>[SVG via JS]', 'ubermenu' ),
+		'desc' 		=> __( 'Load the Font Awesome 5 Solid icon set as SVG icons via javascript', 'ubermenu' ),
+		'type' 		=> 'checkbox',
+		'default' 	=> 'off',
+		'group'	=> array( 'assets', 'font_awesome' )
+	);
+	$fields[96] = array(
+		'name' 		=> 'load_fontawesome_svg_brands',
+		'label' 	=> __( 'Load Brand Icons <br/>[SVG via JS]', 'ubermenu' ),
+		'desc' 		=> __( 'Load the Font Awesome 5 Brands icon set as SVG icons via javascript', 'ubermenu' ),
+		'type' 		=> 'checkbox',
+		'default' 	=> 'off',
+		'group'	=> array( 'assets', 'font_awesome' )
+	);
+	$fields[97] = array(
+		'name' 		=> 'load_fontawesome_svg_regular',
+		'label' 	=> __( 'Load Regular Icons <br/>[SVG via JS]', 'ubermenu' ),
+		'desc' 		=> __( 'Load the Font Awesome 5 Regular icon set as SVG icons via javascript', 'ubermenu' ),
+		'type' 		=> 'checkbox',
+		'default' 	=> 'off',
+		'group'	=> array( 'assets', 'font_awesome' )
+	);
+
+	//FA4 => FA5 Conversion
+	$fields[98] = array(
+		'name'	=> 'header_assets_font_awesome_conversion',
+		'label'	=> __( 'Font Awesome 4 to Font Awesome 5 Conversion' , 'ubermenu' ),
+		'desc'	=> __( 'These settings dynamically update your Font Awesome 4 icons to Font Awesome 5 icons.  They can be disabled if all of your icons are Font Awesome 5 icons.' , 'ubermenu' ),
+		'type'	=> 'header',
+		'group'	=> array( 'assets', 'font_awesome' )
+	);
+	$fields[99] = array(
+		'name' 		=> 'convert_fa4_to_fa5',
+		'label' 	=> __( 'Dynamically Convert Font Awesome 4 Icons to Font Awesome 5', 'ubermenu' ),
+		'desc' 		=> __( 'Font Awesome 5 breaks backwards compatibility by changing the classes of certain Font Awesome 4 icons.  This will dynamically update these icon names to the new Font Awesome 5 names.  This can be disabled once all icons are using the Font Awesome 5 classes.', 'ubermenu' ) . ' <a class="" href="'.admin_url('themes.php?page=ubermenu-settings&do=fa4_to_fa5&ubermenu_nonce='.wp_create_nonce( 'ubermenu-control-panel-do' ) ).'">'.__( 'Migrate Font Awesome 4 to 5' , 'ubermenu' ).'</a>',
+		'type' 		=> 'checkbox',
+		'default' 	=> 'on',
+		'group'	=> array( 'assets', 'font_awesome' )
+	);
 	$fields[100] = array(
+		'name' 		=> 'load_fontawesome4_shim',
+		'label' 	=> __( 'Load Font Awesome 4 Shim', 'ubermenu' ),
+		'desc' 		=> __( 'For use with the Font Awesome 5 SVG icons.  If you are using old Font Awesome 4 Icons on your site, you may want to use the Shim to make them compatible with Font Awesome 5.', 'ubermenu' ),
+		'type' 		=> 'checkbox',
+		'default' 	=> 'off',
+		'group'	=> array( 'assets', 'font_awesome' )
+	);
+
+
+	$fields[101] = array(
+		'name'	=> 'header_assets_google_maps',
+		'label'	=> __( 'Google Maps' , 'ubermenu' ),
+		'type'	=> 'header',
+		'group'	=> 'assets',
+	);
+	$fields[102] = array(
 		'name' 		=> 'load_google_maps',
 		'label' 	=> __( 'Load Google Maps API', 'ubermenu' ),
 		'desc' 		=> __( 'If you are already loading the Google Maps API, or if you do not need Google Maps in your menu, you can disable this.', 'ubermenu' ),
@@ -2066,7 +2168,7 @@ function ubermenu_settings_panel_fields_pro( $all_fields = array() ){
 		'group'		=> 'assets',
 	);
 
-	$fields[101] = array(
+	$fields[103] = array(
 		'name' 		=> 'google_maps_api_key',
 		'label' 	=> __( 'Google Maps API Key', 'ubermenu' ),
 		'desc' 		=> __( 'Enter your Google Maps API Key.', 'ubermenu' ) . '  <a target="_blank" href="https://developers.google.com/maps/documentation/javascript/get-api-key">Get a key</a>',
@@ -2074,6 +2176,10 @@ function ubermenu_settings_panel_fields_pro( $all_fields = array() ){
 		'default' 	=> '',
 		'group'		=> 'assets',
 	);
+
+
+
+
 
 	/* Responsive & Mobile */
 	$fields[110] = array(
@@ -2217,7 +2323,7 @@ function ubermenu_settings_panel_fields_pro( $all_fields = array() ){
 		'label' => __( 'Theme Integration / Interference' , 'ubermenu' ),
 		'type'	=> 'header',
 		'group'	=> array( 'misc', 'theme_integration' ),
-		'desc'	=> __( 'Settings to help tame misbehaving themes.  See also: ' , 'ubermenu' ) . '<a href="http://sevenspark.com/docs/ubermenu-3/integration/theme-interference" target="_blank">Theme Interference</a>',
+		'desc'	=> __( 'Settings to help tame misbehaving themes.  See also: ' , 'ubermenu' ) . '<a href="https://sevenspark.com/docs/ubermenu-3/integration/theme-interference" target="_blank">Theme Interference</a>',
 	);
 
 	$fields[295] = array(
@@ -2265,7 +2371,7 @@ function ubermenu_settings_panel_fields_pro( $all_fields = array() ){
 	$fields[300] = array(
 		'name'	=> 'header_advanced',
 		'label'	=> __( 'Advanced' , 'ubermenu' ),
-		'desc'	=> '<i class="fa fa-warning"></i> '. __( 'You should only adjust settings in this section if you are certain of what you are doing.'  , 'ubermenu' ),
+		'desc'	=> '<i class="fas fa-exclamation-triangle"></i> '. __( 'You should only adjust settings in this section if you are certain of what you are doing.'  , 'ubermenu' ),
 		'type'	=> 'header',
 		'group'	=> 'advanced',
 	);
@@ -2286,6 +2392,15 @@ function ubermenu_settings_panel_fields_pro( $all_fields = array() ){
 		'type'	=> 'checkbox',
 		'default'	=> 'off',
 		'desc'	=> __( 'When enabled, creates a new theme location called "ubermenu" which you can use to insert into your theme.', 'ubermenu' ),
+		'group'	=> 'advanced',
+	);
+
+	$fields[325] = array(
+		'name'	=> 'allow_custom_defaults',
+		'label'	=> __( 'Allow custom defaults' , 'ubermenu' ),
+		'type'	=> 'checkbox',
+		'default'	=> 'off',
+		'desc'	=> __( 'Allow setting of custom defaults for menu items.  USE WITH CAUTION.', 'ubermenu' ),
 		'group'	=> 'advanced',
 	);
 
@@ -2373,6 +2488,9 @@ function ubermenu_general_settings_sections_pro( $section ){
 			),
 			'assets'	=> array(
 				'title'	=> __( 'Assets' , 'ubermenu' ),
+			),
+			'font_awesome'	=> array(
+				'title'	=> __( 'Font Awesome' , 'ubermenu' ),
 			),
 			'responsive'=> array(
 				'title'	=> __( 'Responsive &amp; Mobile' , 'ubermenu' ),
@@ -2483,7 +2601,7 @@ function ubermenu_kb_search(){
 
 	?>
 	<div class="ubermenu-kb-search">
-		<div class="search-topper"><a target="_blank" href="<?php echo UBERMENU_KB_URL; ?>"><i class="fa fa-search"></i> Search the Knowledgebase</a></div>
+		<div class="search-topper"><a target="_blank" href="<?php echo UBERMENU_KB_URL; ?>"><i class="fas fa-search"></i> Search the Knowledgebase</a></div>
 		<gcse:search></gcse:search>
 	</div>
 	<?php
@@ -2506,7 +2624,7 @@ function ubermenu_support_forum_help(){
 		if( ubermenu_op( 'purchase_code' , 'updates' , '' ) ) $btn_class = 'button-tertiary';
 
 		$html.= '<div id="ubermenu-unlicensed-notice" class="ubermenu-settings-notice ubermenu-settings-notice-large">
-			<i class="ubermenu-settings-notice-icon fa fa-warning"></i>
+			<i class="ubermenu-settings-notice-icon fas fa-exclamation-triangle"></i>
 			<strong>UberMenu Plugin License Required</strong>
 			<p>Support through SevenSpark requires an UberMenu plugin license - as opposed to a theme license - which can be <a target="blank" href="http://codecanyon.net/item/ubermenu-wordpress-mega-menu-plugin/154703?ref=sevenspark">purchased here</a> if you do not already have one.  An UberMenu license code entitles you to updates and support directly from the plugin author; otherwise, support and updates will be provided by '. ( defined( "UBERMENU_PACKAGED_THEME" ) ? UBERMENU_PACKAGED_THEME : "the author of your theme" ) .'</p><br/><hr/><br/>';
 
@@ -2524,9 +2642,9 @@ function ubermenu_support_forum_help(){
 	else{
 
 		$html.= '<div class="ubermenu-help-wrap">';
-		$html.= '<h3><i class="fa fa-life-ring"></i> '.__( 'Support Center' , 'ubermenu' ).'</h3>';
+		$html.= '<h3><i class="fas fa-life-ring"></i> '.__( 'Support Center' , 'ubermenu' ).'</h3>';
 		$html.= '<p>'.__( 'Didn\'t find the answer you needed in the Knowledgebase or Video Tutorials?  Visit the ' , 'ubermenu' ).
-					'<a target="_blank" class="button" href="'.ubermenu_get_support_url().'"><i class="fa fa-life-ring"></i> Support Center</a></p>';
+					'<a target="_blank" class="button" href="'.ubermenu_get_support_url().'"><i class="fas fa-life-ring"></i> Support Center</a></p>';
 		$html.= '</div>';
 	}
 	return $html;
@@ -2537,8 +2655,8 @@ function ubermenu_video_tutorials_help(){
 	$html = '';
 
 	$html.= '<div class="ubermenu-help-wrap">';
-	$html.= '<h3><i class="fa fa-video-camera"></i> '.__( 'Video Tutorials' , 'ubermenu' ).'</h3>';
-	$html.= '<a target="_blank" href="'.UBERMENU_VIDEOS_URL.'" class="ubermenu-help-video-tuts-link"><img src="'.UBERMENU_URL . 'admin/assets/images/video_tutorials.jpg"/><i class="fa fa-play"></i></a>';
+	$html.= '<h3><i class="fas fa-video"></i> '.__( 'Video Tutorials' , 'ubermenu' ).'</h3>';
+	$html.= '<a target="_blank" href="'.UBERMENU_VIDEOS_URL.'" class="ubermenu-help-video-tuts-link"><img src="'.UBERMENU_URL . 'admin/assets/images/video_tutorials.jpg"/><i class="fas fa-play"></i></a>';
 	$html.= '</div>';
 
 	return $html;
@@ -2697,7 +2815,7 @@ function ubermenu_show_extension_icons(){
 		'img_src'	=> 'https://i.imgur.com/Zksumwp.png',
 		'purchase_url' => 'https://sevenspark.com/goods/ubermenu-icons',
 		'description'	=> __( 'Add over 500 Font Awesome Icons, customize color, size, layout, and more.' , 'ubermenu' ),
-		'doc_url'	=> 'http://sevenspark.com/docs/ubermenu-icons',
+		'doc_url'	=> 'https://sevenspark.com/docs/ubermenu-icons',
 	));
 
 	return $html;
@@ -2718,7 +2836,7 @@ function ubermenu_show_extension_conditionals(){
 		'img_src'	=> 'https://i.imgur.com/paUltRW.png',
 		'purchase_url' => 'https://sevenspark.com/goods/ubermenu-conditionals',
 		'description'	=> __( 'Control the visibility of individual menu items based on conditions.' , 'ubermenu' ),
-		'doc_url'	=> 'http://sevenspark.com/docs/ubermenu-conditionals',
+		'doc_url'	=> 'https://sevenspark.com/docs/ubermenu-conditionals',
 	));
 
 	return $html;
@@ -2740,7 +2858,7 @@ function ubermenu_show_extension_sticky(){
 		'img_src'	=> 'https://i.imgur.com/fV6VvkV.jpg',
 		'purchase_url' => 'https://sevenspark.com/goods/ubermenu-sticky',
 		'description'	=> __( 'Stick UberMenu to the top of the viewport as you scroll.' , 'ubermenu' ),
-		'doc_url'	=> 'http://sevenspark.com/docs/ubermenu-sticky',
+		'doc_url'	=> 'https://sevenspark.com/docs/ubermenu-sticky',
 	));
 
 	return $html;
@@ -2785,7 +2903,7 @@ function ubermenu_show_extension_info( $info ){
 	//Check if installed or not - visit settings vs Get Extension
 	if( $info['installed'] ){
 		$html.= ' <a target="_blank" class="button" href="'.$info['doc_url'].'">Doc</a>';
-		$html.= '<span class="ubermenu-extension-installed">Installed <i class="fa fa-check"></i></span>';
+		$html.= '<span class="ubermenu-extension-installed">Installed <i class="fas fa-check"></i></span>';
 	}
 	else{
 		$html.= ' <a target="_blank" class="button button-primary" href="'.$info['purchase_url'].$analytics.'">Get the Extension</a>';
@@ -2871,12 +2989,12 @@ function ubermenu_settings_welcome(){
 			</a>
 
 			<div class="ubermenu-welcome-buttons">
-				<a target="_blank" class="button button-primary" href="<?php echo UBERMENU_KB_URL; ?>"><i class="fa fa-book"></i> Knowledgebase</a>
-				<a target="_blank" class="button button-tertiary" href="<?php echo UBERMENU_VIDEOS_URL; ?>"><i class="fa fa-video-camera"></i> Video Tutorials</a>
-				<a target="_blank" class="button button-secondary" href="<?php echo ubermenu_get_support_url(); ?>"><i class="fa fa-life-ring"></i> Support</a>
+				<a target="_blank" class="button button-primary" href="<?php echo UBERMENU_KB_URL; ?>"><i class="fas fa-book"></i> Knowledgebase</a>
+				<a target="_blank" class="button button-tertiary" href="<?php echo UBERMENU_VIDEOS_URL; ?>"><i class="fas fa-video"></i> Video Tutorials</a>
+				<a target="_blank" class="button button-secondary" href="<?php echo ubermenu_get_support_url(); ?>"><i class="fas fa-life-ring"></i> Support</a>
 
-				<span class="ubermenu-welcome-licenses">Your purchase entitles you to use UberMenu on one (1) site. <a target="_blank" class="ubermenu-license-info-link" href="http://goo.gl/lTLDhv"><i class="fa fa-question-circle"></i></a></span>
-				<a target="_blank" class="button button-secondary button-new-license" href="http://wpmegamenu.com"><i class="fa fa-shopping-cart"></i> Need another license?</a>
+				<span class="ubermenu-welcome-licenses">Your purchase entitles you to use UberMenu on one (1) site. <a target="_blank" class="ubermenu-license-info-link" href="http://goo.gl/lTLDhv"><i class="fas fa-question-circle"></i></a></span>
+				<a target="_blank" class="button button-secondary button-new-license" href="http://wpmegamenu.com"><i class="fas fa-shopping-cart"></i> Need another license?</a>
 			</div>
 
 			<p>Links to the Knowledgebase, Video Tutorials, and Support Center will appear in the upper right

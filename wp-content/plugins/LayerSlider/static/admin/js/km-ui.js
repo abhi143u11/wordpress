@@ -8,6 +8,59 @@ jQuery( function( $ ){
 
 	window.kmUI  = {
 
+		notify: {
+
+			defaults: {
+				maxWidth: 500,
+				spinner: false,
+				icon: 'dashicons-yes',
+				iconColor: 'inherit',
+				text: '',
+				timeout: 0
+			},
+
+			show: function( settings ) {
+
+				settings = settings || {};
+				settings = $.extend( true, {}, kmUI.notify.defaults, settings );
+
+				var $notification 	= $('.ls-notify-osd'),
+					$icon 			= $notification.children('.icon'),
+					$text 			= $notification.children('.text')
+
+				if( settings.spinner ) {
+					$icon.show().html('<div class="spinner is-active"></div>');
+
+				} else if( settings.icon ) {
+
+					$icon
+						.show()
+						.css('color', settings.iconColor )
+						.html('<i class="dashicons '+settings.icon+'"></i>');
+
+				} else {
+					$icon.hide();
+				}
+
+				$text.html( settings.text );
+
+				$notification
+					.css('max-width', settings.maxWidth)
+					.addClass('visible');
+
+				if( settings.timeout ) {
+					setTimeout(function() {
+						kmUI.notify.close();
+					}, settings.timeout );
+				}
+			},
+
+			hide: function() {
+
+				$('.ls-notify-osd').removeClass('visible');
+			}
+		},
+
 		modal: {
 
 			defaults: {

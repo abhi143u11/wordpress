@@ -1,5 +1,7 @@
 <?php
 /**
+ * WPSEO Premium plugin file.
+ *
  * @package WPSEO\Premium\Classes
  */
 
@@ -390,7 +392,7 @@ class WPSEO_Redirect_Table extends WP_List_Table {
 	}
 
 	/**
-	 * The old column actions
+	 * The old column actions.
 	 *
 	 * @param string $column The column name to verify.
 	 *

@@ -1,4 +1,4 @@
-<div class="um <?php echo $this->get_class( $mode ); ?> um-<?php echo $form_id; ?>">
+<div class="um <?php echo $this->get_class( $mode ); ?> um-<?php echo esc_attr( $form_id ); ?>">
 
 	<div class="um-form">
 	
@@ -6,7 +6,7 @@
 		
 			<?php
 			
-			if ( !isset( $ultimatemember->password->reset_request ) ) {
+			if ( !isset( UM()->password()->reset_request ) ) {
 			
 				do_action('um_change_password_page_hidden_fields', $args );
 				

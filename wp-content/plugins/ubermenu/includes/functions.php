@@ -21,10 +21,64 @@ function ubermenu_load_assets(){
 		ubermenu_enqueue_skin( $skin );
 	}
 
+	//
 	//Font Awesome
-	if( ubermenu_op( 'load_fontawesome' , 'general' ) != 'off' ){
-		wp_enqueue_style( 'ubermenu-font-awesome' , $assets.'css/fontawesome/css/font-awesome.min.css' , false , '4.3' );
+	//
+
+	//Font Awesome CSSFonts
+	$load_fa_solid = 				ubermenu_op( 'load_fontawesome_fontcss_solid' , 'general' ) !== 'off';
+	$load_fa_brands = 			ubermenu_op( 'load_fontawesome_fontcss_brands' , 'general' ) !== 'off';
+	$load_fa_regular = 			ubermenu_op( 'load_fontawesome_fontcss_regular' , 'general' ) !== 'off';
+	$load_fa_core = 				$load_fa_solid || $load_fa_brands || $load_fa_regular;
+	$load_fa_all = 					$load_fa_solid && $load_fa_brands && $load_fa_regular;
+
+
+	if( $load_fa_all )				wp_enqueue_style( 'ubermenu-font-awesome-all' , 	UBERMENU_URL .'assets/fontawesome/fonts/css/fontawesome-all.min.css' , false , false );
+	else{
+		if( $load_fa_core ) 		wp_enqueue_style( 'ubermenu-font-awesome-core' , 	UBERMENU_URL .'assets/fontawesome/fonts/css/fontawesome.min.css' , false , false );
+		if( $load_fa_solid ) 		wp_enqueue_style( 'ubermenu-font-awesome-solid' , UBERMENU_URL .'assets/fontawesome/fonts/css/fa-solid.min.css' , false , false );
+		if( $load_fa_brands ) 	wp_enqueue_style( 'ubermenu-font-awesome-brands' , UBERMENU_URL .'assets/fontawesome/fonts/css/fa-brands.min.css' , false , false );
+		if( $load_fa_regular ) 	wp_enqueue_style( 'ubermenu-font-awesome-regular' , UBERMENU_URL .'assets/fontawesome/fonts/css/fa-regular.min.css' , false , false );
 	}
+
+	//Font Awesome SVG
+	$load_fasvg_solid = 		ubermenu_op( 'load_fontawesome_svg_solid' , 'general' ) !== 'off';
+	$load_fasvg_brands = 		ubermenu_op( 'load_fontawesome_svg_brands' , 'general' ) !== 'off';
+	$load_fasvg_regular = 	ubermenu_op( 'load_fontawesome_svg_regular' , 'general' ) !== 'off';
+	$load_fasvg_core = 			$load_fasvg_solid || $load_fasvg_brands || $load_fasvg_regular;
+	$load_fasvg_all = 			$load_fasvg_solid && $load_fasvg_brands && $load_fasvg_regular;
+
+	if( $load_fasvg_all )		wp_enqueue_script( 'ubermenu-font-awesome-js-all' , UBERMENU_URL.'assets/fontawesome/svg/js/fontawesome-all.min.js' , false , false , false );
+	else{
+		if( $load_fasvg_solid ) 	wp_enqueue_script( 'ubermenu-font-awesome-js-solid' , UBERMENU_URL.'assets/fontawesome/svg/js/fa-solid.min.js' , false , false , false );
+		if( $load_fasvg_brands ) 	wp_enqueue_script( 'ubermenu-font-awesome-js-brands' , UBERMENU_URL.'assets/fontawesome/svg/js/fa-brands.min.js' , false , false , false );
+		if( $load_fasvg_regular ) wp_enqueue_script( 'ubermenu-font-awesome-js-regular' , UBERMENU_URL.'assets/fontawesome/svg/js/fa-regular.min.js' , false , false , false );
+		//Core needs to be loaded last
+		if( $load_fasvg_core ) 		wp_enqueue_script( 'ubermenu-font-awesome-js-core' , UBERMENU_URL.'assets/fontawesome/svg/js/fontawesome.min.js' , false , false , false );
+	}
+
+	//Font Awesome 4 shim
+	if( ubermenu_op( 'load_fontawesome4_shim' , 'general' ) == 'on' ){
+		wp_enqueue_script( 'ubermenu-font-awesome4-shim' , UBERMENU_URL.'assets/fontawesome/svg/js/fa-v4-shims.min.js' , false , false , false );
+	}
+	add_filter( 'script_loader_tag', 'ubermenu_fontawesome_defer', 10, 2 );
+
+
+	// if( ubermenu_op( 'load_fontawesome' , 'general' ) != 'off' ){
+	// 	//font awesome 4
+	// 	//wp_enqueue_style( 'ubermenu-font-awesome' , $assets.'css/fontawesome/css/font-awesome.min.css' , false , '4.3' );
+	//
+	// 	//wp_enqueue_style( 'ubermenu-font-awesome' , 'https://use.fontawesome.com/releases/v5.0.7/css/all.css' , false );
+	//
+	// 	//font awesome 5
+	// 	//wp_enqueue_style( 'ubermenu-font-awesome' , 'https://use.fontawesome.com/releases/v5.0.7/css/all.css' , false );
+	// 	wp_enqueue_script( 'ubermenu-font-awesome-js' , UBERMENU_URL.'assets/fontawesome/svg/js/fontawesome-all.min.js' , false , false , false );
+	// 	add_filter( 'script_loader_tag', 'ubermenu_fontawesome_defer', 10, 2 );
+
+	// }
+
+
+
 
 	//Custom Stylesheet
 	if( ubermenu_op( 'load_custom_css' , 'general' ) == 'on' ){
@@ -68,6 +122,7 @@ function ubermenu_load_assets(){
 		'accessible'		=> ubermenu_op( 'accessible', 'general' ),
 		'retractor_display_strategy' => ubermenu_op( 'retractor_display_strategy' , 'general' ),
 		'touch_off_close'	=> ubermenu_op( 'touch_off_close' , 'general' ),
+		'submenu_indicator_close_mobile' => ubermenu_op( 'submenu_indicator_close_mobile' , 'general' ),
 		'collapse_after_scroll'	=> ubermenu_op( 'collapse_after_scroll' , 'general' ),
 		'v'					=> UBERMENU_VERSION,
 		'configurations'	=> ubermenu_get_menu_instances(true),
@@ -96,6 +151,14 @@ function ubermenu_load_assets(){
 	//wp_register_script( 'ubermenu-customizer' , $assets . 'admin/assets/customizer.js' , array( 'jquery' ) , UBERMENU_VERSION , true );
 }
 add_action( 'wp_enqueue_scripts' , 'ubermenu_load_assets' , 21 );
+
+
+function ubermenu_fontawesome_defer( $tag, $handle ) {
+    if( 'ubermenu-font-awesome-js-all' === $handle || 'ubermenu-font-awesome-js-solid' === $handle || 'ubermenu-font-awesome-js-brands' === $handle || 'ubermenu-font-awesome4-shim' === $handle ) {
+        $tag = str_replace( ' src', ' defer src', $tag );
+    }
+    return $tag;
+}
 
 function ubermenu_inject_custom_css(){
 	echo '<style id="ubermenu-custom-generated-css">';
@@ -548,6 +611,13 @@ function ubermenu_get_nav_menu_args( $args , $integration_type , $config_id = 0 
 	if( ubermenu_op( 'icon_display' , $config_id ) == 'inline' ){
 		$args['container_class'].= ' ubermenu-icons-inline';
 	}
+
+
+	//Submenu indicator close button
+	if( ubermenu_op( 'submenu_indicator_close_mobile' , 'general' ) !== 'off' ){
+		$args['container_class'].= ' ubermenu-submenu-indicator-closes';
+	}
+
 
 	//Accessibility - handled in JS only now
 	// if( ubermenu_op( 'accessible' , 'general' ) == 'on' ){
@@ -1209,7 +1279,7 @@ function ubermenu_admin_notice( $content , $echo = true ){
 
 	if( ubermenu_op( 'admin_notices' , 'general' ) == 'on' ){
 		if( ubermenu_user_is_admin() ){
-			$notice = '<div class="ubermenu-admin-notice"><i class="ubermenu-admin-notice-icon fa fa-lightbulb-o"></i>'.$content.'</div>';
+			$notice = '<div class="ubermenu-admin-notice"><i class="ubermenu-admin-notice-icon fas fa-lightbulb"></i>'.$content.'</div>';
 
 			if( $echo ) echo $notice;
 			return $notice;

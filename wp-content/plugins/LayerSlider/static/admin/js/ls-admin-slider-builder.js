@@ -113,13 +113,16 @@ var LS_Utils = {
 		);
 	},
 
-	dataURItoBlob: function(dataURI) {
+	dataURItoBlob: function( dataURI, type ) {
+
+		type = type || 'image/png';
+
 		var binary = atob(dataURI.split(',')[1]);
 		var array = [];
 		for(var i = 0; i < binary.length; i++) {
 			array.push(binary.charCodeAt(i));
 		}
-		return new Blob([new Uint8Array(array)], {type: 'image/png'});
+		return new Blob([new Uint8Array(array)], { type: type });
 	},
 
 	moveArrayItem: function(array, from, to) {
@@ -930,7 +933,15 @@ var LayerSlider = {
 	},
 
 
-	addSlide: function( slideData ) {
+	addSlide: function( slideData, addProperties ) {
+
+		var defaultProperties = {
+			atIndex: window.lsSliderData.layers.length,
+			selectSlide: true
+		};
+
+		addProperties = jQuery.extend( true, defaultProperties, addProperties );
+
 
 		var hasSlideData = slideData ? true : false;
 
@@ -946,57 +957,86 @@ var LayerSlider = {
 
 
 		// Add new slide data to data source
-		window.lsSliderData.layers.push( slideData );
+		window.lsSliderData.layers.splice(
+			addProperties.atIndex, 0, slideData
+		);
 
 		// Add new slide tab
-		var newIndex 	= window.lsSliderData.layers.length + 1,
-			title 		= LS_l10n.SBSlideTitle.replace('%d', newIndex),
-			tab 		= jQuery('<a href="#"><span>'+( hasSlideData ? slideData.properties.title : title)+'</span><img src="'+(pluginPath+'admin/img/blank.gif')+'"><span class="dashicons dashicons-dismiss"></span>').insertBefore('#ls-add-layer');
+		var $tab = jQuery( jQuery('#tmpl-slide-tab').text() ).appendToWithIndex('#ls-slide-tabs', addProperties.atIndex);
+
+		if( hasSlideData && slideData.properties.title ) {
+			$tab.find('.ls-slide-name input').val( slideData.properties.title );
+		}
 
 		// Name new slide properly
-		LayerSlider.reindexSlides();
+		LayerSlider.updateSlidePreviews();
 		LayerSlider.addSlideSortables();
 		LS_activeLayerPageIndex = 0;
+		LS_editorIsDirty = true;
 
-		// Show new slide, re-initialize
-		// interactive features
-		tab.click();
-		LayerSlider.addLayerSortables();
+		TweenLite.fromTo($tab[0], 0.4, {
+			scale: 0
+		},{
+			scale: 1,
+			onComplete: function() {
+
+				// Show new slide, re-initialize
+				// interactive features
+				if( addProperties.selectSlide ) {
+					$tab.children('.ls-slide-preview').click();
+					LayerSlider.addLayerSortables();
+				}
+			}
+		});
 	},
 
 
-	removeSlide: function(el) {
+	removeSlide: function( el ) {
 
-		if(confirm(LS_l10n.SBRemoveSlide)) {
+		if( confirm( LS_l10n.SBRemoveSlide ) ) {
 
 			// Get tab and menu item index
-			var index = LS_activeSlideIndex;
-			var $tab = jQuery(el).parent();
-			var $newTab = null;
+			var $tab = jQuery(el).closest('.ls-slide-tab'),
+				$newTab = null,
+				index = $tab.index(),
+				transitionDuration;
 
 			// Open next or prev layer
-			if($tab.next(':not(.unsortable)').length > 0) {
+			if( $tab.next('.ls-slide-tab').length > 0 ) {
 				$newTab = $tab.next();
 
-			} else if($tab.prev().length > 0) {
+			} else if( $tab.prev().length > 0 ) {
 				$newTab = $tab.prev();
 			}
 
-			// Remove tab and slide data
-			window.lsSliderData.layers.splice(index, 1);
-			$tab.remove();
 
-			// Create a new slide if the last one
-			// was removed
-			if(window.lsSliderData.layers < 1) {
-				LayerSlider.addSlide();
-				return true;
-			}
+			transitionDuration = window.lsSliderData.layers.length-1 < 1 ? 0 : 0.4;
 
-			// Select new slide. The .click() event will
-			// maintain the active slide index and data.
-			LayerSlider.reindexSlides();
-			$newTab.click();
+			TweenLite.to($tab[0], transitionDuration, {
+				scale: 0,
+				ease:Power1.easeIn,
+				onComplete: function() {
+					setTimeout( function() {
+
+						// Remove tab
+						$tab.remove();
+
+						// Remove tab and slide data
+						window.lsSliderData.layers.splice( index, 1 );
+
+						// Create a new slide if the last one
+						// was removed
+						if( window.lsSliderData.layers < 1 ) {
+							LayerSlider.addSlide();
+							return true;
+						}
+
+						if( $newTab && LS_activeSlideIndex === index ) {
+							$newTab.children('.ls-slide-preview').click();
+						}
+					}, 30);
+				}
+			});
 		}
 	},
 
@@ -1010,14 +1050,13 @@ var LayerSlider = {
 		if( !selectProperties.forceSelect && LS_activeSlideIndex === slideIndex) { return false; }
 
 		// Set active slide, highlight new tab
-		jQuery('#ls-layer-tabs a')
+		jQuery('#ls-slide-tabs')
+			.children()
 			.eq(slideIndex)
 			.addClass('active')
-			.attr('data-help-disabled', '1')
 
 			.siblings()
-			.removeClass('active')
-			.removeAttr('data-help-disabled');
+			.removeClass('active');
 
 		// Stop live preview
 		LayerSlider.stopSlidePreview();
@@ -1051,83 +1090,90 @@ var LayerSlider = {
 		LS_UndoManager.update();
 	},
 
+	showSlideActions: function( el ) {
 
-	renameSlide: function(el) {
+		var $slide 		= jQuery( el ).closest('.ls-slide-tab'),
+			$controls 	= $slide.children(':not(.ls-slide-preview, .ls-slide-actions-sheet)'),
+			$sheet 		= $slide.children('.ls-slide-actions-sheet');
 
-		if( document.location.href.indexOf('ls-revisions') !== -1 ) {
-			return;
-		}
+		$slide.addClass('slide-actions-opened');
 
-		var $el = jQuery(el);
-		var name = jQuery('span:first-child', el).text();
+		$controls.addClass('ls-hidden');
+		$sheet.removeClass('ls-hidden');
 
-		if($el.hasClass('editing')) { return false; }
-
-		// Add input
-		$el.addClass('editing');
-		$input = jQuery('<input type="text">').appendTo($el).val(name);
-		$input.focus().select();
-
-		// Save changes on Enter
-		$input.on('keydown', function(e) {
-			if(e.which == 13) { LayerSlider.renameSlideEnd(el); }
-		});
-
-		// Save changes by clicking away
-		jQuery('body').one('click', ':not(#ls-layer-tabs a input)', function() {
-			LayerSlider.renameSlideEnd(el);
+		TweenLite.to($sheet[0], 0.3, {
+			y: 0
 		});
 	},
 
 
-	renameSlideEnd: function(el) {
+	hideSlideActions: function( ) {
 
-		var $el 	= jQuery(el),
-			$input 	= jQuery('input', el),
-			index 	= $el.index();
+		var $slide 	= jQuery('.ls-slide-tab.slide-actions-opened');
 
-		if($el.hasClass('editing')) {
+		if( $slide.length ) {
 
-			window.lsSliderData.layers[ index ].properties.title = $input.val();
-			jQuery('span', $el).first().text( $input.val());
-			$input.remove();
-			$el.removeClass('editing');
+			var	$sheet 		= $slide.children('.ls-slide-actions-sheet'),
+				$controls 	= $slide.children(':not(.ls-slide-preview, .ls-slide-actions-sheet)');
+
+			$slide.removeClass('slide-actions-opened');
+
+			$controls.removeClass('ls-hidden');
+
+			TweenLite.to($sheet[0], 0.3, {
+				y: -80
+			});
 		}
 	},
 
+	renameSlide: function( input ) {
 
-	duplicateSlide: function(el) {
+		var $input = jQuery(input),
+			$slide = $input.closest('.ls-slide-tab'),
+			slideData = window.lsSliderData.layers[ $slide.index() ];
 
+		slideData.properties.title = $input.val();
+	},
+
+
+	duplicateSlide: function( el ) {
 
 		// Duplicate slide by using jQuery.extend()
 		// to make sure it's a copy instead of an
 		// object reference.
-		var newSlideData = jQuery.extend(true, {}, LS_activeSlideData);
+		var slideIndex 	= jQuery( el ).closest('.ls-slide-tab').index(),
+			slideData 	= window.lsSliderData.layers[ slideIndex ],
+			newSlideData = jQuery.extend( true, {}, slideData );
 
 		// Assign new UUID
 		newSlideData.properties.uuid = LS_DataSource.generateUUID();
 
 		// Rename slide
-		if(!!newSlideData.properties.title) {
+		if( !! newSlideData.properties.title) {
 			newSlideData.properties.title += ' copy';
-		} else {
-			newSlideData.properties.title = LS_l10n.SBSlideCopyTitle.replace('%d', LS_activeSlideIndex+1);
 		}
 
-		// Duplicate slide by using jQuery.extend()
-		// to make sure it's a copy instead of an
-		// object reference.
-		window.lsSliderData.layers.splice(
-			LS_activeSlideIndex + 1, 0, newSlideData
-		);
+		LayerSlider.addSlide( newSlideData, {
+			atIndex: slideIndex + 1
+		} );
+	},
 
-		// Insert the duplicate slide tab after the original
-		var tab = jQuery('<a href="#"><span>'+newSlideData.properties.title+'</span><span class="dashicons dashicons-dismiss"></span></a>').insertAfter('#ls-layer-tabs a.active');
-		LayerSlider.reindexSlides();
-		LayerSlider.reindexStaticLayers();
 
-		// Select new slide
-		tab.click();
+	toggleSlideVisibility: function( el ) {
+
+		var $tab = jQuery( el ).closest( '.ls-slide-tab' ),
+			slideData = window.lsSliderData.layers[ $tab.index() ];
+
+		// Current hidden, show it
+		if( slideData.properties.skip ) {
+			slideData.properties.skip = false;
+			$tab.removeClass('skip');
+
+		// Hide it
+		} else {
+			slideData.properties.skip = true;
+			$tab.addClass('skip');
+		}
 	},
 
 
@@ -2769,7 +2815,9 @@ var LayerSlider = {
 
 		// -- Set background on slide tab
 		slideBG = slideBG || pluginPath+'admin/img/blank.gif';
-		jQuery('#ls-layer-tabs a').eq(slideIndex).data('help', "<img src='"+slideBG+"'>");
+		jQuery('#ls-slide-tabs')
+			.find('.ls-slide-tab:eq('+slideIndex+') .ls-slide-preview')
+			.css('background-image', slideBG);
 
 
 
@@ -3335,7 +3383,7 @@ var LayerSlider = {
 				if(jQuery(uploadInput).hasClass('ls-slide-image') ) {
 
 					// Set image chooser preview
-					previewImg = !typeof attachment.sizes.thumbnail ? attachment.sizes.thumbnail.url : attachment.sizes.full.url;
+					previewImg = !typeof attachment.sizes.medium ? attachment.sizes.medium.url : attachment.sizes.full.url;
 					LS_GUI.updateImagePicker( jQuery(uploadInput),  previewImg);
 
 					// Add action to UndoManager
@@ -3363,7 +3411,7 @@ var LayerSlider = {
 					for(c = 1; c < attachments.length; c++) {
 
 						// Get preview image url
-						previewImg = !typeof attachments[c].sizes.thumbnail ? attachments[c].sizes.thumbnail.url : attachments[c].sizes.full.url;
+						previewImg = !typeof attachments[c].sizes.medium ? attachments[c].sizes.medium.url : attachments[c].sizes.full.url;
 
 						// Build new slide
 						var newSlideData = jQuery.extend(true, {}, LS_DataSource.getDefaultSlideData());
@@ -3371,25 +3419,19 @@ var LayerSlider = {
 							newSlideData.backgroundId = attachments[c].id;
 							newSlideData.backgroundThumb = previewImg;
 
-						// Add a layer
-						newLayerData = jQuery.extend(true, {}, LS_DataSource.getDefaultLayerData());
-						newLayerData.subtitle = LS_l10n.SBLayerTitle.replace('%d', '1');
-
-						// Add new layer
-						window.lsSliderData.layers.push({
+						newSlideData = {
 							properties: newSlideData,
-							sublayers: [newLayerData]
-						});
+							sublayers: []
+						};
 
-						// Add new slide tab
-						var newIndex 	= window.lsSliderData.layers.length + 1,
-							title 		= LS_l10n.SBSlideTitle.replace('%d', newIndex),
-							tab 		= jQuery('<a href="#"><span>'+title+'</span><img src="'+previewImg+'" ><span class="dashicons dashicons-dismiss"></span>').insertBefore('#ls-add-layer');
+						LayerSlider.addSlide( newSlideData, {
+							selectSlide: false,
+							atIndex: LS_activeSlideIndex + c
+						} );
 					}
 
+				LayerSlider.updateSlidePreviews();
 
-				// Name new slide properly
-				LayerSlider.reindexSlides();
 
 
 				// Slide thumbnail upload
@@ -3397,13 +3439,15 @@ var LayerSlider = {
 				} else if(jQuery(uploadInput).hasClass('ls-slide-thumbnail') ) {
 
 					// Set image chooser preview
-					previewImg = !typeof attachment.sizes.thumbnail ? attachment.sizes.thumbnail.url : attachment.sizes.full.url;
+					previewImg = !typeof attachment.sizes.medium ? attachment.sizes.medium.url : attachment.sizes.full.url;
 					LS_GUI.updateImagePicker( jQuery(uploadInput),  previewImg);
 
 					// Set current layer image
 					LS_activeSlideData.properties.thumbnail = attachment.url;
 					LS_activeSlideData.properties.thumbnailId = attachment.id;
 					LS_activeSlideData.properties.thumbnailThumb = previewImg;
+
+					LayerSlider.updateSlidePreviews();
 
 
 				// Layer image upload
@@ -3471,7 +3515,7 @@ var LayerSlider = {
 				} else if( jQuery(uploadInput).hasClass('ls-media-image') ) {
 
 					// Set image chooser preview
-					previewImg = !typeof attachment.sizes.thumbnail ? attachment.sizes.thumbnail.url : attachment.sizes.full.url;
+					previewImg = !typeof attachment.sizes.medium ? attachment.sizes.medium.url : attachment.sizes.full.url;
 					LS_GUI.updateImagePicker( jQuery(uploadInput),  previewImg);
 
 					// Add action to UndoManager
@@ -3500,7 +3544,7 @@ var LayerSlider = {
 				} else if( jQuery(uploadInput).hasClass('ls-global-background') ) {
 
 					// Set image chooser preview
-					previewImg = !typeof attachment.sizes.thumbnail ? attachment.sizes.thumbnail.url : attachment.sizes.full.url;
+					previewImg = !typeof attachment.sizes.medium ? attachment.sizes.medium.url : attachment.sizes.full.url;
 					LS_GUI.updateImagePicker( jQuery(uploadInput),  previewImg);
 
 					// Store changes and update the preview
@@ -3513,7 +3557,7 @@ var LayerSlider = {
 				} else if( jQuery(uploadInput).hasClass('ls-yourlogo-upload') ) {
 
 					// Set image chooser preview
-					previewImg = !typeof attachment.sizes.thumbnail ? attachment.sizes.thumbnail.url : attachment.sizes.full.url;
+					previewImg = !typeof attachment.sizes.medium ? attachment.sizes.medium.url : attachment.sizes.full.url;
 					LS_GUI.updateImagePicker( jQuery(uploadInput),  previewImg);
 
 					// Store changes and update the preview
@@ -3526,7 +3570,7 @@ var LayerSlider = {
 				} else if( jQuery(uploadInput).hasClass('ls-slider-preview') ) {
 
 					// Set image chooser preview
-					previewImg = !typeof attachment.sizes.thumbnail ? attachment.sizes.thumbnail.url : attachment.sizes.full.url;
+					previewImg = !typeof attachment.sizes.medium ? attachment.sizes.medium.url : attachment.sizes.full.url;
 					LS_GUI.updateImagePicker( jQuery(uploadInput),  previewImg);
 
 					// Make sure that the meta object exits
@@ -3556,11 +3600,11 @@ var LayerSlider = {
 						url = '/' + attachments[c].url.split('/').slice(3).join('/');
 						if(attachments[c].type === 'video') {
 							hasVideo = true;
-							videos.push({ url: url, mime: attachment.mime });
+							videos.push({ url: url, mime: attachments[c].mime });
 
 						} else if(attachments[c].type === 'audio') {
 							hasAudio = true;
-							audios.push({ url: url, mime: attachment.mime });
+							audios.push({ url: url, mime: attachment[c].mime });
 						}
 					}
 
@@ -3741,11 +3785,18 @@ var LayerSlider = {
 
 	addSlideSortables: function() {
 
-		jQuery('#ls-layer-tabs').sortable({
+		if( document.location.href.indexOf('section=revisions') !== -1 ) {
+			return;
+		}
+
+		jQuery('#ls-slide-tabs').sortable({
 
 			containment: 'parent',
 			tolerance: 'pointer',
-			items: 'a:not(.unsortable)',
+			handle: '.ls-slide-preview',
+			items: '.ls-slide-tab',
+			cancel: '.unsortable',
+			distance: 3,
 
 			start: function() {
 				LayerSlider.dragIndex = jQuery('.ui-sortable-placeholder').index() - 1;
@@ -3766,13 +3817,12 @@ var LayerSlider = {
 				}
 
 				// Update active slide index
-				LS_activeSlideIndex = jQuery('#ls-layer-tabs a.active').index();
+				LS_activeSlideIndex = jQuery('#ls-slide-tabs .ls-slide-tab.active').index();
 
 				// Add static layers
 				LS_activeStaticLayersDataSet = LayerSlider.staticLayersForSlide( LS_activeSlideIndex );
 
 				// Reindex slides
-				LayerSlider.reindexSlides();
 				LayerSlider.reindexStaticLayers();
 				LayerSlider.generateStaticPreview();
 				LS_DataSource.buildLayersList();
@@ -4183,64 +4233,70 @@ var LayerSlider = {
 	},
 
 
-	reindexSlides: function() {
+	updateSlidePreviews: function() {
 
-		jQuery('#ls-layer-tabs a:not(.unsortable)').each(function(index) {
+		jQuery('#ls-slide-tabs .ls-slide-tab').each( function( index ) {
 
-			var title 		= jQuery('span:first-child', this).text(),
-				slideData 	= window.lsSliderData.layers[ index ],
-				src 		= slideData.properties.backgroundThumb || pluginPath+'admin/img/blank.gif';
+			var $slide 		= jQuery( this ),
+				$preview 	= $slide.children('.ls-slide-preview'),
+				slideIndex 	= $slide.index(),
+				slideData 	= window.lsSliderData.layers[ slideIndex ],
+				slideProps 	= slideData.properties;
 
 
-			if( title.indexOf('copy') === -1 && title.indexOf('Slide #') !== -1 ) {
-				title = 'Slide #' + (index + 1);
+			if( slideProps.thumbnail ) {
+				$preview.css('background-image', 'url('+slideProps.thumbnail+')' );
+				$slide.removeClass('empty');
+
+			} else if( slideProps.background ) {
+				$preview.css('background-image', 'url('+slideProps.background+')' );
+				$slide.removeClass('empty');
+
+			} else {
+				$preview.css('background-image', 'none');
+				$slide.addClass('empty');
 			}
-
-			jQuery(this)
-				.attr({
-					'data-help': "<div style='background-image: url("+src+");'></div>",
-					'data-help-class': 'ls-slide-preview-tooltip popover-light',
-					'data-help-delay': 1,
-					'data-help-transition': false
-				}).html('<span>'+title+'</span><span class="dashicons dashicons-dismiss"></span>');
 		});
 	},
 
 
 	rebuildSlides: function() {
 
-		// Remove tabs
-		jQuery('#ls-layer-tabs a:not(.unsortable)').remove();
+		var $tab;
 
 		jQuery.each(window.lsSliderData.layers, function(slideKey, slideData) {
 
-			var title 	= slideData.properties.title || LS_l10n.SBSlideTitle.replace('%d', slideKey+1),
-				src 	= slideData.properties.backgroundThumb || pluginPath+'admin/img/blank.gif';
+			// Try to locate a preview tab and update it if exists
+			$tab = jQuery('#ls-slide-tabs').children().eq( slideKey );
 
-
-			if( title.indexOf('copy') === -1 && title.indexOf('Slide #') !== -1 ) {
-				title = 'Slide #' + (slideKey + 1);
+			// Create a new tab if needed
+			if( ! $tab.length ) {
+				$tab = jQuery( jQuery('#tmpl-slide-tab').text() ).appendTo('#ls-slide-tabs');
 			}
 
-			$tab = jQuery('<a></a>').insertBefore('#ls-layer-tabs .unsortable:first');
-
-			$tab.attr({
-				'href': '#',
-				'data-help': "<div style='background-image: url("+src+");'></div>",
-				'data-help-class': 'ls-slide-preview-tooltip popover-light',
-				'data-help-delay': 1,
-				'data-help-transition': false
-			}).html('<span>'+title+'</span><span class="dashicons dashicons-dismiss"></span>');
+			// Update title
+			if( slideData.properties.title ) {
+				$tab.find('.ls-slide-name input').val( slideData.properties.title );
+			}
 		});
 
+		// Remove additional and unnecessary tabs (if any)
+		$tab.nextAll().remove();
 
-		jQuery('#ls-layer-tabs a').eq( LS_activeSlideIndex ).addClass('active');
+		// Restore active selection
+		jQuery('#ls-slide-tabs')
+			.children()
+			.removeClass('active')
+			.eq( LS_activeSlideIndex )
+			.addClass('active');
+
+		LayerSlider.updateSlidePreviews();
 	},
 
 	checkMediaAutoPlay: function( $textarea, prop, val ) {
 
-		clearTimeout(LayerSlider.mediaCheckTimeout);
-		LayerSlider.mediaCheckTimeout = setTimeout(function() {
+		clearTimeout( LayerSlider.mediaCheckTimeout );
+		LayerSlider.mediaCheckTimeout = setTimeout( function() {
 
 			if( val.indexOf('autoplay') !== -1 ) {
 
@@ -5217,14 +5273,18 @@ var LayerSlider = {
 				// Display on screen notification when save
 				// was initiated by a keyboard shortcut.
 				if( saveProperties.usedShortcut && typeof lsScreenOptions !== 'undefined' && lsScreenOptions.useNotifyOSD === 'true' ) {
-					jQuery('.ls-notify-osd').addClass('visible');
+					kmUI.notify.show({
+						icon: 'dashicons-yes',
+						iconColor: '#7eb917',
+						text: LS_l10n.notifySliderSaved
+					});
 				}
 			},
 			complete: function(data) {
 
 				setTimeout(function() {
 					jQuery('.ls-publish').removeClass('saved failed').find('button').text( LS_l10n.save ).attr('disabled', false);
-					jQuery('.ls-notify-osd').removeClass('visible');
+					kmUI.notify.hide();
 				}, 2000);
 			}
 		});
@@ -5768,10 +5828,11 @@ var LS_ImportLayer = {
 					</div>');
 
 				$item.data('slide-data', item);
-
-				if( item.properties.background ) {
+;
+				if( item.properties.background || item.properties.thumbnail ) {
+					var img = item.properties.thumbnail || item.properties.background;
 					jQuery('.preview', $item).empty().css({
-						'background-image': 'url('+item.properties.background+')'
+						'background-image': 'url('+img+')'
 					});
 				}
 
@@ -6630,6 +6691,32 @@ var LS_DataSource = {
 
 var initSliderBuilder = function() {
 
+	// Collapse sidebar while editing
+	if( typeof lsScreenOptions !== 'undefined' && lsScreenOptions.collapseSidebar === 'true' ) {
+		jQuery('body').addClass('folded');
+	}
+
+	// Expand sidebar on hover
+	var sidebarTimeout = null;
+	jQuery('#adminmenumain').hover(
+		function() {
+			if( typeof lsScreenOptions !== 'undefined' && lsScreenOptions.expandSidebarOnHover === 'true' ) {
+				sidebarTimeout = setTimeout(function() {
+					jQuery('body').removeClass('folded').addClass('ls-add-fold');
+				}, 100 );
+			}
+		},
+		function() {
+
+			if( typeof lsScreenOptions !== 'undefined' && lsScreenOptions.collapseSidebar === 'true' ) {
+				clearTimeout( sidebarTimeout );
+				setTimeout(function() {
+					jQuery('body').addClass('folded');
+				}, 120);
+			}
+		}
+	);
+
 	jQuery('.km-tabs').kmTabs();
 
 	// Set the DB ID of currently editing slider
@@ -6945,22 +7032,22 @@ var initSliderBuilder = function() {
 		LS_GUI.updateImagePicker( $parent, '' );
 
 		// Global background
-		if($parent.hasClass('ls-global-background')) {
+		if( $parent.hasClass('ls-global-background') ) {
 			window.lsSliderData.properties.backgroundimage = '';
 			window.lsSliderData.properties.backgroundimageId = '';
 			window.lsSliderData.properties.backgroundimageThumb = '';
 
-		} else if($parent.hasClass('ls-yourlogo-upload')) {
+		} else if( $parent.hasClass('ls-yourlogo-upload') ) {
 			window.lsSliderData.properties.yourlogo = '';
 			window.lsSliderData.properties.yourlogoId = '';
 			window.lsSliderData.properties.yourlogoThumb = '';
 
-		} else if($parent.hasClass('ls-slider-preview')) {
+		} else if( $parent.hasClass('ls-slider-preview') ) {
 
 			window.lsSliderData.meta.preview = '';
 			window.lsSliderData.meta.previewId = '';
 
-		} else if($parent.hasClass('ls-slide-image')) {
+		} else if( $parent.hasClass('ls-slide-image') ) {
 
 			LS_UndoManager.add('slide.general', LS_l10n.SBUndoRemoveSlideImage, {
 				itemIndex: LS_activeSlideIndex,
@@ -6980,13 +7067,18 @@ var initSliderBuilder = function() {
 			LS_activeSlideData.properties.backgroundId = '';
 			LS_activeSlideData.properties.backgroundThumb = '';
 
+			LayerSlider.updateSlidePreviews();
 
-		} else if($parent.hasClass('ls-slide-thumbnail')) {
+
+		} else if( $parent.hasClass('ls-slide-thumbnail') ) {
+
 			LS_activeSlideData.properties.thumbnail = '';
 			LS_activeSlideData.properties.thumbnailId = '';
 			LS_activeSlideData.properties.thumbnailThumb = '';
 
-		} else if($parent.hasClass('ls-layer-image')) {
+			LayerSlider.updateSlidePreviews();
+
+		} else if( $parent.hasClass('ls-layer-image') ) {
 
 			LS_UndoManager.add('layer.general', LS_l10n.SBUndoRemoveLayerImage, {
 				itemIndex: LS_activeLayerIndexSet[0],
@@ -7010,7 +7102,7 @@ var initSliderBuilder = function() {
 				.find('img').remove();
 
 
-		} else if($parent.hasClass('ls-media-image')) {
+		} else if( $parent.hasClass('ls-media-image') ) {
 
 			LS_UndoManager.add('layer.general', LS_l10n.SBUndoRemoveVideoPoster, {
 				itemIndex: LS_activeLayerIndexSet[0],
@@ -7237,29 +7329,55 @@ var initSliderBuilder = function() {
 
 
 	// Add slide
-	jQuery('#ls-add-layer').click(function(e) {
+	jQuery('#ls-add-slide').click(function(e) {
 		e.preventDefault(); LayerSlider.addSlide();
 	});
 
 	// Select slide
-	jQuery('#ls-layer-tabs').on('click', 'a:not(.unsortable)', function(e) {
-		e.preventDefault();
-		if( ! jQuery(this).hasClass('active ') ) {
-			LayerSlider.selectSlide( jQuery(this).index(), { forceSelect: true } );
+	jQuery('#ls-slide-tabs').on('click', '.ls-slide-preview', function( ) {
+
+		var $tab = jQuery(this).closest('.ls-slide-tab');
+
+		if( ! $tab.hasClass('active') ) {
+			LayerSlider.selectSlide( $tab.index(), { forceSelect: true } );
 		}
 
 	// Rename slide
-	}).on('dblclick', 'a:not(.unsortable)', function(e) {
-		e.preventDefault(); LayerSlider.renameSlide(this);
-	});
+	}).on('input', '.ls-slide-name input', function( ) {
+		LayerSlider.renameSlide( this );
+
+	// Show slide actions
+	}).on('click', '.ls-slide-actions', function() {
+		LayerSlider.showSlideActions( this );
+
+	}).on('contextmenu', '.ls-slide-preview', function( e ) {
+
+		if( document.location.href.indexOf('section=revisions') === -1 ) {
+			e.preventDefault();
+			LayerSlider.showSlideActions( this );
+		}
+
+	// Hide slide actions
+	}).on('mouseleave', '.ls-slide-actions-sheet', function() {
+		LayerSlider.hideSlideActions( );
 
 	// Duplicate slide
-	jQuery('#ls-layers').on('click', 'button.ls-layer-duplicate', function(e){
-		e.preventDefault(); e.stopPropagation();
-		LayerSlider.duplicateSlide(this);
+	}).on('click', '.ls-slide-duplicate', function() {
+		LayerSlider.hideSlideActions();
+		LayerSlider.duplicateSlide( this );
+
+	// Remove slide
+	}).on('click', '.ls-slide-remove', function() {
+		LayerSlider.hideSlideActions();
+		LayerSlider.removeSlide( this );
+
+	}).on('click', '.ls-slide-visibility', function() {
+		LayerSlider.hideSlideActions();
+		LayerSlider.toggleSlideVisibility( this );
+	});
 
 	// Custom Slide Properties
-	}).on('keyup', '.ls-custom-slide-properties tr:last-child input', function() {
+	jQuery('#ls-layers').on('keyup', '.ls-custom-slide-properties tr:last-child input', function() {
 
 	if( jQuery(this).val() ) {
 		var $tr = jQuery(this).closest('tr').removeClass('ls-hidden');
@@ -7346,7 +7464,66 @@ var initSliderBuilder = function() {
 
 		LS_GUI.updateImagePicker( $target, url );
 		LayerSlider.generatePreview();
+
+	}).on('click', '.ls-capture-slide', function( event ) {
+		event.preventDefault();
+
+		if( typeof lsScreenOptions !== 'undefined' && lsScreenOptions.useNotifyOSD === 'true' ) {
+
+			kmUI.notify.show({
+				icon: 'dashicons-camera',
+				iconColor: '#f9a241',
+				text: LS_l10n.notifyCaptureSlide
+			});
+		}
+
+		// Hide preview selection and live slide UI elements
+		LayerSlider.hidePreviewSelection();
+		jQuery('.ls-gui-element:visible').addClass('ls-hidden');
+
+		// html2canvas freezes the browser completely,
+		// not even animations will occur. Using setTimeout
+		// to first render user feedback, then start the capture.
+		setTimeout(function() {
+
+			var $target = LayerSlider.isSlidePreviewActive ? jQuery('.ls-real-time-preview') : LS_previewHolder;
+
+			html2canvas( $target[0], {
+				// backgroundColor: null,
+				scale: 0.5
+
+			}).then(function( canvas ) {
+
+				// Restore preview selection and slider UI elements
+				LayerSlider.showPreviewSelection();
+				jQuery('.ls-gui-element.ls-hidden').removeClass('ls-hidden');
+
+				var imgName = 'ls-slider-'+LS_sliderID+'-slide-'+(LS_activeSlideIndex+1)+'.png',
+					imgData = canvas.toDataURL( 'image/jpeg', 0.92 ),
+					imgBlob = LS_Utils.dataURItoBlob( imgData, 'image/jpeg' );
+					imgBlob.lastModifiedDate = new Date();
+					imgBlob.name = imgName;
+					imgBlob.filename = imgName;
+
+				LayerSlider.uploadImageToMediaLibrary(imgBlob, function(data) {
+
+					// Save to data store
+					LS_activeSlideData.properties.thumbnail = data.url;
+					LS_activeSlideData.properties.thumbnailId = data.id;
+					LS_activeSlideData.properties.thumbnailThumb = data.url;
+
+					// Update UI
+					LS_GUI.updateImagePicker( 'thumbnail',  data.url );
+					LayerSlider.updateSlidePreviews();
+
+					kmUI.notify.hide();
+				});
+			});
+
+		}, 1000);
 	});
+
+
 
 	// Slide options: input, textarea, select
 	jQuery('#ls-layers').on('input change click', '.ls-slide-options input, .ls-slide-options textarea, .ls-slide-options select', function(event) {
@@ -7456,16 +7633,7 @@ var initSliderBuilder = function() {
 		lsHideTransition( this );
 	});
 
-
-
-	// Remove layer
-	jQuery('#ls-layer-tabs').on('click', 'a span:last-child', function(e) {
-		e.preventDefault();
-		e.stopPropagation();
-		LayerSlider.removeSlide(this);
-	});
-
-	// Add layer
+	// Add slide
 	jQuery('#ls-layers').on('click', '.ls-add-sublayer', function(e) {
 		e.preventDefault();
 

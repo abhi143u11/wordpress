@@ -16,7 +16,14 @@ function ls_filter_slider_title($sliderName = '', $maxLength = 50) {
 
 function ls_preview_for_slider( $slider = array() ) {
 
-	// Attempt to find pre-defined slider banner
+	// Attempt to find pre-defined slider banner by upload ID
+	if( ! empty($slider['data']['meta']) && ! empty($slider['data']['meta']['previewId']) ) {
+		if( $src = wp_get_attachment_image_src( $slider['data']['meta']['previewId'], 'large' ) ) {
+			return $src[0];
+		}
+	}
+
+	// Fallback to preview URL
 	if( ! empty($slider['data']['meta']) && ! empty($slider['data']['meta']['preview']) ) {
 		return $slider['data']['meta']['preview'];
 	}
@@ -25,6 +32,20 @@ function ls_preview_for_slider( $slider = array() ) {
 	// Find an image
 	if( isset($slider['data']['layers']) ) {
 		foreach( $slider['data']['layers'] as $layer) {
+
+			if( ! empty( $layer['properties']['thumbnail'] ) ) {
+				$image = $layer['properties']['thumbnail'];
+
+				if( ! empty( $layer['properties']['thumbnailId'] ) ) {
+					$src = wp_get_attachment_image_src( $layer['properties']['thumbnailId'], 'medium');
+					if( ! empty( $src[0] ) ) {
+						$image = $src[0];
+					}
+				}
+
+				break;
+			}
+
 			if( !empty($layer['properties']['background']) && $layer['properties']['background'] !== '[image-url]' ) {
 				$image = $layer['properties']['background'];
 
@@ -48,8 +69,8 @@ function ls_get_thumbnail($id = null, $url = null, $blankPlaceholder = false) {
 
 	// Image ID
 	if(!empty($id)) {
-		if($image = wp_get_attachment_thumb_url($id, 'thumbnail')) {
-			return $image;
+		if( $image = wp_get_attachment_image_src( $id, 'medium' ) ) {
+			return $image[0];
 		}
 	}
 

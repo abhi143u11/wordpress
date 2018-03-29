@@ -3,7 +3,7 @@
 *
 *  http://wpmegamenu.com
 *
-*  Copyright Chris Mavricos, SevenSpark http://sevenspark.com
+*  Copyright Chris Mavricos, SevenSpark https://sevenspark.com
 */
 
 //Define dependencies first because deferred scripts don't respect document ready order
@@ -82,6 +82,7 @@ function uber_op( id , args , def ){
 			mouseEvents: true,
 			retractors: true,
 			touchOffClose: uber_op( 'touch_off_close' , {datatype: 'boolean' } , true ), //true,
+			submenuIndicatorCloseMobile: uber_op( 'submenu_indicator_close_mobile' , {datatype: 'boolean' } , true ),
 			moveThreshold: 10,				//Distance until tap is cancelled in deference to move/scroll
 			submenuAnimationDuration: 500,	//ms duration or submenu close time
 			ignoreDummies: true,
@@ -591,6 +592,27 @@ function uber_op( id , args , def ){
 				this.$ubermenu.find( '.ubermenu-submenu-retractor-top' ).removeClass( 'ubermenu-submenu-retractor-top' ).removeClass( 'ubermenu-submenu-retractor-top-2' );
 			}
 
+			//Indicator toggles
+			if( this.settings.submenuIndicatorCloseMobile ){
+				var $target_subs = this.$ubermenu.find( '.ubermenu-has-submenu-drop > .ubermenu-target' )
+					.append( '<span class="ubermenu-sub-indicator-close"><i class="fas fa-times"></i></span>' );
+				var $indicator_toggles = $target_subs.find( '>.ubermenu-sub-indicator-close' );
+				$indicator_toggles.on( 'click' , function(e){
+						e.preventDefault();
+						e.stopPropagation();
+						plugin.closeSubmenuInstantly( $(this).closest( '.ubermenu-item' ) , 'toggleUberMenuSubmenuClosed', plugin );
+						return false;
+					});
+				if( this.settings.touchEvents ){
+					$indicator_toggles.on(this.touchStart, function(e){
+						e.preventDefault();
+						e.stopPropagation();
+						plugin.closeSubmenuInstantly( $(this).closest( '.ubermenu-item' ) , 'toggleUberMenuSubmenuClosed', plugin );
+						return false;
+					});
+				}
+			}
+
 		},
 
 
@@ -684,11 +706,37 @@ function uber_op( id , args , def ){
 		},
 
 		initializeActiveTab: function( plugin ){
-			plugin.$ubermenu.find( '.ubermenu-tabs-show-default > .ubermenu-tabs-group' ).each( function(){
-				//If there are no active tabs, activate the first one
-				if( $(this).find( '> .ubermenu-tab.ubermenu-active' ).length === 0 ){
-					plugin.openSubmenu( $(this).find( '> .ubermenu-tab' ).first() , 'tab default' , plugin );
+
+			plugin.$tab_blocks.each( function(){
+				var show_default = $(this).hasClass( 'ubermenu-tabs-show-default' );
+				var show_current = $(this).hasClass( 'ubermenu-tabs-show-current' );
+				var $tabs_group = $(this).find( '> .ubermenu-tabs-group' );
+
+				var tab_shown = false;
+
+				//Current
+				if( show_current ){
+					//Fill in any ancestor tab gaps
+					$tabs_group.find( '.ubermenu-current-menu-item' ).parentsUntil( $tabs_group , '.ubermenu-tab:not( .ubermenu-nocurrent )' ).addClass( 'ubermenu-current-menu-ancestor' );
+
+					//Find any current tabs
+					var $current_tab = $tabs_group.find( '> .ubermenu-tab.ubermenu-current-menu-ancestor, > .ubermenu-tab.ubermenu-current-menu-item' );
+					if( $current_tab.length ){
+						plugin.openSubmenu( $current_tab.first() , 'tab current' , plugin );
+						tab_shown = true;
+					}
 				}
+
+				//Default
+				if( show_default && !tab_shown ){
+					//If there are no active tabs, activate the first one
+					if( $tabs_group.find( '> .ubermenu-tab.ubermenu-active' ).length === 0 ){
+						plugin.openSubmenu( $tabs_group.find( '> .ubermenu-tab' ).first() , 'tab default' , plugin );
+					}
+				}
+
+				//Close all others? .ubermenu( 'closeSubmenu' , $current_tabs.siblings() );
+
 			});
 		},
 
@@ -1794,6 +1842,19 @@ function uber_op( id , args , def ){
 				}
 			}, 100 );
 		}
+
+
+		//Clean out empty items left by unbalanced dynamic items
+		$( '.ubermenu-item:empty' ).each( function(){			//find all empty items
+		  var $p = $(this).parent();											//get parent UL
+		  $(this).remove();																//remove the empty item
+		  if( $p.find( '.ubermenu-item' ).length == 0 ){	//if this submenu is now empty (no items)
+				//remove submenu classes, remove submenu
+		    $p.parent().removeClass( 'ubermenu-has-submenu-drop' ).removeClass( 'ubermenu-has-submenu-flyout' ).off().find('.ubermenu-target > .ubermenu-sub-indicator').remove();
+		    $p.remove();
+		  }
+		});
+
 
 		$( '#wp-admin-bar-ubermenu_loading' ).remove();
 

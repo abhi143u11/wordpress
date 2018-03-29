@@ -1,5 +1,7 @@
 <?php
 /**
+ * WPSEO Premium plugin file.
+ *
  * @package WPSEO\Premium\Classes\Redirect\Loaders
  */
 
@@ -43,7 +45,7 @@ class WPSEO_Redirect_HTAccess_Loader extends WPSEO_Redirect_Abstract_Loader {
 	}
 
 	/**
-	 * Matches the string (containing redirects) for the given regex
+	 * Matches the string (containing redirects) for the given regex.
 	 *
 	 * @param string $pattern The regular expression to match redirects.
 	 *

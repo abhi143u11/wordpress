@@ -5,7 +5,7 @@ function ubermenu_pro_item_settings_panels( $panels ){
 
 	$panels['row'] = array(
 		'title'	=> __( 'Row', 'ubermenu' ),
-		'icon'	=> 'gear',
+		'icon'	=> 'cog',
 		'order'	=> 10,
 	);
 
@@ -43,13 +43,13 @@ function ubermenu_pro_item_settings_panels( $panels ){
 
 	$panels['icon']	= array(
 		'title'	=> __( 'Icon' , 'ubermenu' ),
-		'icon'	=> 'dot-circle-o',
+		'icon'	=> 'plus-circle',
 		'order'	=> 110,
 	);
 
 	$panels['image'] = array(
 		'title'	=> __( 'Image', 'ubermenu' ),
-		'icon'	=> 'picture-o',
+		'icon'	=> 'image',
 		'info'	=> __( 'Set an image for this menu item and control its size' , 'ubermenu' ),
 		'order'	=> 120
 	);
@@ -94,9 +94,17 @@ function ubermenu_pro_item_settings_panels( $panels ){
 		'order'	=> 200,
 	);
 
+	$panels['customize_column'] = array(
+		'title'	=> __( 'Customize Style', 'ubermenu' ),
+		'icon'	=> 'eye', //'pencil',
+		'info'	=> __( 'Set the styles for this specific column.' , 'ubermenu' ),
+		'tip'	=> __( 'To style the menu more generally, visit the ' , 'ubermenu' ) . ' <a target="_blank" href="'.admin_url( 'customize.php' ). '">Customizer</a>',
+		'order'	=> 201,
+	);
+
 	$panels['responsive'] = array(
 		'title'	=> __( 'Responsive', 'ubermenu' ),
-		'icon'	=> 'tablet',
+		'icon'	=> 'mobile-alt',
 		'info'	=> __( 'Control the display of this item (and its children) on mobile vs. desktop.', 'ubermenu' ),
 		'order'	=> 210,
 	);
@@ -785,6 +793,13 @@ function ubermenu_pro_item_settings( $settings ){
 		'desc'		=> $icon_desc,
 		'ops'		=> 'ubermenu_get_icon_ops'
 	);
+	$settings['icon'][11] = array(
+		'id' 		=> 'icon_title',
+		'title'		=> __( 'Icon Title', 'ubermenu' ),
+		'type'		=> 'text',
+		'default' 	=> '',
+		'desc'		=> __( 'This setting is for accessibility.  If your icon is purely decorative, leave this blank.  If your icon is semantic - especially if it is not accompanied by other text - it is important to set this field for screen readers.' , 'ubermenu' ),
+	);
 
 	/*
 	$settings['icon'][20] = array(
@@ -1283,6 +1298,13 @@ function ubermenu_pro_item_settings( $settings ){
 		'default' 	=> 'on',
 		'desc'		=> __( 'Show the first tab\'s panel by default.  Otherwise a blank area will display.' , 'ubermenu' ),
 	);
+	$settings['tabs'][41] = array(
+		'id' 		=> 'show_current_panel',
+		'title'		=> __( 'Show Current Panel' , 'ubermenu' ),
+		'type'		=> 'checkbox',
+		'default' 	=> 'on',
+		'desc'		=> __( 'If there is a current item in the tabs block, display that panel by default.' , 'ubermenu' ),
+	);
 
 	$settings['tabs'][50] = array(
 		'id' 		=> 'tabs_trigger',
@@ -1530,6 +1552,28 @@ function ubermenu_pro_item_settings( $settings ){
 		'on_save'	=> 'submenu_color'
 
 	);
+
+	$settings['customize'][80] = array(
+		'id'		=> 'column_background_color',
+		'title'		=> __( 'Column Background Color' , 'ubermenu' ),
+		'type'		=> 'color',
+		'default'	=> '',
+		'desc'		=> 'Specific to Column Header items which surround a column',
+		'on_save'	=> 'column_background_color'
+	);
+
+
+	/** CUSTOMIZE COLUMN **/
+
+	$settings['customize_column'][10] = array(
+		'id'		=> 'column_background_color',
+		'title'		=> __( 'Background Color' , 'ubermenu' ),
+		'type'		=> 'color',
+		'default'	=> '',
+		'desc'		=> '',
+		'on_save'	=> 'column_background_color'
+	);
+
 
 
 

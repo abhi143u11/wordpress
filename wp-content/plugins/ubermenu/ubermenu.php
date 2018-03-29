@@ -4,8 +4,8 @@ Plugin Name: UberMenu 3 - The Ultimate WordPress Mega Menu
 Plugin URI: http://wpmegamenu.com
 Description: Easily create beautiful, flexible, responsive mega menus
 Author: Chris Mavricos, SevenSpark
-Author URI: http://sevenspark.com
-Version: 3.3.1.1
+Author URI: https://sevenspark.com
+Version: 3.4
 */
 
 // Exit if accessed directly
@@ -57,7 +57,7 @@ final class UberMenu {
 	 */
 	private function setup_constants() {
 		// Plugin version
-		define( 'UBERMENU_VERSION', '3.3.1.1' );
+		define( 'UBERMENU_VERSION', '3.4' );
 
 		//Override in wp-config.php
 
@@ -112,10 +112,10 @@ final class UberMenu {
 			define( 'UBERMENU_GENERATED_STYLE_TRANSIENT_EXPIRATION' , 30 * DAY_IN_SECONDS );
 
 		//URLs
-		define( 'UBERMENU_KB_URL' , 'http://sevenspark.com/docs/ubermenu-3' );
-		define( 'UBERMENU_VIDEOS_URL' , 'http://sevenspark.com/docs/ubermenu-3/video-tutorials' );
+		define( 'UBERMENU_KB_URL' , 'https://sevenspark.com/docs/ubermenu-3' );
+		define( 'UBERMENU_VIDEOS_URL' , 'https://sevenspark.com/docs/ubermenu-3/video-tutorials' );
 		//define( 'UBERMENU_SUPPORT_URL' , 'http://goo.gl/fAKwNT' );
-		define( 'UBERMENU_SUPPORT_URL' , 'http://sevenspark.com/help' );
+		define( 'UBERMENU_SUPPORT_URL' , 'https://sevenspark.com/help' );
 		define( 'UBERMENU_TROUBLESHOOTER_URL' , 'http://goo.gl/Cyodwh' );
 		define( 'UBERMENU_QUICKSTART_URL' , '//www.youtube.com/embed/Vz0VMgEpI1o?list=PLObX861ISTA6JgNu4-Mp9p5f6YuE1XC8w' );
 
@@ -146,6 +146,7 @@ final class UberMenu {
 		require_once UBERMENU_DIR . 'includes/ubermenu.api.php';
 		require_once UBERMENU_DIR . 'includes/shortcodes.php';
 		require_once UBERMENU_DIR . 'includes/item-limit-detection.php';
+		require_once UBERMENU_DIR . 'includes/plugin_compatibility/plugin-compatibility.php';
 
 		require_once UBERMENU_DIR . 'admin/admin.php';
 		require_once UBERMENU_DIR . 'admin/migration.php';

@@ -56,7 +56,7 @@ class LS_Popups {
 		self::autoinclude();
 		self::display();
 
-		add_action('get_footer', array(__CLASS__, 'render'));
+		add_action('wp_footer', array(__CLASS__, 'render'), 1);
 	}
 
 

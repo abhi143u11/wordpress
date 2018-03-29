@@ -3,7 +3,7 @@
 if ( !defined( 'ABSPATH' ) ) exit;
 
 
-/** 
+/**
  * BACKUP ON ADMIN ACCESS
  */
 
@@ -63,7 +63,7 @@ function ubermenu_backup_file( $source_file , $dest_filename , $daily_folder = f
 	$uploads = wp_upload_dir();
 	$uploads_dir = trailingslashit( $uploads['basedir'] );
 	$dest_dir = $uploads_dir . 'ubermenu_backups/';
-	
+
 	//Create ubermenu_backups dir if it doesn't already exist
 	if( !ubermenu_make_backup_dir( $dest_dir ) ){
 		//Bail if making the backup directory fails
@@ -92,8 +92,8 @@ function ubermenu_backup_file( $source_file , $dest_filename , $daily_folder = f
 
 	if( is_writable( $daily_dir ) ){
 
-		$daily = $daily_dir . $dest_filename . '_' . current_time( 'Y-m-d' );	//Date-stamp the file
-
+		//$daily = $daily_dir . $dest_filename . '_' . current_time( 'Y-m-d' );	//Date-stamp the file
+		$daily = $daily_dir . str_replace( 'custom' , 'custom_' . current_time( 'Y-m-d' ) , $dest_filename );	//Date-stamp the file
 		copy( $source_file , $daily );				//Make the backup
 
 		//Clear old backups - if there are more than 10 files, purge the oldest
@@ -102,9 +102,11 @@ function ubermenu_backup_file( $source_file , $dest_filename , $daily_folder = f
 		if( count( $files ) > $max_files ){
 			asort( $files );	//Make sure they are sorted alphabetically (which is chronologically, due to the date stamp)
 			//uberp( $files );
+			$k = 0;
 			while( count( $files ) > $max_files ){
-				unlink( $files[0] );	//Delete the file from the server
-				unset( $files[0] );		//This is critical, otherwise we loop infinitely
+				unlink( $files[$k] );	//Delete the file from the server
+				unset( $files[$k] );		//This is critical, otherwise we loop infinitely
+				$k++;
 			}
 		}
 	}
@@ -125,7 +127,7 @@ function ubermenu_make_backup_dir( $dir ){
 
 
 
-/** 
+/**
  * RESTORE ON PLUGIN ACTIVATION
  */
 
@@ -175,7 +177,7 @@ function ubermenu_restore_custom_assets(){
  */
 function ubermenu_restore_file( $source_file , $dest_file , $dest_dir ){
 	//echo 'restore '.$source_file .' to ' .$dest_file;
-	
+
 	//If the directory is writable
 	if( is_writable( $dest_dir ) ){
 		copy( $source_file , $dest_file );
@@ -201,7 +203,3 @@ function ubermenu_restore_admin_notice( $notice , $type = 'udpated' ) {
     </div>
     <?php
 }
-
-
-
-

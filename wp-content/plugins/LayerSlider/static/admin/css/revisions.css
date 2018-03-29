@@ -196,8 +196,8 @@
 .ui-selectable-helper {
   display: none !important; }
 
-#ls-layer-tabs {
+#ls-slide-tabs {
   z-index: 99999; }
 
-#ls-layer-tabs .dashicons-dismiss {
+#ls-slide-tabs .dashicons-dismiss {
   display: none !important; }

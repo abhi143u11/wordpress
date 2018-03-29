@@ -41,7 +41,7 @@ function ubermenu_item_limit_notice(){
 
 		$message = array();
 
-		if( ( $r['suhosin_post_maxvars'] != '' && $r['suhosin_post_maxvars'] != 0 && $r['suhosin_post_maxvars'] < 1000 ) || 
+		if( ( $r['suhosin_post_maxvars'] != '' && $r['suhosin_post_maxvars'] != 0 && $r['suhosin_post_maxvars'] < 1000 ) ||
 			( $r['suhosin_request_maxvars']!= '' && $r['suhosin_request_maxvars']!= 0 && $r['suhosin_request_maxvars'] < 1000 ) ){
 			$message[] = __( "Your server is running Suhosin, and your current maxvars settings may limit the number of menu items you can save." , 'ubermenu' );
 		}
@@ -56,12 +56,12 @@ function ubermenu_item_limit_notice(){
 			}
 		}
 
-		if( !empty( $message ) ): 
+		if( !empty( $message ) ):
 
 		?>
 		<div class="ubermenu-admin-notice ubermenu-admin-notice-warning ubermenu-admin-notice-menu-item-limit">
-			<div class="ubermenu-admin-notice-icon"><i class="fa fa-warning"></i></div>
-			<h3><a href="http://goo.gl/vttchn"><?php _e( 'Menu Item Limit Warning' , 'ubermenu' ); ?> <i class="fa fa-question-circle"></i></a></h3>
+			<div class="ubermenu-admin-notice-icon"><i class="fas fa-exclamation-triangle"></i></div>
+			<h3><a href="http://goo.gl/vttchn"><?php _e( 'Menu Item Limit Warning' , 'ubermenu' ); ?> <i class="fas fa-question-circle"></i></a></h3>
 			<ul>
 			<?php foreach( $message as $m ): ?>
 				<li><?php echo $m; ?></li>
@@ -90,32 +90,32 @@ function ubermenu_item_limit_notice(){
 				</tr>
 			<?php endif; ?>
 
-			
-				<tr>			
+
+				<tr>
 					<td><?php _e( 'Last saved Item Variable Count' , 'ubermenu' ); ?></td> <td><?php echo $var_count; ?></td>
 				</tr>
 
-				
-				
-				<?php 
+
+
+				<?php
 					if( $r['max_input_vars'] != '' ){
 						$estimate = ( $r['max_input_vars'] - $var_count ) / 15;
 						if( $estimate < 0 ) $estimate = 0;
 						?>
-					<tr>			
+					<tr>
 						<td><?php _e( 'Percent of Item Limit' , 'ubermenu' ); ?></td> <td><?php echo 100 * ( $var_count / $r['max_input_vars'] ); ?>%</td>
 					</tr>
 					<tr>
 						<td><strong><?php _e( 'Estimated remaining menu items' , 'ubermenu' ); ?></strong></td><td><?php echo floor( $estimate ); ?></td>
 					</tr>
-				<?php 
+				<?php
 					};
 				?>
 			</table>
-			
+
 			<br/>Loaded configuration file on your server: <strong><?php echo php_ini_loaded_file(); ?></strong>
 
 		</div>
-		<?php endif; 
+		<?php endif;
 	}
 }

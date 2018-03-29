@@ -9,6 +9,17 @@ jQuery(function($) {
 	// Tabs
 	$('.km-tabs').kmTabs();
 
+	// Auto-submit filter/search bar when choosing different view mode
+	// from drop-down menus.
+	$('#ls-slider-filters').on('change', 'select', function() {
+		$(this).closest('#ls-slider-filters').submit();
+	});
+
+
+	$('.ls-sliders-grid').on('contextmenu', '.preview', function( e ) {
+		e.preventDefault();
+		$(this).parent().find('.slider-actions').click();
+	});
 
 	$('.ls-sliders-grid').on('click', '.slider-actions', function() {
 
@@ -20,29 +31,34 @@ jQuery(function($) {
 			$item.addClass('ls-opened');
 			$sheet.removeClass('ls-hidden');
 			$('.ls-hover', $item).hide();
-			TweenLite.to($sheet[0], 0.3, {
+			TweenLite.fromTo($sheet[0], 0.3, { x: 0 }, {
 				y: 0
 			});
 	});
 
 	$('.ls-sliders-grid').on('mouseleave', '.slider-item', function() {
 
-		var $this 	= $(this),
-			$item 	= $this.closest('.slider-item'),
-			$sheet 	= $item.find('.slider-actions-sheet');
+		var $this 		= $(this),
+			$item 		= $this.closest('.slider-item'),
+			$sheet		= $('.slider-actions-sheet', $item ),
+			$options 	= $('.ls-export-options', $item );
 
 			if( $item.hasClass('ls-opened') ) {
 
-				$item.removeClass('ls-opened');
+				$item.removeClass('ls-opened').removeClass('ls-export-options-open');
 				$sheet.removeClass('ls-hidden');
 				$('.ls-hover', $item).show();
 
-				TweenLite.to($sheet[0], 0.4, {
-					y: -150
+				TweenLite.to($sheet[0], 0.4, { y: -150 });
+				TweenLite.to($options[0], 0.4, {
+					y: -150,
+					onComplete: function() {
+						$options.hide();
+					}
 				});
 			}
 
-	// Add sliderls-add-slider-template
+	// Add slider
 	}).on('click', '#ls-add-slider-button', function(e) {
 		e.preventDefault();
 
@@ -59,6 +75,21 @@ jQuery(function($) {
 		TweenLite.to( [ $button[0], $sheet[0] ], 0.5, {
 			x: '-=240'
 		});
+
+	// Export options
+	}).on('click', '.ls-export-options-button', function( e ) {
+		e.preventDefault();
+
+		var $item 		= $(this).closest('.slider-item'),
+			$sheet 		= $('.slider-actions-sheet', $item),
+			$options 	= $('.ls-export-options', $item);
+
+
+		$item.addClass('ls-export-options-open');
+		$options.show();
+
+		TweenLite.fromTo($sheet[0], 0.5, { x: 0 }, { x: -240 });
+		TweenLite.fromTo($options[0], 0.5, { x: 240, y: 0 }, { x: 0 });
 	});
 
 
@@ -98,9 +129,10 @@ jQuery(function($) {
 			$('#ls-slider-actions-template a:eq(0)').data('slug', $this.data('slug') );
 
 			$('#ls-slider-actions-template a:eq(1)').attr('href', $this.data('export-url') );
-			$('#ls-slider-actions-template a:eq(2)').attr('href', $this.data('duplicate-url') );
-			$('#ls-slider-actions-template a:eq(3)').attr('href', $this.data('revisions-url') );
-			$('#ls-slider-actions-template a:eq(4)').attr('href', $this.data('remove-url') );
+			$('#ls-slider-actions-template a:eq(2)').attr('href', $this.data('export-html-url') );
+			$('#ls-slider-actions-template a:eq(3)').attr('href', $this.data('duplicate-url') );
+			$('#ls-slider-actions-template a:eq(4)').attr('href', $this.data('revisions-url') );
+			$('#ls-slider-actions-template a:eq(5)').attr('href', $this.data('remove-url') );
 
 
 			setTimeout(function() {
@@ -134,6 +166,44 @@ jQuery(function($) {
 			slug 	= $this.data('slug') || id;
 
 		$modal.find('input.shortcode').val('[layerslider id="'+slug+'"]');
+
+	// HTML export
+	}).on('click', 'a.ls-html-export', function( e ) {
+
+		if( ! window.lsSiteActivation ) {
+			e.preventDefault();
+
+			kmUI.modal.open({
+				title: LS_l10n.SLExportActivationTitle,
+				content: LS_l10n.SLExportActivationContent,
+				width: 800,
+				height: 200,
+				overlayAnimate: 'fade'
+			});
+
+			return false;
+		}
+
+
+
+		if( window.localStorage ) {
+
+			if( ! localStorage.lsExportHTMLWarning ) {
+				localStorage.lsExportHTMLWarning = 0;
+			}
+
+			var counter = parseInt( localStorage.lsExportHTMLWarning ) || 0;
+
+			if( counter < 3 ) {
+
+				localStorage.lsExportHTMLWarning = ++counter;
+
+				if( ! confirm( LS_l10n.SLExportSliderHTML ) ) {
+					e.preventDefault();
+					return false;
+				}
+			}
+		}
 	});
 
 	// Pagivation
@@ -218,7 +288,9 @@ jQuery(function($) {
 					});
 				},
 				onComplete: function(){
-					importModalWindowTimeline.remove( importModalThumbnailsTransition );
+					if( importModalWindowTimeline ) {
+						importModalWindowTimeline.remove( importModalThumbnailsTransition );
+					}
 				},
 				onReverseComplete: function(){
 					jQuery( 'html, body' ).removeClass( 'ls-no-overflow' );
@@ -360,30 +432,39 @@ jQuery(function($) {
 		$button.data('text', $button.text() ).text(LS_l10n.working).addClass('saving');
 
 		// Post it
-		$.post( ajaxurl, $(this).serialize(), function(data) {
+		$.ajax({
+			type: 'POST',
+			url: ajaxurl,
+			data: $(this).serialize(),
+			error: function( jqXHR, textStatus, errorThrown ) {
+				alert(LS_l10n.SLActivationError.replace('%s', errorThrown) );
+				$button.removeClass('saving').text( $button.data('text') );
+			},
+			success: function( data ) {
 
-			// Parse response and set message
-			data = $.parseJSON(data);
+				// Parse response and set message
+				data = $.parseJSON(data);
 
-			// Success
-			if(data && ! data.errCode ) {
+				// Success
+				if(data && ! data.errCode ) {
 
-				// Apply activated state to GUI
-				$form.closest('.ls-box').addClass('active');
+					// Apply activated state to GUI
+					$form.closest('.ls-box').addClass('active');
 
-				// Display activation message
-				$('p.note', $form).css('color', '#74bf48').text( data.message );
+					// Display activation message
+					$('p.note', $form).css('color', '#74bf48').text( data.message );
 
-				// Make sure that features requiring activation will
-				// work without refreshing the page.
-				window.lsSiteActivation = true;
+					// Make sure that features requiring activation will
+					// work without refreshing the page.
+					window.lsSiteActivation = true;
 
-			// Alert message (if any)
-			} else if(typeof data.message !== "undefined") {
-				alert(data.message);
+				// Alert message (if any)
+				} else if(typeof data.message !== "undefined") {
+					alert(data.message);
+				}
+
+				$button.removeClass('saving').text( $button.data('text') );
 			}
-
-			$button.removeClass('saving').text( $button.data('text') );
 		});
 	});
 
