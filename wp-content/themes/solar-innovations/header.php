@@ -58,7 +58,8 @@ global $current_user;
 	<section class="row site-container">
 		<header class="row header">
 			<div class="small-8 medium-8 large-3 columns">
-				<a href="<?php bloginfo('url'); ?>"><img class="logo show-for-large-up" src="<?php bloginfo('template_directory'); ?>/img/main-logo.png"><img class="logo hide-for-large-up" src="<?php bloginfo('template_directory'); ?>/img/mobile-logo.png"></a><p class="hphone hide-for-large-up"></p>
+				<a href="<?php bloginfo('url'); ?>"><img class="logo" src="https://solarinnovations.com/wp-content/uploads/20th-Anniversary-Logo.png"></a>
+				<!-- <a href="<?php //bloginfo('url'); ?>"><img class="logo show-for-large-up" src="<?php //bloginfo('template_directory'); ?>/img/main-logo.png"><img class="logo hide-for-large-up" src="<?php //bloginfo('template_directory'); ?>/img/mobile-logo.png"></a><p class="hphone hide-for-large-up"></p> -->
 			</div>
 			<div class="small-4 medium-4 large-9 columns">
 				<a class="shiftnav-toggle hide-for-large-up m-nav" data-shiftnav-target="shiftnav-main" href=""><img src="<?php bloginfo('template_directory'); ?>/img/m-nav.png" /></a>
