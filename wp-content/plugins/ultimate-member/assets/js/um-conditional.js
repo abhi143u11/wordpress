@@ -62,7 +62,7 @@ jQuery(document).ready( function (){
         var default_value = '';
         var type = um_get_field_type($dom);
 
-        switch (type) {
+        switch ( type ) {
 
             case 'text':
             case 'number':
@@ -290,6 +290,12 @@ jQuery(document).ready( function (){
                     } else {
                         $owners[condition.owner][index] = false;
                     }
+                } else if ( 'checkbox' == um_get_field_type( $dom.parents('.um-field[data-key]') ) ) {
+                    if ( live_field_value && live_field_value.indexOf( condition.value ) >= 0 ) {
+                        $owners[condition.owner][index] = true;
+                    } else {
+                        $owners[condition.owner][index] = false;
+                    }
                 } else {
                     if ( live_field_value && live_field_value.indexOf( condition.value ) >= 0 && um_in_array( live_field_value, $owners_values[ condition.owner ] ) ) {
                         $owners[condition.owner][index] = true;
@@ -361,7 +367,7 @@ jQuery(document).ready( function (){
             case 'number':
             case 'date':
             case 'textarea':
-                $dom.find('input:text,input[type=number],textarea,select').val(field.value);
+                $dom.find('input:text,input[type=number],textareas').val(field.value);
                 break;
 
             case 'select':
@@ -436,7 +442,7 @@ jQuery(document).ready( function (){
         if ( ! $dom.hasClass( 'um-field-has-changed' ) ) {
             var me = um_get_field_element( $dom );
 
-            if ( type == 'radio' ) {
+            if ( type == 'radio' || type == 'checkbox' ) {
                 me = me.find( ':checked' );
             }
 
@@ -444,6 +450,22 @@ jQuery(document).ready( function (){
                 me.trigger( 'change' );
                 $dom.addClass( 'um-field-has-changed' );
             }
+
+            /*
+            maybe future fix
+            if ( me ) {
+                if ( type == 'radio' || type == 'checkbox' ) {
+                    me.each( function() {
+                       if ( jQuery(this).is(':checked') ) {
+                           jQuery(this).trigger('change');
+                       }
+                    });
+                } else {
+                    me.trigger( 'change' );
+                }
+
+                $dom.addClass( 'um-field-has-changed' );
+            }*/
         }
     }
 
@@ -489,6 +511,11 @@ jQuery(document).ready( function (){
     });
 
     jQuery(document).on('input change', '.um-field input[type=text]', function () {
+        var me = jQuery(this);
+        um_apply_conditions(me, false);
+    });
+
+    jQuery(document).on('input change', '.um-field input[type=password]', function () {
         var me = jQuery(this);
         um_apply_conditions(me, false);
     });

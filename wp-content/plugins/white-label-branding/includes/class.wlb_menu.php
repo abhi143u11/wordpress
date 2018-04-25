@@ -12,6 +12,25 @@ class wlb_menu {
 		$this->id = $wlb_plugin->id.'-nav';	
 		add_filter("pop-options_{$this->id}",array(&$this,'wlb_options'),10,1);
 		add_action('admin_menu', array(&$this,'admin_menu'),1000);
+		add_filter("wlb_menu_special_cases", array(&$this,'wlb_menu_special_cases'),10,3);
+	}
+	
+	function wlb_menu_special_cases( $ret, $id, $m ){
+		global $wlb_plugin;
+		if( $id == 'm_vc_welcome' ){
+			$v = $wlb_plugin->get_option('m_vc_general');
+			if( !empty($v) ){
+				return true;
+			}		
+		}
+
+		switch( $id ){
+			case 'm_vc_welcome':
+				//return 'm_vc_general';
+			
+		}
+		
+		return $ret;
 	}
 	
 	function get_id_from_menu($str,$prefix='m_',$m=array()){	
@@ -54,7 +73,9 @@ class wlb_menu {
 					$id = $this->get_id_from_menu($m[2],'m_',$m);
 					if( $this->get_value_from_menu($m) == $wlb_plugin->get_option($id) ){
 						unset($menu[$k]);
-					} 
+					}else if( apply_filters( 'wlb_menu_special_cases', false, $id, $m ) ){
+						unset($menu[$k]);
+					}
 				}			
 			}
 			if(isset($submenu)&&is_array($submenu)&&count($submenu)>0){

@@ -1,6 +1,10 @@
 
 # Changelog
 
+## 1.0.3
+
+	- Fixed issue where next and previous buttons hidden via conditional logic prevented navigation from submitting form.
+
 ## 1.0.2
 
 	- Added support for targeting custom page links from a parent element.

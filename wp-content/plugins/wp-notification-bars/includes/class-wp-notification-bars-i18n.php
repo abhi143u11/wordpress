@@ -24,6 +24,10 @@
  * @subpackage MTSNBF/includes
  * @author     MyThemeShop
  */
+ // If this file is called directly, abort.
+ if ( ! defined( 'WPINC' ) ) {
+ 	die;
+ }
 class MTSNBF_i18n {
 
 	/**

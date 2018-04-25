@@ -1,6 +1,4 @@
-<?php
-// Exit if accessed directly
-if ( ! defined( 'ABSPATH' ) ) exit;
+<?php if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 
 /**
@@ -26,19 +24,28 @@ function um_add_custom_message_to_menu( $items, $args ) {
 add_filter( 'wp_nav_menu_items', 'um_add_custom_message_to_menu', 10, 2 );
 
 
-/***
-***	@conditional menu items
-***/
 if ( ! is_admin() ) {
-
-	add_filter( 'wp_get_nav_menu_items', 'um_conditional_nav_menu', 9999, 3 );
-	function um_conditional_nav_menu( $items, $menu, $args ) {
-
-		$hide_children_of = array();
+	/**
+	 * Conditional menu items
+	 *
+	 * @param $menu_items
+	 * @param $args
+	 *
+	 * @return mixed
+	 */
+	function um_conditional_nav_menu( $menu_items, $args ) {
+		//if empty
+		if ( empty( $menu_items ) ) {
+			return $menu_items;
+		}
 
 		um_fetch_user( get_current_user_id() );
 
-		foreach ( $items as $key => $item ) {
+		$filtered_items = array();
+		$hide_children_of = array();
+
+		//other filter
+		foreach ( $menu_items as $item ) {
 
 			$mode = get_post_meta( $item->ID, 'menu-item-um_nav_public', true );
 			$roles = get_post_meta( $item->ID, 'menu-item-um_nav_roles', true );
@@ -57,11 +64,16 @@ if ( ! is_admin() ) {
 
 					case 2:
 						if ( is_user_logged_in() && ! empty( $roles ) ) {
-							$current_user_roles = um_user( 'roles' );
-							if ( empty( $current_user_roles ) ) {
-								return false;
-							}
-                            $visible = ( count( array_intersect( $current_user_roles, (array)$roles ) ) > 0 ) ? true : false;
+                            if ( current_user_can( 'administrator' ) ) {
+                                $visible = true;
+                            } else {
+                                $current_user_roles = um_user( 'roles' );
+                                if ( empty( $current_user_roles ) ) {
+                                    $visible = false;
+                                } else {
+                                    $visible = ( count( array_intersect( $current_user_roles, (array)$roles ) ) > 0 ) ? true : false;
+                                }
+                            }
 						} else {
 							$visible = is_user_logged_in() ? true : false;
 						}
@@ -75,20 +87,58 @@ if ( ! is_admin() ) {
 
 			}
 
-			// add filter to work with plugins that don't use traditional roles
+			/**
+			 * UM hook
+			 *
+			 * @type filter
+			 * @title um_nav_menu_roles_item_visibility
+			 * @description Add filter to work with plugins that don't use traditional roles
+			 * @input_vars
+			 * [{"var":"$visible","type":"bool","desc":"Visible?"},
+			 * {"var":"$item","type":"object","desc":"Menu Item"}]
+			 * @change_log
+			 * ["Since: 2.0"]
+			 * @usage
+			 * <?php add_filter( 'um_nav_menu_roles_item_visibility', 'function_name', 10, 2 ); ?>
+			 * @example
+			 * <?php
+			 * add_filter( 'um_nav_menu_roles_item_visibility', 'my_nav_menu_roles_item_visibility', 10, 2 );
+			 * function my_nav_menu_roles_item_visibility( $visible, $item ) {
+			 *     // your code here
+			 *     return $visible;
+			 * }
+			 * ?>
+			 */
 			$visible = apply_filters( 'um_nav_menu_roles_item_visibility', $visible, $item );
 
 			// unset non-visible item
 			if ( ! $visible ) {
 				$hide_children_of[] = $item->ID; // store ID of item
-				unset( $items[ $key ] ) ;
+			} else {
+				$filtered_items[] = $item;
+				continue;
 			}
 
 		}
 
 		um_reset_user();
 
-		return $items;
+		return $filtered_items;
 	}
+	add_filter( 'wp_nav_menu_objects', 'um_conditional_nav_menu', 9999, 2 );
 
+
+	/**
+	 * Conditional menu items
+	 *
+	 * @param $items
+	 * @param $menu
+	 * @param $args
+	 *
+	 * @return mixed
+	 */
+	function um_get_nav_menu_items( $items, $menu, $args ) {
+		return um_conditional_nav_menu( $items, $args );
+	}
+	add_filter( 'wp_get_nav_menu_items', 'um_get_nav_menu_items', 9999, 3 );
 }

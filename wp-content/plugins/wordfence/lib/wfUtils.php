@@ -2424,7 +2424,7 @@ class wfUtils {
 			}
 		}
 		return new DateTime($timestring);
-	} 
+	}
 }
 
 // GeoIP lib uses these as well

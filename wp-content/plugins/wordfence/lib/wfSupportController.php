@@ -17,6 +17,10 @@ class wfSupportController {
 	
 	const ITEM_WIDGET_LOCAL_ATTACKS = 'widget-local-attacks';
 	
+	const ITEM_VERSION_WORDPRESS = 'version-wordpress';
+	const ITEM_VERSION_PHP = 'version-php';
+	const ITEM_VERSION_OPENSSL = 'version-ssl';
+	
 	const ITEM_DASHBOARD = 'dashboard';
 	const ITEM_DASHBOARD_STATUS_FIREWALL = 'dashboard-status-firewall';
 	const ITEM_DASHBOARD_STATUS_SCAN = 'dashboard-status-scan';
@@ -80,6 +84,7 @@ class wfSupportController {
 	const ITEM_FIREWALL_WAF_OPTION_MONITOR_AJAX = 'firewall-waf-option-monitor-ajax';
 	
 	const ITEM_FIREWALL_BLOCKING = 'firewall-blocking';
+	const ITEM_FIREWALL_BLOCKING_FILTER = 'firewall-blocking-filter';
 	const ITEM_FIREWALL_BLOCKING_OPTION_WHAT_TO_DO = 'firewall-blocking-option-what-to-do';
 	const ITEM_FIREWALL_BLOCKING_OPTION_REDIRECT = 'firewall-blocking-option-redirect';
 	const ITEM_FIREWALL_BLOCKING_OPTION_BLOCK_LOGGED_IN = 'firewall-blocking-option-block-logged-in';
@@ -124,6 +129,7 @@ class wfSupportController {
 	const ITEM_SCAN_OPTION_CUSTOM_MALWARE_SIGNATURES = 'scan-option-custom-malware-signatures';
 	const ITEM_SCAN_TIME_LIMIT = 'scan-time-limit';
 	const ITEM_SCAN_FAILS = 'scan-fails';
+	const ITEM_SCAN_FAILED_START = 'scan-failed-start';
 	const ITEM_SCAN_BULK_DELETE_WARNING = 'scan-bulk-delete-warning';
 	const ITEM_SCAN_SCHEDULING = 'scan-scheduling';
 	const ITEM_SCAN_RESULT_PUBLIC_CONFIG = 'scan-result-public-config';
@@ -175,6 +181,10 @@ class wfSupportController {
 			case self::ITEM_USING_BREACH_PASSWORD:
 				
 			case self::ITEM_WIDGET_LOCAL_ATTACKS:
+				
+			case self::ITEM_VERSION_WORDPRESS:
+			case self::ITEM_VERSION_PHP:
+			case self::ITEM_VERSION_OPENSSL:
 				
 			case self::ITEM_DASHBOARD:
 			case self::ITEM_DASHBOARD_STATUS_FIREWALL:
@@ -239,6 +249,7 @@ class wfSupportController {
 			case self::ITEM_FIREWALL_WAF_OPTION_MONITOR_AJAX:
 				
 			case self::ITEM_FIREWALL_BLOCKING:
+			case self::ITEM_FIREWALL_BLOCKING_FILTER:
 			case self::ITEM_FIREWALL_BLOCKING_OPTION_WHAT_TO_DO:
 			case self::ITEM_FIREWALL_BLOCKING_OPTION_REDIRECT:
 			case self::ITEM_FIREWALL_BLOCKING_OPTION_BLOCK_LOGGED_IN:
@@ -252,6 +263,7 @@ class wfSupportController {
 			case self::ITEM_SCAN_STATUS_REPUTATION:
 			case self::ITEM_SCAN_TIME_LIMIT:
 			case self::ITEM_SCAN_FAILS:
+			case self::ITEM_SCAN_FAILED_START:
 			case self::ITEM_SCAN_BULK_DELETE_WARNING:
 			case self::ITEM_SCAN_SCHEDULING:
 			case self::ITEM_SCAN_OPTION_CHECK_SITE_BLACKLISTED:

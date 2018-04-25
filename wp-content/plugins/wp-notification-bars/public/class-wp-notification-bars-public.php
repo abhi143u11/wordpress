@@ -1,5 +1,4 @@
 <?php
-
 /**
  * The public-facing functionality of the plugin.
  *
@@ -20,36 +19,43 @@
  * @subpackage MTSNBF/public
  * @author     MyThemeShop
  */
-class MTSNBF_Public {
+ // If this file is called directly, abort.
+ if ( ! defined( 'WPINC' ) ) {
+ 	die;
+ }
+ if( !class_exists( 'MTSNBF_Public' )){
 
-	/**
-	 * The ID of this plugin.
-	 *
-	 * @since    1.0
-	 * @access   private
-	 * @var      string    $plugin_name    The ID of this plugin.
-	 */
-	private $plugin_name;
+	class MTSNBF_Public {
 
-	/**
-	 * The version of this plugin.
-	 *
-	 * @since    1.0
-	 * @access   private
-	 * @var      string    $version    The current version of this plugin.
-	 */
-	private $version;
+		/**
+		 * The ID of this plugin.
+		 *
+		 * @since    1.0
+		 * @access   private
+		 * @var      string    $plugin_name    The ID of this plugin.
+		 */
+		private $plugin_name;
 
-	/**
-	 * Initialize the class and set its properties.
-	 *
-	 * @since    1.0
-	 * @param    string    $plugin_name    The name of the plugin.
-	 * @param    string    $version        The version of this plugin.
-	 */
-	public function __construct( $plugin_name, $version ) {
+		/**
+		 * The version of this plugin.
+		 *
+		 * @since    1.0
+		 * @access   private
+		 * @var      string    $version    The current version of this plugin.
+		 */
+		private $version;
 
-		$this->plugin_name = $plugin_name;
-		$this->version = $version;
+		/**
+		 * Initialize the class and set its properties.
+		 *
+		 * @since    1.0
+		 * @param    string    $plugin_name    The name of the plugin.
+		 * @param    string    $version        The version of this plugin.
+		 */
+		public function __construct( $plugin_name, $version ) {
+
+			$this->plugin_name = $plugin_name;
+			$this->version = $version;
+		}
 	}
 }

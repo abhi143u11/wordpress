@@ -69,7 +69,7 @@ class MTSNBF {
 	public function __construct() {
 
 		$this->plugin_name = 'wp-notification-bars';
-		$this->version = '1.0.1';
+		$this->version = '1.0.2';
 
 		$this->load_dependencies();
 		$this->set_locale();

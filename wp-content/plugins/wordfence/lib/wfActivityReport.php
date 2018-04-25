@@ -61,9 +61,17 @@ class wfActivityReport {
 			return;
 		}
 		
+<<<<<<< HEAD
 >>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5
 		$report = new self();
 		$report->sendReportViaEmail(wfConfig::getAlertEmails());
+=======
+		$emails = wfConfig::getAlertEmails();
+		if (count($emails)) {
+			$report = new self();
+			$report->sendReportViaEmail($emails);
+		}
+>>>>>>> 4f7eb851e22872bb0679d97f48b3a6efd23b044f
 		self::scheduleCronJob();
 	}
 

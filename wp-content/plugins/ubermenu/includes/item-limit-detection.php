@@ -6,14 +6,19 @@ function ubermenu_count_menu_post_vars() {
 
 	if( isset( $_POST['save_menu'] ) ){
 		$count = 0;
-    	foreach( $_POST as $key => $arr ){
-			$count+= count( $arr );
+		foreach( $_POST as $key => $arr ){
+			//$count+= count( $arr );
+			if( is_array( $arr ) ){
+				$count+= count( $arr );
+			}
+			else $count++;
 		}
 		update_option( 'ubermenu-post-var-count' , $count );
 	}
 	else{
 		$count = get_option( 'ubermenu-post-var-count' , 0 );
 	}
+
 	return $count;
 }
 

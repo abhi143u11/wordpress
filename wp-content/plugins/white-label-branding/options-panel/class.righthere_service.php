@@ -8,11 +8,24 @@
  **/
 
 class righthere_service {
-	function __construct(){
-	
+	var $enabled = true;
+	function __construct( $plugin_id = false ){
+		if( false!==$plugin_id ){
+			if( '0' == apply_filters("gdpr_comply_{$plugin_id}", '1' ) ){
+				$this->enabled = false;
+			}		
+		}		
 	}
 	
 	function rh_service($url){
+
+		if( false == $this->enabled ){
+			return (object)array(
+				'R'		=> 'ERR',
+				'MSG'	=> __('License and update service is disabled, go to options-> license tab and enable "Allow sending details" in the GDPR compliance tab.','pop')
+			);	
+		}
+	
 		//@ini_set('memory_limit','100M');
 		@set_time_limit ( 360 );	
 		$args = array('timeout'=>360);

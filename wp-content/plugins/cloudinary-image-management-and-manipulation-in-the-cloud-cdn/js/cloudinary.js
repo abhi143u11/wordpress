@@ -51,7 +51,7 @@ jQuery(function() {
       height: json.height,
       post_id: jQuery('#post_ID').val()
     };
-    if (tinyMCE && tinyMCE.activeEditor && tinyMCE.activeEditor.selection) {
+    if (typeof tinyMCE !== 'undefined' && tinyMCE.activeEditor && tinyMCE.activeEditor.selection) {
       var html = tinyMCE.activeEditor.selection.getContent({format : 'html'});
       var match = html.match(/wp-image-(\d+)/);
       if (match) data.attachment_id = match[1];      
@@ -70,7 +70,7 @@ jQuery(function() {
       if (href && href != '') {
         image = jQuery('<a/>').attr('href', href).append(image);
       }
-      if (tinyMCE && tinyMCE.activeEditor && tinyMCE.activeEditor.selection) {
+      if (typeof tinyMCE !== 'undefined' && tinyMCE.activeEditor && tinyMCE.activeEditor.selection) {
         tinyMCE.activeEditor.selection.setContent(jQuery('<div/>').append(image).html()); 
       } else {
         send_to_editor(jQuery('<div/>').append(image).html());  

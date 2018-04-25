@@ -3,11 +3,14 @@ Author: Alberto Lau (RightHere LLC)
 Author URL: http://plugins.righthere.com/white-label-branding/
 Tags: white label branding, custom menus, custom dashboard panel, custom login, cms, wordpress, role manager, capability manager, wp ms, multisite, custom colors, downloadable content, import and export
 Requires at least: 4.0
-Tested up to: 4.9.4
-Stable tag: 4.2.0.83030
+Tested up to: 4.9.5
+Stable tag: 4.2.1.83266
 
 
 ======== CHANGE LOG ========
+Version 4.2.1.83266 - April 24, 2018
+* Compatibility Fix: Not possible to hide top level menu WPBakery Page Builder
+
 Version 4.2.0.83030 - March 7, 2018
 * Bug Fixed: Missing icons for Admin Menu Settings
 

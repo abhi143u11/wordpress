@@ -165,7 +165,7 @@
              * If submit buttons are hidden via conditional logic (next/prev/submit), form will not be able to submit; this code finds
              * all hidden submit inputs and hides them in a way that will still enable submission.
              */
-            $form.find( '.gform_page:visible input[type="submit"]' ).not( ':visible' ).css( { display: 'block', visibility: 'hidden', position: 'absolute' } );
+            $form.find( '.gform_page_footer:visible' ).find( 'input[type="submit"], input[type="button"]' ).not( ':visible' ).css( { display: 'block', visibility: 'hidden', position: 'absolute' } );
 
             $form.submit();
 

@@ -8,7 +8,7 @@ if (!defined('WORDFENCE_VERSION')) { exit; }
 <div class="wf-row">
 	<div class="wf-col-xs-12">
 		<div class="wf-flex-horizontal wf-flex-full-width wf-add-bottom-small">
-			<h3 class="wf-no-top wf-no-bottom"><?php printf(__('All blocks<span class="wf-hidden-xs"> for %s</span>', 'wordfence'), preg_replace('/^https?:\/\//i', '', wfUtils::wpSiteURL())); ?></h3>
+			<h3 class="wf-no-top wf-no-bottom"><?php printf(__('Current blocks<span class="wf-hidden-xs"> for %s</span>', 'wordfence'), preg_replace('/^https?:\/\//i', '', wfUtils::wpSiteURL())); ?></h3>
 			<div class="wf-right">
 				<div class="wf-inline-block">
 				<ul class="wf-option wf-option-toggled-boolean-switch wf-option-no-spacing" data-option="displayAutomaticBlocks" data-enabled-value="1" data-disabled-value="0" data-original-value="<?php echo wfConfig::get('displayAutomaticBlocks') ? 1 : 0; ?>">
@@ -29,14 +29,18 @@ if (!defined('WORDFENCE_VERSION')) { exit; }
 				<div class="wf-block wf-block-no-header wf-active">
 					<div class="wf-block-content wf-padding-add-top-large wf-padding-add-bottom-large">
 <<<<<<< HEAD
+<<<<<<< HEAD
 						<ul class="wf-flex-horizontal wf-flex-full-width wf-no-top">
 							<li></li>
 =======
 						<ul class="wf-flex-horizontal wf-flex-vertical-xs wf-flex-full-width wf-no-top">
+=======
+						<ul class="wf-flex-horizontal wf-flex-vertical-xs wf-flex-full-width wf-flex-grow-all wf-no-top">
+>>>>>>> 4f7eb851e22872bb0679d97f48b3a6efd23b044f
 							<li class="wf-padding-add-bottom-xs">
-								<ul class="wf-flex-horizontal wf-flex-full-width wf-no-top" style="display: none !important;">
-									<li><input type="text" placeholder="<?php esc_attr_e('Filter', 'wordfence'); ?>" id="wf-blocks-filter-field" class="wf-input-text"></li>
-									<li class="wf-padding-add-left-medium"><a href="#" id="wf-blocks-apply-filter" class="wf-btn wf-btn-callout wf-btn-default"><?php _e('Filter', 'wordfence'); ?></a></li>
+								<ul class="wf-flex-horizontal wf-flex-full-width wf-flex-grow-first wf-no-top">
+									<li><input type="text" placeholder="<?php esc_attr_e('Filter by Type, Detail, or Reason', 'wordfence'); ?>" id="wf-blocks-filter-field" class="wf-input-text"></li>
+									<li class="wf-padding-add-left-medium"><a href="#" id="wf-blocks-apply-filter" class="wf-btn wf-btn-callout wf-btn-default"><?php _e('Filter', 'wordfence'); ?></a>&nbsp;&nbsp;<a href="<?php echo wfSupportController::esc_supportURL(wfSupportController::ITEM_FIREWALL_BLOCKING_FILTER); ?>" target="_blank" rel="noopener noreferrer" class="wf-inline-help"><i class="wf-fa wf-fa-question-circle-o" aria-hidden="true"></i></a></li>
 								</ul>
 							</li>
 >>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5

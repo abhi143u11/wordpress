@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: UberMenu 3 - The Ultimate WordPress Mega Menu 3.4\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/ubermenu\n"
-"POT-Creation-Date: 2018-03-07 23:32:37+00:00\n"
+"POT-Creation-Date: 2018-04-04 00:11:02+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -234,7 +234,7 @@ msgid ""
 "be visible, but is useful for screen readers."
 msgstr ""
 
-#: admin/settings.control-panel.php:218 pro/admin/settings.pro.php:2496
+#: admin/settings.control-panel.php:218 pro/admin/settings.pro.php:2507
 msgid "Responsive &amp; Mobile"
 msgstr ""
 
@@ -434,7 +434,7 @@ msgid "Styles to apply above the responsive breakpoint only."
 msgstr ""
 
 #: admin/settings.control-panel.php:558 admin/settings.control-panel.php:957
-#: pro/admin/settings.pro.php:2502
+#: pro/admin/settings.pro.php:2513
 msgid "Script Configuration"
 msgstr ""
 
@@ -555,7 +555,7 @@ msgstr ""
 
 #: admin/settings.control-panel.php:692 admin/settings.control-panel.php:960
 #: pro/admin/settings.pro.php:42 pro/admin/settings.pro.php:1861
-#: pro/admin/settings.pro.php:2514
+#: pro/admin/settings.pro.php:2525
 msgid "Miscellaneous"
 msgstr ""
 
@@ -586,12 +586,12 @@ msgid "Enable or disable the display of the Extensions tab in the Control Panel"
 msgstr ""
 
 #: admin/settings.control-panel.php:734 admin/settings.control-panel.php:963
-#: pro/admin/settings.pro.php:2520
+#: pro/admin/settings.pro.php:2531
 msgid "Maintenance"
 msgstr ""
 
 #: admin/settings.control-panel.php:735 pro/admin/settings.pro.php:1930
-#: pro/admin/settings.pro.php:2374
+#: pro/admin/settings.pro.php:2385
 msgid ""
 "You should only adjust settings in this section if you are certain of what "
 "you are doing."
@@ -630,7 +630,7 @@ msgid "Reset ALL Control Panel settings to the factory defaults."
 msgstr ""
 
 #: admin/settings.control-panel.php:769 admin/settings.control-panel.php:966
-#: pro/admin/settings.pro.php:2505
+#: pro/admin/settings.pro.php:2516
 msgid "Accessibility"
 msgstr ""
 
@@ -725,12 +725,12 @@ msgstr ""
 msgid "General Settings"
 msgstr ""
 
-#: admin/settings.control-panel.php:954 pro/admin/settings.pro.php:2487
+#: admin/settings.control-panel.php:954 pro/admin/settings.pro.php:2498
 msgid "Custom CSS"
 msgstr ""
 
 #: admin/settings.control-panel.php:989 pro/admin/settings.pro.php:30
-#: pro/admin/settings.pro.php:2187
+#: pro/admin/settings.pro.php:2198
 msgid "Responsive & Mobile"
 msgstr ""
 
@@ -1564,25 +1564,25 @@ msgstr ""
 msgid "[Authors selection disabled via Control Panel]"
 msgstr ""
 
-#: includes/item-limit-detection.php:46
+#: includes/item-limit-detection.php:51
 msgid ""
 "Your server is running Suhosin, and your current maxvars settings may limit "
 "the number of menu items you can save."
 msgstr ""
 
-#: includes/item-limit-detection.php:64
+#: includes/item-limit-detection.php:69
 msgid "Menu Item Limit Warning"
 msgstr ""
 
-#: includes/item-limit-detection.php:95
+#: includes/item-limit-detection.php:100
 msgid "Last saved Item Variable Count"
 msgstr ""
 
-#: includes/item-limit-detection.php:106
+#: includes/item-limit-detection.php:111
 msgid "Percent of Item Limit"
 msgstr ""
 
-#: includes/item-limit-detection.php:109
+#: includes/item-limit-detection.php:114
 msgid "Estimated remaining menu items"
 msgstr ""
 
@@ -1765,8 +1765,8 @@ msgstr ""
 msgid "Set an image for this menu item and control its size"
 msgstr ""
 
-#: pro/admin/settings.menu-item.pro.php:75 pro/admin/settings.pro.php:2227
-#: pro/admin/settings.pro.php:2499
+#: pro/admin/settings.menu-item.pro.php:75 pro/admin/settings.pro.php:2238
+#: pro/admin/settings.pro.php:2510
 msgid "Widgets"
 msgstr ""
 
@@ -2942,7 +2942,7 @@ msgid "Fonts"
 msgstr ""
 
 #: pro/admin/settings.pro.php:45 pro/admin/settings.pro.php:1929
-#: pro/admin/settings.pro.php:2373 pro/admin/settings.pro.php:2517
+#: pro/admin/settings.pro.php:2384 pro/admin/settings.pro.php:2528
 msgid "Advanced"
 msgstr ""
 
@@ -3000,7 +3000,7 @@ msgid ""
 "Remember that UberMenu Advanced Items can only be used within UberMenus, so "
 "you likely don't want to enable this setting if you are using them.  <br/>- "
 "To customize what is considered \"mobile\", you can use the <a "
-"href=\"http://sevenspark.com/docs/ubermenu-3/developers/php-api/filters/"
+"href=\"https://sevenspark.com/docs/ubermenu-3/developers/php-api/filters/"
 "ubermenu_is_mobile\" target=\"_blank\"><code>ubermenu_is_mobile</code></a> "
 "filter"
 msgstr ""
@@ -4053,7 +4053,7 @@ msgstr ""
 msgid "Import"
 msgstr ""
 
-#: pro/admin/settings.pro.php:2030 pro/admin/settings.pro.php:2490
+#: pro/admin/settings.pro.php:2030 pro/admin/settings.pro.php:2501
 msgid "Assets"
 msgstr ""
 
@@ -4189,43 +4189,55 @@ msgid ""
 "compatible with Font Awesome 5."
 msgstr ""
 
+#: pro/admin/settings.pro.php:2157
+msgid "Enable Font Awesome 4 Compatibility"
+msgstr ""
+
 #: pro/admin/settings.pro.php:2158
+msgid ""
+"If you are using Font Awesome 4, and your Font Awesome 4 assets load before "
+"your Font Awesome 5 assets, your Font Awesome 4 icons may appear as squares "
+"(undefined glyphs).  This setting adds a line of CSS to display icons with "
+"Font Awesome 4 classes (.fa) as Font Awesome 4 icons."
+msgstr ""
+
+#: pro/admin/settings.pro.php:2169
 msgid "Google Maps"
 msgstr ""
 
-#: pro/admin/settings.pro.php:2164
+#: pro/admin/settings.pro.php:2175
 msgid "Load Google Maps API"
 msgstr ""
 
-#: pro/admin/settings.pro.php:2165
+#: pro/admin/settings.pro.php:2176
 msgid ""
 "If you are already loading the Google Maps API, or if you do not need "
 "Google Maps in your menu, you can disable this."
 msgstr ""
 
-#: pro/admin/settings.pro.php:2173
+#: pro/admin/settings.pro.php:2184
 msgid "Google Maps API Key"
 msgstr ""
 
-#: pro/admin/settings.pro.php:2174
+#: pro/admin/settings.pro.php:2185
 msgid "Enter your Google Maps API Key."
 msgstr ""
 
-#: pro/admin/settings.pro.php:2193
+#: pro/admin/settings.pro.php:2204
 msgid "Responsive Breakpoint"
 msgstr ""
 
-#: pro/admin/settings.pro.php:2195
+#: pro/admin/settings.pro.php:2206
 msgid ""
 "The viewport width at which the menu will collapse to mobile menu.  959 by "
 "default"
 msgstr ""
 
-#: pro/admin/settings.pro.php:2201
+#: pro/admin/settings.pro.php:2212
 msgid "Determine Retractor Display By"
 msgstr ""
 
-#: pro/admin/settings.pro.php:2202
+#: pro/admin/settings.pro.php:2213
 msgid ""
 "Choose when the retractors should be shown.  Note that if you are using a "
 "caching plugin, you'll need to configure it properly to allow the Mobile "
@@ -4233,136 +4245,136 @@ msgid ""
 "appearing on desktop browsers that support touch events."
 msgstr ""
 
-#: pro/admin/settings.pro.php:2206
+#: pro/admin/settings.pro.php:2217
 msgid "Responsive - Display below responsive breakpoint"
 msgstr ""
 
-#: pro/admin/settings.pro.php:2207
+#: pro/admin/settings.pro.php:2218
 msgid "Mobile - Use wp_is_mobile() mobile device detection"
 msgstr ""
 
-#: pro/admin/settings.pro.php:2208
+#: pro/admin/settings.pro.php:2219
 msgid "Touch Detection - Display when browser supports touch events"
 msgstr ""
 
-#: pro/admin/settings.pro.php:2235
+#: pro/admin/settings.pro.php:2246
 msgid "Number of Widget Areas"
 msgstr ""
 
-#: pro/admin/settings.pro.php:2237
+#: pro/admin/settings.pro.php:2248
 msgid "Enter the number of widget areas to auto-generate"
 msgstr ""
 
-#: pro/admin/settings.pro.php:2243
+#: pro/admin/settings.pro.php:2254
 msgid "Widget Area Names"
 msgstr ""
 
-#: pro/admin/settings.pro.php:2245
+#: pro/admin/settings.pro.php:2256
 msgid "Comma delimited list of widget area names to assign"
 msgstr ""
 
-#: pro/admin/settings.pro.php:2251
+#: pro/admin/settings.pro.php:2262
 msgid "Allow Top Level Widgets"
 msgstr ""
 
-#: pro/admin/settings.pro.php:2254
+#: pro/admin/settings.pro.php:2265
 msgid ""
 "Normally, widgets are only placed in a submenu.  Enable this to allow "
 "widgets to be placed in the top level of the menu."
 msgstr ""
 
-#: pro/admin/settings.pro.php:2266 pro/admin/settings.pro.php:2508
+#: pro/admin/settings.pro.php:2277 pro/admin/settings.pro.php:2519
 msgid "Advanced Menu Items"
 msgstr ""
 
-#: pro/admin/settings.pro.php:2272
+#: pro/admin/settings.pro.php:2283
 msgid "Maximum Autocomplete Term Results"
 msgstr ""
 
-#: pro/admin/settings.pro.php:2273
+#: pro/admin/settings.pro.php:2284
 msgid ""
 "The maximum number of results that can appear in a Dynamic Posts or Dynamic "
 "Terms term autocomplete setting.  Limited for performance reasons for sites "
 "with huge numbers of terms."
 msgstr ""
 
-#: pro/admin/settings.pro.php:2281
+#: pro/admin/settings.pro.php:2292
 msgid "Maximum Autocomplete Post Results"
 msgstr ""
 
-#: pro/admin/settings.pro.php:2282
+#: pro/admin/settings.pro.php:2293
 msgid ""
 "The maximum number of results that can appear in a Dynamic Posts post "
 "autocomplete setting.  Limited for performance reasons for sites with huge "
 "numbers of posts."
 msgstr ""
 
-#: pro/admin/settings.pro.php:2290
+#: pro/admin/settings.pro.php:2301
 msgid "Disable Autocomplete"
 msgstr ""
 
-#: pro/admin/settings.pro.php:2291
+#: pro/admin/settings.pro.php:2302
 msgid ""
 "Disable the autocomplete query.  If you have a massive number of terms or "
 "posts, this can cause a memory error when querying in the Appearance > "
 "Menus screen.  Enable this setting to disable the query"
 msgstr ""
 
-#: pro/admin/settings.pro.php:2298
+#: pro/admin/settings.pro.php:2309
 msgid "Disable Dynamic Posts Author Selection"
 msgstr ""
 
-#: pro/admin/settings.pro.php:2299
+#: pro/admin/settings.pro.php:2310
 msgid ""
 "Disable the Dynamic Posts Author query.  If you have a massive number of "
 "users on your site, this can cause a memory error when querying in the "
 "Appearance > Menus screen.  Enable this setting to disable the query"
 msgstr ""
 
-#: pro/admin/settings.pro.php:2312
+#: pro/admin/settings.pro.php:2323
 msgid "Display UberMenu Toolbar"
 msgstr ""
 
-#: pro/admin/settings.pro.php:2315
+#: pro/admin/settings.pro.php:2326
 msgid ""
 "Display the UberMenu menu in the WordPress Toolbar.  Will ony be displayed "
 "to admins."
 msgstr ""
 
-#: pro/admin/settings.pro.php:2323
+#: pro/admin/settings.pro.php:2334
 msgid "Theme Integration / Interference"
 msgstr ""
 
-#: pro/admin/settings.pro.php:2326
+#: pro/admin/settings.pro.php:2337
 msgid "Settings to help tame misbehaving themes.  See also: "
 msgstr ""
 
-#: pro/admin/settings.pro.php:2331
+#: pro/admin/settings.pro.php:2342
 msgid "Custom Style Prefix (Specificity Boost) [Experimental]"
 msgstr ""
 
-#: pro/admin/settings.pro.php:2333
+#: pro/admin/settings.pro.php:2344
 msgid ""
 "If your theme is overriding the menu styles, you can try boosting the "
 "UberMenu style specificity with this setting."
 msgstr ""
 
-#: pro/admin/settings.pro.php:2340
+#: pro/admin/settings.pro.php:2351
 msgid "Force Filter UberMenu Settings"
 msgstr ""
 
-#: pro/admin/settings.pro.php:2343
+#: pro/admin/settings.pro.php:2354
 msgid ""
 "Sometimes theme filters will override UberMenu's filters, preventing "
 "UberMenu from properly integrating.  Enable this to try to force UberMenu's "
 "filters.  If there are no interfering filters, this can be diabled."
 msgstr ""
 
-#: pro/admin/settings.pro.php:2349
+#: pro/admin/settings.pro.php:2360
 msgid "Disable Menu Item Class Filtering"
 msgstr ""
 
-#: pro/admin/settings.pro.php:2352
+#: pro/admin/settings.pro.php:2363
 msgid ""
 "Some themes or plugins filter the core menu item classes, which can break "
 "things.  Enable this setting to attempt to remove them.  Please note this "
@@ -4370,11 +4382,11 @@ msgid ""
 "functionality you want."
 msgstr ""
 
-#: pro/admin/settings.pro.php:2358
+#: pro/admin/settings.pro.php:2369
 msgid "Disable Custom Menus Panel Walker"
 msgstr ""
 
-#: pro/admin/settings.pro.php:2361
+#: pro/admin/settings.pro.php:2372
 msgid ""
 "A custom walker allows the theme or another plugin to take over control of "
 "the output of the menu item markup in Appearance > Menus.  In most cases, "
@@ -4385,161 +4397,161 @@ msgid ""
 "plugins that rely on a custom admin walker, such as Nav Menu Roles."
 msgstr ""
 
-#: pro/admin/settings.pro.php:2382
+#: pro/admin/settings.pro.php:2393
 msgid "Strict Mode"
 msgstr ""
 
-#: pro/admin/settings.pro.php:2385
+#: pro/admin/settings.pro.php:2396
 msgid ""
 "Only auto-apply UberMenu to activated theme locations.  You should not "
 "deactivate this unless your theme is improperly using theme locations, as "
 "this will apply UberMenu to ALL menus."
 msgstr ""
 
-#: pro/admin/settings.pro.php:2391
+#: pro/admin/settings.pro.php:2402
 msgid "Register Easy Integration UberMenu Theme Location"
 msgstr ""
 
-#: pro/admin/settings.pro.php:2394
+#: pro/admin/settings.pro.php:2405
 msgid ""
 "When enabled, creates a new theme location called \"ubermenu\" which you "
 "can use to insert into your theme."
 msgstr ""
 
-#: pro/admin/settings.pro.php:2400
+#: pro/admin/settings.pro.php:2411
 msgid "Allow custom defaults"
 msgstr ""
 
-#: pro/admin/settings.pro.php:2403
+#: pro/admin/settings.pro.php:2414
 msgid "Allow setting of custom defaults for menu items.  USE WITH CAUTION."
 msgstr ""
 
-#: pro/admin/settings.pro.php:2414
+#: pro/admin/settings.pro.php:2425
 msgid "Reset Style Customization Settings"
 msgstr ""
 
-#: pro/admin/settings.pro.php:2415
+#: pro/admin/settings.pro.php:2426
 msgid "Reset Style Customizations"
 msgstr ""
 
-#: pro/admin/settings.pro.php:2415
+#: pro/admin/settings.pro.php:2426
 msgid "Reset Style Customization Settings to the factory defaults."
 msgstr ""
 
-#: pro/admin/settings.pro.php:2422
+#: pro/admin/settings.pro.php:2433
 msgid "Widget Area Manager"
 msgstr ""
 
-#: pro/admin/settings.pro.php:2423
+#: pro/admin/settings.pro.php:2434
 msgid "Manage Widget Areas"
 msgstr ""
 
-#: pro/admin/settings.pro.php:2423
+#: pro/admin/settings.pro.php:2434
 msgid ""
 "Choose which Custom Widget Areas to delete.  Useful for orphaned widget "
 "areas from deleted menu items."
 msgstr ""
 
-#: pro/admin/settings.pro.php:2433 pro/admin/settings.pro.php:2523
+#: pro/admin/settings.pro.php:2444 pro/admin/settings.pro.php:2534
 msgid "Diagnostics"
 msgstr ""
 
-#: pro/admin/settings.pro.php:2439
+#: pro/admin/settings.pro.php:2450
 msgid "Enable Diagnostics (Experimental, Alpha status)"
 msgstr ""
 
-#: pro/admin/settings.pro.php:2440
+#: pro/admin/settings.pro.php:2451
 msgid "Enable front end diagnostics system."
 msgstr ""
 
-#: pro/admin/settings.pro.php:2493
+#: pro/admin/settings.pro.php:2504
 msgid "Font Awesome"
 msgstr ""
 
-#: pro/admin/settings.pro.php:2511
+#: pro/admin/settings.pro.php:2522
 msgid "Theme Integration"
 msgstr ""
 
-#: pro/admin/settings.pro.php:2645 pro/admin/settings.pro.php:2715
+#: pro/admin/settings.pro.php:2656 pro/admin/settings.pro.php:2726
 msgid "Support Center"
 msgstr ""
 
-#: pro/admin/settings.pro.php:2646
+#: pro/admin/settings.pro.php:2657
 msgid ""
 "Didn't find the answer you needed in the Knowledgebase or Video Tutorials?  "
 "Visit the "
 msgstr ""
 
-#: pro/admin/settings.pro.php:2658 pro/admin/settings.pro.php:2681
-#: pro/admin/settings.pro.php:2707 pro/toolbar.php:120
+#: pro/admin/settings.pro.php:2669 pro/admin/settings.pro.php:2692
+#: pro/admin/settings.pro.php:2718 pro/toolbar.php:120
 msgid "Video Tutorials"
 msgstr ""
 
-#: pro/admin/settings.pro.php:2675
+#: pro/admin/settings.pro.php:2686
 msgid "Help"
 msgstr ""
 
-#: pro/admin/settings.pro.php:2678 pro/toolbar.php:96
+#: pro/admin/settings.pro.php:2689 pro/toolbar.php:96
 msgid "Knowledgebase"
 msgstr ""
 
-#: pro/admin/settings.pro.php:2684
+#: pro/admin/settings.pro.php:2695
 msgid "Support"
 msgstr ""
 
-#: pro/admin/settings.pro.php:2699
+#: pro/admin/settings.pro.php:2710
 msgid "Search the Knowledgebase"
 msgstr ""
 
-#: pro/admin/settings.pro.php:2739 pro/updates/extensions.php:342
+#: pro/admin/settings.pro.php:2750 pro/updates/extensions.php:342
 msgid "Extensions"
 msgstr ""
 
-#: pro/admin/settings.pro.php:2767
+#: pro/admin/settings.pro.php:2778
 msgid "Icons Extension"
 msgstr ""
 
-#: pro/admin/settings.pro.php:2775
+#: pro/admin/settings.pro.php:2786
 msgid "Sticky Extension"
 msgstr ""
 
-#: pro/admin/settings.pro.php:2783
+#: pro/admin/settings.pro.php:2794
 msgid "Conditionals Extension"
 msgstr ""
 
-#: pro/admin/settings.pro.php:2790
+#: pro/admin/settings.pro.php:2801
 msgid "Flat Skins Pack"
 msgstr ""
 
-#: pro/admin/settings.pro.php:2817
+#: pro/admin/settings.pro.php:2828
 msgid "Add over 500 Font Awesome Icons, customize color, size, layout, and more."
 msgstr ""
 
-#: pro/admin/settings.pro.php:2838
+#: pro/admin/settings.pro.php:2849
 msgid "Control the visibility of individual menu items based on conditions."
 msgstr ""
 
-#: pro/admin/settings.pro.php:2860
+#: pro/admin/settings.pro.php:2871
 msgid "Stick UberMenu to the top of the viewport as you scroll."
 msgstr ""
 
-#: pro/admin/settings.pro.php:2882
+#: pro/admin/settings.pro.php:2893
 msgid "Get 30 new flat-style skins to control the look of your menu."
 msgstr ""
 
-#: pro/admin/settings.pro.php:2901
+#: pro/admin/settings.pro.php:2912
 msgid "Demo"
 msgstr ""
 
-#: pro/admin/settings.pro.php:2932 pro/admin/settings.pro.php:2942
+#: pro/admin/settings.pro.php:2943 pro/admin/settings.pro.php:2953
 msgid "Delete"
 msgstr ""
 
-#: pro/admin/settings.pro.php:2954
+#: pro/admin/settings.pro.php:2965
 msgid "Delete Configuration"
 msgstr ""
 
-#: pro/admin/settings.pro.php:2955
+#: pro/admin/settings.pro.php:2966
 msgid "Permanently Delete Configuration"
 msgstr ""
 
@@ -4684,24 +4696,21 @@ msgid ""
 "directory"
 msgstr ""
 
-#: pro/updates/edd/EDD_SL_Plugin_Updater.php:177
-msgid ""
-"There is a new version of %1$s available. <a target=\"_blank\" "
-"class=\"thickbox\" href=\"%2$s\">View version %3$s details</a>."
+#: pro/updates/edd/EDD_SL_Plugin_Updater.php:201
+msgid "There is a new version of %1$s available. %2$sView version %3$s details%4$s."
 msgstr ""
 
-#: pro/updates/edd/EDD_SL_Plugin_Updater.php:184
+#: pro/updates/edd/EDD_SL_Plugin_Updater.php:209
 msgid ""
-"There is a new version of %1$s available. <a target=\"_blank\" "
-"class=\"thickbox\" href=\"%2$s\">View version %3$s details</a> or <a "
-"href=\"%4$s\">update now</a>."
+"There is a new version of %1$s available. %2$sView version %3$s details%4$s "
+"or %5$supdate now%6$s."
 msgstr ""
 
-#: pro/updates/edd/EDD_SL_Plugin_Updater.php:324
+#: pro/updates/edd/EDD_SL_Plugin_Updater.php:399
 msgid "You do not have permission to install plugin updates"
 msgstr ""
 
-#: pro/updates/edd/EDD_SL_Plugin_Updater.php:324
+#: pro/updates/edd/EDD_SL_Plugin_Updater.php:399
 msgid "Error"
 msgstr ""
 
@@ -4897,5 +4906,5 @@ msgid "Chris Mavricos, SevenSpark"
 msgstr ""
 
 #. Author URI of the plugin/theme
-msgid "http://sevenspark.com"
+msgid "https://sevenspark.com"
 msgstr ""
