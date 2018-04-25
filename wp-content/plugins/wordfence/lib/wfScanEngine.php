@@ -7,6 +7,8 @@ require_once('wfIssues.php');
 require_once('wfDB.php');
 require_once('wfUtils.php');
 class wfScanEngine {
+	const SCAN_MANUALLY_KILLED = -999;
+	
 	public $api = false;
 	private $dictWords = array();
 	private $forkRequested = false;
@@ -45,6 +47,7 @@ class wfScanEngine {
 	private $updateCheck = false;
 	private $pluginRepoStatus = array();
 	private $malwarePrefixesHash;
+	private $coreHashesHash;
 	private $scanMode = wfScanner::SCAN_TYPE_STANDARD;
 	private $pluginsCounted = false;
 	private $themesCounted = false;
@@ -130,9 +133,9 @@ class wfScanEngine {
 	}
 
 	public function __sleep(){ //Same order here as above for properties that are included in serialization
-		return array('hasher', 'jobList', 'i', 'wp_version', 'apiKey', 'startTime', 'maxExecTime', 'publicScanEnabled', 'fileContentsResults', 'scanner', 'scanQueue', 'hoover', 'scanData', 'statusIDX', 'userPasswdQueue', 'passwdHasIssues', 'suspectedFiles', 'dbScanner', 'knownFilesLoader', 'metrics', 'checkHowGetIPsRequestTime', 'gsbMultisiteBlogOffset', 'updateCheck', 'pluginRepoStatus', 'malwarePrefixesHash', 'scanMode', 'pluginsCounted', 'themesCounted');
+		return array('hasher', 'jobList', 'i', 'wp_version', 'apiKey', 'startTime', 'maxExecTime', 'publicScanEnabled', 'fileContentsResults', 'scanner', 'scanQueue', 'hoover', 'scanData', 'statusIDX', 'userPasswdQueue', 'passwdHasIssues', 'suspectedFiles', 'dbScanner', 'knownFilesLoader', 'metrics', 'checkHowGetIPsRequestTime', 'gsbMultisiteBlogOffset', 'updateCheck', 'pluginRepoStatus', 'malwarePrefixesHash', 'coreHashesHash', 'scanMode', 'pluginsCounted', 'themesCounted');
 	}
-	public function __construct($malwarePrefixesHash = '', $scanMode = wfScanner::SCAN_TYPE_STANDARD) {
+	public function __construct($malwarePrefixesHash = '', $coreHashesHash = '', $scanMode = wfScanner::SCAN_TYPE_STANDARD) {
 		$this->startTime = time();
 		$this->recordMetric('scan', 'start', $this->startTime);
 		$this->maxExecTime = self::getMaxExecutionTime();
@@ -142,6 +145,7 @@ class wfScanEngine {
 		$this->apiKey = wfConfig::get('apiKey');
 		$this->api = new wfAPI($this->apiKey, $this->wp_version);
 		$this->malwarePrefixesHash = $malwarePrefixesHash;
+		$this->coreHashesHash = $coreHashesHash;
 		include('wfDict.php'); //$dictWords
 		$this->dictWords = $dictWords;
 		$this->scanMode = $scanMode;
@@ -203,7 +207,7 @@ class wfScanEngine {
 		}
 		catch (wfScanEngineDurationLimitException $e) {
 			wfConfig::set('lastScanCompleted', $e->getMessage());
-			wfConfig::set('lastScanFailureType', 'duration');
+			wfConfig::set('lastScanFailureType', wfIssues::SCAN_FAILED_DURATION_REACHED);
 			$this->scanController->recordLastScanTime();
 			
 			$this->emailNewIssues(true);
@@ -216,7 +220,7 @@ class wfScanEngine {
 		}
 		catch (wfScanEngineCoreVersionChangeException $e) {
 			wfConfig::set('lastScanCompleted', $e->getMessage());
-			wfConfig::set('lastScanFailureType', 'versionchange');
+			wfConfig::set('lastScanFailureType', wfIssues::SCAN_FAILED_VERSION_CHANGE);
 			$this->scanController->recordLastScanTime();
 			
 			$this->recordMetric('scan', 'duration', (time() - $this->startTime));
@@ -226,9 +230,25 @@ class wfScanEngine {
 			wfScanEngine::refreshScanNotification($this->i);
 			throw $e;
 		}
-		catch(Exception $e) {
+		catch (wfScanEngineTestCallbackFailedException $e) {
 			wfConfig::set('lastScanCompleted', $e->getMessage());
-			wfConfig::set('lastScanFailureType', 'general');
+			wfConfig::set('lastScanFailureType', wfIssues::SCAN_FAILED_CALLBACK_TEST_FAILED);
+			$this->scanController->recordLastScanTime();
+			
+			$this->recordMetric('scan', 'duration', (time() - $this->startTime));
+			$this->recordMetric('scan', 'memory', wfConfig::get('wfPeakMemory', 0, false));
+			$this->recordMetric('scan', 'failure', $e->getMessage());
+			$this->submitMetrics();
+			
+			wfScanEngine::refreshScanNotification($this->i);
+			throw $e;
+		}
+		catch (Exception $e) {
+			if ($e->getCode() != wfScanEngine::SCAN_MANUALLY_KILLED) {
+				wfConfig::set('lastScanCompleted', $e->getMessage());
+				wfConfig::set('lastScanFailureType', wfIssues::SCAN_FAILED_GENERAL);
+			}
+			
 			$this->recordMetric('scan', 'duration', (time() - $this->startTime));
 			$this->recordMetric('scan', 'memory', wfConfig::get('wfPeakMemory', 0, false));
 			$this->recordMetric('scan', 'failure', $e->getMessage());
@@ -760,7 +780,7 @@ class wfScanEngine {
 		$knownFilesThemes = $this->getThemes();
 		$this->status(2, 'info', "Found " . sizeof($knownFilesThemes) . " themes");
 
-		$this->hasher = new wordfenceHash(strlen(ABSPATH), ABSPATH, $includeInKnownFilesScan, $knownFilesThemes, $knownFilesPlugins, $this, wfUtils::hex2bin($this->malwarePrefixesHash), $this->scanMode);
+		$this->hasher = new wordfenceHash(strlen(ABSPATH), ABSPATH, $includeInKnownFilesScan, $knownFilesThemes, $knownFilesPlugins, $this, wfUtils::hex2bin($this->malwarePrefixesHash), $this->coreHashesHash, $this->scanMode);
 	}
 	private function scan_knownFiles_main() {
 		$this->hasher->run($this); //Include this so we can call addIssue and ->api->
@@ -1921,7 +1941,7 @@ class wfScanEngine {
 		$kill = wfConfig::get('wfKillRequested', 0);
 		if($kill && time() - $kill < 600){ //Kill lasts for 10 minutes
 			wordfence::status(10, 'info', "SUM_KILLED:Previous scan was stopped successfully.");
-			throw new Exception("Scan was stopped on administrator request.");
+			throw new Exception("Scan was stopped on administrator request.", wfScanEngine::SCAN_MANUALLY_KILLED);
 		}
 	}
 	public static function startScan($isFork = false, $scanMode = false){
@@ -1943,43 +1963,82 @@ class wfScanEngine {
 		}
 		$timeout = self::getMaxExecutionTime() - 2; //2 seconds shorter than max execution time which ensures that only 2 HTTP processes are ever occupied
 		$testURL = admin_url('admin-ajax.php?action=wordfence_testAjax');
-		if(! wfConfig::get('startScansRemotely', false)){
-			$testResult = wp_remote_post($testURL, array(
-				'timeout' => $timeout,
-				'blocking' => true,
-				'sslverify' => false,
-				'headers' => array()
+		if (!wfConfig::get('startScansRemotely', false)) {
+			try {
+				$testResult = wp_remote_post($testURL, array(
+					'timeout' => $timeout,
+					'blocking' => true,
+					'sslverify' => false,
+					'headers' => array()
 				));
+			}
+			catch (Exception $e) {
+				//Fall through to the remote start test below
+			}
+			
 			wordfence::status(4, 'info', "Test result of scan start URL fetch: " . var_export($testResult, true));	
 		}
+		
 		$cronKey = wfUtils::bigRandomHex();
 		wfConfig::set('currentCronKey', time() . ',' . $cronKey);
-		if( (! wfConfig::get('startScansRemotely', false)) && (! is_wp_error($testResult)) && (is_array($testResult) || $testResult instanceof ArrayAccess) && strstr($testResult['body'], 'WFSCANTESTOK') !== false){
+		if ((!wfConfig::get('startScansRemotely', false)) && (!is_wp_error($testResult)) && (is_array($testResult) || $testResult instanceof ArrayAccess) && strstr($testResult['body'], 'WFSCANTESTOK') !== false) {
 			//ajax requests can be sent by the server to itself
 			$cronURL = 'admin-ajax.php?action=wordfence_doScan&isFork=' . ($isFork ? '1' : '0') . '&scanMode=' . $scanMode . '&cronKey=' . $cronKey;
 			$cronURL = admin_url($cronURL);
 			$headers = array('Referer' => false/*, 'Cookie' => 'XDEBUG_SESSION=1'*/);
 			wordfence::status(4, 'info', "Starting cron with normal ajax at URL $cronURL");
-			wp_remote_get( $cronURL, array(
-				'timeout' => 0.01,
-				'blocking' => false,
-				'sslverify' => false,
-				'headers' => $headers 
-				) );
+			
+			try {
+				wfConfig::set('scanStartAttempt', time());
+				$response = wp_remote_get($cronURL, array(
+					'timeout' => 0.01,
+					'blocking' => false,
+					'sslverify' => false,
+					'headers' => $headers 
+					));
+			}
+			catch (Exception $e) {
+				wfConfig::set('lastScanCompleted', $e->getMessage());
+				wfConfig::set('lastScanFailureType', wfIssues::SCAN_FAILED_CALLBACK_TEST_FAILED);
+				return false;
+			}
+			
+			if (is_wp_error($response)) {
+				$error_message = $response->get_error_message();
+				wfConfig::set('lastScanCompleted', "There was an " . ($error_message ? '' : 'unknown ') . "error starting the scan" . ($error_message ? ": $error_message" : '.'));
+				wfConfig::set('lastScanFailureType', wfIssues::SCAN_FAILED_CALLBACK_TEST_FAILED);
+			}
+			
 			wordfence::status(4, 'info', "Scan process ended after forking.");
-		} else {
+		}
+		else {
 			$cronURL = admin_url('admin-ajax.php');
 			$cronURL = preg_replace('/^(https?:\/\/)/i', '$1noc1.wordfence.com/scanp/', $cronURL);
 			$cronURL .= '?action=wordfence_doScan&isFork=' . ($isFork ? '1' : '0') . '&scanMode=' . $scanMode . '&cronKey=' . $cronKey;
 			$headers = array();
 			wordfence::status(4, 'info', "Starting cron via proxy at URL $cronURL");
-
-			wp_remote_get( $cronURL, array(
-				'timeout' => 0.01,
-				'blocking' => false,
-				'sslverify' => false,
-				'headers' => $headers 
-				) );
+			
+			try {
+				wfConfig::set('scanStartAttempt', time());
+				$response = wp_remote_get($cronURL, array(
+					'timeout' => 0.01,
+					'blocking' => false,
+					'sslverify' => false,
+					'headers' => $headers 
+					));
+			}
+			catch (Exception $e) {
+				wfConfig::set('lastScanCompleted', $e->getMessage());
+				wfConfig::set('lastScanFailureType', wfIssues::SCAN_FAILED_CALLBACK_TEST_FAILED);
+				return false;
+			}
+			
+			if (is_wp_error($response)) {
+				$error_message = $response->get_error_message();
+				wfConfig::set('lastScanCompleted', "There was an " . ($error_message ? '' : 'unknown ') . "error starting the scan" . ($error_message ? ": $error_message" : '.'));
+				wfConfig::set('lastScanFailureType', wfIssues::SCAN_FAILED_CALLBACK_TEST_FAILED);
+			}
+			
 			wordfence::status(4, 'info', "Scan process ended after forking.");
 		}
 		return false; //No error
@@ -2434,4 +2493,6 @@ class wfScanEngineDurationLimitException extends Exception {
 }
 
 class wfScanEngineCoreVersionChangeException extends Exception {
+}
+class wfScanEngineTestCallbackFailedException extends Exception {
 }

@@ -68,6 +68,13 @@ function ubermenu_generate_custom_styles(){
 	//$skin_styles = "\n/** UberMenu Skin Generator **/\n".$skin_styles;
 	//$styles[10] = $skin_styles;
 
+	//Font Awesome 4 Compatibility
+	if( ubermenu_op( 'fa4_compatibility' , 'general' ) !== 'off' ){
+		$fa4_compat_styles = "\n/** Font Awesome 4 Compatibility **/\n" .
+			".fa{font-style:normal;font-variant:normal;font-weight:normal;font-family:FontAwesome;}";
+		$styles[5] = $fa4_compat_styles;
+	}
+
 
 	//Responsive Styles
 	$responsive_styles = ubermenu_custom_responsive_styles();

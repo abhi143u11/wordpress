@@ -2152,14 +2152,25 @@ function ubermenu_settings_panel_fields_pro( $all_fields = array() ){
 		'group'	=> array( 'assets', 'font_awesome' )
 	);
 
-
 	$fields[101] = array(
+		'name' 		=> 'fa4_compatibility',
+		'label' 	=> __( 'Enable Font Awesome 4 Compatibility', 'ubermenu' ),
+		'desc' 		=> __( 'If you are using Font Awesome 4, and your Font Awesome 4 assets load before your Font Awesome 5 assets, your Font Awesome 4 icons may appear as squares (undefined glyphs).  This setting adds a line of CSS to display icons with Font Awesome 4 classes (.fa) as Font Awesome 4 icons.', 'ubermenu' ),
+		'type' 		=> 'checkbox',
+		'default' 	=> 'on',
+		'group'	=> array( 'assets', 'font_awesome' )
+	);
+
+
+
+
+	$fields[102] = array(
 		'name'	=> 'header_assets_google_maps',
 		'label'	=> __( 'Google Maps' , 'ubermenu' ),
 		'type'	=> 'header',
 		'group'	=> 'assets',
 	);
-	$fields[102] = array(
+	$fields[103] = array(
 		'name' 		=> 'load_google_maps',
 		'label' 	=> __( 'Load Google Maps API', 'ubermenu' ),
 		'desc' 		=> __( 'If you are already loading the Google Maps API, or if you do not need Google Maps in your menu, you can disable this.', 'ubermenu' ),
@@ -2168,7 +2179,7 @@ function ubermenu_settings_panel_fields_pro( $all_fields = array() ){
 		'group'		=> 'assets',
 	);
 
-	$fields[103] = array(
+	$fields[104] = array(
 		'name' 		=> 'google_maps_api_key',
 		'label' 	=> __( 'Google Maps API Key', 'ubermenu' ),
 		'desc' 		=> __( 'Enter your Google Maps API Key.', 'ubermenu' ) . '  <a target="_blank" href="https://developers.google.com/maps/documentation/javascript/get-api-key">Get a key</a>',

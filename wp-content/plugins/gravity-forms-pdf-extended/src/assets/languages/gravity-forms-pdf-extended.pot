@@ -1,4 +1,4 @@
-# Copyright (C) 2017 Gravity PDF
+# Copyright (C) 2018 Gravity PDF
 # This file is distributed under the same license as the Gravity PDF package.
 msgid ""
 msgstr ""
@@ -102,11 +102,19 @@ msgid "Support"
 msgstr ""
 
 #: src/bootstrap.php:335
-msgid "View Gravity PDF Theme Shop"
+msgid "View Gravity PDF Extensions Shop"
 msgstr ""
 
-#: src/bootstrap.php:335
-msgid "Theme Shop"
+#: src/bootstrap.php:335, src/view/View_Settings.php:215
+msgid "Extensions"
+msgstr ""
+
+#: src/bootstrap.php:336
+msgid "View Gravity PDF Template Shop"
+msgstr ""
+
+#: src/bootstrap.php:336, src/helper/Helper_Options_Fields.php:117, src/helper/Helper_Options_Fields.php:297
+msgid "Templates"
 msgstr ""
 
 #: src/controller/Controller_Actions.php:156
@@ -117,7 +125,7 @@ msgstr ""
 msgid "Begin Migration"
 msgstr ""
 
-#: src/controller/Controller_Actions.php:235, src/model/Model_Form_Settings.php:190, src/model/Model_Form_Settings.php:225, src/model/Model_Form_Settings.php:285, src/view/View_Settings.php:323
+#: src/controller/Controller_Actions.php:235, src/model/Model_Form_Settings.php:191, src/model/Model_Form_Settings.php:226, src/model/Model_Form_Settings.php:290, src/view/View_Settings.php:319
 msgid "You do not have permission to access this page"
 msgstr ""
 
@@ -129,7 +137,7 @@ msgstr ""
 msgid "There was a problem uninstalling Gravity PDF. Please try again."
 msgstr ""
 
-#: src/controller/Controller_PDF.php:319
+#: src/controller/Controller_PDF.php:320
 msgid "There was a problem generating your PDF"
 msgstr ""
 
@@ -137,7 +145,7 @@ msgstr ""
 msgid "There was a problem installing the PDF templates. Please try again."
 msgstr ""
 
-#: src/controller/Controller_Shortcodes.php:151, src/helper/Helper_Data.php:169
+#: src/controller/Controller_Shortcodes.php:149, src/helper/Helper_Data.php:169
 msgid "Gravity PDF"
 msgstr ""
 
@@ -197,11 +205,11 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
-#: src/helper/Helper_Data.php:237, src/helper/Helper_PDF_List_Table.php:247, src/helper/Helper_PDF_List_Table.php:248, src/model/Model_Form_Settings.php:883
+#: src/helper/Helper_Data.php:237, src/helper/Helper_PDF_List_Table.php:247, src/helper/Helper_PDF_List_Table.php:248, src/model/Model_Form_Settings.php:880
 msgid "Active"
 msgstr ""
 
-#: src/helper/Helper_Data.php:238, src/helper/Helper_PDF_List_Table.php:247, src/helper/Helper_PDF_List_Table.php:248, src/model/Model_Form_Settings.php:883
+#: src/helper/Helper_Data.php:238, src/helper/Helper_PDF_List_Table.php:247, src/helper/Helper_PDF_List_Table.php:248, src/model/Model_Form_Settings.php:880
 msgid "Inactive"
 msgstr ""
 
@@ -377,7 +385,7 @@ msgstr ""
 msgid "Set the default paper size used when generating PDFs."
 msgstr ""
 
-#: src/helper/Helper_Options_Fields.php:99, src/helper/Helper_Options_Fields.php:362, src/helper/abstract/Helper_Abstract_Options.php:857
+#: src/helper/Helper_Options_Fields.php:99, src/helper/Helper_Options_Fields.php:362, src/helper/abstract/Helper_Abstract_Options.php:834
 msgid "Custom Paper Size"
 msgstr ""
 
@@ -390,15 +398,11 @@ msgid "Default Template"
 msgstr ""
 
 #: src/helper/Helper_Options_Fields.php:111, src/helper/Helper_Options_Fields.php:291
-msgid "Choose an existing template or purchased more %sfrom our theme shop%s. You can also %sbuild your own%s or %shire us%s to create a custom solution."
+msgid "Choose an existing template or purchased more %sfrom our template shop%s. You can also %sbuild your own%s or %shire us%s to create a custom solution."
 msgstr ""
 
 #: src/helper/Helper_Options_Fields.php:117, src/helper/Helper_Options_Fields.php:297
-msgid "Templates"
-msgstr ""
-
-#: src/helper/Helper_Options_Fields.php:117, src/helper/Helper_Options_Fields.php:297
-msgid "Gravity PDF comes with %sfour completely-free and highly customizable designs%s. You can also purchase additional templates from our theme shop, hire us to integrate existing PDFs or, with a bit of technical know-how, build your own."
+msgid "Gravity PDF comes with %sfour completely-free and highly customizable designs%s. You can also purchase additional templates from our template shop, hire us to integrate existing PDFs or, with a bit of technical know-how, build your own."
 msgstr ""
 
 #: src/helper/Helper_Options_Fields.php:122
@@ -873,7 +877,7 @@ msgstr ""
 msgid "For the best results, use a JPG or non-interlaced 8-Bit PNG that has the same dimensions as the paper size."
 msgstr ""
 
-#: src/helper/Helper_PDF.php:382
+#: src/helper/Helper_PDF.php:389
 msgid "The PDF Template %s requires Gravity PDF version %s. Upgrade to the latest version."
 msgstr ""
 
@@ -917,7 +921,7 @@ msgstr ""
 msgid "Requires Gravity PDF"
 msgstr ""
 
-#: src/helper/Helper_Templates.php:392, src/view/View_PDF.php:560
+#: src/helper/Helper_Templates.php:392, src/view/View_PDF.php:569
 msgid "Legacy"
 msgstr ""
 
@@ -929,47 +933,47 @@ msgstr ""
 msgid "Database import problem for site #%s"
 msgstr ""
 
-#: src/model/Model_Form_Settings.php:252
+#: src/model/Model_Form_Settings.php:257
 msgid "Update PDF"
 msgstr ""
 
-#: src/model/Model_Form_Settings.php:252
+#: src/model/Model_Form_Settings.php:257
 msgid "Add PDF"
 msgstr ""
 
-#: src/model/Model_Form_Settings.php:291, src/model/Model_Form_Settings.php:310, src/model/Model_Form_Settings.php:359, src/model/Model_Form_Settings.php:389
+#: src/model/Model_Form_Settings.php:296, src/model/Model_Form_Settings.php:315, src/model/Model_Form_Settings.php:361, src/model/Model_Form_Settings.php:390
 msgid "There was a problem saving your PDF settings. Please try again."
 msgstr ""
 
-#: src/model/Model_Form_Settings.php:333
+#: src/model/Model_Form_Settings.php:336
 msgid "PDF could not be saved. Please enter all required information below."
 msgstr ""
 
-#: src/model/Model_Form_Settings.php:353
+#: src/model/Model_Form_Settings.php:355
 msgid "PDF saved successfully. %sBack to PDF list.%s"
 msgstr ""
 
-#: src/model/Model_Form_Settings.php:773
+#: src/model/Model_Form_Settings.php:770
 msgid "PDF successfully deleted."
 msgstr ""
 
-#: src/model/Model_Form_Settings.php:834
+#: src/model/Model_Form_Settings.php:831
 msgid "PDF successfully duplicated."
 msgstr ""
 
-#: src/model/Model_Install.php:317
+#: src/model/Model_Install.php:303
 msgid "There was a problem creating the %s directory. Ensure you have write permissions to your uploads folder."
 msgstr ""
 
-#: src/model/Model_Install.php:326
+#: src/model/Model_Install.php:312
 msgid "Gravity PDF does not have write permission to the %s directory. Contact your web hosting provider to fix the issue."
 msgstr ""
 
-#: src/model/Model_Install.php:481
+#: src/model/Model_Install.php:466
 msgid "There was a problem removing the Gravity Form \"%s\" PDF configuration. Try delete manually."
 msgstr ""
 
-#: src/model/Model_Install.php:513
+#: src/model/Model_Install.php:498
 msgid "There was a problem removing the %s directory. Clean up manually via (S)FTP."
 msgstr ""
 
@@ -985,15 +989,15 @@ msgstr ""
 msgid "Your PDF is no longer accessible."
 msgstr ""
 
-#: src/model/Model_PDF.php:547
+#: src/model/Model_PDF.php:513, src/model/Model_PDF.php:553
 msgid "You do not have access to view this PDF."
 msgstr ""
 
-#: src/model/Model_PDF.php:932
+#: src/model/Model_PDF.php:928
 msgid "The PDF could not be saved."
 msgstr ""
 
-#: src/model/Model_PDF.php:1862
+#: src/model/Model_PDF.php:1847
 msgid "Could not find PDF configuration requested"
 msgstr ""
 
@@ -1029,11 +1033,11 @@ msgstr ""
 msgid "A font with the same name already exists. Try a different name."
 msgstr ""
 
-#: src/model/Model_Settings.php:870
+#: src/model/Model_Settings.php:869
 msgid "License deactivated."
 msgstr ""
 
-#: src/model/Model_Settings.php:879
+#: src/model/Model_Settings.php:878
 msgid "An error occurred during deactivation, please try again"
 msgstr ""
 
@@ -1065,23 +1069,19 @@ msgstr ""
 msgid "License"
 msgstr ""
 
-#: src/view/View_Settings.php:215
-msgid "Extensions"
-msgstr ""
-
-#: src/view/View_Settings.php:349, src/view/html/Settings/system_status.php:52
+#: src/view/View_Settings.php:345, src/view/html/Settings/system_status.php:52
 msgid "WP Memory Available"
 msgstr ""
 
-#: src/view/View_Settings.php:349
+#: src/view/View_Settings.php:345
 msgid "Producing PDF documents is hard work and Gravity PDF requires more resources than most plugins. We strongly recommend you have at least 128MB, but you may need more."
 msgstr ""
 
-#: src/view/View_Settings.php:350, src/view/html/Settings/system_status.php:112
+#: src/view/View_Settings.php:346, src/view/html/Settings/system_status.php:112
 msgid "Direct PDF Protection"
 msgstr ""
 
-#: src/view/View_Settings.php:350
+#: src/view/View_Settings.php:346
 msgid "Apache and Litespeed servers automatically disable public access to the Gravity PDF temporary directory using a %s.htaccess%s file, but other web servers like Nginx do not support this feature. We will check if your PDFs are automatically protected, and let you know what you can do to protect your data if they are not."
 msgstr ""
 
@@ -1097,307 +1097,307 @@ msgstr ""
 msgid "You must pass in a valid form ID"
 msgstr ""
 
-#: src/helper/abstract/Helper_Abstract_Options.php:464
+#: src/helper/abstract/Helper_Abstract_Options.php:458
 msgid "You must pass in a valid PDF ID"
 msgstr ""
 
-#: src/helper/abstract/Helper_Abstract_Options.php:851
+#: src/helper/abstract/Helper_Abstract_Options.php:828
 msgid "Common Sizes"
 msgstr ""
 
-#: src/helper/abstract/Helper_Abstract_Options.php:852
+#: src/helper/abstract/Helper_Abstract_Options.php:829
 msgid "A4 (210 x 297mm)"
 msgstr ""
 
-#: src/helper/abstract/Helper_Abstract_Options.php:853
+#: src/helper/abstract/Helper_Abstract_Options.php:830
 msgid "Letter (8.5 x 11in)"
 msgstr ""
 
-#: src/helper/abstract/Helper_Abstract_Options.php:854
+#: src/helper/abstract/Helper_Abstract_Options.php:831
 msgid "Legal (8.5 x 14in)"
 msgstr ""
 
-#: src/helper/abstract/Helper_Abstract_Options.php:855
+#: src/helper/abstract/Helper_Abstract_Options.php:832
 msgid "Ledger / Tabloid (11 x 17in)"
 msgstr ""
 
-#: src/helper/abstract/Helper_Abstract_Options.php:856
+#: src/helper/abstract/Helper_Abstract_Options.php:833
 msgid "Executive (7 x 10in)"
 msgstr ""
 
-#: src/helper/abstract/Helper_Abstract_Options.php:860
+#: src/helper/abstract/Helper_Abstract_Options.php:837
 msgid "\"A\" Sizes"
 msgstr ""
 
-#: src/helper/abstract/Helper_Abstract_Options.php:861
+#: src/helper/abstract/Helper_Abstract_Options.php:838
 msgid "A0 (841 x 1189mm)"
 msgstr ""
 
-#: src/helper/abstract/Helper_Abstract_Options.php:862
+#: src/helper/abstract/Helper_Abstract_Options.php:839
 msgid "A1 (594 x 841mm)"
 msgstr ""
 
-#: src/helper/abstract/Helper_Abstract_Options.php:863
+#: src/helper/abstract/Helper_Abstract_Options.php:840
 msgid "A2 (420 x 594mm)"
 msgstr ""
 
-#: src/helper/abstract/Helper_Abstract_Options.php:864
+#: src/helper/abstract/Helper_Abstract_Options.php:841
 msgid "A3 (297 x 420mm)"
 msgstr ""
 
-#: src/helper/abstract/Helper_Abstract_Options.php:865
+#: src/helper/abstract/Helper_Abstract_Options.php:842
 msgid "A5 (210 x 297mm)"
 msgstr ""
 
-#: src/helper/abstract/Helper_Abstract_Options.php:866
+#: src/helper/abstract/Helper_Abstract_Options.php:843
 msgid "A6 (105 x 148mm)"
 msgstr ""
 
-#: src/helper/abstract/Helper_Abstract_Options.php:867
+#: src/helper/abstract/Helper_Abstract_Options.php:844
 msgid "A7 (74 x 105mm)"
 msgstr ""
 
-#: src/helper/abstract/Helper_Abstract_Options.php:868
+#: src/helper/abstract/Helper_Abstract_Options.php:845
 msgid "A8 (52 x 74mm)"
 msgstr ""
 
-#: src/helper/abstract/Helper_Abstract_Options.php:869
+#: src/helper/abstract/Helper_Abstract_Options.php:846
 msgid "A9 (37 x 52mm)"
 msgstr ""
 
-#: src/helper/abstract/Helper_Abstract_Options.php:870
+#: src/helper/abstract/Helper_Abstract_Options.php:847
 msgid "A10 (26 x 37mm)"
 msgstr ""
 
-#: src/helper/abstract/Helper_Abstract_Options.php:873
+#: src/helper/abstract/Helper_Abstract_Options.php:850
 msgid "\"B\" Sizes"
 msgstr ""
 
-#: src/helper/abstract/Helper_Abstract_Options.php:874
+#: src/helper/abstract/Helper_Abstract_Options.php:851
 msgid "B0 (1414 x 1000mm)"
 msgstr ""
 
-#: src/helper/abstract/Helper_Abstract_Options.php:875
+#: src/helper/abstract/Helper_Abstract_Options.php:852
 msgid "B1 (1000 x 707mm)"
 msgstr ""
 
-#: src/helper/abstract/Helper_Abstract_Options.php:876
+#: src/helper/abstract/Helper_Abstract_Options.php:853
 msgid "B2 (707 x 500mm)"
 msgstr ""
 
-#: src/helper/abstract/Helper_Abstract_Options.php:877
+#: src/helper/abstract/Helper_Abstract_Options.php:854
 msgid "B3 (500 x 353mm)"
 msgstr ""
 
-#: src/helper/abstract/Helper_Abstract_Options.php:878
+#: src/helper/abstract/Helper_Abstract_Options.php:855
 msgid "B4 (353 x 250mm)"
 msgstr ""
 
-#: src/helper/abstract/Helper_Abstract_Options.php:879
+#: src/helper/abstract/Helper_Abstract_Options.php:856
 msgid "B5 (250 x 176mm)"
 msgstr ""
 
-#: src/helper/abstract/Helper_Abstract_Options.php:880
+#: src/helper/abstract/Helper_Abstract_Options.php:857
 msgid "B6 (176 x 125mm)"
 msgstr ""
 
-#: src/helper/abstract/Helper_Abstract_Options.php:881
+#: src/helper/abstract/Helper_Abstract_Options.php:858
 msgid "B7 (125 x 88mm)"
 msgstr ""
 
-#: src/helper/abstract/Helper_Abstract_Options.php:882
+#: src/helper/abstract/Helper_Abstract_Options.php:859
 msgid "B8 (88 x 62mm)"
 msgstr ""
 
-#: src/helper/abstract/Helper_Abstract_Options.php:883
+#: src/helper/abstract/Helper_Abstract_Options.php:860
 msgid "B9 (62 x 44mm)"
 msgstr ""
 
-#: src/helper/abstract/Helper_Abstract_Options.php:884
+#: src/helper/abstract/Helper_Abstract_Options.php:861
 msgid "B10 (44 x 31mm)"
 msgstr ""
 
-#: src/helper/abstract/Helper_Abstract_Options.php:887
+#: src/helper/abstract/Helper_Abstract_Options.php:864
 msgid "\"C\" Sizes"
 msgstr ""
 
-#: src/helper/abstract/Helper_Abstract_Options.php:888
+#: src/helper/abstract/Helper_Abstract_Options.php:865
 msgid "C0 (1297 x 917mm)"
 msgstr ""
 
-#: src/helper/abstract/Helper_Abstract_Options.php:889
+#: src/helper/abstract/Helper_Abstract_Options.php:866
 msgid "C1 (917 x 648mm)"
 msgstr ""
 
-#: src/helper/abstract/Helper_Abstract_Options.php:890
+#: src/helper/abstract/Helper_Abstract_Options.php:867
 msgid "C2 (648 x 458mm)"
 msgstr ""
 
-#: src/helper/abstract/Helper_Abstract_Options.php:891
+#: src/helper/abstract/Helper_Abstract_Options.php:868
 msgid "C3 (458 x 324mm)"
 msgstr ""
 
-#: src/helper/abstract/Helper_Abstract_Options.php:892
+#: src/helper/abstract/Helper_Abstract_Options.php:869
 msgid "C4 (324 x 229mm)"
 msgstr ""
 
-#: src/helper/abstract/Helper_Abstract_Options.php:893
+#: src/helper/abstract/Helper_Abstract_Options.php:870
 msgid "C5 (229 x 162mm)"
 msgstr ""
 
-#: src/helper/abstract/Helper_Abstract_Options.php:894
+#: src/helper/abstract/Helper_Abstract_Options.php:871
 msgid "C6 (162 x 114mm)"
 msgstr ""
 
-#: src/helper/abstract/Helper_Abstract_Options.php:895
+#: src/helper/abstract/Helper_Abstract_Options.php:872
 msgid "C7 (114 x 81mm)"
 msgstr ""
 
-#: src/helper/abstract/Helper_Abstract_Options.php:896
+#: src/helper/abstract/Helper_Abstract_Options.php:873
 msgid "C8 (81 x 57mm)"
 msgstr ""
 
-#: src/helper/abstract/Helper_Abstract_Options.php:897
+#: src/helper/abstract/Helper_Abstract_Options.php:874
 msgid "C9 (57 x 40mm)"
 msgstr ""
 
-#: src/helper/abstract/Helper_Abstract_Options.php:898
+#: src/helper/abstract/Helper_Abstract_Options.php:875
 msgid "C10 (40 x 28mm)"
 msgstr ""
 
-#: src/helper/abstract/Helper_Abstract_Options.php:901
+#: src/helper/abstract/Helper_Abstract_Options.php:878
 msgid "\"RA\" and \"SRA\" Sizes"
 msgstr ""
 
-#: src/helper/abstract/Helper_Abstract_Options.php:902
+#: src/helper/abstract/Helper_Abstract_Options.php:879
 msgid "RA0 (860 x 1220mm)"
 msgstr ""
 
-#: src/helper/abstract/Helper_Abstract_Options.php:903
+#: src/helper/abstract/Helper_Abstract_Options.php:880
 msgid "RA1 (610 x 860mm)"
 msgstr ""
 
-#: src/helper/abstract/Helper_Abstract_Options.php:904
+#: src/helper/abstract/Helper_Abstract_Options.php:881
 msgid "RA2 (430 x 610mm)"
 msgstr ""
 
-#: src/helper/abstract/Helper_Abstract_Options.php:905
+#: src/helper/abstract/Helper_Abstract_Options.php:882
 msgid "RA3 (305 x 430mm)"
 msgstr ""
 
-#: src/helper/abstract/Helper_Abstract_Options.php:906
+#: src/helper/abstract/Helper_Abstract_Options.php:883
 msgid "RA4 (215 x 305mm)"
 msgstr ""
 
-#: src/helper/abstract/Helper_Abstract_Options.php:907
+#: src/helper/abstract/Helper_Abstract_Options.php:884
 msgid "SRA0 (900 x 1280mm)"
 msgstr ""
 
-#: src/helper/abstract/Helper_Abstract_Options.php:908
+#: src/helper/abstract/Helper_Abstract_Options.php:885
 msgid "SRA1 (640 x 900mm)"
 msgstr ""
 
-#: src/helper/abstract/Helper_Abstract_Options.php:909
+#: src/helper/abstract/Helper_Abstract_Options.php:886
 msgid "SRA2 (450 x 640mm)"
 msgstr ""
 
-#: src/helper/abstract/Helper_Abstract_Options.php:910
+#: src/helper/abstract/Helper_Abstract_Options.php:887
 msgid "SRA3 (320 x 450mm)"
 msgstr ""
 
-#: src/helper/abstract/Helper_Abstract_Options.php:911
+#: src/helper/abstract/Helper_Abstract_Options.php:888
 msgid "SRA4 (225 x 320mm)"
 msgstr ""
 
-#: src/helper/abstract/Helper_Abstract_Options.php:926
+#: src/helper/abstract/Helper_Abstract_Options.php:903
 msgid "Unicode"
 msgstr ""
 
-#: src/helper/abstract/Helper_Abstract_Options.php:940
+#: src/helper/abstract/Helper_Abstract_Options.php:917
 msgid "Indic"
 msgstr ""
 
-#: src/helper/abstract/Helper_Abstract_Options.php:945
+#: src/helper/abstract/Helper_Abstract_Options.php:922
 msgid "Arabic"
 msgstr ""
 
-#: src/helper/abstract/Helper_Abstract_Options.php:951
+#: src/helper/abstract/Helper_Abstract_Options.php:928
 msgid "Other"
 msgstr ""
 
-#: src/helper/abstract/Helper_Abstract_Options.php:1003
+#: src/helper/abstract/Helper_Abstract_Options.php:980
 msgid "User-Defined Fonts"
 msgstr ""
 
-#: src/helper/abstract/Helper_Abstract_Options.php:1075
+#: src/helper/abstract/Helper_Abstract_Options.php:1052
 msgid "Copy"
 msgstr ""
 
-#: src/helper/abstract/Helper_Abstract_Options.php:1076
+#: src/helper/abstract/Helper_Abstract_Options.php:1053
 msgid "Print - Low Resolution"
 msgstr ""
 
-#: src/helper/abstract/Helper_Abstract_Options.php:1077
+#: src/helper/abstract/Helper_Abstract_Options.php:1054
 msgid "Print - High Resolution"
 msgstr ""
 
-#: src/helper/abstract/Helper_Abstract_Options.php:1078
+#: src/helper/abstract/Helper_Abstract_Options.php:1055
 msgid "Modify"
 msgstr ""
 
-#: src/helper/abstract/Helper_Abstract_Options.php:1079
+#: src/helper/abstract/Helper_Abstract_Options.php:1056
 msgid "Annotate"
 msgstr ""
 
-#: src/helper/abstract/Helper_Abstract_Options.php:1080
+#: src/helper/abstract/Helper_Abstract_Options.php:1057
 msgid "Fill Forms"
 msgstr ""
 
-#: src/helper/abstract/Helper_Abstract_Options.php:1081
+#: src/helper/abstract/Helper_Abstract_Options.php:1058
 msgid "Extract"
 msgstr ""
 
-#: src/helper/abstract/Helper_Abstract_Options.php:1082
+#: src/helper/abstract/Helper_Abstract_Options.php:1059
 msgid "Assemble"
 msgstr ""
 
-#: src/helper/abstract/Helper_Abstract_Options.php:1207
+#: src/helper/abstract/Helper_Abstract_Options.php:1184
 msgid "Settings updated."
 msgstr ""
 
-#: src/helper/abstract/Helper_Abstract_Options.php:1356, src/helper/abstract/Helper_Abstract_Options.php:1364, src/helper/abstract/Helper_Abstract_Options.php:1372
+#: src/helper/abstract/Helper_Abstract_Options.php:1333, src/helper/abstract/Helper_Abstract_Options.php:1341, src/helper/abstract/Helper_Abstract_Options.php:1349
 msgid "PDF Settings could not be saved. Please enter all required information below."
 msgstr ""
 
-#: src/helper/abstract/Helper_Abstract_Options.php:1688
+#: src/helper/abstract/Helper_Abstract_Options.php:1665
 msgid "Deactivate License"
 msgstr ""
 
-#: src/helper/abstract/Helper_Abstract_Options.php:1979, src/helper/abstract/Helper_Abstract_Options.php:1980
+#: src/helper/abstract/Helper_Abstract_Options.php:1956, src/helper/abstract/Helper_Abstract_Options.php:1957
 msgid "Select Media"
 msgstr ""
 
-#: src/helper/abstract/Helper_Abstract_Options.php:1981
+#: src/helper/abstract/Helper_Abstract_Options.php:1958
 msgid "Upload File"
 msgstr ""
 
-#: src/helper/abstract/Helper_Abstract_Options.php:2138
+#: src/helper/abstract/Helper_Abstract_Options.php:2115
 msgid "Width"
 msgstr ""
 
-#: src/helper/abstract/Helper_Abstract_Options.php:2139
+#: src/helper/abstract/Helper_Abstract_Options.php:2116
 msgid "Height"
 msgstr ""
 
-#: src/helper/abstract/Helper_Abstract_Options.php:2142
+#: src/helper/abstract/Helper_Abstract_Options.php:2119
 msgid "mm"
 msgstr ""
 
-#: src/helper/abstract/Helper_Abstract_Options.php:2143
+#: src/helper/abstract/Helper_Abstract_Options.php:2120
 msgid "inches"
 msgstr ""
 
-#: src/helper/abstract/Helper_Abstract_Options.php:2203
+#: src/helper/abstract/Helper_Abstract_Options.php:2180
 msgid "The callback used for the %s setting is missing."
 msgstr ""
 
@@ -1413,7 +1413,7 @@ msgstr ""
 msgid "Shipping (%s)"
 msgstr ""
 
-#: src/helper/fields/Field_Tos.php:121
+#: src/helper/fields/Field_Tos.php:125
 msgid "Not accepted"
 msgstr ""
 
@@ -1497,6 +1497,10 @@ msgstr ""
 msgid "%sOr let your Twitter follows know how good it is%s (or anyone else for that matter)."
 msgstr ""
 
+#: src/view/html/FormSettings/add_edit.php:135
+msgid "Want more features? See the Extension Shop."
+msgstr ""
+
 #: src/view/html/FormSettings/list.php:56
 msgid "Delete PDF?"
 msgstr ""
@@ -1533,6 +1537,10 @@ msgstr ""
 msgid "Security Settings"
 msgstr ""
 
+#: src/view/html/Settings/general.php:80
+msgid "Want more features? Take a look at our Extension Shop."
+msgstr ""
+
 #: src/view/html/Settings/help.php:44
 msgid "Getting Help With Gravity PDF"
 msgstr ""
@@ -1542,7 +1550,7 @@ msgid "This is your portal to find quality help, support and documentation for G
 msgstr ""
 
 #: src/view/html/Settings/help.php:48
-msgid "(This is not the place to get Gravity Forms support. %sPlease use their official support channel%s for assistance)"
+msgid "(This is not the place to get Gravity Forms support. %sPlease use their official support channel%s for assistance. Using the search box below will search gravitypdf.com for results.)"
 msgstr ""
 
 #: src/view/html/Settings/help.php:57
@@ -1566,38 +1574,34 @@ msgid "We’ve got in-depth articles to help you learn the ins and outs of Gravi
 msgstr ""
 
 #: src/view/html/Settings/help.php:91
-msgid "Common Problems"
-msgstr ""
-
-#: src/view/html/Settings/help.php:92
-msgid "Find out the most common issues user’s experience and ways to resolve them."
-msgstr ""
-
-#: src/view/html/Settings/help.php:98
 msgid "Developer Documentation"
 msgstr ""
 
-#: src/view/html/Settings/help.php:99
+#: src/view/html/Settings/help.php:92
 msgid "You’ll find all the info and examples you’ll need to create your own custom PDF templates."
 msgstr ""
 
-#: src/view/html/Settings/help.php:105
-msgid "View All Documentation"
-msgstr ""
-
-#: src/view/html/Settings/help.php:106
-msgid "Contact Support"
+#: src/view/html/Settings/help.php:97
+msgid "Common Questions"
 msgstr ""
 
 #: src/view/html/Settings/help.php:109
+msgid "View All Documentation"
+msgstr ""
+
+#: src/view/html/Settings/help.php:110
+msgid "Contact Support"
+msgstr ""
+
+#: src/view/html/Settings/help.php:113
 msgid "Our support hours are 9:00am-5:00pm Monday to Friday, %sSydney Australia time%s (public holidays excluded)."
 msgstr ""
 
-#: src/view/html/Settings/help.php:123
+#: src/view/html/Settings/help.php:127
 msgid "It doesn't look like there are any topics related to your issue."
 msgstr ""
 
-#: src/view/html/Settings/help.php:125
+#: src/view/html/Settings/help.php:129
 msgid "Maybe one of these articles will help..."
 msgstr ""
 
@@ -1614,7 +1618,7 @@ msgid "Your license key is located in your Purchase Confirmation email you recei
 msgstr ""
 
 #: src/view/html/Settings/license.php:69
-msgid "By saving your license key(s) you are giving permission for us to poll GravityPDF.com periodically for your current license status and any new plugin updates."
+msgid "By installing a Gravity PDF extension you are automatically giving permission for us to periodically poll GravityPDF.com via HTTPS for your current license status and any new plugin updates. The only personal data sent is your website domain name and license key. To opt-out you will need to deactivate all Gravity PDF extensions."
 msgstr ""
 
 #: src/view/html/Settings/system_status.php:45
@@ -1762,35 +1766,39 @@ msgid "It's like a theme shop, but for Gravity PDF templates. %sHead over to our
 msgstr ""
 
 #: src/view/html/Welcome/more.php:51
-msgid "Stay Up To Date"
-msgstr ""
-
-#: src/view/html/Welcome/more.php:53
-msgid "%sSign up to our newsletter%s to be amongst the first to receive the latest news and details on upcoming feature."
-msgstr ""
-
-#: src/view/html/Welcome/more.php:59
-msgid "Tailored PDFs"
-msgstr ""
-
-#: src/view/html/Welcome/more.php:61
-msgid "If the PDF Shop doesn't have what you're after %sour friendly team can build a document just for you%s. With an addon, our devs can even create templates that auto fill existing PDFs – like government and legal documents."
-msgstr ""
-
-#: src/view/html/Welcome/more.php:63
-msgid "Get Support"
-msgstr ""
-
-#: src/view/html/Welcome/more.php:65
-msgid "Have trouble using Gravity PDF? %sContact our friendly staff%s who are avaliable 9am to 5pm Monday to Friday, %sAustralian Eastern Standard Time%s."
-msgstr ""
-
-#: src/view/html/Welcome/more.php:71
 msgid "Roll your Own"
 msgstr ""
 
-#: src/view/html/Welcome/more.php:73
+#: src/view/html/Welcome/more.php:53
 msgid "If PHP, HTML and CSS come easy to you, you'll find creating your own PDF templates a breeze. With %sextensive documentation and great examples%s you'll be up and running in no time."
+msgstr ""
+
+#: src/view/html/Welcome/more.php:61
+msgid "If you're looking to enhance Gravity PDF %sour Extension Shop is your first port of call%s. Advanced functionality will be at your fingertips with a premium Gravity PDF extension."
+msgstr ""
+
+#: src/view/html/Welcome/more.php:63
+msgid "Stay Up To Date"
+msgstr ""
+
+#: src/view/html/Welcome/more.php:65
+msgid "%sSign up to our newsletter%s to be amongst the first to receive the latest news and details on upcoming feature."
+msgstr ""
+
+#: src/view/html/Welcome/more.php:71
+msgid "Tailored PDFs"
+msgstr ""
+
+#: src/view/html/Welcome/more.php:73
+msgid "If the PDF Shop doesn't have what you're after %sour friendly team can build a document just for you%s. With an addon, our devs can even create templates that auto fill existing PDFs – like government and legal documents."
+msgstr ""
+
+#: src/view/html/Welcome/more.php:75
+msgid "Get Support"
+msgstr ""
+
+#: src/view/html/Welcome/more.php:77
+msgid "Have trouble using Gravity PDF? %sContact our friendly staff%s who are avaliable 9am to 5pm Monday to Friday, %sAustralian Eastern Standard Time%s."
 msgstr ""
 
 #: src/view/html/Welcome/welcome.php:43
