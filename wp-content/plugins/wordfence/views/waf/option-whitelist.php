@@ -132,14 +132,22 @@ if (!defined('WORDFENCE_VERSION')) { exit; }
 <script type="application/javascript">
 	(function($) {
 		$(function() {
+<<<<<<< HEAD
 			$('#whitelistParam').select2({
+=======
+			$('#whitelistParam').wfselect2({
+>>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5
 				minimumResultsForSearch: -1,
 				templateSelection: function(item) {
 					return 'Param Type: ' + item.text;
 				}
 			});
 			
+<<<<<<< HEAD
 			$('#whitelist-table-controls select').select2({
+=======
+			$('#whitelist-table-controls select').wfselect2({
+>>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5
 				minimumResultsForSearch: -1,
 				placeholder: "Filter By",
 				width: '200px',

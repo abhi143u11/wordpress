@@ -10,7 +10,11 @@
  *
  * @wordpress-plugin
  * Plugin Name: Yoast SEO Premium
+<<<<<<< HEAD
  * Version:     7.0.3
+=======
+ * Version:     7.1.1
+>>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5
  * Plugin URI:  https://yoast.com/wordpress/plugins/seo/#utm_source=wpadmin&utm_medium=plugin&utm_campaign=wpseoplugin
  * Description: The first true all-in-one SEO solution for WordPress, including on-page content analysis, XML sitemaps and much more.
  * Author:      Team Yoast

@@ -27,6 +27,7 @@ class wfLog {
 	public function __construct($apiKey, $wp_version){
 		$this->apiKey = $apiKey;
 		$this->wp_version = $wp_version;
+<<<<<<< HEAD
 		global $wpdb;
 		$this->hitsTable = $wpdb->base_prefix . 'wfHits';
 		$this->loginsTable = $wpdb->base_prefix . 'wfLogins';
@@ -39,6 +40,19 @@ class wfLog {
 		$this->statusTable = $wpdb->base_prefix . 'wfStatus';
 		$this->ipRangesTable = $wpdb->base_prefix . 'wfBlocksAdv';
 		$this->perfTable = $wpdb->base_prefix . 'wfPerfLog';
+=======
+		$this->hitsTable = wfDB::networkTable('wfHits');
+		$this->loginsTable = wfDB::networkTable('wfLogins');
+		$this->blocksTable = wfBlock::blocksTable();
+		$this->lockOutTable = wfDB::networkTable('wfLockedOut');
+		$this->leechTable = wfDB::networkTable('wfLeechers');
+		$this->badLeechersTable = wfDB::networkTable('wfBadLeechers');
+		$this->scanTable = wfDB::networkTable('wfScanners');
+		$this->throttleTable = wfDB::networkTable('wfThrottleLog');
+		$this->statusTable = wfDB::networkTable('wfStatus');
+		$this->ipRangesTable = wfDB::networkTable('wfBlocksAdv');
+		$this->perfTable = wfDB::networkTable('wfPerfLog');
+>>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5
 	}
 
 	public function initLogRequest() {
@@ -254,15 +268,26 @@ class wfLog {
 				$this->takeBlockingAction('maxGlobalRequests', "Exceeded the maximum global requests per minute for crawlers or humans.");
 			}
 			if($type == '404'){
+<<<<<<< HEAD
 				global $wpdb; $p = $wpdb->base_prefix;
 				if(wfConfig::get('other_WFNet')){
 					$this->getDB()->queryWrite("insert IGNORE into $p"."wfNet404s (sig, ctime, URI) values (UNHEX(MD5('%s')), unix_timestamp(), '%s')", $_SERVER['REQUEST_URI'], $_SERVER['REQUEST_URI']);
+=======
+				if(wfConfig::get('other_WFNet')){
+					$table_wfNet404s = wfDB::networkTable('wfNet404s');
+					$this->getDB()->queryWrite("insert IGNORE into {$table_wfNet404s} (sig, ctime, URI) values (UNHEX(MD5('%s')), unix_timestamp(), '%s')", $_SERVER['REQUEST_URI'], $_SERVER['REQUEST_URI']);
+>>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5
 				}
 				$pat = wfConfig::get('vulnRegex');
 				if($pat){
 					$URL = wfUtils::getRequestedURL();
 					if(preg_match($pat, $URL)){
+<<<<<<< HEAD
 						$this->getDB()->queryWrite("insert IGNORE into $p"."wfVulnScanners (IP, ctime, hits) values (%s, unix_timestamp(), 1) ON DUPLICATE KEY UPDATE ctime = unix_timestamp(), hits = hits + 1", wfUtils::inet_pton($IP));
+=======
+						$table_wfVulnScanners = wfDB::networkTable('wfVulnScanners');
+						$this->getDB()->queryWrite("insert IGNORE into {$table_wfVulnScanners} (IP, ctime, hits) values (%s, unix_timestamp(), 1) ON DUPLICATE KEY UPDATE ctime = unix_timestamp(), hits = hits + 1", wfUtils::inet_pton($IP));
+>>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5
 						if(wfConfig::get('maxScanHits') != 'DISABLED'){
 							if( empty($_SERVER['HTTP_REFERER'] )){
 								$this->getDB()->queryWrite("insert into " . $this->badLeechersTable . " (eMin, IP, hits) values (floor(unix_timestamp() / 60), %s, 1) ON DUPLICATE KEY update hits = IF(@wfblcurrenthits := hits + 1, hits + 1, hits + 1)", $IPnum); 
@@ -1317,7 +1342,11 @@ class wfRequestModel extends wfModel {
 	}
 
 	public function getTable() {
+<<<<<<< HEAD
 		return $this->getDB()->base_prefix . 'wfHits';
+=======
+		return wfDB::networkTable('wfHits');
+>>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5
 	}
 
 	public function hasColumn($column) {
@@ -1491,11 +1520,20 @@ class wfLiveTrafficQuery {
 			$limit = 20;
 		}
 		$limitSQL = $wpdb->prepare('LIMIT %d, %d', $offset, $limit);
+<<<<<<< HEAD
 
 		$sql = <<<SQL
 SELECT h.*, u.display_name{$select} FROM {$this->getTableName()} h
 LEFT JOIN {$wpdb->users} u on h.userID = u.ID
 LEFT JOIN {$wpdb->base_prefix}wfLogins l on h.id = l.hitID
+=======
+		
+		$table_wfLogins = wfDB::networkTable('wfLogins');
+		$sql = <<<SQL
+SELECT h.*, u.display_name{$select} FROM {$this->getTableName()} h
+LEFT JOIN {$wpdb->users} u on h.userID = u.ID
+LEFT JOIN {$table_wfLogins} l on h.id = l.hitID
+>>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5
 $where
 $groupBySQL
 $orderBy
@@ -1614,8 +1652,12 @@ SQL;
 	 */
 	public function getTableName() {
 		if ($this->tableName === null) {
+<<<<<<< HEAD
 			global $wpdb;
 			$this->tableName = $wpdb->base_prefix . 'wfHits';
+=======
+			$this->tableName = wfDB::networkTable('wfHits');
+>>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5
 		}
 		return $this->tableName;
 	}

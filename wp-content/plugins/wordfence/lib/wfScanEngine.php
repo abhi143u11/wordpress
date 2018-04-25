@@ -907,8 +907,12 @@ class wfScanEngine {
 			$blogs = self::getBlogsToScan('posts', $blogID);
 			$blog = array_shift($blogs);
 			
+<<<<<<< HEAD
 			$prefix = $wpdb->get_blog_prefix($blogID);
 			$table = "{$prefix}posts";
+=======
+			$table = wfDB::blogTable('posts', $blogID);
+>>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5
 			
 			$row = $wfdb->querySingleRec("select ID, post_title, post_type, post_date, post_content from {$table} where ID = %d", $postID);
 			$found = $this->hoover->hoover($blogID . '-' . $row['ID'], $row['post_title'] . ' ' . $row['post_content'], wordfenceURLHoover::standardExcludedHosts());
@@ -947,8 +951,12 @@ class wfScanEngine {
 			$arr = explode('-', $idString);
 			$blogID = $arr[0];
 			$postID = $arr[1];
+<<<<<<< HEAD
 			$prefix = $wpdb->get_blog_prefix($blogID);
 			$table = "{$prefix}posts";
+=======
+			$table = wfDB::blogTable('posts', $blogID);
+>>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5
 			$blog = null;
 			$post = null;
 			foreach ($hresults as $result) {
@@ -1050,8 +1058,12 @@ class wfScanEngine {
 			$blogID = $elem['blog'];
 			$commentID = $elem['comment'];
 			
+<<<<<<< HEAD
 			$prefix = $wpdb->get_blog_prefix($blogID);
 			$table = "{$prefix}comments";
+=======
+			$table = wfDB::blogTable('comments', $blogID);
+>>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5
 			
 			$row = $wfdb->querySingleRec("select comment_ID, comment_date, comment_type, comment_author, comment_author_url, comment_content from {$table} where comment_ID=%d", $commentID);
 			$found = $this->hoover->hoover($blogID . '-' . $row['comment_ID'], $row['comment_author_url'] . ' ' . $row['comment_author'] . ' ' . $row['comment_content'], wordfenceURLHoover::standardExcludedHosts());
@@ -1182,6 +1194,7 @@ class wfScanEngine {
 	public static function getBlogsToScan($table, $withID = null){
 		$wfdb = new wfDB();
 		global $wpdb;
+<<<<<<< HEAD
 		$prefix = $wpdb->base_prefix;
 		$blogsToScan = array();
 		if(is_multisite()){
@@ -1190,21 +1203,38 @@ class wfScanEngine {
 			}
 			else {
 				$q1 = $wfdb->querySelect("select blog_id, domain, path from $prefix"."blogs where deleted=0 and blog_id = %d", $withID);
+=======
+		$blogsToScan = array();
+		if(is_multisite()){
+			if ($withID === null) {
+				$q1 = $wfdb->querySelect("select blog_id, domain, path from {$wpdb->blogs} where deleted=0 order by blog_id asc");
+			}
+			else {
+				$q1 = $wfdb->querySelect("select blog_id, domain, path from {$wpdb->blogs} where deleted=0 and blog_id = %d", $withID);
+>>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5
 			}
 			
 			foreach($q1 as $row){
 				$row['isMultisite'] = true;
+<<<<<<< HEAD
 				if($row['blog_id'] == 1){
 					$row['table'] = $prefix . $table;
 				} else {
 					$row['table'] = $prefix . $row['blog_id'] . '_' . $table;
 				}
+=======
+				$row['table'] = wfDB::blogTable($table, $row['blog_id']);
+>>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5
 				$blogsToScan[] = $row; 
 			}
 		} else {
 			$blogsToScan[] = array(
 				'isMultisite' => false,
+<<<<<<< HEAD
 				'table' => $prefix . $table,
+=======
+				'table' => wfDB::networkTable($table),
+>>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5
 				'blog_id' => '1',
 				'domain' => '',
 				'path' => '',
@@ -1355,14 +1385,24 @@ class wfScanEngine {
 		$this->scanController->startStage(wfScanner::STAGE_SERVER_STATE);
 		wfUtils::errorsOff();
 		$total = @disk_total_space('.');
+<<<<<<< HEAD
 		$free = @disk_free_space('.');
 		wfUtils::errorsOn();
 		if ($free === false || !$total) {
+=======
+		$free = @disk_free_space('.'); //Normally false if unreadable but can return 0 on some hosts even when there's space available
+		wfUtils::errorsOn();
+		if (!$total || !$free) {
+>>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5
 			$this->status(2, 'info', __('Unable to access available disk space information', 'wordfence'));
 			wfIssues::statusEnd($this->statusIDX['diskSpace'], wfIssues::STATUS_SECURE);
 			$this->scanController->completeStage(wfScanner::STAGE_SERVER_STATE, wfIssues::STATUS_SECURE);
 			return;
 		}
+<<<<<<< HEAD
+=======
+	  
+>>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5
 		
 		$this->status(2, 'info', sprintf(__('Total disk space: %s -- Free disk space: %s', 'wordfence'), wfUtils::formatBytes($total), wfUtils::formatBytes($free)));
 		$freeMegs = round($free / 1024 / 1024, 2);
@@ -2321,7 +2361,12 @@ class wfCommonBackupFileTest {
 	public static function createAllForFile($file, $mode = self::MATCH_EXACT, $matcher = false) {
 		global $wpdb;
 		$escapedFile = esc_sql(preg_quote($file));
+<<<<<<< HEAD
 		$files = $wpdb->get_col("SELECT path FROM {$wpdb->base_prefix}wfKnownFileList WHERE path REGEXP '(^|/){$escapedFile}$'");
+=======
+		$table_wfKnownFileList = wfDB::networkTable('wfKnownFileList');
+		$files = $wpdb->get_col("SELECT path FROM {$table_wfKnownFileList} WHERE path REGEXP '(^|/){$escapedFile}$'");
+>>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5
 		$tests = array();
 		foreach ($files as $f) {
 			$tests[] = new self(site_url($f), ABSPATH . $f, array(), $mode, $matcher);

@@ -50,13 +50,21 @@ if (!isset($collapseable)) {
 								<script type="application/javascript">
 									(function($) {
 										$(function() {
+<<<<<<< HEAD
 											$('#input-wafStatus').select2({
+=======
+											$('#input-wafStatus').wfselect2({
+>>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5
 												minimumResultsForSearch: -1,
 												width: '200px'
 											}).on('change', function() {
 												var select = $(this);
 												var value = select.val();
+<<<<<<< HEAD
 												var container = $($(this).data('select2').$container);
+=======
+												var container = $($(this).data('wfselect2').$container);
+>>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5
 												container.removeClass('wafStatus-enabled wafStatus-learning-mode wafStatus-disabled')
 													.addClass('wafStatus-' + value);
 
@@ -298,7 +306,11 @@ if (!isset($collapseable)) {
 												}
 											});
 
+<<<<<<< HEAD
 											$('#wf-waf-server-config').select2({
+=======
+											$('#wf-waf-server-config').wfselect2({
+>>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5
 												minimumResultsForSearch: -1,
 												width: WFAD.isSmallScreen ? '300px' : '500px'
 											});

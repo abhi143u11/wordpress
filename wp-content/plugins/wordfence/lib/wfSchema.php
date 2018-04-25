@@ -261,6 +261,7 @@ class wfSchema {
 */
 );
 	private $db = false;
+<<<<<<< HEAD
 	private $prefix = 'wp_';
 	public function __construct($dbhost = false, $dbuser = false, $dbpassword = false, $dbname = false){
 		/*
@@ -280,10 +281,23 @@ class wfSchema {
 		
 		foreach ($this->deprecatedTables as $table) {
 			$this->db->queryWrite("drop table if exists " . $this->prefix . $table);
+=======
+	public function __construct($dbhost = false, $dbuser = false, $dbpassword = false, $dbname = false){
+		$this->db = new wfDB();
+	}
+	public function dropAll(){
+		foreach($this->tables as $table => $def){
+			$this->db->queryWrite("drop table if exists " . wfDB::networkTable($table));
+		}
+		
+		foreach ($this->deprecatedTables as $table) {
+			$this->db->queryWrite("drop table if exists " . wfDB::networkTable($table));
+>>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5
 		}
 	}
 	public function createAll(){
 		foreach($this->tables as $table => $def){
+<<<<<<< HEAD
 			$this->db->queryWrite("create table IF NOT EXISTS " . $this->prefix . $table . " " . $def);
 		}
 	}
@@ -292,5 +306,15 @@ class wfSchema {
 	}
 	public function drop($table){
 		$this->db->queryWrite("drop table if exists " . $this->prefix . $table);
+=======
+			$this->db->queryWrite("create table IF NOT EXISTS " . wfDB::networkTable($table) . " " . $def);
+		}
+	}
+	public function create($table){
+		$this->db->queryWrite("create table IF NOT EXISTS " . wfDB::networkTable($table) . " " . $this->tables[$table]);
+	}
+	public function drop($table){
+		$this->db->queryWrite("drop table if exists " . wfDB::networkTable($table));
+>>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5
 	}
 }

@@ -55,6 +55,13 @@ class wfActivityReport {
 	 * Send out the report and reschedule the next report's cron job.
 	 */
 	public static function executeCronJob() {
+<<<<<<< HEAD
+=======
+		if (!wfConfig::get('email_summary_enabled', 1)) {
+			return;
+		}
+		
+>>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5
 		$report = new self();
 		$report->sendReportViaEmail(wfConfig::getAlertEmails());
 		self::scheduleCronJob();
@@ -219,9 +226,16 @@ class wfActivityReport {
 				break;
 		}
 		
+<<<<<<< HEAD
 		$count = $this->db->get_var(<<<SQL
 SELECT SUM(blockCount) as blockCount
 FROM {$this->db->prefix}wfBlockedIPLog
+=======
+		$table_wfBlockedIPLog = wfDB::networkTable('wfBlockedIPLog');
+		$count = $this->db->get_var(<<<SQL
+SELECT SUM(blockCount) as blockCount
+FROM {$table_wfBlockedIPLog}
+>>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5
 WHERE unixday >= {$interval}{$groupingWHERE}
 SQL
 			);
@@ -249,10 +263,18 @@ SQL
 			$interval = 'FLOOR(UNIX_TIMESTAMP(DATE_SUB(NOW(), interval ' . $maxAgeDays . ' day)) / 86400)';
 		}
 		
+<<<<<<< HEAD
 		$results = $this->db->get_results($this->db->prepare(<<<SQL
 SELECT *,
 SUM(blockCount) as blockCount
 FROM {$this->db->prefix}wfBlockedIPLog
+=======
+		$table_wfBlockedIPLog = wfDB::networkTable('wfBlockedIPLog');
+		$results = $this->db->get_results($this->db->prepare(<<<SQL
+SELECT *,
+SUM(blockCount) as blockCount
+FROM {$table_wfBlockedIPLog}
+>>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5
 WHERE unixday >= {$interval}
 GROUP BY IP
 ORDER BY blockCount DESC
@@ -287,10 +309,18 @@ SQL
 		else {
 			$interval = 'FLOOR(UNIX_TIMESTAMP(DATE_SUB(NOW(), interval ' . $maxAgeDays . ' day)) / 86400)';
 		}
+<<<<<<< HEAD
 		
 		$results = $this->db->get_results($this->db->prepare(<<<SQL
 SELECT *, COUNT(IP) as totalIPs, SUM(blockCount) as totalBlockCount
 FROM {$this->db->base_prefix}wfBlockedIPLog
+=======
+	  	
+		$table_wfBlockedIPLog = wfDB::networkTable('wfBlockedIPLog');
+		$results = $this->db->get_results($this->db->prepare(<<<SQL
+SELECT *, COUNT(IP) as totalIPs, SUM(blockCount) as totalBlockCount
+FROM {$table_wfBlockedIPLog}
+>>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5
 WHERE unixday >= {$interval}
 GROUP BY countryCode
 ORDER BY totalBlockCount DESC
@@ -319,11 +349,20 @@ SQL
 				$interval = 'UNIX_TIMESTAMP(DATE_SUB(NOW(), interval 1 month))';
 				break;
 		}
+<<<<<<< HEAD
 
 		$failedLogins = $this->db->get_results($this->db->prepare(<<<SQL
 SELECT wfl.*,
 sum(wfl.fail) as fail_count
 FROM {$this->db->base_prefix}wfLogins wfl
+=======
+	  
+		$table_wfLogins = wfDB::networkTable('wfLogins');
+		$failedLogins = $this->db->get_results($this->db->prepare(<<<SQL
+SELECT wfl.*,
+sum(wfl.fail) as fail_count
+FROM {$table_wfLogins} wfl
+>>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5
 WHERE wfl.fail = 1
 AND wfl.ctime > $interval
 GROUP BY wfl.username
@@ -334,7 +373,11 @@ SQL
 		
 		foreach ($failedLogins as &$login) {
 			$exists = $this->db->get_var($this->db->prepare(<<<SQL
+<<<<<<< HEAD
 SELECT !ISNULL(ID) FROM {$this->db->base_prefix}users WHERE user_login = '%s' OR user_email = '%s'
+=======
+SELECT !ISNULL(ID) FROM {$this->db->users} WHERE user_login = '%s' OR user_email = '%s'
+>>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5
 SQL
 			, $login->username, $login->username));
 			$login->is_valid_user = $exists;
@@ -397,14 +440,26 @@ SQL
 	 * Remove entries older than a month in the IP log.
 	 */
 	public function rotateIPLog() {
+<<<<<<< HEAD
 		$this->db->query(<<<SQL
 DELETE FROM {$this->db->base_prefix}wfBlockedIPLog
+=======
+		$table_wfBlockedIPLog = wfDB::networkTable('wfBlockedIPLog');
+		$this->db->query(<<<SQL
+DELETE FROM {$table_wfBlockedIPLog}
+>>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5
 WHERE unixday < FLOOR(UNIX_TIMESTAMP(DATE_SUB(NOW(), interval 1 month)) / 86400)
 SQL
 		);
 		
+<<<<<<< HEAD
 		$this->db->query(<<<SQL
 DELETE FROM {$this->db->base_prefix}wfBlockedCommentLog
+=======
+		$table_wfBlockedCommentLog = wfDB::networkTable('wfBlockedCommentLog');
+		$this->db->query(<<<SQL
+DELETE FROM {$table_wfBlockedCommentLog}
+>>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5
 WHERE unixday < FLOOR(UNIX_TIMESTAMP(DATE_SUB(NOW(), interval 1 month)) / 86400)
 SQL
 		);
@@ -426,8 +481,13 @@ SQL
 			$ip_bin = $ip_address;
 			$ip_address = wfUtils::inet_ntop($ip_bin);
 		}
+<<<<<<< HEAD
 
 		$blocked_table = "{$wpdb->base_prefix}wfBlockedIPLog";
+=======
+		
+		$blocked_table = wfDB::networkTable('wfBlockedIPLog');
+>>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5
 
 		$unixday_insert = 'FLOOR(UNIX_TIMESTAMP() / 86400)';
 		if (is_int($unixday)) {
@@ -465,8 +525,13 @@ SQL
 			$ip_bin = $ip_address;
 			$ip_address = wfUtils::inet_ntop($ip_bin);
 		}
+<<<<<<< HEAD
 		
 		$blocked_table = "{$wpdb->base_prefix}wfBlockedCommentLog";
+=======
+	  
+	 	$blocked_table = wfDB::networkTable('wfBlockedCommentLog');
+>>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5
 		
 		$unixday_insert = 'FLOOR(UNIX_TIMESTAMP() / 86400)';
 		if (is_int($unixday)) {
@@ -580,9 +645,16 @@ class wfRecentFirewallActivity {
 	public function run() {
 		global $wpdb;
 		
+<<<<<<< HEAD
 		$results = $wpdb->get_results($wpdb->prepare(<<<SQL
 SELECT attackLogTime, IP, URL, UA, actionDescription, actionData
 FROM {$wpdb->prefix}wfHits
+=======
+		$table_wfHits = wfDB::networkTable('wfHits');
+		$results = $wpdb->get_results($wpdb->prepare(<<<SQL
+SELECT attackLogTime, IP, URL, UA, actionDescription, actionData
+FROM {$table_wfHits}
+>>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5
 WHERE action = 'blocked:waf' AND attackLogTime > (UNIX_TIMESTAMP() - %d)
 ORDER BY attackLogTime DESC
 LIMIT %d

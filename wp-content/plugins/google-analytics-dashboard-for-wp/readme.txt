@@ -1,10 +1,14 @@
 === Google Analytics Dashboard for WP (GADWP) ===
 Contributors: deconf
 Donate link: https://deconf.com/donate/
-Tags: analytics,google analytics,google analytics dashboard,google analytics plugin,google analytics widget
+Tags: analytics,google analytics,google analytics dashboard,google analytics plugin,google analytics widget,gtag
 Requires at least: 3.5
 Tested up to: 4.9.4
+<<<<<<< HEAD
 Stable tag: 5.3.1.1
+=======
+Stable tag: 5.3.2
+>>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5
 Requires PHP: 5.2.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -172,6 +176,7 @@ Google Analytics Dashboard for WP it's released under the GPLv2, you can use it 
 == Changelog ==
 
 [GADWP v5.3 release notes](https://deconf.com/adding-gtag-js-to-your-site/)
+<<<<<<< HEAD
 
 = 5.3.1.1 =
 * Bug Fixes:	
@@ -181,6 +186,25 @@ Google Analytics Dashboard for WP it's released under the GPLv2, you can use it 
 * Bug Fixes:	
 	* frontend_item_reports PHP notice when upgrading from a version lower than v4.8.0.1   
 
+=======
+
+= 5.3.2 =
+* Bug Fixes:	
+	* fixes for user opt-out feature 
+* Enhancements: 
+	* use <em>gadwp_useroptout</em> shortcode to easily generate opt-out buttons and links, [more details](https://deconf.com/google-analytics-gdpr-and-user-data-privacy-compliance)
+	* adding <em>gadwp_gtag_commands</em> and <em>gadwp_gtag_script_path</em> hooks to allow further gtag (Global Site Tag) code customization
+	* adds opt-out and DNT support for Google Tag Manager	
+	
+= 5.3.1.1 =
+* Bug Fixes:	
+	* avoid tracking issues by not clearing the profiles list on automatic token resets
+
+= 5.3.1 =
+* Bug Fixes:	
+	* frontend_item_reports PHP notice when upgrading from a version lower than v4.8.0.1   
+
+>>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5
 = 5.3 =
 * Enhancements: 
 	* adds full support for Global Site Tag (gtag.js)

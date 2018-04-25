@@ -47,7 +47,11 @@ class WPSEO_Option_Titles extends WPSEO_Option {
 		'disable-attachment'           => true,
 
 		'breadcrumbs-404crumb'         => '', // Text field.
+<<<<<<< HEAD
 		'breadcrumbs-blog-remove'      => false,
+=======
+		'breadcrumbs-display-blog-page' => true,
+>>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5
 		'breadcrumbs-boldlast'         => false,
 		'breadcrumbs-archiveprefix'    => '', // Text field.
 		'breadcrumbs-enable'           => false,
@@ -528,7 +532,11 @@ class WPSEO_Option_Titles extends WPSEO_Option {
 				 *  'display-metabox-pt-'. $pt->name
 				 *  'display-metabox-tax-'
 				 *  'display-metabox-tax-' . $tax->name
+<<<<<<< HEAD
 				 *  'breadcrumbs-blog-remove'
+=======
+				 *  'breadcrumbs-display-blog-page'
+>>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5
 				 *  'breadcrumbs-boldlast'
 				 *  'breadcrumbs-enable'
 				 *  'stripcategorybase'

@@ -1068,7 +1068,11 @@ class wfUtils {
 	public static function clearScanLock(){
 		global $wpdb;
 		$wfdb = new wfDB();
+<<<<<<< HEAD
 		$wfdb->truncate($wpdb->base_prefix . 'wfHoover');
+=======
+		$wfdb->truncate(wfDB::networkTable('wfHoover'));
+>>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5
 
 		wfConfig::set('wf_scanRunning', '');
 		wfIssues::updateScanStillRunning(false);
@@ -1086,8 +1090,12 @@ class wfUtils {
 		$IPs = array_unique($IPs);
 		$toResolve = array();
 		$db = new wfDB();
+<<<<<<< HEAD
 		global $wpdb;
 		$locsTable = $wpdb->base_prefix . 'wfLocs';
+=======
+		$locsTable = wfDB::networkTable('wfLocs');
+>>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5
 		$IPLocs = array();
 		foreach($IPs as $IP){
 			$isBinaryIP = !self::isValidIP($IP);
@@ -1169,8 +1177,12 @@ class wfUtils {
 		}
 		
 		$db = new wfDB();
+<<<<<<< HEAD
 		global $wpdb;
 		$reverseTable = $wpdb->base_prefix . 'wfReverseCache';
+=======
+		$reverseTable = wfDB::networkTable('wfReverseCache');
+>>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5
 		$IPn = wfUtils::inet_pton($IP);
 		$host = $db->querySingle("select host from " . $reverseTable . " where IP=%s and unix_timestamp() - lastUpdate < %d", $IPn, WORDFENCE_REVERSE_LOOKUP_CACHE_TIME);
 		if (!$host) {

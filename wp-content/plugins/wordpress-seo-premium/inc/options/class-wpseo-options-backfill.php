@@ -93,7 +93,11 @@ class WPSEO_Options_Backfill implements WPSEO_WordPress_Integration {
 			'wpseo_internallinks' =>
 				array(
 					'breadcrumbs-404crumb'      => 'breadcrumbs-404crumb',
+<<<<<<< HEAD
 					'breadcrumbs-blog-remove'   => 'breadcrumbs-blog-remove',
+=======
+					'breadcrumbs-blog-remove'   => 'breadcrumbs-display-blog-page',
+>>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5
 					'breadcrumbs-boldlast'      => 'breadcrumbs-boldlast',
 					'breadcrumbs-archiveprefix' => 'breadcrumbs-archiveprefix',
 					'breadcrumbs-enable'        => 'breadcrumbs-enable',
@@ -166,6 +170,22 @@ class WPSEO_Options_Backfill implements WPSEO_WordPress_Integration {
 	 * @return array Extended data.
 	 */
 	public function extend_wpseo_titles( $data ) {
+<<<<<<< HEAD
+=======
+		// Make sure we don't get stuck in an infinite loop.
+		static $running = false;
+
+		// If we are already running, don't run again.
+		if ( $running ) {
+			return $data;
+		}
+		$running = true;
+
+		$data['breadcrumbs-blog-remove'] = ! WPSEO_Options::get( 'breadcrumbs-display-blog-page' );
+
+		$running = false;
+
+>>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5
 		$data = $this->add_hideeditbox( $data );
 
 		return $data;

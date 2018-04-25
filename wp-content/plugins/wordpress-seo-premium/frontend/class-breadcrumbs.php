@@ -486,7 +486,11 @@ class WPSEO_Breadcrumbs {
 	 */
 	private function maybe_add_blog_crumb() {
 		if ( ( 'page' === $this->show_on_front && 'post' === get_post_type() ) && ( ! is_home() && ! is_search() ) ) {
+<<<<<<< HEAD
 			if ( $this->page_for_posts && WPSEO_Options::get( 'breadcrumbs-blog-remove' ) === false ) {
+=======
+			if ( $this->page_for_posts && WPSEO_Options::get( 'breadcrumbs-display-blog-page' ) === true ) {
+>>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5
 				$this->add_blog_crumb();
 			}
 		}

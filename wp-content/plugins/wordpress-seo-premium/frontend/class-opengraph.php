@@ -24,7 +24,6 @@ class WPSEO_OpenGraph {
 			add_action( 'wpseo_opengraph', array( $this, 'locale' ), 1 );
 			add_action( 'wpseo_opengraph', array( $this, 'type' ), 5 );
 			add_action( 'wpseo_opengraph', array( $this, 'og_title' ), 10 );
-			add_action( 'wpseo_opengraph', array( $this, 'site_owner' ), 20 );
 			add_action( 'wpseo_opengraph', array( $this, 'description' ), 11 );
 			add_action( 'wpseo_opengraph', array( $this, 'url' ), 12 );
 			add_action( 'wpseo_opengraph', array( $this, 'site_name' ), 13 );
@@ -116,9 +115,12 @@ class WPSEO_OpenGraph {
 		$namespaces = array(
 			'og: http://ogp.me/ns#',
 		);
+<<<<<<< HEAD
 		if ( WPSEO_Options::get( 'fbadminapp' ) != 0 || ( is_array( WPSEO_Options::get( 'fb_admins' ) ) && WPSEO_Options::get( 'fb_admins' ) !== array() ) ) {
 			$namespaces[] = 'fb: http://ogp.me/ns/fb#';
 		}
+=======
+>>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5
 
 		/**
 		 * Allow for adding additional namespaces to the <html> prefix attributes.
@@ -193,6 +195,7 @@ class WPSEO_OpenGraph {
 	}
 
 	/**
+<<<<<<< HEAD
 	 * Outputs the site owner.
 	 *
 	 * @link https://developers.facebook.com/docs/reference/opengraph/object-type/article/
@@ -228,6 +231,8 @@ class WPSEO_OpenGraph {
 	}
 
 	/**
+=======
+>>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5
 	 * Outputs the SEO title as OpenGraph title.
 	 *
 	 * @link https://developers.facebook.com/docs/reference/opengraph/object-type/article/
@@ -783,4 +788,21 @@ class WPSEO_OpenGraph {
 
 		return true;
 	}
+
+	/**
+	 * Outputs the site owner.
+	 *
+	 * @link https://developers.facebook.com/docs/reference/opengraph/object-type/article/
+	 * @return void
+	 *
+	 * @deprecated 7.1
+	 * @codeCoverageIgnore
+	 */
+	public function site_owner() {
+		// As this is a frontend method, we want to make sure it is not displayed for non-logged in users.
+		if ( function_exists( 'wp_get_current_user' ) && current_user_can( 'manage_options' ) ) {
+			_deprecated_function( 'WPSEO_OpenGraph::site_owner', '7.1', null );
+		}
+	}
+
 } /* End of class */

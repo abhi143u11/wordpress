@@ -330,6 +330,10 @@ class wordfenceScanner {
 									'file' => $file,
 									'shac' => $record->SHAC,
 									'highSense' => $options['scansEnabled_highSense'],
+<<<<<<< HEAD
+=======
+									'betaSigs' => wfConfig::get('betaThreatDefenseFeed'),
+>>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5
 								), $dataForFile),
 							));
 							break;
@@ -390,6 +394,10 @@ class wordfenceScanner {
 												'file' => $file,
 												'shac' => $record->SHAC,
 												'highSense' => $options['scansEnabled_highSense'],
+<<<<<<< HEAD
+=======
+												'betaSigs' => wfConfig::get('betaThreatDefenseFeed'),
+>>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5
 											), $dataForFile),
 										));
 									}
@@ -430,6 +438,10 @@ class wordfenceScanner {
 										'file' => $file,
 										'shac' => $record->SHAC,
 										'highSense' => $options['scansEnabled_highSense'],
+<<<<<<< HEAD
+=======
+										'betaSigs' => wfConfig::get('betaThreatDefenseFeed'),
+>>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5
 									), $dataForFile),
 								));
 								break;
@@ -494,6 +506,10 @@ class wordfenceScanner {
 								'badURL' => $result['URL'],
 								'gsb' => 'goog-malware-shavar',
 								'highSense' => $options['scansEnabled_highSense'],
+<<<<<<< HEAD
+=======
+								'betaSigs' => wfConfig::get('betaThreatDefenseFeed'),
+>>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5
 							), $dataForFile),
 						));
 					}
@@ -511,6 +527,10 @@ class wordfenceScanner {
 								'badURL' => $result['URL'],
 								'gsb' => 'googpub-phish-shavar',
 								'highSense' => $options['scansEnabled_highSense'],
+<<<<<<< HEAD
+=======
+								'betaSigs' => wfConfig::get('betaThreatDefenseFeed'),
+>>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5
 							), $dataForFile),
 						));
 					}
@@ -528,6 +548,10 @@ class wordfenceScanner {
 								'badURL' => $result['URL'],
 								'gsb' => 'wordfence-dbl',
 								'highSense' => $options['scansEnabled_highSense'],
+<<<<<<< HEAD
+=======
+								'betaSigs' => wfConfig::get('betaThreatDefenseFeed'),
+>>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5
 							), $dataForFile),
 						));
 					}

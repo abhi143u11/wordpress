@@ -1,6 +1,10 @@
 
 # Changelog
 
+## 2.0.3
+
+	- Added support for enforcing minimum requirements for GP_Plugin/GP_Feed_Plugin-based perks.
+
 ## 2.0.2
 
     - Fixed issue where incorrect response for announcements would cause PHP notices

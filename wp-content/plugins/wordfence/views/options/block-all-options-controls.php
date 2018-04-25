@@ -78,7 +78,11 @@ if (isset($backLabel) && !isset($backLabelHTML)) {
 					}
 				});
 
+<<<<<<< HEAD
 				$('.wf-options-searcher').select2({
+=======
+				$('.wf-options-searcher').wfselect2({
+>>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5
 					tags: true,
 					tokenSeparators: [','],
 					placeholder: "Search All Options",
@@ -132,7 +136,11 @@ if (isset($backLabel) && !isset($backLabelHTML)) {
 				});
 
 				if ($('.wf-options-searcher').length > 0) {
+<<<<<<< HEAD
 					$('.wf-options-searcher').data('select2').$container.addClass('wf-select2-placeholder-fix wf-select2-hide-tags');
+=======
+					$('.wf-options-searcher').data('wfselect2').$container.addClass('wf-select2-placeholder-fix wf-select2-hide-tags');
+>>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5
 				}
 			});
 		})(jQuery);

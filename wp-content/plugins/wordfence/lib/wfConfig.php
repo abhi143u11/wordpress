@@ -764,8 +764,12 @@ SQL
 	}
 	private static function table(){
 		if(! self::$table){
+<<<<<<< HEAD
 			global $wpdb;
 			self::$table = $wpdb->base_prefix . 'wfConfig';
+=======
+			self::$table = wfDB::networkTable('wfConfig');
+>>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5
 		}
 		return self::$table;
 	}

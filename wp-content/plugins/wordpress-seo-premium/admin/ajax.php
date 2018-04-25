@@ -283,23 +283,6 @@ function wpseo_upsert_new( $what, $post_id, $new, $original ) {
 }
 
 /**
- * Handles the posting of a new FB admin.
- */
-function wpseo_add_fb_admin() {
-	check_ajax_referer( 'wpseo_fb_admin_nonce' );
-
-	if ( ! current_user_can( 'manage_options' ) ) {
-		die( '-1' );
-	}
-
-	$facebook_social = new Yoast_Social_Facebook();
-
-	wp_die( $facebook_social->add_admin( filter_input( INPUT_POST, 'admin_name' ), filter_input( INPUT_POST, 'admin_id' ) ) );
-}
-
-add_action( 'wp_ajax_wpseo_add_fb_admin', 'wpseo_add_fb_admin' );
-
-/**
  * Retrieves the keyword for the keyword doubles.
  */
 function ajax_get_keyword_usage() {
@@ -365,6 +348,7 @@ new Yoast_Dismissable_Notice_Ajax( 'recalculate', Yoast_Dismissable_Notice_Ajax:
 /********************** DEPRECATED METHODS **********************/
 
 
+<<<<<<< HEAD
 /**
  * Removes stopword from the sample permalink that is generated in an AJAX request
  *
@@ -383,8 +367,42 @@ function wpseo_remove_stopwords_sample_permalink() {
  * @deprecated 7.0
  * @codeCoverageIgnore
  */
+=======
+/**
+ * Removes stopword from the sample permalink that is generated in an AJAX request
+ *
+ * @deprecated 6.3
+ * @codeCoverageIgnore
+ */
+function wpseo_remove_stopwords_sample_permalink() {
+	_deprecated_function( __FUNCTION__, 'WPSEO 6.3', 'This method is deprecated.' );
+
+	wpseo_ajax_json_echo_die( '' );
+}
+
+/**
+ * Function used to delete blocking files, dies on exit.
+ *
+ * @deprecated 7.0
+ * @codeCoverageIgnore
+ */
+>>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5
 function wpseo_kill_blocking_files() {
 	_deprecated_function( __FUNCTION__, 'WPSEO 7.0', 'This method is deprecated.' );
 
+	wpseo_ajax_json_echo_die( '' );
+}
+
+/**
+ * Handles the posting of a new FB admin.
+ *
+ * @deprecated 7.1
+ * @codeCoverageIgnore
+ */
+function wpseo_add_fb_admin() {
+	if ( ! current_user_can( 'manage_options' ) ) {
+		die( '-1' );
+	}
+	_deprecated_function( __FUNCTION__, 'WPSEO 7.0', 'This method is deprecated.' );
 	wpseo_ajax_json_echo_die( '' );
 }

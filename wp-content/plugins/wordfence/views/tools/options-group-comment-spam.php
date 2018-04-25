@@ -77,7 +77,11 @@ HTML
 										'disabledValue' => 0,
 										'value'         => wfConfig::get('advancedCommentScanning') ? 1 : 0,
 										'htmlTitle'     => __(<<<HTML
+<<<<<<< HEAD
 <strong>Advanced Comment Spam Filter</strong><br>In addtion to free comment filtering, this option filters comments against several additional real-time lists of known spammers and infected hosts.  
+=======
+<strong>Advanced Comment Spam Filter</strong><br>In addition to free comment filtering, this option filters comments against several additional real-time lists of known spammers and infected hosts.  
+>>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5
 HTML
 											, 'wordfence'),
 									
