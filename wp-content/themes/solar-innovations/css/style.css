@@ -181,7 +181,8 @@ p{
 	body {
 		/*background:url(../img/dark-grungewall.jpg) repeat;*/
 		/* height:auto; */
-		color:#3d3d3d!important;
+		color:#6c6c6c!important;
+		/* hi */
 	}
 	.site-container {
 		background:#fff;
@@ -2649,7 +2650,9 @@ margin-top:0px!important;
 }
 
 ul, ol, dl {
-    font-family: 'montserratlight','proxima-nova',Helvetica Neue,adriane,Times New Roman,times,palatino,serif !important;
+	/* font-family: 'montserratlight','proxima-nova',Helvetica Neue,adriane,Times New Roman,times,palatino,serif !important; */
+	font-family: 'Open Sans', sans-serif!important;
+	color: #6c6c6c!important;
     line-height: 25px!important;
     list-style-position: outside;
 }
