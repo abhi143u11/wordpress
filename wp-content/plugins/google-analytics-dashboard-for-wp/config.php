@@ -98,8 +98,11 @@ if ( ! class_exists( 'GADWP_Config' ) ) {
 								'backend_realtime_report',
 								'ga_optout',
 								'ga_dnt_optout',
+<<<<<<< HEAD
+=======
 								'tm_optout',
 								'tm_dnt_optout',
+>>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5
 								'ga_with_gtag',
 			);
 			foreach ( $numerics as $key ) {
@@ -297,8 +300,11 @@ if ( ! class_exists( 'GADWP_Config' ) ) {
 								'ga_dnt_optout', //v5.2.3
 								'ga_with_gtag', //v5.3
 								'frontend_item_reports',
+<<<<<<< HEAD
+=======
 								'tm_optout', //v5.3.1.2
 								'tm_dnt_optout', //v5.3.1.2
+>>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5
 			);
 			foreach ( $zeros as $key ) {
 				if ( ! isset( $this->options[$key] ) ) {

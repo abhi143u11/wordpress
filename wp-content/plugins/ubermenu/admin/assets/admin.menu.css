@@ -1398,3 +1398,9 @@ h4.ubermenu-radio-group-title{
 .rtl .ubermenu-radio-blocks .ubermenu-radio-option{
 	float:right;
 }
+
+
+i.fa{
+	font-weight:normal;
+	font-family:FontAwesome;
+}

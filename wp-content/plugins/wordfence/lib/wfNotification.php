@@ -15,8 +15,13 @@ class wfNotification {
 	
 	public static function notifications($since = 0) {
 		global $wpdb;
+<<<<<<< HEAD
+		$prefix = wfDB::networkPrefix();
+		$rawNotifications = $wpdb->get_results($wpdb->prepare("SELECT * FROM {$prefix}wfNotifications WHERE `new` = 1 AND `ctime` > %d ORDER BY `priority` ASC, `ctime` DESC", $since), ARRAY_A); 
+=======
 		$table_wfNotifications = wfDB::networkTable('wfNotifications');
 		$rawNotifications = $wpdb->get_results($wpdb->prepare("SELECT * FROM {$table_wfNotifications} WHERE `new` = 1 AND `ctime` > %d ORDER BY `priority` ASC, `ctime` DESC", $since), ARRAY_A);
+>>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5
 		$notifications = array();
 		foreach ($rawNotifications as $raw) {
 			$notifications[] = new wfNotification($raw['id'], $raw['priority'], $raw['html'], $raw['category'], $raw['ctime'], json_decode($raw['links'], true), true);
@@ -26,8 +31,13 @@ class wfNotification {
 	
 	public static function getNotificationForID($id) {
 		global $wpdb;
+<<<<<<< HEAD
+		$prefix = wfDB::networkPrefix();
+		$rawNotifications = $wpdb->get_results($wpdb->prepare("SELECT * FROM {$prefix}wfNotifications WHERE `id` = %s ORDER BY `priority` ASC, `ctime` DESC", $id), ARRAY_A);
+=======
 		$table_wfNotifications = wfDB::networkTable('wfNotifications');
 		$rawNotifications = $wpdb->get_results($wpdb->prepare("SELECT * FROM {$table_wfNotifications} WHERE `id` = %s ORDER BY `priority` ASC, `ctime` DESC", $id), ARRAY_A);
+>>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5
 		if (count($rawNotifications) == 1) {
 			$raw = $rawNotifications[0];
 			return new wfNotification($raw['id'], $raw['priority'], $raw['html'], $raw['category'], $raw['ctime'], json_decode($raw['links'], true), true);
@@ -37,8 +47,13 @@ class wfNotification {
 	
 	public static function getNotificationForCategory($category, $requireNew = true) {
 		global $wpdb;
+<<<<<<< HEAD
+		$prefix = wfDB::networkPrefix();
+		$rawNotifications = $wpdb->get_results($wpdb->prepare("SELECT * FROM {$prefix}wfNotifications WHERE " . ($requireNew ? '`new` = 1 AND ' : '') . "`category` = %s ORDER BY `priority` ASC, `ctime` DESC LIMIT 1", $category), ARRAY_A);
+=======
 		$table_wfNotifications = wfDB::networkTable('wfNotifications');
 		$rawNotifications = $wpdb->get_results($wpdb->prepare("SELECT * FROM {$table_wfNotifications} WHERE " . ($requireNew ? '`new` = 1 AND ' : '') . "`category` = %s ORDER BY `priority` ASC, `ctime` DESC LIMIT 1", $category), ARRAY_A);
+>>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5
 		if (count($rawNotifications) == 1) {
 			$raw = $rawNotifications[0];
 			return new wfNotification($raw['id'], $raw['priority'], $raw['html'], $raw['category'], $raw['ctime'], json_decode($raw['links'], true), true);
@@ -131,16 +146,27 @@ class wfNotification {
 					break;
 			}
 			
+<<<<<<< HEAD
+			if (!empty($category)) {
+				$existing = self::getNotificationForCategory($category);
+				if ($existing) {
+					$wpdb->query($wpdb->prepare("UPDATE {$wpdb->prefix}wfNotifications SET priority = %d, ctime = %d, html = %s, links = %s WHERE id = %s", $priority, $ctime, $html, $linksJSON, $existing->id));
+=======
 			$table_wfNotifications = wfDB::networkTable('wfNotifications');
 			if (!empty($category)) {
 				$existing = self::getNotificationForCategory($category);
 				if ($existing) {
 					$wpdb->query($wpdb->prepare("UPDATE {$table_wfNotifications} SET priority = %d, ctime = %d, html = %s, links = %s WHERE id = %s", $priority, $ctime, $html, $linksJSON, $existing->id));
+>>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5
 					return;
 				}
 			}
 			
+<<<<<<< HEAD
+			$wpdb->query($wpdb->prepare("INSERT IGNORE INTO {$wpdb->prefix}wfNotifications (id, category, priority, ctime, html, links) VALUES (%s, %s, %d, %d, %s, %s)", $id, $category, $priority, $ctime, $html, $linksJSON));
+=======
 			$wpdb->query($wpdb->prepare("INSERT IGNORE INTO {$table_wfNotifications} (id, category, priority, ctime, html, links) VALUES (%s, %s, %d, %d, %s, %s)", $id, $category, $priority, $ctime, $html, $linksJSON));
+>>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5
 		}
 	}
 	
@@ -156,7 +182,11 @@ class wfNotification {
 	
 	public function markAsRead() {
 		global $wpdb;
+<<<<<<< HEAD
+		$wpdb->query($wpdb->prepare("UPDATE {$wpdb->prefix}wfNotifications SET `new` = 0 WHERE `id` = %s", $this->_id));
+=======
 		$table_wfNotifications = wfDB::networkTable('wfNotifications');
 		$wpdb->query($wpdb->prepare("UPDATE {$table_wfNotifications} SET `new` = 0 WHERE `id` = %s", $this->_id));
+>>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5
 	}
 }

@@ -11,51 +11,79 @@
 class WPSEO_Redirect_Handler {
 
 	/**
+<<<<<<< HEAD
+	 * @var array Array where there redirects will stored.
+=======
 	 * Array where the redirects will stored.
 	 *
 	 * @var array
+>>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5
 	 */
 	protected $redirects;
 
 	/**
+<<<<<<< HEAD
+	 * @var array The matches parts of the URL in case of a matched regex redirect.
+=======
 	 * The matches parts of the URL in case of a matched regex redirect.
 	 *
 	 * @var array
+>>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5
 	 */
 	protected $url_matches = array();
 
 	/**
+<<<<<<< HEAD
+	 * @var bool Is the current page being redirected.
+=======
 	 * Is the current page being redirected.
 	 *
 	 * @var bool
+>>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5
 	 */
 	protected $is_redirected = false;
 
 	/**
+<<<<<<< HEAD
+	 * @var string The options where the URL redirects are stored.
+=======
 	 * The options where the URL redirects are stored.
 	 *
 	 * @var string
+>>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5
 	 */
 	private $normal_option_name = 'wpseo-premium-redirects-export-plain';
 
 	/**
+<<<<<<< HEAD
+	 * @var string The option name where the regex redirects are stored.
+=======
 	 * The option name where the regex redirects are stored.
 	 *
 	 * @var string
+>>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5
 	 */
 	private $regex_option_name = 'wpseo-premium-redirects-export-regex';
 
 	/**
+<<<<<<< HEAD
+	 * @var string The URL that is called at the moment.
+=======
 	 * The URL that is called at the moment.
 	 *
 	 * @var string
+>>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5
 	 */
 	private $request_url = '';
 
 	/**
+<<<<<<< HEAD
+	 * @var string Sets the error template to include.
+=======
 	 * Sets the error template to include.
 	 *
 	 * @var string
+>>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5
 	 */
 	protected $template_file_path;
 
@@ -255,9 +283,15 @@ class WPSEO_Redirect_Handler {
 
 			return;
 		}
+<<<<<<< HEAD
 
 		$this->add_redirect_by_header();
 
+=======
+
+		$this->add_redirect_by_header();
+
+>>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5
 		$this->redirect( $this->parse_target_url( $redirect_url ), $redirect_type );
 	}
 

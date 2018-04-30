@@ -223,10 +223,17 @@ echo wfView::create('tools/options-group-live-traffic', array(
 													<!-- ko if: $root.groupBy().param() == 'ip' -->
 													<div class="wf-add-top-small">
 														<span data-bind="if: blocked()">
+<<<<<<< HEAD
+															<a href="#" class="wf-btn wf-btn-default wf-btn-sm" data-bind="click: unblockIP">Unblock IP</a>
+														</span>
+														<span data-bind="if: rangeBlocked()">
+															<a href="#" class="wf-btn wf-btn-default wf-btn-sm" data-bind="click: unblockNetwork">Unblock range</a>
+=======
 															<a class="wf-btn wf-btn-default wf-btn-sm" data-bind="click: unblockIP">Unblock IP</a>
 														</span>
 														<span data-bind="if: rangeBlocked()">
 															<a class="wf-btn wf-btn-default wf-btn-sm" data-bind="click: unblockNetwork">Unblock range</a>
+>>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5
 														</span>
 														<span data-bind="if: !blocked() && !rangeBlocked()">
 															<a class="wf-btn wf-btn-default wf-btn-sm" data-bind="click: blockIP">Block IP</a>
@@ -382,13 +389,21 @@ echo wfView::create('tools/options-group-live-traffic', array(
 																	<span data-bind="text: IP" style="display:none;"></span>
 																</span>
 																<span data-bind="if: blocked()">
+<<<<<<< HEAD
+																	<a href="#" class="wf-btn wf-btn-default wf-btn-sm wf-block-ip-btn"
+=======
 																	<a class="wf-btn wf-btn-default wf-btn-sm wf-block-ip-btn"
+>>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5
 																			data-bind="click: unblockIP">
 																		Unblock IP
 																	</a>
 																</span>
 																<span data-bind="if: rangeBlocked()">
+<<<<<<< HEAD
+																	<a href="#" class="wf-btn wf-btn-default wf-btn-sm wf-block-ip-btn"
+=======
 																	<a class="wf-btn wf-btn-default wf-btn-sm wf-block-ip-btn"
+>>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5
 																			data-bind="click: unblockNetwork">Unblock range
 																	</a>
 																</span>
@@ -412,36 +427,61 @@ echo wfView::create('tools/options-group-live-traffic', array(
 															<div class="wf-split-word" data-bind="text: UA"></div> 
 															<div class="wf-live-traffic-actions">
 																<span data-bind="if: blocked()">
+<<<<<<< HEAD
+																	<a href="#" class="wf-btn wf-btn-default wf-btn-sm"
+=======
 																	<a class="wf-btn wf-btn-default wf-btn-sm"
+>>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5
 																			data-bind="click: unblockIP">
 																		Unblock IP
 																	</a>
 																</span>
 																<span data-bind="if: rangeBlocked()">
+<<<<<<< HEAD
+																	<a href="#" class="wf-btn wf-btn-default wf-btn-sm"
+=======
 																	<a class="wf-btn wf-btn-default wf-btn-sm"
+>>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5
 																			data-bind="click: unblockNetwork">Unblock range
 																	</a>
 																</span>
 																<span data-bind="if: !blocked() && !rangeBlocked()">
+<<<<<<< HEAD
+																	<a href="#" class="wf-btn wf-btn-default wf-btn-sm"
+=======
 																	<a class="wf-btn wf-btn-default wf-btn-sm"
+>>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5
 																			data-bind="click: blockIP">
 																		Block IP
 																	</a>
 																</span>
+<<<<<<< HEAD
+																<a class="wf-btn wf-btn-default wf-btn-sm" data-bind="click: showWhoisOverlay,
+																attr: { href: 'admin.php?page=WordfenceTools&whoisval=' + IP() + '#top#whois' }"
+=======
 																<a class="wf-btn wf-btn-default wf-btn-sm" data-bind="click: showWhoisOverlay"
+>>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5
 																		target="_blank" rel="noopener noreferrer">Run Whois</a>
 																<a class="wf-btn wf-btn-default wf-btn-sm"
 																		data-bind="click: showRecentTraffic" target="_blank" rel="noopener noreferrer">
 																	<span class="wf-hidden-xs"><?php _e('See recent traffic', 'wordfence'); ?></span><span class="wf-visible-xs"><?php _e('Recent', 'wordfence'); ?></span>
 																</a>
 																<span data-bind="if: action() == 'blocked:waf'">
+<<<<<<< HEAD
+																	<a href="#" class="wf-btn wf-btn-default wf-btn-sm"
+=======
 																	<a class="wf-btn wf-btn-default wf-btn-sm"
+>>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5
 																			data-bind="click: function () { $root.whitelistWAFParamKey(actionData().path, actionData().paramKey, actionData().failedRules) }"
 																			title="If this is a false positive, you can exclude this parameter from being filtered by the firewall">
 																		Whitelist param from Firewall
 																	</a>
 																	<?php if (WFWAF_DEBUG): ?>
+<<<<<<< HEAD
+																		<a href="#" class="wf-btn wf-btn-default wf-btn-sm"
+=======
 																		<a class="wf-btn wf-btn-default wf-btn-sm"
+>>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5
 																				data-bind="attr: { href: '<?php echo esc_js(home_url()) ?>?_wfsf=debugWAF&nonce=' + WFAD.nonce + '&hitid=' + id() }" target="_blank" rel="noopener noreferrer">
 																			Debug this Request
 																		</a>

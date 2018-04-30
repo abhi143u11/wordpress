@@ -1,6 +1,7 @@
 module.exports = function(grunt) {
 
   require('google-closure-compiler').grunt(grunt);
+  require('load-grunt-tasks')(grunt);
 
   var less_skins = grunt.file.expand({filter: "isFile", cwd: "pro/assets/css/skins"}, ["*.less"]);
   less_skins.map( function( s ) {
@@ -19,7 +20,7 @@ module.exports = function(grunt) {
           "/*\n"+
            " * UberMenu 3 \n" +
            " * http://wpmegamenu.com \n" +
-           " * Copyright 2011-2017 Chris Mavricos, SevenSpark \n" +
+           " * Copyright 2011-2018 Chris Mavricos, SevenSpark \n" +
            " */"
       },
       minify: {
@@ -139,6 +140,14 @@ module.exports = function(grunt) {
           }
         }
       }
+    },
+
+    devUpdate: {
+        main: {
+            options: {
+                //task options go here
+            }
+        }
     }
 
   };
@@ -195,6 +204,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-cssmin');
   //grunt.loadNpmTasks('grunt-closure-compiler');
   grunt.loadNpmTasks('grunt-wp-i18n');
+  grunt.loadNpmTasks('grunt-dev-update');
 
 
   // Default task(s).
@@ -208,5 +218,7 @@ module.exports = function(grunt) {
   grunt.registerTask('compile', ['closure-compiler']);
 
   grunt.registerTask('pot', ['makepot']);
+
+  grunt.registerTask('devupdate', ['devUpdate']);
 
 };

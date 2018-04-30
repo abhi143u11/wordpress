@@ -1211,15 +1211,16 @@ class GP_Perk {
     }
 
     public static function register_noconflict_script( $script_name ) {
-        add_filter( 'gform_noconflict_scripts', create_function( '$scripts', '$scripts[] = "' . $script_name . '"; return $scripts;' ) );
+        add_filter( 'gform_noconflict_scripts', array( new GP_Late_Static_Binding( array( 'value' => $script_name ) ), 'Perk_array_push' ) );
+
     }
 
     public static function register_noconflict_styles( $style_name ) {
-        add_filter( 'gform_noconflict_styles', create_function( '$styles', '$styles[] = "' . $style_name . '"; return $styles;' ) );
+        add_filter( 'gform_noconflict_styles', array( new GP_Late_Static_Binding( array( 'value' => $style_name ) ), 'Perk_array_push' ) );
     }
 
     public static function register_preview_style( $style_name ) {
-        add_filter( 'gform_preview_styles', create_function( '$styles', '$styles[] = "' . $style_name . '"; return $styles;' ) );
+        add_filter( 'gform_preview_styles', array( new GP_Late_Static_Binding( array( 'value' => $style_name ) ), 'Perk_array_push' ) );
     }
 
 }

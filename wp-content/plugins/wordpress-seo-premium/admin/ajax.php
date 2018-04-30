@@ -1,5 +1,7 @@
 <?php
 /**
+ * WPSEO plugin file.
+ *
  * @package WPSEO\Admin
  */
 
@@ -178,7 +180,7 @@ function wpseo_upsert_meta( $post_id, $new_meta_value, $orig_meta_value, $meta_k
 		$upsert_results['status']  = 'failure';
 		$upsert_results['results'] = sprintf(
 			/* translators: %s expands to post type. */
-			__( 'Post has an invalid Post Type: %s.', 'wordpress-seo' ),
+			__( 'Post has an invalid Content Type: %s.', 'wordpress-seo' ),
 			$the_post->post_type
 		);
 
@@ -348,6 +350,7 @@ new Yoast_Dismissable_Notice_Ajax( 'recalculate', Yoast_Dismissable_Notice_Ajax:
 /********************** DEPRECATED METHODS **********************/
 
 
+<<<<<<< HEAD
 /**
  * Removes stopword from the sample permalink that is generated in an AJAX request
  *
@@ -366,6 +369,26 @@ function wpseo_remove_stopwords_sample_permalink() {
  * @deprecated 7.0
  * @codeCoverageIgnore
  */
+=======
+/**
+ * Removes stopword from the sample permalink that is generated in an AJAX request
+ *
+ * @deprecated 6.3
+ * @codeCoverageIgnore
+ */
+function wpseo_remove_stopwords_sample_permalink() {
+	_deprecated_function( __FUNCTION__, 'WPSEO 6.3', 'This method is deprecated.' );
+
+	wpseo_ajax_json_echo_die( '' );
+}
+
+/**
+ * Function used to delete blocking files, dies on exit.
+ *
+ * @deprecated 7.0
+ * @codeCoverageIgnore
+ */
+>>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5
 function wpseo_kill_blocking_files() {
 	_deprecated_function( __FUNCTION__, 'WPSEO 7.0', 'This method is deprecated.' );
 

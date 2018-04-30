@@ -50,13 +50,21 @@ if (!isset($collapseable)) {
 								<script type="application/javascript">
 									(function($) {
 										$(function() {
+<<<<<<< HEAD
+											$('#input-wafStatus').select2({
+=======
 											$('#input-wafStatus').wfselect2({
+>>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5
 												minimumResultsForSearch: -1,
 												width: '200px'
 											}).on('change', function() {
 												var select = $(this);
 												var value = select.val();
+<<<<<<< HEAD
+												var container = $($(this).data('select2').$container);
+=======
 												var container = $($(this).data('wfselect2').$container);
+>>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5
 												container.removeClass('wafStatus-enabled wafStatus-learning-mode wafStatus-disabled')
 													.addClass('wafStatus-' + value);
 
@@ -194,7 +202,6 @@ if (!isset($collapseable)) {
 										}
 
 										$('#wf-waf-install-continue, #wf-waf-uninstall-continue').toggleClass('wf-disabled', matchCount != backupsAvailable.length);
-										$('#wf-waf-install-continue, #wf-waf-uninstall-continue').text($('.wf-manual-waf-config').is(':visible') ? 'Close' : 'Continue');
 									};
 
 									var installUninstallResponseHandler = function(action, res) {
@@ -298,7 +305,11 @@ if (!isset($collapseable)) {
 												}
 											});
 
+<<<<<<< HEAD
+											$('#wf-waf-server-config').select2({
+=======
 											$('#wf-waf-server-config').wfselect2({
+>>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5
 												minimumResultsForSearch: -1,
 												width: WFAD.isSmallScreen ? '300px' : '500px'
 											});
@@ -323,24 +334,26 @@ if (!isset($collapseable)) {
 												var el = $(this);
 												if (manualNotice.length) {
 													if (el.val() == 'manual') {
-														$('.wf-waf-automatic-only').hide();
 														manualNotice.fadeIn(400, function () {
 															$.wfcolorbox.resize();
 														});
 													}
 													else {
-														$('.wf-waf-automatic-only').show();
 														manualNotice.fadeOut(400, function () {
 															$.wfcolorbox.resize();
 														});
 													}
 												}
-												else {
-													$('.wf-waf-automatic-only').show();
-												}
 												
+												var identifier = '.wf-waf-backups-' + el.val().replace(/[^a-z0-9\-]/i, '');
 												$('.wf-waf-backups').hide();
-												$('.wf-waf-backups-' + el.val().replace(/[^a-z0-9\-]/i, '')).show();
+												$(identifier).show();
+												if ($(identifier).find('.wf-waf-backup-file-list').children().length > 0) {
+													$('.wf-waf-download-instructions').show();
+												}
+												else {
+													$('.wf-waf-download-instructions').hide();
+												}
 
 												if (nginxNotice.length) { //Install only
 													if (el.val() == 'nginx') {
@@ -365,11 +378,6 @@ if (!isset($collapseable)) {
 											$('#wf-waf-install-continue').on('click', function(e) {
 												e.preventDefault();
 												e.stopPropagation();
-
-												if ($('.wf-manual-waf-config').is(':visible')) {
-													WFAD.colorboxClose();
-													return;
-												}
 
 												var serverConfiguration = $('#wf-waf-server-config').val();
 												var currentAutoPrepend = $('#wf-waf-include-prepend .wf-active').data('optionValue');
@@ -416,7 +424,7 @@ if (!isset($collapseable)) {
 									});
 
 									if (window.location.hash) {
-										var hashes = window.location.hash.split('#');
+										var hashes = WFAD.parseHashes();
 										for (var i = 0; i < hashes.length; i++) {
 											if (hashes[i] == 'configureAutoPrepend') {
 												$('#wf-waf-install').trigger('click');
@@ -430,7 +438,7 @@ if (!isset($collapseable)) {
 									}
 
 									$(window).on('hashchange', function () {
-										var hashes = window.location.hash.split('#');
+										var hashes = WFAD.parseHashes();
 										for (var i = 0; i < hashes.length; i++) {
 											if (hashes[i] == 'configureAutoPrepend') {
 												$('#wf-waf-install').trigger('click');

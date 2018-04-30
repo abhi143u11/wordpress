@@ -1,5 +1,7 @@
 <?php
 /**
+ * WPSEO plugin file.
+ *
  * @package WPSEO\Frontend
  */
 
@@ -24,6 +26,7 @@ class WPSEO_OpenGraph {
 			add_action( 'wpseo_opengraph', array( $this, 'locale' ), 1 );
 			add_action( 'wpseo_opengraph', array( $this, 'type' ), 5 );
 			add_action( 'wpseo_opengraph', array( $this, 'og_title' ), 10 );
+			add_action( 'wpseo_opengraph', array( $this, 'app_id' ), 20 );
 			add_action( 'wpseo_opengraph', array( $this, 'description' ), 11 );
 			add_action( 'wpseo_opengraph', array( $this, 'url' ), 12 );
 			add_action( 'wpseo_opengraph', array( $this, 'site_name' ), 13 );
@@ -115,6 +118,12 @@ class WPSEO_OpenGraph {
 		$namespaces = array(
 			'og: http://ogp.me/ns#',
 		);
+<<<<<<< HEAD
+		if ( WPSEO_Options::get( 'fbadminapp' ) != 0 || ( is_array( WPSEO_Options::get( 'fb_admins' ) ) && WPSEO_Options::get( 'fb_admins' ) !== array() ) ) {
+			$namespaces[] = 'fb: http://ogp.me/ns/fb#';
+		}
+=======
+>>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5
 
 		/**
 		 * Allow for adding additional namespaces to the <html> prefix attributes.
@@ -189,6 +198,44 @@ class WPSEO_OpenGraph {
 	}
 
 	/**
+<<<<<<< HEAD
+	 * Outputs the site owner.
+	 *
+	 * @link https://developers.facebook.com/docs/reference/opengraph/object-type/article/
+	 * @return boolean
+	 */
+	public function site_owner() {
+		if ( WPSEO_Options::get( 'fbadminapp' ) != 0 ) {
+			$this->og_tag( 'fb:app_id', WPSEO_Options::get( 'fbadminapp' ) );
+
+			return true;
+		}
+		elseif ( is_array( WPSEO_Options::get( 'fb_admins' ) ) && WPSEO_Options::get( 'fb_admins' ) !== array() ) {
+			$adminstr = implode( ',', array_keys( WPSEO_Options::get( 'fb_admins' ) ) );
+			/**
+			 * Filter: 'wpseo_opengraph_admin' - Allow developer to filter the fb:admins string put out by Yoast SEO.
+			 *
+			 * @api string $adminstr The admin string
+			 */
+			$adminstr = apply_filters( 'wpseo_opengraph_admin', $adminstr );
+			if ( is_string( $adminstr ) && $adminstr !== '' ) {
+
+				$admins = explode( ',', $adminstr );
+
+				foreach ( $admins as $admin_id ) {
+					$this->og_tag( 'fb:admins', $admin_id );
+				}
+
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	/**
+=======
+>>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5
 	 * Outputs the SEO title as OpenGraph title.
 	 *
 	 * @link https://developers.facebook.com/docs/reference/opengraph/object-type/article/
@@ -744,6 +791,21 @@ class WPSEO_OpenGraph {
 
 		return true;
 	}
+
+	/**
+	 * Outputs the Facebook app_id.
+	 *
+	 * @link https://developers.facebook.com/docs/reference/opengraph/object-type/article/
+	 *
+	 * @return void
+	 */
+	public function app_id() {
+		$app_id = WPSEO_Options::get( 'fbadminapp', '' );
+		if ( $app_id !== '' ) {
+			$this->og_tag( 'fb:app_id', $app_id );
+		}
+	}
+
 
 	/**
 	 * Outputs the site owner.

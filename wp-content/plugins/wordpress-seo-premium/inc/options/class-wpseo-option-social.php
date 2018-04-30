@@ -1,5 +1,7 @@
 <?php
 /**
+ * WPSEO plugin file.
+ *
  * @package WPSEO\Internals\Options
  */
 
@@ -37,6 +39,7 @@ class WPSEO_Option_Social extends WPSEO_Option {
 		'youtube_url'        => '',
 		'google_plus_url'    => '',
 		// Form field, but not always available.
+		'fbadminapp'         => '', // Facebook app ID.
 	);
 
 	/**
@@ -45,6 +48,7 @@ class WPSEO_Option_Social extends WPSEO_Option {
 	public $ms_exclude = array(
 		/* Privacy. */
 		'pinterestverify',
+		'fbadminapp',
 	);
 
 
@@ -90,6 +94,21 @@ class WPSEO_Option_Social extends WPSEO_Option {
 		self::$twitter_card_types['summary_large_image'] = __( 'Summary with large image', 'wordpress-seo' );
 	}
 
+<<<<<<< HEAD
+
+	/**
+	 * Get a Facebook connect key for the blog.
+	 *
+	 * @static
+	 * @return string
+	 */
+	public static function get_fbconnectkey() {
+		return md5( get_bloginfo( 'url' ) . wp_rand() );
+	}
+
+
+=======
+>>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5
 	/**
 	 * Validate the option.
 	 *
@@ -184,6 +203,12 @@ class WPSEO_Option_Social extends WPSEO_Option {
 				case 'opengraph':
 				case 'twitter':
 					$clean[ $key ] = ( isset( $dirty[ $key ] ) ? WPSEO_Utils::validate_bool( $dirty[ $key ] ) : false );
+					break;
+
+				case 'fbadminapp' :
+					if ( isset( $dirty[ $key ] ) && ! empty( $dirty[ $key ] ) ) {
+						$clean[ $key ] = $dirty[ $key ];
+					}
 					break;
 			}
 		}

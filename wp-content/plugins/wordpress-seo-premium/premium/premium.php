@@ -27,7 +27,15 @@ class WPSEO_Premium {
 	const OPTION_CURRENT_VERSION = 'wpseo_current_version';
 
 	/** @var string */
+<<<<<<< HEAD
+<<<<<<< HEAD
+	const PLUGIN_VERSION_NAME = '7.0.3';
+=======
 	const PLUGIN_VERSION_NAME = '7.1.1';
+>>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5
+=======
+	const PLUGIN_VERSION_NAME = '7.3';
+>>>>>>> 4f7eb851e22872bb0679d97f48b3a6efd23b044f
 
 	/** @var string */
 	const PLUGIN_VERSION_CODE = '16';
@@ -535,6 +543,7 @@ class WPSEO_Premium {
 		if ( isset( $page ) && $page !== false ) {
 			$query_var = $page;
 		}
+
 		$is_beacon_page = in_array( strtolower( $query_var ), $this->get_beacon_pages(), true );
 
 		// Only add the helpscout beacon on Yoast SEO pages.

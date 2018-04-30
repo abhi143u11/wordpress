@@ -1,5 +1,7 @@
 <?php
 /**
+ * WPSEO plugin file.
+ *
  * @package WPSEO\Admin
  */
 
@@ -32,7 +34,11 @@ $yform->textinput( 'breadcrumbs-404crumb', __( 'Breadcrumb for 404 Page', 'wordp
 echo '<br/>';
 
 if ( get_option( 'show_on_front' ) === 'page' && get_option( 'page_for_posts' ) > 0 ) {
+<<<<<<< HEAD:wp-content/plugins/wordpress-seo-premium/admin/views/tabs/metas/breadcrumbs.php
+	$yform->show_hide_switch( 'breadcrumbs-blog-remove', __( 'Show Blog page', 'wordpress-seo' ) );
+=======
 	$yform->show_hide_switch( 'breadcrumbs-display-blog-page', __( 'Show Blog page', 'wordpress-seo' ) );
+>>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5:wp-content/plugins/wordpress-seo-premium/admin/views/tabs/metas/breadcrumbs.php
 }
 
 $yform->toggle_switch( 'breadcrumbs-boldlast', array(
@@ -54,9 +60,14 @@ if ( is_array( $post_types ) && $post_types !== array() ) {
 		if ( is_array( $taxonomies ) && $taxonomies !== array() ) {
 			$values = array( 0 => __( 'None', 'wordpress-seo' ) );
 			foreach ( $taxonomies as $tax ) {
+				if ( ! $tax->public ) {
+					continue;
+				}
+
 				$values[ $tax->name ] = $tax->labels->singular_name;
 			}
-			$yform->select( 'post_types-' . $pt->name . '-maintax', $pt->labels->name, $values );
+			$label = $pt->labels->name . ' (<code>' . $pt->name . '</code>)';
+			$yform->select( 'post_types-' . $pt->name . '-maintax', $label, $values );
 			unset( $values, $tax );
 		}
 		unset( $taxonomies );
@@ -89,7 +100,8 @@ if ( is_array( $taxonomies ) && $taxonomies !== array() ) {
 			}
 			unset( $pt );
 		}
-		$yform->select( 'taxonomy-' . $tax->name . '-ptparent', $tax->labels->singular_name, $values );
+		$label = $tax->labels->singular_name . ' (<code>' . $tax->name . '</code>)';
+		$yform->select( 'taxonomy-' . $tax->name . '-ptparent', $label, $values );
 		unset( $values, $tax );
 	}
 }

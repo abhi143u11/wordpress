@@ -69,7 +69,30 @@ class pop_plugin_registration {
 				'id'		=> 'license_key_callback',
 				'type'		=> 'callback',
 				'callback'	=> array(&$this,'login_options')	
-			)			
+			),
+			(object)array(
+				'type'=>'subtitle',
+				'label'=>__('GDPR Compliance','pop')
+			),
+			(object)array(
+				'id'			=> 'gdpr_compliance',
+				'type'			=> 'yesno',
+				'label'			=> __('Allow sending site details','pop'),
+				'default'		=> '1',
+				'description'	=> sprintf('<p>%s</p><p>%s</p><p><b>%s</b><br>%s</p><p>%s</p>',
+					__('By choosing no, you will not be able to download updates nor purchase product add-ons automatically. You can turn the option back on at any time.','pop'),
+					__('This plugin only exchanges URL and Item Purchase Code (license key) information to validate the legitimate use of the software, purchasing add-ons and requesting software updates.','pop'),
+					__('Exceptions to the GDPR Obligation','pop'),
+					__('A data controller is exempt from these obligations if it cannot identify which personal data in its possession relates to the relevant data subject (i.e., if personal data is anonymized and cannot be re-identified).','pop'),
+					__('We do not collect any personal data such as name or email.','pop')
+				),
+				'el_properties'	=> array(),
+				'save_option'=>true,
+				'load_option'=>true
+			),	
+			(object)array(
+				'type'=>'clear'
+			)					
 		);
 		return $t;
 	}
@@ -153,7 +176,7 @@ function load_registered_licenses(){
 		//$url = sprintf('http://plugins.albertolau.com/?content_service=verify_license_key&license_key=%s&plugin_code=%s',urlencode($license_key),urlencode($this->plugin_code));
 
 		if(!class_exists('righthere_service'))require_once 'class.righthere_service.php';
-		$rh = new righthere_service();
+		$rh = new righthere_service( $this->plugin_id );
 		$r = $rh->rh_service($url);		
 //file_put_contents( ABSPATH.'theme.log', $url."\n".print_r($r,true));
 		if(false!==$r){

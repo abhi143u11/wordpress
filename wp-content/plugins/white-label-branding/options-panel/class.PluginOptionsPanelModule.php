@@ -18,7 +18,7 @@ class PluginOptionsPanelModule {
 	var $notification;
 	var $notifications_capability;
 	var $description_rowspan=0;
-	var $version = '2.8.8';
+	var $version = '2.8.9';
 	var $rangeinput;
 	var $colorpicker;
 	var $registration = true;
@@ -137,8 +137,20 @@ class PluginOptionsPanelModule {
 				add_action( 'admin_notices', array( &$this, 'admin_notices' ) );
 			}
 		}
+		
+		add_filter( "gdpr_comply_{$this->id}",array(&$this,'gdpr_comply'),10,1);
 	}
-
+	
+	function gdpr_comply( $r ){
+		$gdpr_compliance = $this->get_option('gdpr_compliance');
+		$gdpr_compliance = ''==trim($gdpr_compliance) ? '1' : $gdpr_compliance ; // yes by default.	
+		if( '1' == $gdpr_compliance ){
+			return '1';
+		}else{
+			return '0';
+		}
+	}
+	
 	function admin_notices(){
 		$transient = 'notified_' .$this->notification->plugin_code;
 		if( $this->notify_always || false === ( $notified = get_transient( $transient ) ) ) {
@@ -174,7 +186,7 @@ class PluginOptionsPanelModule {
 				);
 			}
 			if(!class_exists('righthere_service'))require_once 'class.righthere_service.php';
-			$rh = new righthere_service();
+			$rh = new righthere_service( $this->id );
 			$r = $rh->rh_service($url);
 			if(false!==$r){
 				if(is_object($r)&&property_exists($r,'DATA')){
@@ -212,7 +224,7 @@ class PluginOptionsPanelModule {
 		$url = sprintf('%s/?rh_latest_version=%s&site_url=%s&license_key=%s',$this->api_url,$this->notification->plugin_code,urlencode(site_url('/')),urlencode($this->get_license_key()));
 		if($this->theme){$url.="&theme=1";}
 		if(!class_exists('righthere_service'))require_once 'class.righthere_service.php';
-		$rh = new righthere_service();
+		$rh = new righthere_service( $this->id );
 		$r = $rh->rh_service($url);
 		if(false!==$r){
 			if(is_object($r)&&property_exists($r,'version')){
@@ -609,7 +621,7 @@ class PluginOptionsPanelModule {
 		if(!class_exists('righthere_service'))require_once 'class.righthere_service.php';
 		
 		if( false === ( $r = get_transient( $transient ) ) ) {
-			$rh = new righthere_service();
+			$rh = new righthere_service( $this->id );
 			$r = $rh->rh_service($url);	
 			set_transient( $transient, $r, 1800 );	
 		}

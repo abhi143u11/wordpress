@@ -13,7 +13,11 @@
 $db = new wfDB();
 global $wpdb;
 $debugOn = wfConfig::get('debugOn', 0);
+<<<<<<< HEAD
+$table = $wpdb->base_prefix . 'wfStatus';
+=======
 $table = wfDB::networkTable('wfStatus');
+>>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5
 $offset = 0;
 $timeOffset = 3600 * get_option('gmt_offset');
 $q = $db->querySelect("SELECT ctime, level, type, msg FROM {$table} ORDER BY ctime DESC LIMIT %d, 100", $offset);

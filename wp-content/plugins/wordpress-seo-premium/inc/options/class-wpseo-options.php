@@ -1,5 +1,7 @@
 <?php
 /**
+ * WPSEO plugin file.
+ *
  * @package WPSEO\Internals\Options
  */
 
@@ -223,12 +225,16 @@ class WPSEO_Options {
 	 * @return mixed|null Returns value if found, $default if not.
 	 */
 	public static function get( $key, $default = null ) {
+<<<<<<< HEAD
+		$option = self::get_all();
+=======
 		self::$backfill->remove_hooks();
 
 		$option = self::get_all();
 
 		self::$backfill->register_hooks();
 
+>>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5
 		if ( isset( $option[ $key ] ) ) {
 			return $option[ $key ];
 		}
@@ -467,9 +473,15 @@ class WPSEO_Options {
 				$lookup_table[ $key ] = $option_name;
 			}
 		}
+<<<<<<< HEAD
 
 		self::$backfill->register_hooks();
 
+=======
+
+		self::$backfill->register_hooks();
+
+>>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5
 		return $lookup_table;
 	}
 

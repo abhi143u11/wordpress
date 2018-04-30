@@ -123,7 +123,7 @@ class pop_downloadable_content {
 			}	
 
 			if(!class_exists('righthere_service'))require_once 'class.righthere_service.php';
-			$rh = new righthere_service();
+			$rh = new righthere_service( $this->plugin_id );
 			$response = $rh->rh_service($url);
 	
 			if( 'OK' == $response->R ){
@@ -155,7 +155,7 @@ class pop_downloadable_content {
 		}	
 
 		if(!class_exists('righthere_service'))require_once 'class.righthere_service.php';
-		$rh = new righthere_service();
+		$rh = new righthere_service( $this->plugin_id );
 		$response = $rh->rh_service($url);
 
 		if(false===$response){
@@ -193,7 +193,7 @@ class pop_downloadable_content {
 		}	
 //error_log($url."\n",3,ABSPATH.'theme.log');
 		if(!class_exists('righthere_service'))require_once 'class.righthere_service.php';
-		$rh = new righthere_service();
+		$rh = new righthere_service( $this->plugin_id );
 		$response = $rh->rh_service($url);
 	
 		if(false===$response){
@@ -234,7 +234,7 @@ class pop_downloadable_content {
 		}
 		
 		if(!class_exists('righthere_service'))require_once 'class.righthere_service.php';
-		$rh = new righthere_service();
+		$rh = new righthere_service( $this->plugin_id );
 		$response = $rh->rh_service($url);
 		
 		if(false===$response){

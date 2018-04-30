@@ -2,7 +2,8 @@
 /**
  * Deprecated functions
  *
- * Where functions come to die.
+ * Where public functions come to die.
+ *
  *
  */
 
@@ -171,22 +172,6 @@ function um_user_last_login_date( $user_id ) {
 		return date_i18n( 'F d, Y', $value );
 
 	return '';
-}
-
-
-/**
- * Check if we are on UM page
- *
- * @deprecated 2.0
- *
- * @return bool
- */
-function is_ultimatemember() {
-	global $post;
-	if ( isset( $post->ID ) && in_array( $post->ID, UM()->config()->permalinks ) )
-		return true;
-
-	return false;
 }
 
 

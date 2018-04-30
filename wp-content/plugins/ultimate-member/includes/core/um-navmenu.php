@@ -3,7 +3,12 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 if ( ! class_exists( 'UM_Menu_Item_Custom_Fields_Editor' ) ) {
 
+
+	/**
+	 * Class UM_Menu_Item_Custom_Fields_Editor
+	 */
 	class UM_Menu_Item_Custom_Fields_Editor {
+
 
 		/**
 		 * @var array
@@ -39,31 +44,20 @@ if ( ! class_exists( 'UM_Menu_Item_Custom_Fields_Editor' ) ) {
 				return;
 			}
 
+			if ( empty( $_POST['menu-item-db-id'] ) || ! in_array( $menu_item_db_id, $_POST['menu-item-db-id'] ) ) {
+				return;
+			}
+
 			foreach ( self::$fields as $_key => $label ) {
 
-				if ( $_key == 'um_nav_roles' ) {
+				$key = sprintf( 'menu-item-%s', $_key );
 
-					$key = sprintf( 'menu-item-%s', $_key );
-
-					// Sanitize
-					if ( ! empty( $_POST[ $key ][ $menu_item_db_id ] ) ) {
-						// Do some checks here...
-						$value = $_POST[ $key ][ $menu_item_db_id ];
-					} else {
-						$value = null;
-					}
-
+				// Sanitize
+				if ( ! empty( $_POST[ $key ][ $menu_item_db_id ] ) ) {
+					// Do some checks here...
+					$value = $_POST[ $key ][ $menu_item_db_id ];
 				} else {
-
-					$key = sprintf( 'menu-item-%s', $_key );
-
-					// Sanitize
-					if ( ! empty( $_POST[ $key ][ $menu_item_db_id ] ) ) {
-						// Do some checks here...
-						$value = $_POST[ $key ][ $menu_item_db_id ];
-					} else {
-						$value = null;
-					}
+					$value = null;
 				}
 
 				// Update
@@ -158,7 +152,7 @@ if ( ! class_exists( 'UM_Menu_Item_Custom_Fields_Editor' ) ) {
 					<p class="description description-wide um-nav-roles" <# if( data.restriction_data.um_nav_public == '2' ){ #>style="display: block;"<# } #>>
 						<?php _e( "Select the member roles that can see this link", 'ultimate-member' ) ?><br/>
 
-						<?php $options = UM()->roles()->get_roles();
+						<?php $options = UM()->roles()->get_roles( false, array( 'administrator' ) );
 						$i = 0;
 						$html = '';
 						$columns = 2;

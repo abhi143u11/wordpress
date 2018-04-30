@@ -4,15 +4,33 @@ Plugin Name: Wordfence Security
 Plugin URI: http://www.wordfence.com/
 Description: Wordfence Security - Anti-virus, Firewall and Malware Scan
 Author: Wordfence
+<<<<<<< HEAD
+<<<<<<< HEAD
+Version: 7.1.0
+=======
 Version: 7.1.1
+>>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5
+=======
+Version: 7.1.3
+>>>>>>> 4f7eb851e22872bb0679d97f48b3a6efd23b044f
 Author URI: http://www.wordfence.com/
 Network: true
 */
 if(defined('WP_INSTALLING') && WP_INSTALLING){
 	return;
 }
+<<<<<<< HEAD
+<<<<<<< HEAD
+define('WORDFENCE_VERSION', '7.1.0');
+define('WORDFENCE_BUILD_NUMBER', '1519855237');
+=======
 define('WORDFENCE_VERSION', '7.1.1');
 define('WORDFENCE_BUILD_NUMBER', '1521560560');
+>>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5
+=======
+define('WORDFENCE_VERSION', '7.1.3');
+define('WORDFENCE_BUILD_NUMBER', '1523983877');
+>>>>>>> 4f7eb851e22872bb0679d97f48b3a6efd23b044f
 define('WORDFENCE_BASENAME', function_exists('plugin_basename') ? plugin_basename(__FILE__) :
 	basename(dirname(__FILE__)) . '/' . basename(__FILE__));
 

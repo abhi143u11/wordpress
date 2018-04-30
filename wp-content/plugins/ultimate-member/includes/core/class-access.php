@@ -4,8 +4,15 @@ namespace um\core;
 // Exit if accessed directly
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-if ( ! class_exists( 'Access' ) ) {
+if ( ! class_exists( 'um\core\Access' ) ) {
+
+
+	/**
+	 * Class Access
+	 * @package um\core
+	 */
 	class Access {
+
 
 		/**
 		 * If true then we use individual restrict content options
@@ -44,9 +51,6 @@ if ( ! class_exists( 'Access' ) ) {
 			$this->redirect_handler = false;
 			$this->allow_access = false;
 
-
-
-
 			//there is posts (Posts/Page/CPT) filtration if site is accessible
 			//there also will be redirects if they need
 			//protect posts types
@@ -65,10 +69,40 @@ if ( ! class_exists( 'Access' ) ) {
 
 
 		/**
+		 * @param array $restriction
+		 *
+		 * @return bool
+		 */
+		function um_custom_restriction( $restriction ) {
+			/**
+			 * UM hook
+			 *
+			 * @type filter
+			 * @title um_custom_restriction
+			 * @description Extend Sort Types for Member Directory
+			 * @input_vars
+			 * [{"var":"$custom_restriction","type":"bool","desc":"Custom Restriction"},
+			 * {"var":"$restriction","type":"array","desc":"Restriction settings"}]
+			 * @change_log
+			 * ["Since: 2.0"]
+			 * @usage add_filter( 'um_custom_restriction', 'function_name', 10, 2 );
+			 * @example
+			 * <?php
+			 * add_filter( 'um_custom_restriction', 'my_custom_restriction', 10, 2 );
+			 * function my_directory_sort_users_select( $custom_restriction, $restriction ) {
+			 *     // your code here
+			 *     return $custom_restriction;
+			 * }
+			 * ?>
+			 */
+			return apply_filters( 'um_custom_restriction', true, $restriction );
+		}
+
+
+		/**
 		 * Check individual term Content Restriction settings
 		 */
 		function um_access_check_individual_term_settings() {
-
 			//check only tax|tags|categories - skip archive, author, and date lists
 			if ( ! ( is_tax() || is_tag() || is_category() ) ) {
 				return;
@@ -84,8 +118,7 @@ if ( ! class_exists( 'Access' ) ) {
 					$restriction = get_term_meta( $tag_id, 'um_content_restriction', true );
 				}
 			} elseif ( is_category() ) {
-				$um_category = get_the_category();
-				$um_category = current( $um_category );
+				$um_category = get_category( get_query_var( 'cat' ) );
 
 				$restricted_taxonomies = UM()->options()->get( 'restricted_access_taxonomy_metabox' );
 				if ( empty( $restricted_taxonomies[ $um_category->taxonomy ] ) )
@@ -126,18 +159,22 @@ if ( ! class_exists( 'Access' ) ) {
 				//if post for logged in users and user is not logged in
 				if ( is_user_logged_in() ) {
 
-					$custom_restrict = apply_filters( 'um_custom_restriction', true, $restriction );
-
+					$custom_restrict = $this->um_custom_restriction( $restriction );
 					if ( empty( $restriction['_um_access_roles'] ) || false === array_search( '1', $restriction['_um_access_roles'] ) ) {
 						if ( $custom_restrict ) {
 							$this->allow_access = true;
 							return;
 						} else {
 							//restrict terms page by 404 for logged in users with wrong role
-							global $wp_query;
+							add_filter( 'tag_template', array( &$this, 'taxonomy_message' ), 10, 3 );
+							add_filter( 'archive_template', array( &$this, 'taxonomy_message' ), 10, 3 );
+							add_filter( 'category_template', array( &$this, 'taxonomy_message' ), 10, 3 );
+							add_filter( 'taxonomy_template', array( &$this, 'taxonomy_message' ), 10, 3 );
+
+							/*global $wp_query;
 							$wp_query->set_404();
 							status_header( 404 );
-							nocache_headers();
+							nocache_headers();*/
 						}
 					} else {
 						$user_can = $this->user_can( get_current_user_id(), $restriction['_um_access_roles'] );
@@ -146,11 +183,17 @@ if ( ! class_exists( 'Access' ) ) {
 							$this->allow_access = true;
 							return;
 						} else {
+
+							add_filter( 'tag_template', array( &$this, 'taxonomy_message' ), 10, 3 );
+							add_filter( 'archive_template', array( &$this, 'taxonomy_message' ), 10, 3 );
+							add_filter( 'category_template', array( &$this, 'taxonomy_message' ), 10, 3 );
+							add_filter( 'taxonomy_template', array( &$this, 'taxonomy_message' ), 10, 3 );
+
 							//restrict terms page by 404 for logged in users with wrong role
-							global $wp_query;
+							/*global $wp_query;
 							$wp_query->set_404();
 							status_header( 404 );
-							nocache_headers();
+							nocache_headers();*/
 						}
 					}
 				}
@@ -179,6 +222,18 @@ if ( ! class_exists( 'Access' ) ) {
 
 
 		/**
+		 * @param $template
+		 * @param $type
+		 * @param $templates
+		 *
+		 * @return string
+		 */
+		function taxonomy_message( $template, $type, $templates ) {
+			return UM()->locate_template( 'restricted-taxonomy.php' );
+		}
+
+
+		/**
 		 * Check global accessible settings
 		 */
 		function um_access_check_global_settings() {
@@ -189,10 +244,34 @@ if ( ! class_exists( 'Access' ) ) {
 			if ( is_front_page() ) {
 				if ( is_user_logged_in() ) {
 
-					if ( ! empty( um_user( 'default_homepage' ) ) )
+					$user_default_homepage = um_user( 'default_homepage' );
+					if ( ! empty( $user_default_homepage ) )
 						return;
 
 					$redirect_homepage = um_user( 'redirect_homepage' );
+					/**
+					 * UM hook
+					 *
+					 * @type filter
+					 * @title um_custom_homepage_redirect_url
+					 * @description Change custom homepage redirect
+					 * @input_vars
+					 * [{"var":"$url","type":"string","desc":"Redirect URL"},
+					 * {"var":"$id","type":"int","desc":"User ID"}]
+					 * @change_log
+					 * ["Since: 2.0"]
+					 * @usage
+					 * <?php add_filter( 'um_custom_homepage_redirect_url', 'function_name', 10, 2 ); ?>
+					 * @example
+					 * <?php
+					 * add_filter( 'um_custom_homepage_redirect_url', 'my_custom_homepage_redirect_url', 10, 2 );
+					 * function my_custom_homepage_redirect_url( $url, $id ) {
+					 *     // your code here
+					 *     return $url;
+					 * }
+					 * ?>
+					 */
+					$redirect_homepage = apply_filters( 'um_custom_homepage_redirect_url', $redirect_homepage, um_user( 'ID' ) );
 					$redirect_to = ! empty( $redirect_homepage ) ? $redirect_homepage : um_get_core_page( 'user' );
 					$this->redirect_handler = $this->set_referer( esc_url( add_query_arg( 'redirect_to', urlencode_deep( $curr ), $redirect_to ) ), "custom_homepage" );
 
@@ -263,8 +342,9 @@ if ( ! class_exists( 'Access' ) ) {
 					//if current page not in exclude URLs
 					//get redirect URL if not set get login page by default
 					$redirect = UM()->options()->get( 'access_redirect' );
-					if ( ! $redirect )
+					if ( ! $redirect ) {
 						$redirect = um_get_core_page( 'login' );
+					}
 
 					$this->redirect_handler = $this->set_referer( esc_url( add_query_arg( 'redirect_to', urlencode_deep( $curr ), $redirect ) ), 'global' );
 				} else {
@@ -297,17 +377,49 @@ if ( ! class_exists( 'Access' ) ) {
 
 			//also skip if we currently at UM Register|Login|Reset Password pages
 			if ( um_is_core_post( $post, 'register' ) ||
-				 um_is_core_post( $post, 'password-reset' ) ||
-				 um_is_core_post( $post, 'login' ) )
+			     um_is_core_post( $post, 'password-reset' ) ||
+			     um_is_core_post( $post, 'login' ) )
 				return;
 
-			//check terms individual restrict options
+			/**
+			 * UM hook
+			 *
+			 * @type action
+			 * @title um_roles_add_meta_boxes_um_role_meta
+			 * @description Check terms individual restrict options
+			 * @change_log
+			 * ["Since: 2.0"]
+			 * @usage add_action( 'um_access_check_individual_term_settings', 'function_name', 10 );
+			 * @example
+			 * <?php
+			 * add_action( 'um_access_check_individual_term_settings', 'my_access_check_individual_term_settings', 10 );
+			 * function my_access_check_individual_term_settings() {
+			 *     // your code here
+			 * }
+			 * ?>
+			 */
 			do_action( 'um_access_check_individual_term_settings' );
 			//exit from function if term page is accessible
 			if ( $this->check_access() )
 				return;
 
-			//check global restrict content options
+			/**
+			 * UM hook
+			 *
+			 * @type action
+			 * @title um_access_check_global_settings
+			 * @description Check global restrict content options
+			 * @change_log
+			 * ["Since: 2.0"]
+			 * @usage add_action( 'um_access_check_global_settings', 'function_name', 10 );
+			 * @example
+			 * <?php
+			 * add_action( 'um_access_check_global_settings', 'my_access_check_global_settings', 10 );
+			 * function my_access_check_global_settings() {
+			 *     // your code here
+			 * }
+			 * ?>
+			 */
 			do_action( 'um_access_check_global_settings' );
 
 			$this->check_access();
@@ -350,373 +462,463 @@ if ( ! class_exists( 'Access' ) ) {
 		 */
 		function set_referer( $url, $referer ) {
 
+			/**
+			 * UM hook
+			 *
+			 * @type filter
+			 * @title um_access_enable_referer
+			 * @description Access Referrer Enable/Disable
+			 * @input_vars
+			 * [{"var":"$referrer","type":"bool","desc":"Access referrer"}]
+			 * @change_log
+			 * ["Since: 2.0"]
+			 * @usage add_filter( 'um_access_enable_referer', 'function_name', 10, 1 );
+			 * @example
+			 * <?php
+			 * add_filter( 'um_access_enable_referer', 'my_access_enable_referer', 10, 1 );
+			 * function my_access_enable_referer( $referrer ) {
+			 *     // your code here
+			 *     return $referrer;
+			 * }
+			 * ?>
+			 */
 			$enable_referer = apply_filters( "um_access_enable_referer", false );
-			if( ! $enable_referer ) return $url;
+			if ( ! $enable_referer )
+				return $url;
 
 			$url = add_query_arg( 'um_ref', $referer, $url );
 			return $url;
 		}
 
 
-        /**
-         * User can some of the roles array
-         * Restrict content new logic
-         *
-         * @param $user_id
-         * @param $roles
-         * @return bool
-         */
-        function user_can( $user_id, $roles ) {
+		/**
+		 * User can some of the roles array
+		 * Restrict content new logic
+		 *
+		 * @param $user_id
+		 * @param $roles
+		 * @return bool
+		 */
+		function user_can( $user_id, $roles ) {
+			$user_can = false;
 
-            $user_can = false;
+			if ( ! empty( $roles ) ) {
+				foreach ( $roles as $key => $value ) {
+					if ( ! empty( $value ) && user_can( $user_id, $key ) ) {
+						$user_can = true;
+					}
+				}
+			}
 
-            if ( ! empty( $roles ) ) {
-                foreach ( $roles as $key => $value ) {
-                    if ( ! empty( $value ) && user_can( $user_id, $key ) ) {
-                        $user_can = true;
-                    }
-                }
-            }
-
-            return $user_can;
-        }
-
-
-        /**
-         * Get privacy settings for post
-         * return false if post is not private
-         * Restrict content new logic
-         *
-         * @param $post
-         * @return bool|array
-         */
-        function get_post_privacy_settings( $post ) {
-            //if logged in administrator all pages are visible
-            if ( current_user_can( 'administrator' ) )
-                return false;
-
-            //exlude from privacy UM default pages (except Members list and User(Profile) page)
-	        if ( ! empty( $post->post_type ) && $post->post_type == 'page' ) {
-		        if ( um_is_core_post( $post, 'login' ) || um_is_core_post( $post, 'register' ) ||
-	                 um_is_core_post( $post, 'account' ) || um_is_core_post( $post, 'logout' ) ||
-	                 um_is_core_post( $post, 'password-reset' ) )
-	                return false;
-	        }
-
-            $restricted_posts = UM()->options()->get( 'restricted_access_post_metabox' );
-
-            if ( ! empty( $post->post_type ) && ! empty( $restricted_posts[ $post->post_type ] ) ) {
-                $restriction = get_post_meta( $post->ID, 'um_content_restriction', true );
-
-                if ( ! empty( $restriction['_um_custom_access_settings'] ) ) {
-                    if ( ! isset( $restriction['_um_accessible'] ) || '0' == $restriction['_um_accessible'] )
-                        return false;
-                    else
-                        return $restriction;
-                }
-            }
-
-            //post hasn't privacy settings....check all terms of this post
-            $restricted_taxonomies = UM()->options()->get( 'restricted_access_taxonomy_metabox' );
-
-            //get all taxonomies for current post type
-            $taxonomies = get_object_taxonomies( $post );
-
-            //get all post terms
-            $terms = array();
-            if ( ! empty( $taxonomies ) ) {
-                foreach ( $taxonomies as $taxonomy ) {
-                    if ( empty( $restricted_taxonomies[$taxonomy] ) )
-                        continue;
-
-                    $terms = array_merge( $terms, wp_get_post_terms( $post->ID, $taxonomy, array( 'fields' => 'ids' ) ) );
-                }
-            }
-
-            //get restriction options for first term with privacy settigns
-            foreach ( $terms as $term_id ) {
-                $restriction = get_term_meta( $term_id, 'um_content_restriction', true );
-
-                if ( ! empty( $restriction['_um_custom_access_settings'] ) ) {
-                    if ( ! isset( $restriction['_um_accessible'] ) || '0' == $restriction['_um_accessible'] )
-                        continue;
-                    else
-                        return $restriction;
-                }
-            }
+			return $user_can;
+		}
 
 
-            //post is public
-            return false;
-        }
+		/**
+		 * Get privacy settings for post
+		 * return false if post is not private
+		 * Restrict content new logic
+		 *
+		 * @param $post
+		 * @return bool|array
+		 */
+		function get_post_privacy_settings( $post ) {
+			//if logged in administrator all pages are visible
+			if ( current_user_can( 'administrator' ) )
+				return false;
+
+			//exlude from privacy UM default pages (except Members list and User(Profile) page)
+			if ( ! empty( $post->post_type ) && $post->post_type == 'page' ) {
+				if ( um_is_core_post( $post, 'login' ) || um_is_core_post( $post, 'register' ) ||
+				     um_is_core_post( $post, 'account' ) || um_is_core_post( $post, 'logout' ) ||
+				     um_is_core_post( $post, 'password-reset' ) )
+					return false;
+			}
+
+			$restricted_posts = UM()->options()->get( 'restricted_access_post_metabox' );
+
+			if ( ! empty( $post->post_type ) && ! empty( $restricted_posts[ $post->post_type ] ) ) {
+				$restriction = get_post_meta( $post->ID, 'um_content_restriction', true );
+
+				if ( ! empty( $restriction['_um_custom_access_settings'] ) ) {
+					if ( ! isset( $restriction['_um_accessible'] ) || '0' == $restriction['_um_accessible'] )
+						return false;
+					else
+						return $restriction;
+				}
+			}
+
+			//post hasn't privacy settings....check all terms of this post
+			$restricted_taxonomies = UM()->options()->get( 'restricted_access_taxonomy_metabox' );
+
+			//get all taxonomies for current post type
+			$taxonomies = get_object_taxonomies( $post );
+
+			//get all post terms
+			$terms = array();
+			if ( ! empty( $taxonomies ) ) {
+				foreach ( $taxonomies as $taxonomy ) {
+					if ( empty( $restricted_taxonomies[$taxonomy] ) )
+						continue;
+
+					$terms = array_merge( $terms, wp_get_post_terms( $post->ID, $taxonomy, array( 'fields' => 'ids' ) ) );
+				}
+			}
+
+			//get restriction options for first term with privacy settigns
+			foreach ( $terms as $term_id ) {
+				$restriction = get_term_meta( $term_id, 'um_content_restriction', true );
+
+				if ( ! empty( $restriction['_um_custom_access_settings'] ) ) {
+					if ( ! isset( $restriction['_um_accessible'] ) || '0' == $restriction['_um_accessible'] )
+						continue;
+					else
+						return $restriction;
+				}
+			}
 
 
-        /**
-         * Protect Post Types in query
-         * Restrict content new logic
-         *
-         * @param $posts
-         * @param $query
-         * @return array
-         */
-        function filter_protected_posts( $posts, $query ) {
-	        $filtered_posts = array();
+			//post is public
+			return false;
+		}
 
-            //if empty
-            if ( empty( $posts ) )
-                return $posts;
 
-            $restricted_global_message = UM()->options()->get( 'restricted_access_message' );
+		/**
+		 * Protect Post Types in query
+		 * Restrict content new logic
+		 *
+		 * @param $posts
+		 * @param \WP_Query $query
+		 * @return array
+		 */
+		function filter_protected_posts( $posts, $query ) {
+			$filtered_posts = array();
 
-            //other filter
-            foreach ( $posts as $post ) {
-                $restriction = $this->get_post_privacy_settings( $post );
+			//if empty
+			if ( empty( $posts ) )
+				return $posts;
 
-	            if ( ! $restriction ) {
-                    $filtered_posts[] = $post;
-                    continue;
-                }
+			$restricted_global_message = UM()->options()->get( 'restricted_access_message' );
 
-                //post is private
-                if ( '0' == $restriction['_um_accessible'] ) {
+			//other filter
+			foreach ( $posts as $post ) {
+
+				//Woocommerce AJAX fixes....remove filtration on wc-ajax which goes to Front Page
+				if ( ! empty( $_GET['wc-ajax'] ) /*&& $query->is_front_page()*/ ) {
 					$filtered_posts[] = $post;
 					continue;
-                } elseif ( '1' == $restriction['_um_accessible'] ) {
-                    //if post for not logged in users and user is not logged in
-                    if ( ! is_user_logged_in() ) {
-                        $filtered_posts[] = $post;
-                        continue;
-                    } else {
+				}
 
-                        if ( current_user_can( 'administrator' ) ) {
-                            $filtered_posts[] = $post;
-                            continue;
-                        }
+				$restriction = $this->get_post_privacy_settings( $post );
 
-                        if ( empty( $query->is_singular ) ) {
-                            //if not single query when exclude if set _um_access_hide_from_queries
-                            if ( empty( $restriction['_um_access_hide_from_queries'] ) ) {
+				if ( ! $restriction ) {
+					$filtered_posts[] = $post;
+					continue;
+				}
 
-                                if ( ! isset( $restriction['_um_noaccess_action'] ) || '0' == $restriction['_um_noaccess_action'] ) {
+				if ( is_object( $query ) ) {
+					$is_singular = $query->is_singular();
+				} else {
+					$is_singular = ! empty( $query->is_singular ) ? true : false;
+				}
 
-                                    if ( ! isset( $restriction['_um_restrict_by_custom_message'] ) || '0' == $restriction['_um_restrict_by_custom_message'] ) {
-                                        $post->post_content = stripslashes( $restricted_global_message );
-                                    } elseif ( '1' == $restriction['_um_restrict_by_custom_message'] ) {
-                                        $post->post_content = ! empty( $restriction['_um_restrict_custom_message'] ) ? stripslashes( $restriction['_um_restrict_custom_message'] ) : '';
-                                    }
+				//post is private
+				if ( '0' == $restriction['_um_accessible'] ) {
+					$filtered_posts[] = $post;
+					continue;
+				} elseif ( '1' == $restriction['_um_accessible'] ) {
+					//if post for not logged in users and user is not logged in
+					if ( ! is_user_logged_in() ) {
+						$this->singular_page = true;
 
-                                }
+						$filtered_posts[] = $post;
+						continue;
+					} else {
 
-                                $filtered_posts[] = $post;
-                                continue;
-                            }
-                        } else {
-	                        $this->singular_page = true;
+						if ( current_user_can( 'administrator' ) ) {
+							$filtered_posts[] = $post;
+							continue;
+						}
 
-                            //if single post query
-                            if ( ! isset( $restriction['_um_noaccess_action'] ) || '0' == $restriction['_um_noaccess_action'] ) {
+						if ( empty( $is_singular ) ) {
+							//if not single query when exclude if set _um_access_hide_from_queries
+							if ( empty( $restriction['_um_access_hide_from_queries'] ) ) {
 
-                                if ( ! isset( $restriction['_um_restrict_by_custom_message'] ) || '0' == $restriction['_um_restrict_by_custom_message'] ) {
-                                    $post->post_content = stripslashes( $restricted_global_message );
-                                } elseif ( '1' == $restriction['_um_restrict_by_custom_message'] ) {
-                                    $post->post_content = ! empty( $restriction['_um_restrict_custom_message'] ) ? stripslashes( $restriction['_um_restrict_custom_message'] ) : '';
-                                }
+								if ( ! isset( $restriction['_um_noaccess_action'] ) || '0' == $restriction['_um_noaccess_action'] ) {
 
-	                            $this->current_single_post = $post;
-	                            add_filter( 'the_content', array( &$this, 'replace_post_content' ), 9999, 1 );
+									if ( ! isset( $restriction['_um_restrict_by_custom_message'] ) || '0' == $restriction['_um_restrict_by_custom_message'] ) {
+										$post->post_content = stripslashes( $restricted_global_message );
+									} elseif ( '1' == $restriction['_um_restrict_by_custom_message'] ) {
+										$post->post_content = ! empty( $restriction['_um_restrict_custom_message'] ) ? stripslashes( $restriction['_um_restrict_custom_message'] ) : '';
+									}
 
-	                            do_action( 'um_access_fix_external_post_content' );
+								}
 
-                                $filtered_posts[] = $post;
-                                continue;
-                            } elseif ( '1' == $restriction['_um_noaccess_action'] ) {
-                                $curr = UM()->permalinks()->get_current_url();
+								$filtered_posts[] = $post;
+								continue;
+							}
+						} else {
+							$this->singular_page = true;
 
-                                if ( ! isset( $restriction['_um_access_redirect'] ) || '0' == $restriction['_um_access_redirect'] ) {
+							//if single post query
+							if ( ! isset( $restriction['_um_noaccess_action'] ) || '0' == $restriction['_um_noaccess_action'] ) {
 
-                                    exit( wp_redirect( esc_url( add_query_arg( 'redirect_to', urlencode_deep( $curr ), um_get_core_page( 'login' ) ) ) ) );
+								if ( ! isset( $restriction['_um_restrict_by_custom_message'] ) || '0' == $restriction['_um_restrict_by_custom_message'] ) {
+									$post->post_content = stripslashes( $restricted_global_message );
+								} elseif ( '1' == $restriction['_um_restrict_by_custom_message'] ) {
+									$post->post_content = ! empty( $restriction['_um_restrict_custom_message'] ) ? stripslashes( $restriction['_um_restrict_custom_message'] ) : '';
+								}
 
-                                } elseif ( '1' == $restriction['_um_access_redirect'] ) {
+								$this->current_single_post = $post;
+								add_filter( 'the_content', array( &$this, 'replace_post_content' ), 9999, 1 );
 
-                                    if ( ! empty( $restriction['_um_access_redirect_url'] ) ) {
-                                        $redirect = $restriction['_um_access_redirect_url'];
-                                    } else {
-                                        $redirect = esc_url( add_query_arg( 'redirect_to', urlencode_deep( $curr ), um_get_core_page( 'login' ) ) );
-                                    }
+								/**
+								 * UM hook
+								 *
+								 * @type action
+								 * @title um_access_fix_external_post_content
+								 * @description Hook for 3-d party content filtration
+								 * @change_log
+								 * ["Since: 2.0"]
+								 * @usage add_action( 'um_access_fix_external_post_content', 'function_name', 10 );
+								 * @example
+								 * <?php
+								 * add_action( 'um_access_fix_external_post_content', 'my_access_fix_external_post_content', 10 );
+								 * function my_access_fix_external_post_content() {
+								 *     // your code here
+								 * }
+								 * ?>
+								 */
+								do_action( 'um_access_fix_external_post_content' );
 
-                                    exit( wp_redirect( $redirect ) );
-                                }
+								$filtered_posts[] = $post;
+								continue;
+							} elseif ( '1' == $restriction['_um_noaccess_action'] ) {
+								$curr = UM()->permalinks()->get_current_url();
 
-                            }
-                        }
-                    }
-                } elseif ( '2' == $restriction['_um_accessible'] ) {
-                    //if post for logged in users and user is not logged in
-                    if ( is_user_logged_in() ) {
+								if ( ! isset( $restriction['_um_access_redirect'] ) || '0' == $restriction['_um_access_redirect'] ) {
 
-                        if ( current_user_can( 'administrator' ) ) {
-                            $filtered_posts[] = $post;
-                            continue;
-                        }
+									exit( wp_redirect( esc_url( add_query_arg( 'redirect_to', urlencode_deep( $curr ), um_get_core_page( 'login' ) ) ) ) );
 
-	                    $custom_restrict = apply_filters( 'um_custom_restriction', true, $restriction );
+								} elseif ( '1' == $restriction['_um_access_redirect'] ) {
 
-	                    if ( empty( $restriction['_um_access_roles'] ) || false === array_search( '1', $restriction['_um_access_roles'] ) ) {
-		                    if ( $custom_restrict ) {
-		                        $filtered_posts[] = $post;
-		                        continue;
-		                    }
-	                    } else {
-		                    $user_can = $this->user_can( get_current_user_id(), $restriction['_um_access_roles'] );
+									if ( ! empty( $restriction['_um_access_redirect_url'] ) ) {
+										$redirect = $restriction['_um_access_redirect_url'];
+									} else {
+										$redirect = esc_url( add_query_arg( 'redirect_to', urlencode_deep( $curr ), um_get_core_page( 'login' ) ) );
+									}
 
-		                    if ( isset( $user_can ) && $user_can && $custom_restrict ) {
-			                    $filtered_posts[] = $post;
-			                    continue;
-		                    }
-	                    }
+									exit( wp_redirect( $redirect ) );
+								}
 
-                        if ( empty( $query->is_singular ) ) {
-                            //if not single query when exclude if set _um_access_hide_from_queries
-                            if ( empty( $restriction['_um_access_hide_from_queries'] ) ) {
+							}
+						}
+					}
+				} elseif ( '2' == $restriction['_um_accessible'] ) {
+					//if post for logged in users and user is not logged in
+					if ( is_user_logged_in() ) {
 
-                                if ( ! isset( $restriction['_um_noaccess_action'] ) || '0' == $restriction['_um_noaccess_action'] ) {
+						if ( current_user_can( 'administrator' ) ) {
+							$filtered_posts[] = $post;
+							continue;
+						}
 
-                                    if ( ! isset( $restriction['_um_restrict_by_custom_message'] ) || '0' == $restriction['_um_restrict_by_custom_message'] ) {
-                                        $post->post_content = stripslashes( $restricted_global_message );
-                                    } elseif ( '1' == $restriction['_um_restrict_by_custom_message'] ) {
-                                        $post->post_content = ! empty( $restriction['_um_restrict_custom_message'] ) ? stripslashes( $restriction['_um_restrict_custom_message'] ) : '';
-                                    }
+						$custom_restrict = $this->um_custom_restriction( $restriction );
 
-                                }
+						if ( empty( $restriction['_um_access_roles'] ) || false === array_search( '1', $restriction['_um_access_roles'] ) ) {
+							if ( $custom_restrict ) {
+								$this->singular_page = true;
 
-                                $filtered_posts[] = $post;
-                                continue;
-                            }
-                        } else {
-	                        $this->singular_page = true;
+								$filtered_posts[] = $post;
+								continue;
+							}
+						} else {
+							$user_can = $this->user_can( get_current_user_id(), $restriction['_um_access_roles'] );
 
-                            //if single post query
-                            if ( ! isset( $restriction['_um_noaccess_action'] ) || '0' == $restriction['_um_noaccess_action'] ) {
+							if ( isset( $user_can ) && $user_can && $custom_restrict ) {
+								$this->singular_page = true;
 
-                                if ( ! isset( $restriction['_um_restrict_by_custom_message'] ) || '0' == $restriction['_um_restrict_by_custom_message'] ) {
-                                    $post->post_content = stripslashes( $restricted_global_message );
+								$filtered_posts[] = $post;
+								continue;
+							}
+						}
 
-	                                $this->current_single_post = $post;
-	                                add_filter( 'the_content', array( &$this, 'replace_post_content' ), 9999, 1 );
+						if ( empty( $is_singular ) ) {
+							//if not single query when exclude if set _um_access_hide_from_queries
+							if ( empty( $restriction['_um_access_hide_from_queries'] ) ) {
 
-                                    if ( 'attachment' == $post->post_type ) {
-                                        remove_filter( 'the_content', 'prepend_attachment' );
-                                    }
-                                } elseif ( '1' == $restriction['_um_restrict_by_custom_message'] ) {
-                                    $post->post_content = ! empty( $restriction['_um_restrict_custom_message'] ) ? stripslashes( $restriction['_um_restrict_custom_message'] ) : '';
+								if ( ! isset( $restriction['_um_noaccess_action'] ) || '0' == $restriction['_um_noaccess_action'] ) {
 
-	                                $this->current_single_post = $post;
-	                                add_filter( 'the_content', array( &$this, 'replace_post_content' ), 9999, 1 );
+									if ( ! isset( $restriction['_um_restrict_by_custom_message'] ) || '0' == $restriction['_um_restrict_by_custom_message'] ) {
+										$post->post_content = stripslashes( $restricted_global_message );
+									} elseif ( '1' == $restriction['_um_restrict_by_custom_message'] ) {
+										$post->post_content = ! empty( $restriction['_um_restrict_custom_message'] ) ? stripslashes( $restriction['_um_restrict_custom_message'] ) : '';
+									}
 
-	                                if ( 'attachment' == $post->post_type ) {
-                                        remove_filter( 'the_content', 'prepend_attachment' );
-                                    }
-                                }
+								}
 
-	                            do_action( 'um_access_fix_external_post_content' );
+								$filtered_posts[] = $post;
+								continue;
+							}
+						} else {
+							$this->singular_page = true;
 
-                                $filtered_posts[] = $post;
-                                continue;
-                            } elseif ( '1' == $restriction['_um_noaccess_action'] ) {
+							//if single post query
+							if ( ! isset( $restriction['_um_noaccess_action'] ) || '0' == $restriction['_um_noaccess_action'] ) {
 
-                                $curr = UM()->permalinks()->get_current_url();
+								if ( ! isset( $restriction['_um_restrict_by_custom_message'] ) || '0' == $restriction['_um_restrict_by_custom_message'] ) {
+									$post->post_content = stripslashes( $restricted_global_message );
 
-                                if ( ! isset( $restriction['_um_access_redirect'] ) || '0' == $restriction['_um_access_redirect'] ) {
+									$this->current_single_post = $post;
+									add_filter( 'the_content', array( &$this, 'replace_post_content' ), 9999, 1 );
 
-                                    exit( wp_redirect( esc_url( add_query_arg( 'redirect_to', urlencode_deep( $curr ), um_get_core_page( 'login' ) ) ) ) );
+									if ( 'attachment' == $post->post_type ) {
+										remove_filter( 'the_content', 'prepend_attachment' );
+									}
+								} elseif ( '1' == $restriction['_um_restrict_by_custom_message'] ) {
+									$post->post_content = ! empty( $restriction['_um_restrict_custom_message'] ) ? stripslashes( $restriction['_um_restrict_custom_message'] ) : '';
 
-                                } elseif ( '1' == $restriction['_um_access_redirect'] ) {
+									$this->current_single_post = $post;
+									add_filter( 'the_content', array( &$this, 'replace_post_content' ), 9999, 1 );
 
-                                    if ( ! empty( $restriction['_um_access_redirect_url'] ) ) {
-                                        $redirect = $restriction['_um_access_redirect_url'];
-                                    } else {
-                                        $redirect = esc_url( add_query_arg( 'redirect_to', urlencode_deep( $curr ), um_get_core_page( 'login' ) ) );
-                                    }
+									if ( 'attachment' == $post->post_type ) {
+										remove_filter( 'the_content', 'prepend_attachment' );
+									}
+								}
 
-                                    exit( wp_redirect( $redirect ) );
-                                }
+								/**
+								 * UM hook
+								 *
+								 * @type action
+								 * @title um_access_fix_external_post_content
+								 * @description Hook for 3-d party content filtration
+								 * @change_log
+								 * ["Since: 2.0"]
+								 * @usage add_action( 'um_access_fix_external_post_content', 'function_name', 10 );
+								 * @example
+								 * <?php
+								 * add_action( 'um_access_fix_external_post_content', 'my_access_fix_external_post_content', 10 );
+								 * function my_access_fix_external_post_content() {
+								 *     // your code here
+								 * }
+								 * ?>
+								 */
+								do_action( 'um_access_fix_external_post_content' );
 
-                            }
-                        }
+								$filtered_posts[] = $post;
+								continue;
+							} elseif ( '1' == $restriction['_um_noaccess_action'] ) {
 
-                    } else {
-                        if ( empty( $query->is_singular ) ) {
-                            if ( empty( $restriction['_um_access_hide_from_queries'] ) ) {
+								$curr = UM()->permalinks()->get_current_url();
 
-                                if ( ! isset( $restriction['_um_noaccess_action'] ) || '0' == $restriction['_um_noaccess_action'] ) {
+								if ( ! isset( $restriction['_um_access_redirect'] ) || '0' == $restriction['_um_access_redirect'] ) {
 
-                                    if ( ! isset( $restriction['_um_restrict_by_custom_message'] ) || '0' == $restriction['_um_restrict_by_custom_message'] ) {
-                                        $post->post_content = stripslashes( $restricted_global_message );
-                                    } elseif ( '1' == $restriction['_um_restrict_by_custom_message'] ) {
-                                        $post->post_content = ! empty( $restriction['_um_restrict_custom_message'] ) ? stripslashes( $restriction['_um_restrict_custom_message'] ) : '';
-                                    }
+									exit( wp_redirect( esc_url( add_query_arg( 'redirect_to', urlencode_deep( $curr ), um_get_core_page( 'login' ) ) ) ) );
 
-                                }
+								} elseif ( '1' == $restriction['_um_access_redirect'] ) {
 
-                                $filtered_posts[] = $post;
-                                continue;
-                            }
-                        } else {
-	                        $this->singular_page = true;
+									if ( ! empty( $restriction['_um_access_redirect_url'] ) ) {
+										$redirect = $restriction['_um_access_redirect_url'];
+									} else {
+										$redirect = esc_url( add_query_arg( 'redirect_to', urlencode_deep( $curr ), um_get_core_page( 'login' ) ) );
+									}
 
-                            //if single post query
-                            if ( ! isset( $restriction['_um_noaccess_action'] ) || '0' == $restriction['_um_noaccess_action'] ) {
+									exit( wp_redirect( $redirect ) );
+								}
 
-                                if ( ! isset( $restriction['_um_restrict_by_custom_message'] ) || '0' == $restriction['_um_restrict_by_custom_message'] ) {
-                                    $post->post_content = stripslashes( $restricted_global_message );
+							}
+						}
 
-	                                $this->current_single_post = $post;
-	                                add_filter( 'the_content', array( &$this, 'replace_post_content' ), 9999, 1 );
+					} else {
+						if ( empty( $is_singular ) ) {
+							if ( empty( $restriction['_um_access_hide_from_queries'] ) ) {
 
-	                                if ( 'attachment' == $post->post_type ) {
-                                        remove_filter( 'the_content', 'prepend_attachment' );
-                                    }
-                                } elseif ( '1' == $restriction['_um_restrict_by_custom_message'] ) {
-                                    $post->post_content = ! empty( $restriction['_um_restrict_custom_message'] ) ? stripslashes( $restriction['_um_restrict_custom_message'] ) : '';
+								if ( ! isset( $restriction['_um_noaccess_action'] ) || '0' == $restriction['_um_noaccess_action'] ) {
 
-	                                $this->current_single_post = $post;
-	                                add_filter( 'the_content', array( &$this, 'replace_post_content' ), 9999, 1 );
+									if ( ! isset( $restriction['_um_restrict_by_custom_message'] ) || '0' == $restriction['_um_restrict_by_custom_message'] ) {
+										$post->post_content = stripslashes( $restricted_global_message );
+									} elseif ( '1' == $restriction['_um_restrict_by_custom_message'] ) {
+										$post->post_content = ! empty( $restriction['_um_restrict_custom_message'] ) ? stripslashes( $restriction['_um_restrict_custom_message'] ) : '';
+									}
 
-	                                if ( 'attachment' == $post->post_type ) {
-                                        remove_filter( 'the_content', 'prepend_attachment' );
-                                    }
-                                }
+								}
 
-                                do_action( 'um_access_fix_external_post_content' );
+								$filtered_posts[] = $post;
+								continue;
+							}
+						} else {
+							$this->singular_page = true;
 
-                                $filtered_posts[] = $post;
-                                continue;
-                            } elseif ( '1' == $restriction['_um_noaccess_action'] ) {
+							//if single post query
+							if ( ! isset( $restriction['_um_noaccess_action'] ) || '0' == $restriction['_um_noaccess_action'] ) {
 
-                                $curr = UM()->permalinks()->get_current_url();
+								if ( ! isset( $restriction['_um_restrict_by_custom_message'] ) || '0' == $restriction['_um_restrict_by_custom_message'] ) {
+									$post->post_content = stripslashes( $restricted_global_message );
 
-                                if ( ! isset( $restriction['_um_access_redirect'] ) || '0' == $restriction['_um_access_redirect'] ) {
+									$this->current_single_post = $post;
+									add_filter( 'the_content', array( &$this, 'replace_post_content' ), 9999, 1 );
 
-                                    exit( wp_redirect( esc_url( add_query_arg( 'redirect_to', urlencode_deep( $curr ), um_get_core_page( 'login' ) ) ) ) );
+									if ( 'attachment' == $post->post_type ) {
+										remove_filter( 'the_content', 'prepend_attachment' );
+									}
+								} elseif ( '1' == $restriction['_um_restrict_by_custom_message'] ) {
+									$post->post_content = ! empty( $restriction['_um_restrict_custom_message'] ) ? stripslashes( $restriction['_um_restrict_custom_message'] ) : '';
 
-                                } elseif ( '1' == $restriction['_um_access_redirect'] ) {
+									$this->current_single_post = $post;
+									add_filter( 'the_content', array( &$this, 'replace_post_content' ), 9999, 1 );
 
-                                    if ( ! empty( $restriction['_um_access_redirect_url'] ) ) {
-                                        $redirect = $restriction['_um_access_redirect_url'];
-                                    } else {
-                                        $redirect = esc_url( add_query_arg( 'redirect_to', urlencode_deep( $curr ), um_get_core_page( 'login' ) ) );
-                                    }
+									if ( 'attachment' == $post->post_type ) {
+										remove_filter( 'the_content', 'prepend_attachment' );
+									}
+								}
 
-                                    exit( wp_redirect( $redirect ) );
-                                }
-                            }
-                        }
-                    }
-                }
-            }
+								/**
+								 * UM hook
+								 *
+								 * @type action
+								 * @title um_access_fix_external_post_content
+								 * @description Hook for 3-d party content filtration
+								 * @change_log
+								 * ["Since: 2.0"]
+								 * @usage add_action( 'um_access_fix_external_post_content', 'function_name', 10 );
+								 * @example
+								 * <?php
+								 * add_action( 'um_access_fix_external_post_content', 'my_access_fix_external_post_content', 10 );
+								 * function my_access_fix_external_post_content() {
+								 *     // your code here
+								 * }
+								 * ?>
+								 */
+								do_action( 'um_access_fix_external_post_content' );
 
-            return $filtered_posts;
-        }
+								$filtered_posts[] = $post;
+								continue;
+							} elseif ( '1' == $restriction['_um_noaccess_action'] ) {
+
+								$curr = UM()->permalinks()->get_current_url();
+
+								if ( ! isset( $restriction['_um_access_redirect'] ) || '0' == $restriction['_um_access_redirect'] ) {
+
+									exit( wp_redirect( esc_url( add_query_arg( 'redirect_to', urlencode_deep( $curr ), um_get_core_page( 'login' ) ) ) ) );
+
+								} elseif ( '1' == $restriction['_um_access_redirect'] ) {
+
+									if ( ! empty( $restriction['_um_access_redirect_url'] ) ) {
+										$redirect = $restriction['_um_access_redirect_url'];
+									} else {
+										$redirect = esc_url( add_query_arg( 'redirect_to', urlencode_deep( $curr ), um_get_core_page( 'login' ) ) );
+									}
+
+									exit( wp_redirect( $redirect ) );
+								}
+							}
+						}
+					}
+				}
+			}
+
+			return $filtered_posts;
+		}
 
 
 		/**
@@ -726,92 +928,101 @@ if ( ! class_exists( 'Access' ) ) {
 		 */
 		function replace_post_content( $content ) {
 			$content = $this->current_single_post->post_content;
-
 			return $content;
 		}
 
 
-        /**
-         * Protect Post Types in menu query
-         * Restrict content new logic
-         * @param $menu_items
-         * @param $args
-         * @return array
-         */
-        function filter_menu( $menu_items, $args ) {
-            //if empty
-            if ( empty( $menu_items ) )
-                return $menu_items;
+		/**
+		 * Protect Post Types in menu query
+		 * Restrict content new logic
+		 * @param $menu_items
+		 * @param $args
+		 * @return array
+		 */
+		function filter_menu( $menu_items, $args ) {
+			//if empty
+			if ( empty( $menu_items ) )
+				return $menu_items;
 
-            $filtered_items = array();
+			$filtered_items = array();
 
-            //other filter
-            foreach ( $menu_items as $menu_item ) {
+			//other filter
+			foreach ( $menu_items as $menu_item ) {
 
-                if ( ! empty( $menu_item->object_id ) && ! empty( $menu_item->object ) ) {
+				if ( ! empty( $menu_item->object_id ) && ! empty( $menu_item->object ) ) {
 
-                    $restriction = $this->get_post_privacy_settings( get_post( $menu_item->object_id ) );
-                    if ( ! $restriction ) {
-                        $filtered_items[] = $menu_item;
-                        continue;
-                    }
+					$restriction = $this->get_post_privacy_settings( get_post( $menu_item->object_id ) );
+					if ( ! $restriction ) {
+						$filtered_items[] = $menu_item;
+						continue;
+					}
 
-                    //post is private
-                    if ( '1' == $restriction['_um_accessible'] ) {
-                        //if post for not logged in users and user is not logged in
-                        if ( ! is_user_logged_in() ) {
-                            $filtered_items[] = $menu_item;
-                            continue;
-                        } else {
-                            //if not single query when exclude if set _um_access_hide_from_queries
-                            if ( empty( $restriction['_um_access_hide_from_queries'] ) ) {
-                                $filtered_items[] = $menu_item;
-                                continue;
-                            }
-                        }
-                    } elseif ( '2' == $restriction['_um_accessible'] ) {
-                        //if post for logged in users and user is not logged in
-                        if ( is_user_logged_in() ) {
+					//post is private
+					if ( '1' == $restriction['_um_accessible'] ) {
+						//if post for not logged in users and user is not logged in
+						if ( ! is_user_logged_in() ) {
+							$filtered_items[] = $menu_item;
+							continue;
+						} else {
 
-	                        $custom_restrict = apply_filters( 'um_custom_restriction', true, $restriction );
-
-	                        if ( empty( $restriction['_um_access_roles'] ) || false === array_search( '1', $restriction['_um_access_roles'] ) ) {
-		                        if ( $custom_restrict ) {
-		                            $filtered_items[] = $menu_item;
-		                            continue;
-		                        }
-	                        } else {
-		                        $user_can = $this->user_can( get_current_user_id(), $restriction['_um_access_roles'] );
-
-		                        if ( isset( $user_can ) && $user_can && $custom_restrict ) {
-			                        $filtered_items[] = $menu_item;
-			                        continue;
-		                        }
-	                        }
-
-                            //if not single query when exclude if set _um_access_hide_from_queries
-                            if ( empty( $restriction['_um_access_hide_from_queries'] ) ) {
+                            if ( current_user_can( 'administrator' ) ) {
                                 $filtered_items[] = $menu_item;
                                 continue;
                             }
 
-                        } else {
-                            if ( empty( $restriction['_um_access_hide_from_queries'] ) ) {
+						    //if not single query when exclude if set _um_access_hide_from_queries
+							if ( empty( $restriction['_um_access_hide_from_queries'] ) ) {
+								$filtered_items[] = $menu_item;
+								continue;
+							}
+						}
+					} elseif ( '2' == $restriction['_um_accessible'] ) {
+						//if post for logged in users and user is not logged in
+						if ( is_user_logged_in() ) {
+
+                            if ( current_user_can( 'administrator' ) ) {
                                 $filtered_items[] = $menu_item;
                                 continue;
                             }
-                        }
-                    }
 
-                    continue;
-                }
+							$custom_restrict = $this->um_custom_restriction( $restriction );
 
-                //add all other posts
-                $filtered_items[] = $menu_item;
+							if ( empty( $restriction['_um_access_roles'] ) || false === array_search( '1', $restriction['_um_access_roles'] ) ) {
+								if ( $custom_restrict ) {
+									$filtered_items[] = $menu_item;
+									continue;
+								}
+							} else {
+								$user_can = $this->user_can( get_current_user_id(), $restriction['_um_access_roles'] );
 
-            }
+								if ( isset( $user_can ) && $user_can && $custom_restrict ) {
+									$filtered_items[] = $menu_item;
+									continue;
+								}
+							}
 
-            return $filtered_items;
-        }
-    }
+							//if not single query when exclude if set _um_access_hide_from_queries
+							if ( empty( $restriction['_um_access_hide_from_queries'] ) ) {
+								$filtered_items[] = $menu_item;
+								continue;
+							}
+
+						} else {
+							if ( empty( $restriction['_um_access_hide_from_queries'] ) ) {
+								$filtered_items[] = $menu_item;
+								continue;
+							}
+						}
+					}
+
+					continue;
+				}
+
+				//add all other posts
+				$filtered_items[] = $menu_item;
+			}
+
+			return $filtered_items;
+		}
+	}
 }

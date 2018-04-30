@@ -23,7 +23,7 @@ class UberMenuItemRow extends UberMenuItem{
 		if( $this->getSetting( 'submenu_column_default' ) == 'auto' ){
 			$this->settings['submenu_column_default'] = $this->walker->parent_item()->getSetting( 'submenu_column_default' );
 		}
-		
+
 
 		//Autoclear
 		$autoclear = '';
@@ -46,7 +46,14 @@ class UberMenuItemRow extends UberMenuItem{
 		}
 
 		//Custom menu item class
-		if( isset( $this->item->classes[0] ) ) $classes[] = $this->item->classes[0];
+		//Add all the classes in the array prior to the 'menu-item' class
+		if( isset( $this->item->classes[0] ) && $this->item->classes[0] ){
+			$k = 0;
+			while( $this->item->classes[$k] !== 'menu-item' && $k < count( $this->item->classes ) ){
+				$classes[] = $this->item->classes[$k];
+				$k++;
+			}
+		}
 
 		$classes = implode( ' ' , $classes );
 

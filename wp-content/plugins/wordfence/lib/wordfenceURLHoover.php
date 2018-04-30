@@ -80,7 +80,11 @@ class wordfenceURLHoover {
 		}
 		global $wpdb;
 		if(isset($wpdb)){
+<<<<<<< HEAD
+			$this->table = $wpdb->base_prefix . 'wfHoover';
+=======
 			$this->table = wfDB::networkTable('wfHoover');
+>>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5
 		} else {
 			$this->table = 'wp_wfHoover';
 		}

@@ -1,6 +1,12 @@
 <?php
 class wfDB {
 	public $errorMsg = false;
+<<<<<<< HEAD
+	public static function networkPrefix() {
+		global $wpdb;
+		return $wpdb->get_blog_prefix(0);
+	}
+=======
   
   /**
    * Returns the table prefix for the main site on multisites and the site itself on single site installations.
@@ -43,6 +49,7 @@ class wfDB {
 	  return self::blogPrefix($blogID) . $table;
 	}
 	
+>>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5
 	public function __construct(){
 	}
 	public function querySingle(){
@@ -93,7 +100,12 @@ class wfDB {
 		$wpdb->suppress_errors($oldSuppress);
 	}
 	public function columnExists($table, $col){
+<<<<<<< HEAD
+		global $wpdb; $prefix = $wpdb->base_prefix;
+		$table = $prefix . $table;
+=======
 		$table = wfDB::networkTable($table);
+>>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5
 		$q = $this->querySelect("desc $table");
 		foreach($q as $row){
 			if($row['Field'] == $col){
@@ -103,11 +115,20 @@ class wfDB {
 		return false;
 	}
 	public function dropColumn($table, $col){
+<<<<<<< HEAD
+		global $wpdb; $prefix = $wpdb->base_prefix;
+		$table = $prefix . $table;
+		$this->queryWrite("alter table $table drop column $col");
+	}
+	public function createKeyIfNotExists($table, $col, $keyName){
+		$table = $this->prefix() . $table;
+=======
 		$table = wfDB::networkTable($table);
 		$this->queryWrite("alter table $table drop column $col");
 	}
 	public function createKeyIfNotExists($table, $col, $keyName){
 		$table = wfDB::networkTable($table);
+>>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5
 		
 		$exists = $this->querySingle(<<<SQL
 SELECT TABLE_NAME FROM information_schema.TABLES
@@ -136,6 +157,13 @@ SQL
 		$rec = $this->querySingleRec("show variables like 'max_long_data_size'");
 		return $rec['Value'];
 	}
+<<<<<<< HEAD
+	public function prefix(){
+		global $wpdb;
+		return $wpdb->base_prefix;
+	}
+=======
+>>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5
 	public function truncate($table){ //Ensures everything is deleted if user is using MySQL >= 5.1.16 and does not have "drop" privileges
 		$this->queryWrite("truncate table $table");
 		$this->queryWrite("delete from $table");

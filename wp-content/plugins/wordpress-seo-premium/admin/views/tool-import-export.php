@@ -1,5 +1,7 @@
 <?php
 /**
+ * WPSEO plugin file.
+ *
  * @package WPSEO\Admin
  */
 
@@ -9,12 +11,11 @@ if ( ! defined( 'WPSEO_VERSION' ) ) {
 	exit();
 }
 
-$yform = Yoast_Form::get_instance();
-
+$yform  = Yoast_Form::get_instance();
 $import = false;
 
 /**
- * The import method is used to dermine if there should be something imported.
+ * The import method is used to determine if there should be something imported.
  *
  * In case of POST the user is on the Yoast SEO import page and in case of the GET the user sees a notice from
  * Yoast SEO that we can import stuff for that plugin.
@@ -23,19 +24,41 @@ if ( filter_input( INPUT_POST, 'import' ) || filter_input( INPUT_GET, 'import' )
 	check_admin_referer( 'wpseo-import' );
 
 	$post_wpseo = filter_input( INPUT_POST, 'wpseo', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY );
-	$action = 'import';
+	$action     = 'import';
 }
 elseif ( filter_input( INPUT_POST, 'import_external' ) ) {
 	check_admin_referer( 'wpseo-import-plugins' );
 
+<<<<<<< HEAD
+	if ( ! empty( $post_wpseo['importwpseo'] ) || filter_input( INPUT_GET, 'importwpseo' ) ) {
+		$import = new WPSEO_Import_WPSEO( $replace );
+	}
+
+	if ( ! empty( $post_wpseo['importseoultimate'] ) || filter_input( INPUT_GET, 'importseoultimate' ) ) {
+		$import = new WPSEO_Import_Ultimate_SEO( $replace );
+	}
+
+	if ( ! empty( $post_wpseo['importseopressor'] ) || filter_input( INPUT_GET, 'importseopressor' ) ) {
+		$import = new WPSEO_Import_SEOPressor( $replace );
+	}
+=======
 	$class = filter_input( INPUT_POST, 'import_external_plugin' );
+<<<<<<< HEAD
 	$import = new WPSEO_Import_Plugin( new $class, 'import' );
+>>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5
+=======
+	if ( class_exists( $class ) ) {
+		$import = new WPSEO_Import_Plugin( new $class(), 'import' );
+	}
+>>>>>>> 4f7eb851e22872bb0679d97f48b3a6efd23b044f
 }
 elseif ( filter_input( INPUT_POST, 'clean_external' ) ) {
 	check_admin_referer( 'wpseo-clean-plugins' );
 
 	$class = filter_input( INPUT_POST, 'clean_external_plugin' );
-	$import = new WPSEO_Import_Plugin( new $class, 'cleanup' );
+	if ( class_exists( $class ) ) {
+		$import = new WPSEO_Import_Plugin( new $class(), 'cleanup' );
+	}
 }
 elseif ( isset( $_FILES['settings_import_file'] ) ) {
 	check_admin_referer( 'wpseo-import-file' );
@@ -70,7 +93,16 @@ if ( $import ) {
 			$status = 'updated';
 		}
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+		$status = ( ! empty( $import->success ) ) ? 'updated' : 'error';
+
+=======
+>>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5
 		echo '<div id="message" class="message ', $status, '"><p>', $msg, '</p></div>';
+=======
+		echo '<div id="message" class="message ', $status, '"><p>', esc_html( $msg ), '</p></div>';
+>>>>>>> 4f7eb851e22872bb0679d97f48b3a6efd23b044f
 	}
 }
 
