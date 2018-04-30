@@ -8,24 +8,6 @@
  */
 ?>
 <script>
-<<<<<<< HEAD
-var dnt = false;
-var gaProperty = '<?php echo $data['uaid']?>';
-var gaDntOptout =  '<?php echo $data['gaDntOptout']?>';
-var gaOptout =  '<?php echo $data['gaOptout']?>';
-var disableStr = 'ga-disable-' + gaProperty;
-if(gaDntOptout && (window.doNotTrack === "1" || navigator.doNotTrack === "1" || navigator.doNotTrack === "yes" || navigator.msDoNotTrack === "1")) {
-	dnt = true;
-}
-if (dnt || (document.cookie.indexOf(disableStr + '=true') > -1 && gaOptout)) {
-	window[disableStr] = true;
-}
-function gaOptout() {
-	document.cookie = disableStr + '=true; expires=Thu, 31 Dec 2099 23:59:59 UTC; path=/';
-	window[disableStr] = true;
-}
-</script>
-=======
 var gadwpDnt = false;
 var gadwpProperty = '<?php echo $data['uaid']?>';
 var gadwpDntFollow = <?php echo $data['gaDntOptout'] ? 'true' : 'false'?>;
@@ -44,4 +26,3 @@ function gaOptout() {
 	window[disableStr] = true;
 }
 </script>
->>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5

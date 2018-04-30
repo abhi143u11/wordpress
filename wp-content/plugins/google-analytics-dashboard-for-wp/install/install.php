@@ -87,11 +87,8 @@ class GADWP_Install {
 			$options['with_endpoint'] = 1;
 			$options['ga_optout'] = 0;
 			$options['ga_dnt_optout'] = 0;
-<<<<<<< HEAD
-=======
 			$options['tm_optout'] = 0;
 			$options['tm_dnt_optout'] = 0;
->>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5
 			$options['ga_with_gtag'] = 0;
 		} else {
 			$options = array();
@@ -165,11 +162,8 @@ class GADWP_Install {
 			$options['with_endpoint'] = 1;
 			$options['ga_optout'] = 0;
 			$options['ga_dnt_optout'] = 0;
-<<<<<<< HEAD
-=======
 			$options['tm_optout'] = 0;
 			$options['tm_dnt_optout'] = 0;
->>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5
 			$options['ga_with_gtag'] = 0;
 
 			delete_option( 'ga_dash_clientid' );

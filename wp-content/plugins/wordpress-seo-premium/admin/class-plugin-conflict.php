@@ -1,9 +1,7 @@
 <?php
 /**
- * WPSEO plugin file.
- *
  * @package WPSEO\Admin
- * @since   1.7.0
+ * @since      1.7.0
  */
 
 /**

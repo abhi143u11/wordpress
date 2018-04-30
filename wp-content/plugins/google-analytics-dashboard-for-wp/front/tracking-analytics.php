@@ -475,11 +475,7 @@ if ( ! class_exists( 'GADWP_Tracking_GlobalSiteTag' ) ) {
 				$this->add( 'event', $fields, $fieldsobject );
 			}
 
-<<<<<<< HEAD
-			do_action( 'gadwp_analytics_commands', $this );
-=======
 			do_action( 'gadwp_gtag_commands', $this );
->>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5
 		}
 
 		/**
@@ -520,11 +516,7 @@ if ( ! class_exists( 'GADWP_Tracking_GlobalSiteTag' ) ) {
 				}
 			}
 
-<<<<<<< HEAD
-			$tracking_script_path = apply_filters( 'gadwp_analytics_script_path', 'https://www.googletagmanager.com/gtag/js' );
-=======
 			$tracking_script_path = apply_filters( 'gadwp_gtag_script_path', 'https://www.googletagmanager.com/gtag/js' );
->>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5
 
 			if ( $this->gadwp->config->options['ga_optout'] || $this->gadwp->config->options['ga_dnt_optout'] ) {
 				GADWP_Tools::load_view( 'front/views/analytics-optout-code.php', array( 'uaid' => $this->uaid, 'gaDntOptout' => $this->gadwp->config->options['ga_dnt_optout'], 'gaOptout' => $this->gadwp->config->options['ga_optout'] ) );

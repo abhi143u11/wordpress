@@ -1,73 +1,23 @@
 <?php
 /**
- * File with the class to handle data from wpSEO.de.
- *
  * @package WPSEO\Admin\Import\Plugins
  */
 
 /**
  * Class WPSEO_Import_WPSEO
  *
- * Class with functionality to import & clean wpSEO.de post metadata.
+ * Class with functionality to import Yoast SEO settings from wpSEO.
  */
-class WPSEO_Import_WPSEO extends WPSEO_Plugin_Importer {
+class WPSEO_Import_WPSEO implements WPSEO_Plugin_Importer {
 	/**
-	 * The plugin name.
-	 *
-	 * @var string
+	 * @var wpdb Holds the WPDB instance.
 	 */
-	protected $plugin_name = 'wpSEO.de';
+	protected $wpdb;
 
 	/**
-	 * Meta key, used in SQL LIKE clause for delete query.
-	 *
-	 * @var string
+	 * @var WPSEO_Import_Status
 	 */
-	protected $meta_key = '_wpseo_edit_%';
-
-	/**
-	 * Array of meta keys to detect and import.
-	 *
-	 * @var array
-	 */
-	protected $clone_keys = array(
-		array(
-			'old_key' => '_wpseo_edit_description',
-			'new_key' => 'metadesc',
-		),
-		array(
-			'old_key' => '_wpseo_edit_title',
-			'new_key' => 'title',
-		),
-		array(
-			'old_key' => '_wpseo_edit_canonical',
-			'new_key' => 'canonical',
-		),
-		array(
-			'old_key' => '_wpseo_edit_og_title',
-			'new_key' => 'opengraph-title',
-		),
-		array(
-			'old_key' => '_wpseo_edit_og_description',
-			'new_key' => 'opengraph-description',
-		),
-		array(
-			'old_key' => '_wpseo_edit_og_image',
-			'new_key' => 'opengraph-image',
-		),
-		array(
-			'old_key' => '_wpseo_edit_twittercard_title',
-			'new_key' => 'twitter-title',
-		),
-		array(
-			'old_key' => '_wpseo_edit_twittercard_description',
-			'new_key' => 'twitter-description',
-		),
-		array(
-			'old_key' => '_wpseo_edit_twittercard_image',
-			'new_key' => 'twitter-image',
-		),
-	);
+	private $status;
 
 	/**
 	 * The values 1 - 6 are the configured values from wpSEO. This array will map the values of wpSEO to our values.
@@ -111,29 +61,68 @@ class WPSEO_Import_WPSEO extends WPSEO_Plugin_Importer {
 	);
 
 	/**
+	 * WPSEO_Import_WPSEO constructor.
+	 */
+	public function __construct() {
+		global $wpdb;
+		$this->wpdb = $wpdb;
+	}
+
+	/**
+	 * Detects whether there is post meta data to import.
+	 *
+	 * @return WPSEO_Import_Status Import status object.
+	 */
+	public function detect() {
+		$this->status = new WPSEO_Import_Status( 'detect', false );
+		if ( ! $this->detect_helper() ) {
+			return $this->status;
+		}
+		return $this->status->set_status( true );
+	}
+
+	/**
 	 * Imports wpSEO settings.
 	 *
-	 * @return bool Import success status.
+	 * @return WPSEO_Import_Status Import status object.
 	 */
-	protected function import() {
-		$status = parent::import();
-		if ( $status ) {
-			$this->import_post_robots();
-			$this->import_taxonomy_metas();
+	public function import() {
+		$this->status = new WPSEO_Import_Status( 'import', false );
+
+		if ( ! $this->detect_helper() ) {
+			return $this->status;
 		}
 
-		return $status;
+		$this->import_post_metas();
+		$this->import_taxonomy_metas();
+
+		return $this->status->set_status( true );
 	}
 
 	/**
 	 * Removes wpseo.de post meta's.
 	 *
-	 * @return bool Cleanup status.
+	 * @return WPSEO_Import_Status Import status object.
 	 */
-	protected function cleanup() {
+	public function cleanup() {
+		$this->status = new WPSEO_Import_Status( 'cleanup', false );
+		if ( ! $this->detect_helper() ) {
+			return $this->status;
+		}
+
 		$this->cleanup_term_meta();
-		$result = $this->cleanup_post_meta();
-		return $result;
+		$this->cleanup_post_meta();
+
+		return $this->status->set_status( true );
+	}
+
+	/**
+	 * Returns the plugin name.
+	 *
+	 * @return string Plugin name.
+	 */
+	public function plugin_name() {
+		return 'wpSEO.de';
 	}
 
 	/**
@@ -141,18 +130,33 @@ class WPSEO_Import_WPSEO extends WPSEO_Plugin_Importer {
 	 *
 	 * @return bool Boolean indicating whether there is something to import.
 	 */
-	protected function detect() {
-		if ( parent::detect() ) {
-			return true;
-		}
-
-		global $wpdb;
-		$count = $wpdb->get_var( "SELECT COUNT(*) FROM {$wpdb->options} WHERE option_name LIKE 'wpseo_category_%'" );
+	private function detect_helper() {
+		$count = $this->wpdb->get_var( "SELECT COUNT(*) FROM {$this->wpdb->postmeta} WHERE meta_key LIKE '_wpseo_edit_%'" );
 		if ( $count !== '0' ) {
 			return true;
 		}
 
+		$count = $this->wpdb->get_var( "SELECT COUNT(*) FROM {$this->wpdb->options} WHERE option_name LIKE 'wpseo_category_%'" );
+		if ( $count !== '0' ) {
+			return true;
+		}
 		return false;
+	}
+
+	/**
+	 * Imports the post meta values to Yoast SEO by replacing the wpSEO fields by Yoast SEO fields.
+	 *
+	 * @return void
+	 */
+	private function import_post_metas() {
+		if ( $this->detect_helper() ) {
+			WPSEO_Meta::replace_meta( '_wpseo_edit_title', WPSEO_Meta::$meta_prefix . 'title', false );
+			WPSEO_Meta::replace_meta( '_wpseo_edit_description', WPSEO_Meta::$meta_prefix . 'metadesc', false );
+			WPSEO_Meta::replace_meta( '_wpseo_edit_keywords', WPSEO_Meta::$meta_prefix . 'keywords', false );
+			WPSEO_Meta::replace_meta( '_wpseo_edit_canonical', WPSEO_Meta::$meta_prefix . 'canonical', false );
+
+			$this->import_post_robots();
+		}
 	}
 
 	/**
@@ -182,8 +186,8 @@ class WPSEO_Import_WPSEO extends WPSEO_Plugin_Importer {
 		$robot_value  = $this->get_robot_value( $wpseo_robots );
 
 		// Saving the new meta values for Yoast SEO.
-		$this->maybe_save_post_meta( 'meta-robots-noindex', $robot_value['index'], $post_id );
-		$this->maybe_save_post_meta( 'meta-robots-nofollow', $robot_value['follow'], $post_id );
+		WPSEO_Meta::set_value( 'meta-robots-noindex', $robot_value['index'], $post_id );
+		WPSEO_Meta::set_value( 'meta-robots-nofollow', $robot_value['follow'], $post_id );
 	}
 
 	/**
@@ -275,13 +279,11 @@ class WPSEO_Import_WPSEO extends WPSEO_Plugin_Importer {
 	/**
 	 * Deletes wpSEO postmeta from the database.
 	 *
-	 * @return bool Cleanup status.
+	 * @return void
 	 */
 	private function cleanup_post_meta() {
-		global $wpdb;
-
 		// If we get to replace the data, let's do some proper cleanup.
-		return $wpdb->query( "DELETE FROM {$wpdb->postmeta} WHERE meta_key LIKE '_wpseo_edit_%'" );
+		$this->wpdb->query( "DELETE FROM {$this->wpdb->postmeta} WHERE meta_key LIKE '_wpseo_edit_%'" );
 	}
 
 	/**

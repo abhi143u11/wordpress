@@ -24,13 +24,10 @@ if ( ! class_exists( 'GADWP_Tracking_TagManager' ) ) {
 		public function __construct() {
 			$this->gadwp = GADWP();
 
-<<<<<<< HEAD
-=======
 			$profile = GADWP_Tools::get_selected_profile( $this->gadwp->config->options['ga_profiles_list'], $this->gadwp->config->options['tableid_jail'] );
 
 			$this->uaid = esc_html( $profile[2] );
 
->>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5
 			if ( $this->gadwp->config->options['trackingcode_infooter'] ) {
 				add_action( 'wp_footer', array( $this, 'output' ), 99 );
 			} else {
@@ -168,10 +165,6 @@ if ( ! class_exists( 'GADWP_Tracking_TagManager' ) ) {
 		 * Outputs the Tag Manager code for AMP
 		 */
 		public function amp_output() {
-<<<<<<< HEAD
-
-=======
->>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5
 			$this->build_custom_dimensions();
 
 			$vars = array( 'vars' => $this->datalayer );
@@ -186,12 +179,7 @@ if ( ! class_exists( 'GADWP_Tracking_TagManager' ) ) {
 
 			$json = str_replace( array( '"&#91;', '&#93;"' ), array( '[', ']' ), $json ); // make verticalBoundaries a JavaScript array
 
-<<<<<<< HEAD
-			GADWP_Tools::load_view( 'front/views/tagmanager-amp-code.php', array ( 'json' => $json, 'containerid' => $amp_containerid ) );
-
-=======
 			GADWP_Tools::load_view( 'front/views/tagmanager-amp-code.php', array( 'json' => $json, 'containerid' => $amp_containerid ) );
->>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5
 		}
 	}
 }

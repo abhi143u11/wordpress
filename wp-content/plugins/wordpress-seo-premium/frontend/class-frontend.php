@@ -1,7 +1,5 @@
 <?php
 /**
- * WPSEO plugin file.
- *
  * @package WPSEO\Frontend
  */
 
@@ -632,9 +630,6 @@ class WPSEO_Frontend {
 	 * Output Webmaster Tools authentication strings.
 	 */
 	public function webmaster_tools_authentication() {
-		// Baidu.
-		$this->webmaster_tools_helper( 'baiduverify', 'baidu-site-verification' );
-
 		// Bing.
 		$this->webmaster_tools_helper( 'msverify', 'msvalidate.01' );
 
@@ -792,7 +787,7 @@ class WPSEO_Frontend {
 		}
 
 		// If a page has a noindex, it should _not_ have a canonical, as these are opposing indexing directives.
-		if ( strpos( $robotsstr, 'noindex' ) !== false ) {
+		if ( $robots['index'] === 'noindex' ) {
 			remove_action( 'wpseo_head', array( $this, 'canonical' ), 20 );
 		}
 
@@ -1068,7 +1063,7 @@ class WPSEO_Frontend {
 		}
 
 		$page = max( 1, (int) get_query_var( 'page' ) );
-		$url  = get_permalink( get_queried_object_id() );
+		$url = get_permalink( get_queried_object_id() );
 
 		if ( $page > 1 ) {
 			$this->adjacent_rel_link( 'prev', $url, ( $page - 1 ), 'page' );
@@ -1152,27 +1147,16 @@ class WPSEO_Frontend {
 	 *
 	 * @return string The pagination base.
 	 */
-<<<<<<< HEAD
-	public function publisher() {
-		$publisher = WPSEO_Options::get( 'plus-publisher', '' );
-		if ( $publisher !== '' ) {
-			echo '<link rel="publisher" href="', esc_url( $publisher ), '"/>', "\n";
-
-			return true;
-=======
 	private function get_pagination_base() {
 		// If the current page is the frontpage, pagination should use /base/.
 		$base = '';
 		if ( ! is_singular() || $this->is_home_static_page() ) {
 			$base = trailingslashit( $GLOBALS['wp_rewrite']->pagination_base );
->>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5
 		}
 		return $base;
 	}
 
 	/**
-<<<<<<< HEAD
-=======
 	 * Output the rel=publisher code on every page of the site.
 	 *
 	 * @return boolean Boolean indicating whether the publisher link was printed.
@@ -1189,7 +1173,6 @@ class WPSEO_Frontend {
 	}
 
 	/**
->>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5
 	 * Outputs the meta description element or returns the description text.
 	 *
 	 * @param bool $echo Echo or return output flag.
@@ -1201,24 +1184,16 @@ class WPSEO_Frontend {
 			$this->generate_metadesc();
 		}
 
-		if ( $echo === false ) {
+		if ( $echo !== false ) {
+			if ( is_string( $this->metadesc ) && $this->metadesc !== '' ) {
+				echo '<meta name="description" content="', esc_attr( wp_strip_all_tags( stripslashes( $this->metadesc ) ) ), '"/>', "\n";
+			}
+			elseif ( current_user_can( 'wpseo_manage_options' ) && is_singular() ) {
+				echo '<!-- ', esc_html__( 'Admin only notice: this page doesn\'t show a meta description because it doesn\'t have one, either write it for this page specifically or go into the SEO -> Search Appearance menu and set up a template.', 'wordpress-seo' ), ' -->', "\n";
+			}
+		}
+		else {
 			return $this->metadesc;
-		}
-
-		if ( is_string( $this->metadesc ) && $this->metadesc !== '' ) {
-			echo '<meta name="description" content="', esc_attr( wp_strip_all_tags( stripslashes( $this->metadesc ) ) ), '"/>', "\n";
-			return '';
-		}
-
-		if ( current_user_can( 'wpseo_manage_options' ) && is_singular() ) {
-			echo '<!-- ';
-			printf(
-				/* Translators: %1$s resolves to the SEO menu item, %2$s resolves to the Search Appearance submenu item. */
-				esc_html__( 'Admin only notice: this page does not show a meta description because it does not have one, either write it for this page specifically or go into the [%1$s - %2$s] menu and set up a template.', 'wordpress-seo' ),
-				__( 'SEO', 'wordpress-seo' ),
-				__( 'Search Appearance', 'wordpress-seo' )
-			);
-			echo ' -->' . "\n";
 		}
 	}
 
@@ -1360,7 +1335,6 @@ class WPSEO_Frontend {
 	 * Outputs noindex values for the current page.
 	 */
 	public function noindex_page() {
-		remove_action( 'wpseo_head', array( $this, 'canonical' ), 20 );
 		echo '<meta name="robots" content="noindex" />', "\n";
 	}
 

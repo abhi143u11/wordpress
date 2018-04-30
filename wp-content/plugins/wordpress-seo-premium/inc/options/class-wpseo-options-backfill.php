@@ -1,7 +1,5 @@
 <?php
 /**
- * WPSEO plugin file.
- *
  * @package WPSEO\Internals\Options
  */
 
@@ -84,7 +82,7 @@ class WPSEO_Options_Backfill implements WPSEO_WordPress_Integration {
 	 */
 	protected function get_settings( $option ) {
 		$settings = array(
-			'wpseo' => array(
+			'wpseo'               => array(
 				'website_name'           => 'website_name',
 				'alternate_website_name' => 'alternate_website_name',
 				'company_logo'           => 'company_logo',
@@ -92,15 +90,10 @@ class WPSEO_Options_Backfill implements WPSEO_WordPress_Integration {
 				'company_or_person'      => 'company_or_person',
 				'person_name'            => 'person_name',
 			),
-<<<<<<< HEAD
 			'wpseo_internallinks' =>
 				array(
 					'breadcrumbs-404crumb'      => 'breadcrumbs-404crumb',
-<<<<<<< HEAD
-					'breadcrumbs-blog-remove'   => 'breadcrumbs-blog-remove',
-=======
 					'breadcrumbs-blog-remove'   => 'breadcrumbs-display-blog-page',
->>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5
 					'breadcrumbs-boldlast'      => 'breadcrumbs-boldlast',
 					'breadcrumbs-archiveprefix' => 'breadcrumbs-archiveprefix',
 					'breadcrumbs-enable'        => 'breadcrumbs-enable',
@@ -121,28 +114,6 @@ class WPSEO_Options_Backfill implements WPSEO_WordPress_Integration {
 					'disable_author_sitemap' => 'noindex-author-wpseo',
 					'disable_author_noposts' => 'noindex-author-noposts-wpseo',
 				),
-=======
-			'wpseo_internallinks' => array(
-				'breadcrumbs-404crumb'      => 'breadcrumbs-404crumb',
-				'breadcrumbs-blog-remove'   => 'breadcrumbs-display-blog-page',
-				'breadcrumbs-boldlast'      => 'breadcrumbs-boldlast',
-				'breadcrumbs-archiveprefix' => 'breadcrumbs-archiveprefix',
-				'breadcrumbs-enable'        => 'breadcrumbs-enable',
-				'breadcrumbs-home'          => 'breadcrumbs-home',
-				'breadcrumbs-prefix'        => 'breadcrumbs-prefix',
-				'breadcrumbs-searchprefix'  => 'breadcrumbs-searchprefix',
-				'breadcrumbs-sep'           => 'breadcrumbs-sep',
-			),
-			'wpseo_rss' => array(
-				'rssbefore' => 'rssbefore',
-				'rssafter'  => 'rssafter',
-			),
-			'wpseo_xml' => array(
-				'enablexmlsitemap'       => 'enable_xml_sitemap',
-				'disable_author_sitemap' => 'noindex-author-wpseo',
-				'disable_author_noposts' => 'noindex-author-noposts-wpseo',
-			),
->>>>>>> 4f7eb851e22872bb0679d97f48b3a6efd23b044f
 			'wpseo_permalinks' => array(
 				'redirectattachment' => 'disable-attachment',
 				'stripcategorybase'  => 'stripcategorybase',
@@ -195,8 +166,6 @@ class WPSEO_Options_Backfill implements WPSEO_WordPress_Integration {
 	 * @return array Extended data.
 	 */
 	public function extend_wpseo_titles( $data ) {
-<<<<<<< HEAD
-=======
 		// Make sure we don't get stuck in an infinite loop.
 		static $running = false;
 
@@ -210,7 +179,6 @@ class WPSEO_Options_Backfill implements WPSEO_WordPress_Integration {
 
 		$running = false;
 
->>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5
 		$data = $this->add_hideeditbox( $data );
 
 		return $data;

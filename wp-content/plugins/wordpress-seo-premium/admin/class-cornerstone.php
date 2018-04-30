@@ -1,7 +1,5 @@
 <?php
 /**
- * WPSEO plugin file.
- *
  * @package WPSEO\Admin
  */
 
@@ -10,9 +8,7 @@
  */
 class WPSEO_Cornerstone {
 
-	const META_NAME = 'is_cornerstone';
-
-	const FIELD_NAME = 'yoast_wpseo_is_cornerstone';
+	const META_NAME = '_yst_is_cornerstone';
 
 	/**
 	 * Registers the hooks.
@@ -55,7 +51,7 @@ class WPSEO_Cornerstone {
 	 * @return bool True when checkbox is checked.
 	 */
 	protected function is_cornerstone_content() {
-		return filter_input( INPUT_POST, self::FIELD_NAME ) === '1';
+		return filter_input( INPUT_POST, self::META_NAME ) === '1';
 	}
 
 	/**
@@ -78,7 +74,7 @@ class WPSEO_Cornerstone {
 	 * @return void
 	 */
 	protected function update_meta( $post_id, $is_cornerstone_content ) {
-		WPSEO_Meta::set_value( self::META_NAME, $is_cornerstone_content, $post_id );
+		update_post_meta( $post_id, self::META_NAME, $is_cornerstone_content );
 	}
 
 	/**
@@ -89,6 +85,6 @@ class WPSEO_Cornerstone {
 	 * @return void
 	 */
 	protected function delete_meta( $post_id ) {
-		WPSEO_Meta::delete( self::META_NAME, $post_id );
+		delete_post_meta( $post_id, self::META_NAME );
 	}
 }

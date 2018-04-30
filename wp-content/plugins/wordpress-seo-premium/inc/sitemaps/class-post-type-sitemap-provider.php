@@ -1,7 +1,5 @@
 <?php
 /**
- * WPSEO plugin file.
- *
  * @package WPSEO\XML_Sitemaps
  */
 
@@ -569,7 +567,7 @@ class WPSEO_Post_Type_Sitemap_Provider implements WPSEO_Sitemap_Provider {
 		// Based on WP_Query->get_posts(). R.
 		if ( 'attachment' === $post_type ) {
 			$join   = " LEFT JOIN {$wpdb->posts} AS p2 ON ({$wpdb->posts}.post_parent = p2.ID) ";
-			$status = "p2.post_status = 'publish' AND p2.post_password = ''";
+			$status = "p2.post_status = 'publish'";
 		}
 
 		$where_clause = "

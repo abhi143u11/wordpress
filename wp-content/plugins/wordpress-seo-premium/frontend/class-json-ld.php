@@ -1,7 +1,5 @@
 <?php
 /**
- * WPSEO plugin file.
- *
  * @package WPSEO\Frontend
  */
 
@@ -121,7 +119,7 @@ class WPSEO_JSON_LD implements WPSEO_WordPress_Integration {
 	private function organization() {
 		if ( '' !== WPSEO_Options::get( 'company_name', '' ) ) {
 			$this->data['@type'] = 'Organization';
-			$this->data['@id']   = $this->get_home_url() . '#organization';
+			$this->data['@id']   = '#organization';
 			$this->data['name']  = WPSEO_Options::get( 'company_name' );
 			$this->data['logo']  = WPSEO_Options::get( 'company_logo', '' );
 

@@ -1,7 +1,5 @@
 <?php
 /**
- * WPSEO plugin file.
- *
  * @package WPSEO
  */
 
@@ -9,6 +7,19 @@
  * Helps with creating shortlinks in the plugin
  */
 class WPSEO_Shortlinker {
+
+	/**
+	 * @var string
+	 */
+	protected $version;
+
+	/**
+	 * @param string $version The version to put in the utm_content tag.
+	 */
+	public function __construct( $version ) {
+		$this->version = $version;
+	}
+
 	/**
 	 * Builds a URL to use in the plugin as shortlink.
 	 *
@@ -17,17 +28,7 @@ class WPSEO_Shortlinker {
 	 * @return string The final URL.
 	 */
 	public function build_shortlink( $url ) {
-		return add_query_arg(
-			array(
-				'php_version'      => $this->get_php_version(),
-				'platform'         => 'wordpress',
-				'platform_version' => $GLOBALS['wp_version'],
-				'software'         => $this->get_software(),
-				'software_version' => WPSEO_VERSION,
-				'role'             => $this->get_filtered_user_role(),
-			),
-			$url
-		);
+		return $url . '?utm_content=' . $this->version;
 	}
 
 	/**
@@ -38,7 +39,11 @@ class WPSEO_Shortlinker {
 	 * @return string The final URL.
 	 */
 	public static function get( $url ) {
-		$shortlinker = new WPSEO_Shortlinker();
+		$version = WPSEO_VERSION;
+
+		$version = apply_filters( 'wpseo_shortlink_version', $version );
+
+		$shortlinker = new WPSEO_Shortlinker( $version );
 
 		return $shortlinker->build_shortlink( $url );
 	}
@@ -50,54 +55,5 @@ class WPSEO_Shortlinker {
 	 */
 	public static function show( $url ) {
 		echo esc_url( self::get( $url ) );
-	}
-
-	/**
-	 * Gets the current site's PHP version, without the extra info.
-	 *
-	 * @return string The PHP version.
-	 */
-	private function get_php_version() {
-		$version = explode( '.', PHP_VERSION );
-
-		return (int) $version[0] . '.' . (int) $version[1] . '.' . (int) $version[2];
-	}
-
-	/**
-	 * Get our software and whether it's active or not.
-	 *
-	 * @return string The software name + activation state.
-	 */
-	private function get_software() {
-		if ( WPSEO_Utils::is_yoast_seo_premium() ) {
-			return 'premium';
-		}
-
-		return 'free';
-	}
-
-	/**
-	 * Gets the current user's role without leaking roles that shouldn't be public.
-	 *
-	 * @return string The filtered user role.
-	 */
-	private function get_filtered_user_role() {
-		$user           = wp_get_current_user();
-		$built_in_roles = array(
-			'administrator',
-			'wpseo_manager',
-			'wpseo_editor',
-			'editor',
-			'author',
-			'contributor',
-			'subscriber',
-		);
-		$filtered_roles = array_intersect( $built_in_roles, $user->roles );
-
-		$role = current( $filtered_roles );
-		if ( ! $role ) {
-			$role = 'unknown';
-		}
-		return $role;
 	}
 }

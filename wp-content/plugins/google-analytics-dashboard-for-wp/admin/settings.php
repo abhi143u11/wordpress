@@ -390,11 +390,7 @@ final class GADWP_Settings {
 						<?php if ( 'universal' == $options['tracking_type'] ) :?>
 						<?php $tabs = array( 'basic' => __( "Basic Settings", 'google-analytics-dashboard-for-wp' ), 'events' => __( "Events Tracking", 'google-analytics-dashboard-for-wp' ), 'custom' => __( "Custom Definitions", 'google-analytics-dashboard-for-wp' ), 'exclude' => __( "Exclude Tracking", 'google-analytics-dashboard-for-wp' ), 'advanced' => __( "Advanced Settings", 'google-analytics-dashboard-for-wp' ), 'integration' => __( "Integration", 'google-analytics-dashboard-for-wp' ) );?>
 						<?php elseif ( 'tagmanager' == $options['tracking_type'] ) :?>
-<<<<<<< HEAD
-						<?php $tabs = array( 'basic' => __( "Basic Settings", 'google-analytics-dashboard-for-wp' ), 'tmdatalayervars' => __( "DataLayer Variables", 'google-analytics-dashboard-for-wp' ), 'exclude' => __( "Exclude Tracking", 'google-analytics-dashboard-for-wp' ), 'tmintegration' => __( "Integration", 'google-analytics-dashboard-for-wp' ) );?>
-=======
 						<?php $tabs = array( 'basic' => __( "Basic Settings", 'google-analytics-dashboard-for-wp' ), 'tmdatalayervars' => __( "DataLayer Variables", 'google-analytics-dashboard-for-wp' ), 'exclude' => __( "Exclude Tracking", 'google-analytics-dashboard-for-wp' ), 'tmadvanced' =>  __( "Advanced Settings", 'google-analytics-dashboard-for-wp' ), 'tmintegration' => __( "Integration", 'google-analytics-dashboard-for-wp' ) );?>
->>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5
 						<?php else :?>
 						<?php $tabs = array( 'basic' => __( "Basic Settings", 'google-analytics-dashboard-for-wp' ) );?>
 						<?php endif; ?>
@@ -1076,12 +1072,6 @@ final class GADWP_Settings {
 											<tr>
 											<?php endif; ?>
 										<?php endforeach; ?>
-
-
-
-
-
-
 										</table>
 									</td>
 								</tr>
@@ -1140,7 +1130,6 @@ final class GADWP_Settings {
 						<?php self::navigation_tabs( $tabs ); ?>
 						<div id="gadwp-errors">
 						<table class="gadwp-settings-logdata">
-<<<<<<< HEAD
 							<tr>
 								<td>
 									<?php echo "<h2>" . __( "Error Details", 'google-analytics-dashboard-for-wp' ) . "</h2>"; ?>
@@ -1148,15 +1137,6 @@ final class GADWP_Settings {
 							</tr>
 							<tr>
 								<td>
-=======
-							<tr>
-								<td>
-									<?php echo "<h2>" . __( "Error Details", 'google-analytics-dashboard-for-wp' ) . "</h2>"; ?>
-								</td>
-							</tr>
-							<tr>
-								<td>
->>>>>>> 01cd3400df28de7997230e7b4299d723a1154df5
 									<?php $errors_count = GADWP_Tools::get_cache( 'errors_count' ); ?>
 									<pre class="gadwp-settings-logdata"><?php echo '<span>' . __("Count: ", 'google-analytics-dashboard-for-wp') . '</span>' . (int)$errors_count;?></pre>
 									<?php $errors = print_r( GADWP_Tools::get_cache( 'last_error' ), true ) ? esc_html( print_r( GADWP_Tools::get_cache( 'last_error' ), true ) ) : ''; ?>

@@ -1,7 +1,5 @@
 <?php
 /**
- * WPSEO plugin file.
- *
  * @package WPSEO\Admin
  */
 
@@ -117,7 +115,7 @@ class Yoast_Form {
 	 *
 	 * @return array
 	 */
-	public function get_option() {
+	private function get_option() {
 		if ( is_network_admin() ) {
 			return get_site_option( $this->option_name );
 		}
@@ -144,7 +142,7 @@ class Yoast_Form {
 		/**
 		 * Apply general admin_footer hooks
 		 */
-		do_action( 'wpseo_admin_footer', $this );
+		do_action( 'wpseo_admin_footer' );
 
 		/**
 		 * Run possibly set actions to add for example an i18n box
@@ -160,7 +158,22 @@ class Yoast_Form {
 
 		echo '</div><!-- end of div wpseo_content_wrapper -->';
 
-		do_action( 'wpseo_admin_below_content', $this );
+
+		if ( ( defined( 'WP_DEBUG' ) && WP_DEBUG === true ) ) {
+			$xdebug = ( extension_loaded( 'xdebug' ) ? true : false );
+			echo '
+			<div id="wpseo-debug-info" class="yoast-container">
+
+				<h2>' . esc_html__( 'Debug Information', 'wordpress-seo' ) . '</h2>
+				<div>
+					<h3 class="wpseo-debug-heading">' . esc_html__( 'Current option:', 'wordpress-seo' ) . ' <span class="wpseo-debug">' . esc_html( $this->option_name ) . '</span></h3>
+					' . ( ( $xdebug ) ? '' : '<pre>' );
+			var_dump( $this->get_option() );
+			echo '
+					' . ( ( $xdebug ) ? '' : '</pre>' ) . '
+				</div>
+			</div>';
+		}
 
 		echo '
 			</div><!-- end of wrap -->';
