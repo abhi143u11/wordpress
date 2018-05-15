@@ -1997,10 +1997,11 @@ p{
 	/*min-width:240px;*/
 }
 
-p {
+p, ul, ol, dl {
 	/* font-family:'montserratlight','proxima-nova',Helvetica Neue,adriane,Times New Roman,times,palatino,serif !important; */
 	letter-spacing:1px!important;
-	font-size:15px!important;
+	line-height:25px!important;
+	font-size:16px!important;
 }
 
 section.row.three-small p {
